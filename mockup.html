@@ -3948,7 +3948,7 @@
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1px 3px;
-            flex: 1;
+            flex: 1 1 0;
             align-content: start;
             min-height: 0;
             overflow: hidden;
@@ -4198,7 +4198,6 @@
             gap: 2px;
             overflow: hidden;
             flex: 1 1 0;
-            height: 100%;
         }
 
         .prod-tab-step-layout {
@@ -15620,47 +15619,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- Adapt layout to fill popup for each naturaleza ---
         const descField = document.getElementById('prodFormDescripcion');
+        const descWrap = descField?.closest('.orden-field');
         const insumosBox = document.getElementById('prodFormProcesoInsumos');
+        const insumosWrap = insumosBox?.closest('.orden-field');
         const procesosSelect = document.getElementById('prodFormProcesos');
-
-        // Reset to defaults first
-        if (descField) { descField.rows = 1; descField.style.minHeight = ''; descField.style.flex = ''; }
-        if (insumosBox) { insumosBox.style.maxHeight = '60px'; insumosBox.style.flex = ''; }
-        if (procesosSelect) { procesosSelect.style.minHeight = '28px'; procesosSelect.style.maxHeight = '40px'; }
-
-        // Grid reference
         const grid = prodFormCard?.querySelector('.productos-modal-grid');
-
-        // Nombre field span control
         const nombreWrap = document.getElementById('prodFormNombreWrap');
+        const pvWrap = document.getElementById('prodFormVentaWrap');
+
+        // Reset ALL to defaults
+        if (descField) { descField.style.cssText = 'resize:none;'; }
+        if (descWrap) { descWrap.style.cssText = ''; }
+        if (insumosBox) { insumosBox.style.maxHeight = '60px'; insumosBox.style.minHeight = ''; }
+        if (insumosWrap) { insumosWrap.style.cssText = ''; }
+        if (procesosSelect) { procesosSelect.style.cssText = 'width:100%;min-height:28px;max-height:40px;font-size:0.6rem;'; }
+        if (nombreWrap) nombreWrap.style.gridColumn = '';
+        if (pvWrap) pvWrap.style.gridColumn = '';
+        if (grid) { grid.style.alignContent = ''; grid.style.gridTemplateRows = ''; }
 
         if (nat === 'servicio') {
-            // Servicio: very few fields — expand description + Nombre full width
-            if (descField) { descField.rows = 6; descField.style.minHeight = '120px'; }
+            // SERVICIO: solo 4 campos visibles — expandir mucho
             if (nombreWrap) nombreWrap.style.gridColumn = 'span 3';
-            const pvWrap = document.getElementById('prodFormVentaWrap');
             if (pvWrap) pvWrap.style.gridColumn = 'span 3';
-            if (grid) { grid.style.alignContent = 'start'; }
+            if (descWrap) {
+                descWrap.style.cssText = 'grid-column:span 3;display:flex;flex-direction:column;flex:1;min-height:0;';
+            }
+            if (descField) {
+                descField.style.cssText = 'resize:none;flex:1;min-height:100px;';
+            }
+            if (grid) { grid.style.gridTemplateRows = 'auto auto auto 1fr'; }
         } else if (nat === 'proceso') {
-            // Proceso: few fields — expand insumos box + description + Nombre full width
-            if (insumosBox) { insumosBox.style.maxHeight = '180px'; insumosBox.style.minHeight = '100px'; }
-            if (descField) { descField.rows = 3; descField.style.minHeight = '60px'; }
+            // PROCESO: pocos campos — expandir insumos del proceso
             if (nombreWrap) nombreWrap.style.gridColumn = 'span 3';
-            if (grid) { grid.style.alignContent = 'start'; }
+            if (insumosWrap) {
+                insumosWrap.style.cssText = 'grid-column:span 3;display:flex;flex-direction:column;flex:1;min-height:0;';
+            }
+            if (insumosBox) {
+                insumosBox.style.cssText = 'flex:1;min-height:80px;max-height:none;overflow-y:auto;border:1px solid #e5e7eb;border-radius:6px;padding:4px;background:#fafbfc;font-size:0.55rem;';
+            }
+            if (descWrap) {
+                descWrap.style.cssText = 'grid-column:span 3;display:flex;flex-direction:column;min-height:0;';
+            }
+            if (descField) {
+                descField.style.cssText = 'resize:none;min-height:50px;';
+            }
+            if (grid) { grid.style.gridTemplateRows = 'auto auto auto 1fr auto'; }
         } else if (nat === 'insumo') {
-            // Insumo: moderate fields — slightly bigger description
-            if (descField) { descField.rows = 2; descField.style.minHeight = '36px'; }
-            if (nombreWrap) nombreWrap.style.gridColumn = '';
-            const pvWrap2 = document.getElementById('prodFormVentaWrap');
-            if (pvWrap2) pvWrap2.style.gridColumn = '';
-            if (grid) { grid.style.alignContent = 'start'; }
+            // INSUMO: campos moderados — descripción más grande
+            if (descWrap) {
+                descWrap.style.cssText = 'grid-column:span 3;display:flex;flex-direction:column;flex:1;min-height:0;';
+            }
+            if (descField) {
+                descField.style.cssText = 'resize:none;flex:1;min-height:40px;';
+            }
+            if (grid) { grid.style.gridTemplateRows = 'repeat(5, auto) 1fr'; }
         } else {
-            // Producto: most fields — keep compact
-            if (descField) { descField.rows = 1; }
-            if (procesosSelect) { procesosSelect.style.minHeight = '32px'; procesosSelect.style.maxHeight = '50px'; }
-            if (nombreWrap) nombreWrap.style.gridColumn = '';
-            const pvWrap2 = document.getElementById('prodFormVentaWrap');
-            if (pvWrap2) pvWrap2.style.gridColumn = '';
+            // PRODUCTO: muchos campos — dejar compacto
+            if (procesosSelect) { procesosSelect.style.cssText = 'width:100%;min-height:32px;max-height:50px;font-size:0.6rem;'; }
             if (grid) { grid.style.alignContent = 'start'; }
         }
     };
