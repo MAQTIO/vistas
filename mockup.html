@@ -10388,7 +10388,6 @@ const imgBolsaDeliveryBase = new Image();
                     <div class="orden-field prod-stock-only" id="prodFormVentaWrap" data-nat="producto,fabricado,insumo,servicio"><label for="prodFormVenta">Precio unitario venta general</label><input id="prodFormVenta" type="number" min="0" step="0.01"></div>
                     <div class="orden-field prod-stock-only" data-nat="producto,fabricado"><label for="prodFormRevendedor">Precio unitario revendedor</label><input id="prodFormRevendedor" type="number" min="0" step="0.01"></div>
                     <div class="orden-field" data-nat="insumo"><label for="prodFormDesgastePorUso">Desgaste por unidad usada</label><input id="prodFormDesgastePorUso" type="number" min="0" step="0.001" value="1" placeholder="Cantidad que se consume por uso"></div>
-                    <div class="orden-field productos-field-span3" data-nat="proceso"><label style="margin-bottom:4px;">Insumos del proceso</label><div id="prodFormProcesoInsumos" style="max-height:60px;overflow-y:auto;border:1px solid #e5e7eb;border-radius:8px;padding:8px;background:#fafbfc;"><span style="color:#9ca3af;font-size:0.6rem;">Los insumos creados aparecerán aquí para ser asignados a este proceso</span></div></div>
                     <div class="orden-field prod-stock-only productos-field-span3" data-nat="producto,fabricado,insumo,proceso,servicio"><label for="prodFormDescripcion">Descripción</label><textarea id="prodFormDescripcion" rows="1" placeholder="Descripción del producto" style="resize:none;"></textarea></div>
 
                     <div class="orden-field prod-gf-only" data-nat="producto" style="display:none;">
@@ -15802,11 +15801,6 @@ document.addEventListener('DOMContentLoaded', () => {
             updateProcesosResumen();
         }
 
-        // Populate insumos list for proceso form
-        if (nat === 'proceso') {
-            renderProcesoInsumosSelector();
-        }
-
         // Populate receta insumos for fabricado
         if (nat === 'fabricado') {
             renderRecetaInsumosSelector();
@@ -15815,8 +15809,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Adapt layout to fill popup for each naturaleza ---
         const descField = document.getElementById('prodFormDescripcion');
         const descWrap = descField?.closest('.orden-field');
-        const insumosBox = document.getElementById('prodFormProcesoInsumos');
-        const insumosWrap = insumosBox?.closest('.orden-field');
         const grid = prodFormCard?.querySelector('.productos-modal-grid');
         const nombreWrap = document.getElementById('prodFormNombreWrap');
         const pvWrap = document.getElementById('prodFormVentaWrap');
@@ -15824,8 +15816,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset ALL to defaults
         if (descField) { descField.style.cssText = 'resize:none;'; }
         if (descWrap) { descWrap.style.cssText = ''; }
-        if (insumosBox) { insumosBox.style.maxHeight = '60px'; insumosBox.style.minHeight = ''; }
-        if (insumosWrap) { insumosWrap.style.cssText = ''; }
         // procesosSelect replaced with popup
         if (nombreWrap) nombreWrap.style.gridColumn = '';
         if (pvWrap) pvWrap.style.gridColumn = '';
@@ -15843,21 +15833,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (grid) { grid.style.gridTemplateRows = 'auto auto auto 1fr'; }
         } else if (nat === 'proceso') {
-            // PROCESO: pocos campos — expandir insumos del proceso
+            // PROCESO: pocos campos — expandir descripción
             if (nombreWrap) nombreWrap.style.gridColumn = 'span 3';
-            if (insumosWrap) {
-                insumosWrap.style.cssText = 'grid-column:span 3;display:flex;flex-direction:column;flex:1;min-height:0;';
-            }
-            if (insumosBox) {
-                insumosBox.style.cssText = 'flex:1;min-height:80px;max-height:none;overflow-y:auto;border:1px solid #e5e7eb;border-radius:6px;padding:4px;background:#fafbfc;font-size:0.55rem;';
-            }
             if (descWrap) {
-                descWrap.style.cssText = 'grid-column:span 3;display:flex;flex-direction:column;min-height:0;';
+                descWrap.style.cssText = 'grid-column:span 3;display:flex;flex-direction:column;flex:1;min-height:0;';
             }
             if (descField) {
-                descField.style.cssText = 'resize:none;min-height:50px;';
+                descField.style.cssText = 'resize:none;flex:1;min-height:80px;';
             }
-            if (grid) { grid.style.gridTemplateRows = 'auto auto auto 1fr auto'; }
+            if (grid) { grid.style.gridTemplateRows = 'auto auto 1fr'; }
         } else if (nat === 'insumo') {
             // INSUMO: campos moderados — descripción más grande
             if (descWrap) {
@@ -16188,7 +16172,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodFormPrecioCompra) prodFormPrecioCompra.value = '0';
         { const psel = document.getElementById('prodFormProcesos'); if (psel) Array.from(psel.options).forEach(o => o.selected = false); }
         { const dp = document.getElementById('prodFormDesgastePorUso'); if (dp) dp.value = '1'; }
-        { const pic = document.getElementById('prodFormProcesoInsumos'); if (pic) { pic._selectedInsumos = []; } }
         if (prodFormProveedor) prodFormProveedor.value = '';
         if (prodFormDescripcion) prodFormDescripcion.value = '';
         recetaDraft = []; procesosDraft = [];
@@ -16224,7 +16207,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodFormTipo) prodFormTipo.value = row.tipo || 'stock';
         if (prodFormNaturaleza) prodFormNaturaleza.value = row.naturaleza || 'producto';
         { const dp = document.getElementById('prodFormDesgastePorUso'); if (dp) dp.value = String(Number(row.desgastePorUso || 1)); }
-        { const pic = document.getElementById('prodFormProcesoInsumos'); if (pic) { pic._selectedInsumos = Array.isArray(row.insumosProceso) ? [...row.insumosProceso] : []; } }
         if (prodFormProducto) prodFormProducto.value = row.producto || '';
         if (prodFormCategoria) prodFormCategoria.value = row.categoria || '';
         var umC2 = document.getElementById('prodFormUMCompra'); if (umC2) umC2.value = row.umCompra || 'Unidad';
@@ -16297,7 +16279,6 @@ document.addEventListener('DOMContentLoaded', () => {
             procesos: procesosDraft.map(p => p.procesoId).filter(Boolean),
             procesosDetalle: [...procesosDraft],
             desgastePorUso: Math.max(0, Number(document.getElementById('prodFormDesgastePorUso')?.value || 0)),
-            insumosProceso: (document.getElementById('prodFormProcesoInsumos')?._selectedInsumos || []),
             proveedor: String(prodFormProveedor?.value || '').trim(),
             descripcion: String(prodFormDescripcion?.value || '').trim(),
             necesitaFabricacion: (prodFormNaturaleza?.value === 'fabricado'),
@@ -18774,32 +18755,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ========== PROCESOS / INSUMOS - selector dinámico ==========
-    function renderProcesoInsumosSelector() {
-        const container = document.getElementById("prodFormProcesoInsumos");
-        if (!container) return;
-        const insumos = productosData.filter(p => p.naturaleza === 'insumo');
-        if (insumos.length === 0) {
-            container.innerHTML = '<div style="text-align:center;padding:12px;color:#9ca3af;font-size:0.6rem;">No hay insumos creados. Crea uno primero seleccionando Tipo comercial → Insumo.</div>';
-            return;
-        }
-        // Read current selection
-        const currentSel = (container._selectedInsumos || []);
-        container.innerHTML = insumos.map(ins => {
-            const checked = currentSel.includes(ins.codigo) ? ' checked' : '';
-            return '<label style="display:flex;align-items:center;gap:6px;padding:5px 4px;border-bottom:1px solid #f0f0f0;cursor:pointer;font-size:0.6rem;">' +
-                '<input type="checkbox" class="proceso-insumo-check" value="' + prodEscape(ins.codigo) + '"' + checked + ' style="accent-color:#f07a00;">' +
-                '<span style="flex:1;font-weight:600;color:#1f2937;">' + prodEscape(ins.producto) + '</span>' +
-                '<span style="color:#6b7280;font-size:0.52rem;">Desgaste: ' + Number(ins.desgastePorUso || 0).toFixed(3) + ' por uso</span>' +
-                '<span style="color:#f07a00;font-size:0.52rem;font-weight:700;">$' + Number(ins.precioVenta || 0).toFixed(2) + '</span>' +
-                '</label>';
-        }).join('');
 
-        container.querySelectorAll('.proceso-insumo-check').forEach(cb => {
-            cb.addEventListener('change', () => {
-                container._selectedInsumos = Array.from(container.querySelectorAll('.proceso-insumo-check:checked')).map(c => c.value);
-            });
-        });
-    }
 
 
 
