@@ -7561,6 +7561,7 @@ function abrirPopupProveedorDesdeProductos() {
     let logoManualOffsetX = 0, logoManualOffsetY = 0;
     const ajusteLogoKraft = { scale: 1, orientacionLogo: 'vertical' };
     const esProductoKraft = (p = productoActual) => p === 'BOLSAS KRAFT' || p === 'DELIVERY KRAFT' || p === 'BOLSAS KRAFT BLANCAS';
+    const esKraftBolsa = (p = productoActual) => p === 'BOLSAS KRAFT' || p === 'BOLSAS KRAFT BLANCAS';
     const getMedidasKraftActivas = (p = productoActual) => (p === 'DELIVERY KRAFT' ? MEDIDAS_DELIVERY_KRAFT : p === 'BOLSAS KRAFT BLANCAS' ? MEDIDAS_KRAFT_BLANCAS : MEDIDAS_KRAFT);
     const esProductoTarjeta = (p = productoActual) => p === 'TARJETAS DE PRESENTACIÓN' || p === 'VOLANTES';
 
@@ -8877,7 +8878,7 @@ const imgBolsaDeliveryBase = new Image();
         if (!imgObj.complete) return;
         ctx.globalAlpha = alpha;
         const { wCm, hCm, medidaLabel } = parseMedida(medidaOverride);
-        const scaleCm = productoActual === 'BOLSAS KRAFT' ? CM_TO_PX_KRAFT : CM_TO_PX;
+        const scaleCm = esProductoKraft() ? CM_TO_PX_KRAFT : CM_TO_PX;
         let bW = wCm * scaleCm, bH = hCm * scaleCm;
         const scaleFit = Math.min((maxW - 120) / bW, (maxH - 120) / bH);
         bW *= scaleFit; bH *= scaleFit;
@@ -8889,19 +8890,19 @@ const imgBolsaDeliveryBase = new Image();
             const tinta = tintaOverride || tintaActiva;
             const { boxWcm, boxHcm } = calcularCajaLogo(wCm, hCm, medidaLabel);
             const isHorizontal = orientacionActual === 'horizontal';
-            const logoHorizontalKraft = productoActual === 'BOLSAS KRAFT'
+            const logoHorizontalKraft = esKraftBolsa()
                 ? (ajusteLogoKraft.orientacionLogo === 'horizontal')
                 : isHorizontal;
-            const layoutHorizontal = productoActual === 'BOLSAS KRAFT' ? false : isHorizontal;
-            const orientationScale = productoActual === 'BOLSAS KRAFT' ? 1 : 1.28;
+            const layoutHorizontal = esKraftBolsa() ? false : isHorizontal;
+            const orientationScale = esKraftBolsa() ? 1 : 1.28;
             const baseAreaW = boxWcm * scaleCm * scaleFit * orientationScale;
             const baseAreaH = boxHcm * scaleCm * scaleFit * orientationScale;
             const sideMarginCm = layoutHorizontal ? 0.5 : 0.8;
             const sideMarginPx = sideMarginCm * scaleCm * scaleFit;
-            const kraftVertical = productoActual === 'BOLSAS KRAFT' && !logoHorizontalKraft;
+            const kraftVertical = esKraftBolsa() && !logoHorizontalKraft;
             const safeAreaW = kraftVertical ? bW * 1.22 : bW * 0.85;
             const safeAreaH = kraftVertical ? bH * 1.12 : bH * 0.65;
-            const userScale = productoActual === 'BOLSAS KRAFT'
+            const userScale = esKraftBolsa()
                 ? ajusteLogoKraft.scale * (logoHorizontalKraft ? 1 : 5.6)
                 : 1;
             const rawAreaW = baseAreaW * userScale;
@@ -8913,10 +8914,10 @@ const imgBolsaDeliveryBase = new Image();
                 areaW = squareSide;
                 areaH = squareSide;
             }
-            const kraftRenderSide = productoActual === 'BOLSAS KRAFT'
+            const kraftRenderSide = esKraftBolsa()
                 ? Math.max(1, Math.round(Math.min(areaW, areaH)))
                 : null;
-            const fit = productoActual === 'BOLSAS KRAFT'
+            const fit = esKraftBolsa()
                 ? ajustarImagenAlArea(
                     logo.width || 1,
                     logo.height || 1,
@@ -8929,10 +8930,10 @@ const imgBolsaDeliveryBase = new Image();
                     areaW,
                     areaH
                 );
-            const renderW = productoActual === 'BOLSAS KRAFT'
+            const renderW = esKraftBolsa()
                 ? kraftRenderSide
                 : Math.max(1, Math.round(fit.drawW));
-            const renderH = productoActual === 'BOLSAS KRAFT'
+            const renderH = esKraftBolsa()
                 ? kraftRenderSide
                 : Math.max(1, Math.round(fit.drawH));
             const yShift = LOGO_Y_OFFSET[medidaLabel] || 0;
@@ -8943,7 +8944,7 @@ const imgBolsaDeliveryBase = new Image();
             let areaY = desiredCenterY - areaH / 2;
 
             // En KRAFT horizontal desplazamos tambien el area (clip) para que el movimiento sea visible.
-            if (productoActual === 'BOLSAS KRAFT' && logoHorizontalKraft) {
+            if (esKraftBolsa() && logoHorizontalKraft) {
                 areaX -= bW * 0.055;
             }
             if (productoActual === 'DELIVERY KRAFT' && logoHorizontalKraft) {
@@ -8986,7 +8987,7 @@ const imgBolsaDeliveryBase = new Image();
 
             const temp = document.createElement('canvas'); temp.width = renderW; temp.height = renderH;
             const tCtx = temp.getContext('2d');
-            if (productoActual === 'BOLSAS KRAFT') {
+            if (esKraftBolsa()) {
                 const innerW = Math.max(1, Math.round(fit.drawW));
                 const innerH = Math.max(1, Math.round(fit.drawH));
                 const innerX = (renderW - innerW) / 2;
@@ -9108,7 +9109,7 @@ const imgBolsaDeliveryBase = new Image();
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
 
-            const esKraft = productoActual === 'BOLSAS KRAFT';
+            const esKraft = esKraftBolsa();
             const fuelleKraft = getFuelleKraftByLabel(medidaLabel);
             const line1 = esKraft ? `${formatearNumeroCm(wCm)}x${formatearNumeroCm(hCm)}` : sizeLabel;
             const line2 = esKraft && fuelleKraft ? `Fuelle: ${fuelleKraft}cm` : '';
@@ -9451,7 +9452,7 @@ const imgBolsaDeliveryBase = new Image();
         const info = document.getElementById('selMedida').value.split(',');
         ctx.fillStyle = "#ff9900"; ctx.font = "bold 90px sans-serif"; ctx.textAlign = "right";
         if (modoActual !== 'armado') {
-            if (productoActual === 'BOLSAS KRAFT') {
+            if (esKraftBolsa()) {
                 const fuelleHeader = getFuelleKraftByLabel(info[2]);
                 const medidaHeader = `${formatearNumeroCm(info[0])}x${formatearNumeroCm(info[1])}`;
                 ctx.fillText(medidaHeader, 4850, 260);
@@ -9541,7 +9542,7 @@ const imgBolsaDeliveryBase = new Image();
         if (modoActual === 'matriz' || modoActual === 'muestrario') {
             const cellW = 1000, cellH = 1100;
             const offset = (paginaActual - 1) * 15;
-            if (modoActual === 'matriz' && !esTarjeta && productoActual === 'BOLSAS KRAFT') {
+            if (modoActual === 'matriz' && !esTarjeta && esKraftBolsa()) {
                 const tintasCuadricula = [
                     TODAS_LAS_TINTAS.find(t => String(t.n || '').toUpperCase() === 'NEGRO') || { n: 'NEGRO', hex: 'rgb(0,0,0)' },
                     TODAS_LAS_TINTAS.find(t => String(t.n || '').toUpperCase() === 'BLANCO') || { n: 'BLANCO', hex: 'rgb(255,255,255)' },
