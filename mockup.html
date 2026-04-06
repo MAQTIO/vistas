@@ -4137,7 +4137,7 @@
 
         .prod-form-wizard {
             display: grid;
-            grid-template-columns: 150px minmax(0, 1fr);
+            grid-template-columns: 180px minmax(0, 1fr);
             grid-template-rows: minmax(0, 1fr);
             gap: 6px;
             flex: 1 1 0;
@@ -4148,13 +4148,78 @@
         .prod-photo-pane {
             background: linear-gradient(160deg, #f07a00 0%, #d76700 100%);
             border-radius: 10px;
-            padding: 6px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
             color: #fff;
-            overflow: hidden;
+            overflow-y: auto;
             min-height: 0;
+        }
+
+        .prod-photo-pane-extras {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 2px;
+        }
+
+        .prod-photo-pane-extras label {
+            font-size: 0.52rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 1px;
+        }
+
+        .prod-photo-pane-extras input,
+        .prod-photo-pane-extras select,
+        .prod-photo-pane-extras textarea {
+            width: 100%;
+            padding: 4px 6px;
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 5px;
+            font-size: 0.58rem;
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            outline: none;
+        }
+
+        .prod-photo-pane-extras input::placeholder,
+        .prod-photo-pane-extras textarea::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .prod-photo-pane-extras select option {
+            color: #1f2937;
+            background: #fff;
+        }
+
+        .prod-photo-pane-extras .photo-pane-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .prod-photo-pane-extras .photo-pane-toggle input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            accent-color: #fff;
+            cursor: pointer;
+        }
+
+        .prod-photo-pane-extras .photo-pane-toggle span {
+            font-size: 0.56rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .prod-photo-pane-extras .photo-pane-separator {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 2px 0;
         }
 
         .prod-photo-pane h4 {
@@ -4175,7 +4240,7 @@
             border-color: rgba(255,255,255,0.5);
             background: rgba(255,255,255,0.16);
             color: #fff;
-            height: 80px;
+            height: 120px;
         }
 
         .prod-photo-pane input[type="file"] {
@@ -10346,12 +10411,42 @@ const imgBolsaDeliveryBase = new Image();
         <h3 id="prodFormTitulo" class="productos-modal-title">Agregar producto</h3>
         <div class="prod-form-wizard">
             <aside class="prod-photo-pane">
-                <h4>Foto del producto</h4>
+                <h4>📷 Foto del producto</h4>
                 <div class="prod-foto-principal-box">
                     <div id="prodFormFotoPreview" class="prod-foto-preview">Sin foto principal</div>
                     <input id="prodFormFotoPrincipal" type="file" accept="image/*">
                 </div>
-                <div class="prod-photo-pane-note">Esta foto se conserva al pasar al segundo paso para configurar tabulador y precios.</div>
+                <div class="prod-photo-pane-extras">
+                    <hr class="photo-pane-separator">
+                    <div>
+                        <label>Etiqueta / Color</label>
+                        <select id="prodFormEtiqueta">
+                            <option value="">Sin etiqueta</option>
+                            <option value="rojo" style="color:#ef4444;">🔴 Rojo — Urgente</option>
+                            <option value="amarillo" style="color:#eab308;">🟡 Amarillo — Revisar</option>
+                            <option value="verde" style="color:#22c55e;">🟢 Verde — Listo</option>
+                            <option value="azul" style="color:#3b82f6;">🔵 Azul — Destacado</option>
+                            <option value="morado" style="color:#a855f7;">🟣 Morado — Especial</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Ubicación / Almacén</label>
+                        <input id="prodFormUbicacion" type="text" placeholder="Ej: Estante A-3, Bodega 2">
+                    </div>
+                    <div>
+                        <label>Notas internas</label>
+                        <textarea id="prodFormNotasInternas" rows="2" placeholder="Notas solo visibles para el equipo..." style="resize:none;"></textarea>
+                    </div>
+                    <hr class="photo-pane-separator">
+                    <label class="photo-pane-toggle">
+                        <input type="checkbox" id="prodFormActivo" checked>
+                        <span>✅ Producto activo</span>
+                    </label>
+                    <label class="photo-pane-toggle">
+                        <input type="checkbox" id="prodFormVisibleCotizador" checked>
+                        <span>📋 Visible en cotizador</span>
+                    </label>
+                </div>
             </aside>
             <div class="prod-form-main">
                 <div class="productos-modal-grid">
@@ -10800,7 +10895,7 @@ const imgBolsaDeliveryBase = new Image();
                 <div class="prod-foto-principal-box">
                     <div id="prodTabFotoPreview" class="prod-foto-preview">Sin foto principal</div>
                 </div>
-                <div class="prod-photo-pane-note">Vista previa bloqueada para mantener la foto cargada en el paso anterior.</div>
+                
             </aside>
             <div class="prod-tab-step-main">
                 <div class="productos-modal-grid">
@@ -16277,6 +16372,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodFormDescripcion) prodFormDescripcion.value = '';
         recetaDraft = []; procesosDraft = []; procesoInsumosDraft = [];
         // receta cleared via recetaDraft = []
+        const etiquetaClear = document.getElementById('prodFormEtiqueta');
+        const ubicacionClear = document.getElementById('prodFormUbicacion');
+        const notasInternasClear = document.getElementById('prodFormNotasInternas');
+        const activoClear = document.getElementById('prodFormActivo');
+        const visibleCotClear = document.getElementById('prodFormVisibleCotizador');
+        if (etiquetaClear) etiquetaClear.value = '';
+        if (ubicacionClear) ubicacionClear.value = '';
+        if (notasInternasClear) notasInternasClear.value = '';
+        if (activoClear) activoClear.checked = true;
+        if (visibleCotClear) visibleCotClear.checked = true;
         const costoFieldClear = document.getElementById('prodFormPrecioCompra');
         if (costoFieldClear) { costoFieldClear.readOnly = false; costoFieldClear.style.background = ''; costoFieldClear.title = ''; }
         updateRecetaResumen();
@@ -16320,6 +16425,16 @@ document.addEventListener('DOMContentLoaded', () => {
         { const psel = document.getElementById('prodFormProcesos'); if (psel && Array.isArray(row.procesos)) { Array.from(psel.options).forEach(o => { o.selected = row.procesos.includes(o.value); }); } }
         if (prodFormProveedor) prodFormProveedor.value = row.proveedor || '';
         if (prodFormDescripcion) prodFormDescripcion.value = row.descripcion || '';
+        const etiquetaEdit = document.getElementById('prodFormEtiqueta');
+        const ubicacionEdit = document.getElementById('prodFormUbicacion');
+        const notasInternasEdit = document.getElementById('prodFormNotasInternas');
+        const activoEdit = document.getElementById('prodFormActivo');
+        const visibleCotEdit = document.getElementById('prodFormVisibleCotizador');
+        if (etiquetaEdit) etiquetaEdit.value = row.etiqueta || '';
+        if (ubicacionEdit) ubicacionEdit.value = row.ubicacion || '';
+        if (notasInternasEdit) notasInternasEdit.value = row.notasInternas || '';
+        if (activoEdit) activoEdit.checked = row.activo !== false;
+        if (visibleCotEdit) visibleCotEdit.checked = row.visibleCotizador !== false;
         recetaDraft = Array.isArray(row.recetaInsumos) ? row.recetaInsumos.map(r => ({insumoId: r.insumoId || '', insumoNombre: r.insumoNombre || r.insumoId || '', insumoCode: r.insumoCode || r.insumoId || '', cantidad: Number(r.cantidad || 1), unidad: r.unidad || 'Pza'})) : [];
         procesosDraft = Array.isArray(row.procesosDetalle) ? row.procesosDetalle.map(p => ({procesoId: p.procesoId || '', procesoNombre: p.procesoNombre || p.procesoId || '', costo: Number(p.costo || 0), notas: p.notas || ''})) : (Array.isArray(row.procesos) ? row.procesos.map(id => ({procesoId: id, procesoNombre: id, costo: 0, notas: ''})) : []);
         procesoInsumosDraft = Array.isArray(row.insumosEnlazados) ? row.insumosEnlazados.map(i => ({insumoId: i.insumoId || '', insumoNombre: i.insumoNombre || i.insumoId || '', insumoCode: i.insumoCode || i.insumoId || '', categoria: i.categoria || ''})) : [];
@@ -16406,7 +16521,12 @@ document.addEventListener('DOMContentLoaded', () => {
             gfCostoML: Math.max(0, Number(prodGfCostoML?.value || 0)),
             tabuladorId: prodPendingTabuladorId,
             precioRevendedor: Math.max(0, Number(prodFormRevendedor?.value || 0)),
-            precioVenta: Math.max(0, Number(prodFormVenta?.value || 0))
+            precioVenta: Math.max(0, Number(prodFormVenta?.value || 0)),
+            etiqueta: String(document.getElementById('prodFormEtiqueta')?.value || ''),
+            ubicacion: String(document.getElementById('prodFormUbicacion')?.value || '').trim(),
+            notasInternas: String(document.getElementById('prodFormNotasInternas')?.value || '').trim(),
+            activo: document.getElementById('prodFormActivo')?.checked !== false,
+            visibleCotizador: document.getElementById('prodFormVisibleCotizador')?.checked !== false
         };
 
         if (payload.tipo === 'gran-formato') {
