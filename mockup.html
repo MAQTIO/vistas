@@ -526,6 +526,64 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.38);
         }
 
+        /* ===== CONFIG FULLSCREEN ===== */
+        #popupConfiguraciones {
+            padding: 0;
+            align-items: stretch;
+            justify-content: stretch;
+            background: #f2f4f7;
+        }
+        #popupConfiguraciones > .popup-card.wide {
+            background: #f2f4f7;
+            color: #1f2937;
+            max-width: 100%;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #popupConfiguraciones .popup-header {
+            background: #fff;
+            padding: 14px 24px !important;
+            border-bottom: 2px solid #e5e7eb !important;
+            margin-bottom: 0 !important;
+            flex-shrink: 0;
+        }
+        #popupConfiguraciones .popup-title-main {
+            color: #1f2937;
+            font-size: 1rem;
+        }
+        #popupConfiguraciones .popup-icon-btn {
+            color: #6b7280;
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+        }
+        #popupConfiguraciones .popup-icon-btn:hover {
+            background: #e5e7eb;
+            color: #111;
+        }
+        #popupConfiguraciones .popup-actions {
+            background: #fff;
+            border-top: 2px solid #e5e7eb !important;
+            padding: 10px 24px !important;
+            flex-shrink: 0;
+        }
+        #popupConfiguraciones .popup-btn.primary {
+            background: linear-gradient(135deg, #ff9900, #e68a00);
+            color: #fff;
+            border: none;
+            font-weight: 800;
+        }
+        #popupConfiguraciones .popup-btn.cancel {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
         .popup-left {
             display: flex;
             flex-direction: column;
@@ -3574,48 +3632,51 @@
         .config-tabs {
             display: flex;
             gap: 0;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            padding: 0;
+            border-bottom: 2px solid #e5e7eb;
+            padding: 0 24px;
             overflow-x: auto;
-            background: transparent;
-            border-radius: 0;
+            background: #fff;
+            flex-shrink: 0;
         }
 
         .config-tab {
-            flex: 1;
-            padding: 10px 12px;
+            flex: none;
+            padding: 12px 18px;
             border: none;
             background: transparent;
-            color: #cbd5e1;
-            font-size: 0.58rem;
+            color: #6b7280;
+            font-size: 0.62rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.15px;
+            letter-spacing: 0.3px;
             cursor: pointer;
             white-space: nowrap;
             position: relative;
-            transition: all 0.25s ease;
-            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
             text-align: center;
+            margin-bottom: -2px;
         }
 
         .config-tab:hover {
-            color: #e2e8f0;
+            color: #374151;
+            background: #f9fafb;
         }
 
         .config-tab.active {
-            color: #64b5f6;
-            border-bottom-color: #64b5f6;
+            color: #ff9900;
+            border-bottom-color: #ff9900;
+            font-weight: 800;
         }
 
         /* Configuraciones - Content */
         .config-content {
-            background: transparent;
+            background: #f2f4f7;
             border-radius: 0;
             overflow-y: auto;
-            max-height: 380px;
-            padding: 16px 0;
-            min-height: 200px;
+            flex: 1;
+            padding: 24px;
+            min-height: 0;
         }
 
         .config-tab-panel {
@@ -3638,36 +3699,40 @@
         .config-tab-panel .popup-panel {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 12px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
         }
 
         .config-tab-panel .orden-field {
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            font-size: 0.58rem;
-            color: #cbd5e1;
-            font-weight: 800;
+            gap: 4px;
+            font-size: 0.6rem;
+            color: #374151;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.15px;
+            letter-spacing: 0.2px;
         }
 
         .config-tab-panel .orden-field label {
             font-size: 0.58rem;
-            font-weight: 800;
-            color: #cbd5e1;
+            font-weight: 700;
+            color: #374151;
             text-transform: uppercase;
-            letter-spacing: 0.15px;
+            letter-spacing: 0.2px;
         }
 
         .config-tab-panel .orden-field input,
         .config-tab-panel .orden-field select,
         .config-tab-panel .orden-field textarea {
-            padding: 5px 7px;
-            border: 1px solid #d8dde6;
-            border-radius: 7px;
-            font-size: 0.66rem;
-            background: #ffffff;
+            padding: 8px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.68rem;
+            background: #f9fafb;
             color: #111827;
             font-family: inherit;
             transition: all 0.2s;
@@ -3677,30 +3742,32 @@
         .config-tab-panel .orden-field select:focus,
         .config-tab-panel .orden-field textarea:focus {
             outline: none;
-            border-color: #64b5f6;
-            background: #f8faff;
+            border-color: #ff9900;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(255,153,0,0.1);
         }
 
         .config-tab-panel .orden-field input[type="checkbox"] {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
             margin: 0;
-            accent-color: #1e88e5;
+            accent-color: #ff9900;
         }
 
         .config-tab-panel .orden-field label:has(> input[type="checkbox"]) {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             flex-direction: row;
             font-weight: 600;
+            color: #4b5563;
         }
 
         .config-row-checks {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 6px;
+            gap: 8px;
         }
 
         .productos-tools-top {
@@ -6549,6 +6616,115 @@
                 grid-template-columns: repeat(5, minmax(0, 1fr));
             }
         }
+
+        /* ===== LOGIN SCREEN ===== */
+        .login-overlay {
+            position: fixed; inset: 0; z-index: 100000;
+            background: linear-gradient(135deg, #0a0f1a 0%, #141b2a 50%, #1a2332 100%);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .login-card {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 16px; padding: 32px; width: 360px; max-width: 90vw;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .login-card .login-logo { text-align: center; margin-bottom: 16px; }
+        .login-card .login-logo img { width: 120px; filter: invert(1) brightness(1.1); }
+        .login-card h2 { text-align: center; color: #fff; font-size: 1.1rem; margin: 0 0 4px; }
+        .login-card .login-sub { text-align: center; color: #8a9bb5; font-size: 0.7rem; margin-bottom: 20px; }
+        .login-card .login-field { margin-bottom: 14px; }
+        .login-card .login-field label { display: block; font-size: 0.65rem; font-weight: 700; color: #c8d9f2; margin-bottom: 4px; }
+        .login-card .login-field input {
+            width: 100%; padding: 10px 12px; border: 1px solid var(--border);
+            border-radius: 8px; background: rgba(255,255,255,0.06); color: #fff;
+            font-size: 0.75rem; outline: none; box-sizing: border-box;
+        }
+        .login-card .login-field input:focus { border-color: var(--accent); }
+        .login-card .login-btn {
+            width: 100%; padding: 12px; border: none; border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), #e68a00);
+            color: #111; font-weight: 900; font-size: 0.8rem; cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+        .login-card .login-btn:hover { filter: brightness(1.1); }
+        .login-card .login-error {
+            color: #ef4444; font-size: 0.6rem; text-align: center;
+            margin-top: 10px; min-height: 16px;
+        }
+        .login-user-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 0.55rem; color: var(--accent); font-weight: 700;
+            padding: 3px 8px; border-radius: 6px;
+            background: rgba(255,153,0,0.1); border: 1px solid rgba(255,153,0,0.2);
+        }
+
+        /* ===== SHORTCUT HINTS ===== */
+        .shortcut-hint {
+            display: inline-block; font-size: 0.45rem; color: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 3px; padding: 1px 5px; margin-left: 4px;
+            font-weight: 600; vertical-align: middle;
+        }
+
+        /* ===== ENVIO E INSTALACION CHECKS ===== */
+        .orden-extras-checks {
+            display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+            padding: 6px 0; margin-bottom: 4px;
+        }
+        .orden-extras-checks label {
+            display: flex; align-items: center; gap: 4px;
+            font-size: 0.6rem; color: #c8d9f2; font-weight: 700; cursor: pointer;
+        }
+        .orden-extras-checks input[type="checkbox"] {
+            accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer;
+        }
+        .orden-costo-extra-popup {
+            position: fixed; inset: 0; z-index: 99999;
+            background: rgba(0,0,0,0.6); display: flex;
+            align-items: center; justify-content: center;
+        }
+        .orden-costo-extra-card {
+            background: var(--panel); border: 1px solid var(--border);
+            border-radius: 12px; padding: 20px; width: 300px; max-width: 90vw;
+        }
+        .orden-costo-extra-card h3 { color: #fff; font-size: 0.85rem; margin: 0 0 12px; }
+        .orden-costo-extra-card .login-field { margin-bottom: 12px; }
+        .orden-costo-extra-card .popup-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+        /* ===== CONFIG USERS TABLE (light theme) ===== */
+        #tabUsuarios .popup-panel { display: block !important; grid-template-columns: unset !important; background: transparent !important; padding: 0 !important; border: none !important; }
+        .config-users-table { width: 100%; border-collapse: collapse; font-size: 0.62rem; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid #e5e7eb; }
+        .config-users-table th { background: #f9fafb; color: #374151; font-weight: 800; padding: 10px 12px; text-align: left; border-bottom: 2px solid #ff9900; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.3px; }
+        .config-users-table td { padding: 10px 12px; border-bottom: 1px solid #f3f4f6; color: #374151; vertical-align: middle; }
+        .config-users-table tr:hover td { background: #fef7ed; }
+        .config-users-add { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; padding: 16px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; }
+        .config-users-add input, .config-users-add select {
+            padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 8px;
+            background: #f9fafb; color: #111827; font-size: 0.64rem;
+        }
+        .config-users-add input:focus, .config-users-add select:focus { border-color: #ff9900; outline: none; box-shadow: 0 0 0 3px rgba(255,153,0,0.1); }
+        .config-users-add label { color: #374151 !important; }
+        .config-users-add .config-users-add-actions { grid-column: 1 / -1; display: flex; gap: 8px; justify-content: flex-end; margin-top: 6px; }
+        .config-users-add .productos-btn.primary { background: linear-gradient(135deg, #ff9900, #e68a00); color: #fff; border: none; font-weight: 800; padding: 10px 22px; border-radius: 8px; }
+        .config-user-role-badge {
+            display: inline-block; padding: 3px 12px; border-radius: 6px;
+            font-size: 0.5rem; font-weight: 800; letter-spacing: 0.3px; text-transform: uppercase;
+        }
+        .config-user-role-badge.vendedor { background: #dcfce7; color: #166534; }
+        .config-user-role-badge.disenador { background: #e0e7ff; color: #3730a3; }
+        .config-user-role-badge.admin { background: #fef3c7; color: #92400e; }
+        .config-user-status { display: inline-flex; align-items: center; gap: 5px; font-size: 0.52rem; color: #6b7280; }
+        .config-user-status .dot { width: 7px; height: 7px; border-radius: 50%; }
+        .config-user-status .dot.active { background: #22c55e; }
+        .config-user-status .dot.inactive { background: #d1d5db; }
+        .config-users-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .config-users-header h4 { margin: 0; font-size: 0.75rem; color: #ff9900; font-weight: 800; }
+        .config-users-count { font-size: 0.55rem; color: #6b7280; background: #f3f4f6; padding: 4px 12px; border-radius: 12px; font-weight: 700; }
+        .config-users-sync-bar { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; padding: 8px 14px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; }
+        .config-users-sync-bar .sync-status { font-size: 0.55rem; color: #166534; flex: 1; font-weight: 600; }
+        .config-users-sync-bar button { font-size: 0.55rem; background: #fff; border: 1px solid #d1d5db; color: #374151; border-radius: 6px; padding: 5px 12px; cursor: pointer; }
+        .config-users-sync-bar button:hover { background: #f9fafb; }
+        #configUserCrearStatus { color: #6b7280 !important; }
     </style>
     <script>
         // Pre-oculta landing si se viene de un cambio de sección
@@ -6561,6 +6737,28 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 </head>
 <body>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div id="loginOverlay" class="login-overlay">
+    <div class="login-card">
+        <div class="login-logo">
+            <img src="https://i.postimg.cc/WzY3mk57/Copia-de-Copia-de-Post-Instagram-catalogo-de-productos-escolares-comercial-promocional-azul-(11).png" alt="Logo Maquileros">
+        </div>
+        <h2>Iniciar Sesión</h2>
+        <div class="login-sub">Ingresa tus credenciales para acceder al sistema</div>
+        <div class="login-field">
+            <label for="loginCorreo">Correo electrónico</label>
+            <input id="loginCorreo" type="email" placeholder="tu@correo.com" autocomplete="email">
+        </div>
+        <div class="login-field">
+            <label for="loginPassword">Contraseña</label>
+            <input id="loginPassword" type="password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button id="loginBtn" class="login-btn" type="button">INGRESAR</button>
+        <div id="loginError" class="login-error"></div>
+    </div>
+</div>
+
 <button id="btnHome" class="btn-home" onclick="irMenuPrincipal()">🏠 Menú</button>
 
 <div id="inicioSistema" class="inicio-sistema-overlay" aria-hidden="true">
@@ -9957,8 +10155,8 @@ const imgBolsaDeliveryBase = new Image();
                 <div class="orden-header-left">
                     <h2 id="popupListadoTitulo" class="orden-title">CREAR ORDEN DE TRABAJO</h2>
                     <div class="orden-actions-row">
-                        <button id="ordenRegistrarCliente" class="orden-btn">REGISTRAR CLIENTE</button>
-                        <button id="ordenSeleccionarCliente" class="orden-btn">SELECCIONAR CLIENTE</button>
+                        <button id="ordenRegistrarCliente" class="orden-btn">REGISTRAR CLIENTE <span class="shortcut-hint">F2</span></button>
+                        <button id="ordenSeleccionarCliente" class="orden-btn">SELECCIONAR CLIENTE <span class="shortcut-hint">F3</span></button>
                     </div>
                 </div>
                 <div class="orden-id-box">
@@ -9998,7 +10196,7 @@ const imgBolsaDeliveryBase = new Image();
             </div>
 
             <div class="orden-actions-row" style="justify-content: flex-end;">
-                <button id="ordenAddStock" class="orden-btn-circular primary" type="button" title="Agregar productos de stock">📦</button>
+                <button id="ordenAddStock" class="orden-btn-circular primary" type="button" title="Agregar productos de stock (F1)">📦 <span class="shortcut-hint">F1</span></button>
                 <button id="ordenAddFormato" class="orden-btn-circular primary" type="button" title="Agregar gran formato">↔</button>
                 <button id="ordenEliminarProducto" class="orden-btn-circular warn" type="button" title="Eliminar producto de la tabla">🗑</button>
             </div>
@@ -10022,6 +10220,11 @@ const imgBolsaDeliveryBase = new Image();
             <div class="orden-field">
                 <label>COMENTARIOS</label>
                 <textarea id="ordenComentarios" rows="2" placeholder="Comentarios de la orden"></textarea>
+            </div>
+
+            <div class="orden-extras-checks">
+                <label><input id="ordenRequiereEnvio" type="checkbox"> Requiere envío</label>
+                <label><input id="ordenRequiereInstalacion" type="checkbox"> Requiere instalación</label>
             </div>
 
             <div class="orden-inline-fields">
@@ -10190,6 +10393,10 @@ const imgBolsaDeliveryBase = new Image();
 <div id="ordenStockPopup" class="orden-stock-popup" aria-hidden="true">
     <div class="orden-stock-card" role="dialog" aria-modal="true" aria-labelledby="ordenStockTitle">
         <div class="orden-stock-main">
+            <div style="display:flex;gap:6px;margin-bottom:6px;">
+                <button id="ordenStockTabStock" class="orden-btn active" type="button" style="flex:1;font-size:0.6rem;padding:6px;">📦 Productos en stock</button>
+                <button id="ordenStockTabGranFormato" class="orden-btn" type="button" style="flex:1;font-size:0.6rem;padding:6px;">↔ Gran Formato</button>
+            </div>
             <div class="orden-stock-search">
                 <label for="ordenStockSearch">Buscar producto de stock</label>
                 <input id="ordenStockSearch" type="text" placeholder="Nombre, medida, material, categoria o codigo">
@@ -11364,6 +11571,7 @@ const imgBolsaDeliveryBase = new Image();
             <button class="config-tab" data-tab="reportes">Reportes</button>
             <button class="config-tab" data-tab="promociones">Promociones</button>
             <button class="config-tab" data-tab="permisos">Permisos</button>
+            <button class="config-tab" data-tab="usuarios">Usuarios</button>
         </div>
         
         <!-- Tab Content Container -->
@@ -11646,6 +11854,71 @@ const imgBolsaDeliveryBase = new Image();
                     </div>
                 </div>
             </div>
+
+            <!-- TAB: USUARIOS -->
+            <div class="config-tab-panel" id="tabUsuarios" data-tab="usuarios">
+                <h3>Gestión de usuarios del sistema</h3>
+                <div class="popup-panel" style="display:block;">
+                    
+                    <div class="config-users-sync-bar">
+                        <span class="sync-status" id="configUsersSyncStatus">⏳ Conectando con Firebase...</span>
+                        <button id="configUsersSyncBtn" class="productos-btn" type="button" style="padding:4px 10px;font-size:0.55rem;">🔄 Sincronizar</button>
+                    </div>
+
+                    <div class="config-users-header">
+                        <h4>➕ Agregar nuevo usuario</h4>
+                    </div>
+                    <p style="font-size:0.55rem;color:#6b7280;margin:0 0 10px;">Se creará la cuenta en Firebase Authentication y se guardará el perfil en Firestore automáticamente.</p>
+                    
+                    <div class="config-users-add">
+                        <div>
+                            <label style="font-size:0.52rem;font-weight:700;color:#374151;display:block;margin-bottom:4px;">Correo electrónico</label>
+                            <input id="configUserCorreo" type="email" placeholder="correo@dominio.com" style="width:100%;box-sizing:border-box;">
+                        </div>
+                        <div>
+                            <label style="font-size:0.52rem;font-weight:700;color:#374151;display:block;margin-bottom:4px;">Nombre completo</label>
+                            <input id="configUserNombre" type="text" placeholder="Nombre y apellido" style="width:100%;box-sizing:border-box;">
+                        </div>
+                        <div>
+                            <label style="font-size:0.52rem;font-weight:700;color:#374151;display:block;margin-bottom:4px;">Contraseña inicial</label>
+                            <input id="configUserPassword" type="password" placeholder="Mínimo 6 caracteres" style="width:100%;box-sizing:border-box;">
+                        </div>
+                        <div>
+                            <label style="font-size:0.52rem;font-weight:700;color:#374151;display:block;margin-bottom:4px;">Rol</label>
+                            <select id="configUserRol" style="width:100%;box-sizing:border-box;">
+                                <option value="vendedor">🟢 Vendedor</option>
+                                <option value="disenador">🟣 Diseñador</option>
+                                <option value="admin">🟡 Administrador</option>
+                            </select>
+                        </div>
+                        <div class="config-users-add-actions">
+                            <button id="configUserAgregar" class="productos-btn primary" type="button" style="padding:8px 18px;font-size:0.62rem;font-weight:800;">➕ CREAR USUARIO</button>
+                        </div>
+                    </div>
+                    <div id="configUserCrearStatus" style="font-size:0.55rem;color:#6b7280;min-height:18px;margin-bottom:10px;"></div>
+
+                    <div class="config-users-header">
+                        <h4>👥 Usuarios registrados</h4>
+                        <span id="configUsersCount" class="config-users-count">0 usuarios</span>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table class="config-users-table">
+                            <thead>
+                                <tr>
+                                    <th>Correo</th>
+                                    <th>Nombre</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                    <th style="text-align:center;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="configUsersTableBody">
+                                <tr><td colspan="5" style="text-align:center;color:#666;padding:16px;">Cargando usuarios...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             
         </div>
         
@@ -11658,24 +11931,7 @@ const imgBolsaDeliveryBase = new Image();
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const FIREBASE_WEB_CONFIG = {
-        apiKey: "AIzaSyAr8-ybVqcaeubCs-bApA_FAKnDgj9S7vM",
-        authDomain: "maquilero-8344b.firebaseapp.com",
-        projectId: "maquilero-8344b",
-        storageBucket: "maquilero-8344b.firebasestorage.app",
-        messagingSenderId: "323366654858",
-        appId: "1:323366654858:web:5527744db419863da6ee73",
-        measurementId: "G-H26F2MCQWD"
-    };
     const FIREBASE_UPLOAD_COLLECTION = 'design_uploads';
-    const ENABLE_FIREBASE_DIRECT_UPLOAD = false;
-    const CAN_USE_FIREBASE_DIRECT_UPLOAD = (() => {
-        const proto = String(window.location?.protocol || '').toLowerCase();
-        const origin = String(window.location?.origin || '').toLowerCase();
-        if (proto === 'file:') return false;
-        if (!origin || origin === 'null') return false;
-        return proto === 'http:' || proto === 'https:';
-    })();
 
     const productos = [
         {
@@ -12230,7 +12486,11 @@ document.addEventListener('DOMContentLoaded', () => {
         comentarios: '',
         disenador: (getDisenadoresConfigurados()[0] || 'DISEÑADOR 1'),
         vendedor: getUsuarioLogeado(),
-        payMethod: ''
+        payMethod: '',
+        costoEnvio: 0,
+        costoInstalacion: 0,
+        requiereEnvio: false,
+        requiereInstalacion: false
     });
 
     const captureOrdenState = () => ({
@@ -12254,7 +12514,11 @@ document.addEventListener('DOMContentLoaded', () => {
         vendedor: String(el('ordenVendedor')?.value || ''),
         anticipo: Number(ordenAnticipo || 0),
         pagoDetalle: ordenPagoDetalle ? { ...ordenPagoDetalle } : null,
-        payMethod: getActivePayMethodRaw()
+        payMethod: getActivePayMethodRaw(),
+        costoEnvio: window.costoEnvio || 0,
+        costoInstalacion: window.costoInstalacion || 0,
+        requiereEnvio: el('ordenRequiereEnvio')?.checked || false,
+        requiereInstalacion: el('ordenRequiereInstalacion')?.checked || false
     });
 
     const applyOrdenState = (state = buildEmptyOrdenState()) => {
@@ -12296,6 +12560,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const impuestosBtn = el('ordenBtnImpuestos');
         if (impuestosBtn) impuestosBtn.classList.toggle('active', Number(ordenTaxRate || 0) > 0);
+
+        // Restore envio/instalacion state
+        const chkEnvio = el('ordenRequiereEnvio');
+        const chkInstalacion = el('ordenRequiereInstalacion');
+        if (typeof window.costoEnvio !== 'undefined') window.costoEnvio = Number(safe.costoEnvio || 0);
+        if (typeof window.costoInstalacion !== 'undefined') window.costoInstalacion = Number(safe.costoInstalacion || 0);
+        if (chkEnvio) chkEnvio.checked = safe.requiereEnvio || false;
+        if (chkInstalacion) chkInstalacion.checked = safe.requiereInstalacion || false;
 
         renderTabla();
     };
@@ -12493,7 +12765,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const impuestosVal = subtotalVal * (ordenTaxRate / 100);
         const descuentoPctVal = subtotalVal * (ordenDiscount / 100);
         const descuentoVal = descuentoPctVal + Math.max(0, Number(ordenDiscountAmount || 0));
-        return Math.max(0, subtotalVal + impuestosVal - descuentoVal);
+        const extrasVal = (window.costoEnvio || 0) + (window.costoInstalacion || 0);
+        return Math.max(0, subtotalVal + impuestosVal - descuentoVal + extrasVal);
     };
 
     const parsePromocionesConfiguradas = () => {
@@ -13463,7 +13736,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getUsuarioLogeado = () => {
         const candidates = [
-            localStorage.getItem('mock_usuario_logeado') || '',
             localStorage.getItem('logged_user_name') || '',
             el('ordenVendedor')?.value || '',
             el('ordenDisenador')?.value || ''
@@ -14080,11 +14352,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.openCalendarioPopupGlobal = openCalendarioPopup;
 
-    const escCliMod = (value) => String(value == null ? '' : value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+    const escCliMod = window._escHtml;
 
     const mkClienteModuloId = () => `CL-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 90 + 10)}`;
 
@@ -15695,7 +15963,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const impuestosVal = subtotalVal * (ordenTaxRate / 100);
         const descuentoPctVal = subtotalVal * (ordenDiscount / 100);
         const descuentoVal = descuentoPctVal + Math.max(0, Number(ordenDiscountAmount || 0));
-        const totalVal = Math.max(0, subtotalVal + impuestosVal - descuentoVal);
+        const extrasVal = (window.costoEnvio || 0) + (window.costoInstalacion || 0);
+        const totalVal = Math.max(0, subtotalVal + impuestosVal - descuentoVal + extrasVal);
         const inversionVal = Number(ordenInversion || 0);
         const gananciaVal = totalVal - inversionVal;
         const clienteNombre = (refs.clienteNombre?.textContent || 'SIN CLIENTE').trim();
@@ -15900,12 +16169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.openMisPedidosPopupGlobal = openMisPedidosPopup;
 
-    const prodEscape = (value) => String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+    const prodEscape = window._escHtml;
 
     const makeTabuladorRows = () => ([
         { tipo: 'lt', min: '', max: '100', precioRevendedor: 0, precioGeneral: 0 },
@@ -16305,7 +16569,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Populate receta insumos for fabricado
         if (nat === 'fabricado') {
-            renderRecetaInsumosSelector();
+            updateRecetaResumen();
         }
 
         // --- Adapt layout to fill popup for each naturaleza ---
@@ -19553,7 +19817,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Keep old function name for compatibility
-    function renderRecetaInsumosSelector() { updateRecetaResumen(); }
+    // renderRecetaInsumosSelector removed — use updateRecetaResumen() directly
 
     
     // === Procesos Asignados — Popup-based ===
@@ -20248,8 +20512,16 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
         if (!sel) return;
         const prev = sel.value;
         const provs = (typeof proveedoresData !== "undefined" && Array.isArray(proveedoresData)) ? proveedoresData : [];
-        sel.innerHTML = "<option value=\"\">Seleccionar...</option>" + provs.map(p => `<option value="${prodEscape(p.nombre || p.id)}">${prodEscape(p.nombre || p.id)}</option>`).join("");
-        if (prev) sel.value = prev;
+        sel.innerHTML = "<option value=\"\">Seleccionar...</option>" + provs.map(p => `<option value="${prodEscape(p.id)}">${prodEscape(p.nombre || p.id)}${p.empresa ? ' — ' + prodEscape(p.empresa) : ''}</option>`).join("");
+        // Try matching by previous value (ID or name for backwards compat)
+        if (prev) {
+            sel.value = prev;
+            if (!sel.value) {
+                // Try matching by name for backwards compat
+                const byName = provs.find(p => p.nombre === prev);
+                if (byName) sel.value = byName.id;
+            }
+        }
     }
 
     actualizarSelectCategorias();
@@ -20648,59 +20920,7 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
         if (!window.firebase) {
             throw new Error('Firebase SDK no está cargado en el frontend.');
         }
-        if (!window.firebase.apps || !window.firebase.apps.length) {
-            window.firebase.initializeApp(FIREBASE_WEB_CONFIG);
-        }
         return window.firebase.app();
-    };
-
-    const uploadToFirebaseDirect = async (order, frontFile, backFile) => {
-        getFirebaseWebApp();
-        const storage = window.firebase.storage();
-        const firestore = window.firebase.firestore();
-
-        const orderRefRaw = getOrderIdCandidate(order) || getClientCandidate(order) || 'pedido';
-        const orderRef = sanitizePathPart(orderRefRaw);
-        const ts = new Date().toISOString().replace(/[-:.]/g, '').replace('T', '_').replace('Z', 'Z');
-
-        const mkPath = (side, filename) => `designs/${orderRef}/${ts}_${side}_${sanitizePathPart(filename)}`;
-        const frontPath = mkPath('frente', frontFile.name);
-        const backPath = mkPath('reverso', backFile.name);
-
-        const [frontSnap, backSnap] = await Promise.all([
-            storage.ref(frontPath).put(frontFile, { contentType: frontFile.type || 'application/octet-stream' }),
-            storage.ref(backPath).put(backFile, { contentType: backFile.type || 'application/octet-stream' })
-        ]);
-
-        const [frontUrl, backUrl] = await Promise.all([
-            frontSnap.ref.getDownloadURL(),
-            backSnap.ref.getDownloadURL()
-        ]);
-
-        await firestore.collection(FIREBASE_UPLOAD_COLLECTION).add({
-            order,
-            orderRef,
-            uploadedAt: new Date().toISOString(),
-            source: 'boutique-web-direct',
-            files: [
-                {
-                    side: 'frente',
-                    filename: frontFile.name,
-                    contentType: frontFile.type || 'application/octet-stream',
-                    sizeBytes: frontFile.size || 0,
-                    storagePath: frontPath,
-                    storageUrl: frontUrl,
-                },
-                {
-                    side: 'reverso',
-                    filename: backFile.name,
-                    contentType: backFile.type || 'application/octet-stream',
-                    sizeBytes: backFile.size || 0,
-                    storagePath: backPath,
-                    storageUrl: backUrl,
-                }
-            ]
-        });
     };
 
     const uploadDesignFiles = async () => {
@@ -20742,21 +20962,9 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
                 });
             };
 
-            let uploadedVia = 'backend';
-            if (ENABLE_FIREBASE_DIRECT_UPLOAD && CAN_USE_FIREBASE_DIRECT_UPLOAD) {
-                try {
-                    await uploadToFirebaseDirect(selectedDesignOrder, front, back);
-                    uploadedVia = 'firebase';
-                } catch (_) {
-                    await sendByBackend();
-                }
-            } else {
-                await sendByBackend();
-            }
+            await sendByBackend();
 
-            setDesignStatus(uploadedVia === 'firebase'
-                ? 'Diseño enviado correctamente a Firebase.'
-                : 'Diseño enviado correctamente (vía backend).', false, true);
+            setDesignStatus('Diseño enviado correctamente (vía backend).', false, true);
             if (designFileFront) designFileFront.value = '';
             if (designFileBack) designFileBack.value = '';
         } catch (err) {
@@ -20764,12 +20972,7 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
         }
     };
 
-    const escapeHtml = (value) => String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+    const escapeHtml = window._escHtml;
 
     const renderAccessRows = (rows = []) => {
         if (!accessTableWrap) return;
@@ -21299,22 +21502,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var STORAGE_KEY = 'mock_clientes_quick_v1';
     var clientes = [];
-    var PRODUCTOS_DISPONIBLES = [
-        'BOLSA BOUTIQUE TROQUELADA',
-        'BOLSAS KRAFT',
-        'BOLSAS KRAFT BLANCAS',
-        'TARJETAS DE PRESENTACIÓN',
-        'VOLANTES'
-    ];
+    var PRODUCTOS_DISPONIBLES = []; // Se llena dinámicamente desde productosData
+
+    // Función para cargar productos disponibles dinámicamente del catálogo
+    function loadProductosDisponibles() {
+        try {
+            var raw = localStorage.getItem('mock_productos_v1');
+            if (raw) {
+                var parsed = JSON.parse(raw);
+                if (Array.isArray(parsed) && parsed.length) {
+                    var cats = [];
+                    parsed.forEach(function(p) {
+                        var cat = String(p.categoria || p.producto || '').trim().toUpperCase();
+                        if (cat && cats.indexOf(cat) < 0) cats.push(cat);
+                    });
+                    if (cats.length) { PRODUCTOS_DISPONIBLES = cats; return; }
+                }
+            }
+        } catch (e) {}
+        // Fallback hardcoded
+        PRODUCTOS_DISPONIBLES = [
+            'BOLSA BOUTIQUE TROQUELADA',
+            'BOLSAS KRAFT',
+            'BOLSAS KRAFT BLANCAS',
+            'TARJETAS DE PRESENTACIÓN',
+            'VOLANTES'
+        ];
+    }
+    loadProductosDisponibles();
     var tiposSeleccionadosCliente = ['BOLSA BOUTIQUE TROQUELADA'];
 
     function seedClientes() {
         return [
-            { id: 'c1', nombre: 'Alma Cruz', telefono: '9511012233', tipoProducto: 'BOLSA BOUTIQUE TROQUELADA', modulo: 'BOLSA BOUTIQUE TROQUELADA', entregas: 2, revisiones: 1 },
-            { id: 'c2', nombre: 'Luis Mendoza', telefono: '9513342210', tipoProducto: 'BOLSAS KRAFT', modulo: 'BOLSAS KRAFT', entregas: 1, revisiones: 0 },
-            { id: 'c3', nombre: 'Rosa Varela', telefono: '9515549901', tipoProducto: 'TARJETAS DE PRESENTACIÓN', modulo: 'TARJETAS DE PRESENTACIÓN', entregas: 3, revisiones: 2 },
-            { id: 'c4', nombre: 'Carlos Tejada', telefono: '9511120088', tipoProducto: 'VOLANTES', modulo: 'VOLANTES', entregas: 0, revisiones: 1 },
-            { id: 'c5', nombre: 'Mariana Solis', telefono: '9516017722', tipoProducto: 'BOLSA BOUTIQUE TROQUELADA', modulo: 'BOLSA BOUTIQUE TROQUELADA', entregas: 1, revisiones: 3 }
+            { id: 'CL-001', nombre: 'Alma Cruz', telefono: '9511012233', tipoProducto: 'BOLSA BOUTIQUE TROQUELADA', modulo: 'BOLSA BOUTIQUE TROQUELADA', entregas: 2, revisiones: 1 },
+            { id: 'CL-002', nombre: 'Luis Mendoza', telefono: '9513342210', tipoProducto: 'BOLSAS KRAFT', modulo: 'BOLSAS KRAFT', entregas: 1, revisiones: 0 },
+            { id: 'CL-003', nombre: 'Rosa Varela', telefono: '9515549901', tipoProducto: 'TARJETAS DE PRESENTACIÓN', modulo: 'TARJETAS DE PRESENTACIÓN', entregas: 3, revisiones: 2 },
+            { id: 'CL-004', nombre: 'Carlos Tejada', telefono: '9511120088', tipoProducto: 'VOLANTES', modulo: 'VOLANTES', entregas: 0, revisiones: 1 },
+            { id: 'CL-005', nombre: 'Mariana Solis', telefono: '9516017722', tipoProducto: 'BOLSA BOUTIQUE TROQUELADA', modulo: 'BOLSA BOUTIQUE TROQUELADA', entregas: 1, revisiones: 3 }
         ];
     }
 
@@ -21364,7 +21588,72 @@ document.addEventListener('DOMContentLoaded', function() {
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(clientes)); } catch (e) {}
     }
 
+    // Sincroniza clientes del módulo principal al panel quick
+    function syncFromModuloClientes() {
+        try {
+            var raw = localStorage.getItem('mock_clientes_modulo_v1');
+            if (!raw) return;
+            var modData = JSON.parse(raw);
+            if (!Array.isArray(modData)) return;
+            modData.forEach(function(mc) {
+                var existing = clientes.find(function(c) {
+                    return c.id === mc.id ||
+                        (String(c.nombre||'').trim().toUpperCase() === String(mc.nombre||'').trim().toUpperCase() &&
+                         String(c.telefono||'').trim() === String(mc.telefono||'').trim());
+                });
+                if (!existing) {
+                    // Add module client to quick panel
+                    clientes.push({
+                        id: mc.id,
+                        nombre: mc.nombre || '',
+                        telefono: mc.telefono || '',
+                        tipoProducto: 'BOLSA BOUTIQUE TROQUELADA',
+                        modulo: 'BOLSA BOUTIQUE TROQUELADA',
+                        tiposProducto: ['BOLSA BOUTIQUE TROQUELADA'],
+                        modulos: ['BOLSA BOUTIQUE TROQUELADA'],
+                        entregas: 0,
+                        revisiones: 0
+                    });
+                } else {
+                    // Update name/phone from module if changed
+                    existing.nombre = mc.nombre || existing.nombre;
+                    existing.telefono = mc.telefono || existing.telefono;
+                    // Keep the module ID consistent
+                    if (existing.id !== mc.id && mc.id) existing.id = mc.id;
+                }
+            });
+            saveClientes();
+        } catch (e) {}
+    }
+
+    // Sync a quick client back to the module store
+    function syncQuickToModulo(quickCli) {
+        try {
+            var raw = localStorage.getItem('mock_clientes_modulo_v1');
+            var modData = Array.isArray(JSON.parse(raw || '[]')) ? JSON.parse(raw || '[]') : [];
+            var exists = modData.find(function(m) {
+                return m.id === quickCli.id ||
+                    (String(m.nombre||'').trim().toUpperCase() === String(quickCli.nombre||'').trim().toUpperCase());
+            });
+            if (!exists) {
+                modData.push({
+                    id: quickCli.id,
+                    nombre: quickCli.nombre || '',
+                    empresa: '',
+                    telefono: quickCli.telefono || '',
+                    correo: '',
+                    calle: '', colonia: '', numero: '', pais: 'México',
+                    ciudad: '', estado: '', cp: '',
+                    razonSocial: '', rfc: '', referenciaBancaria: '',
+                    tipoCliente: 'regular'
+                });
+                localStorage.setItem('mock_clientes_modulo_v1', JSON.stringify(modData));
+            }
+        } catch (e) {}
+    }
+
     function loadClientes() {
+        loadProductosDisponibles();
         try {
             var raw = localStorage.getItem(STORAGE_KEY);
             if (raw) {
@@ -21384,21 +21673,17 @@ document.addEventListener('DOMContentLoaded', function() {
                             revisiones: Math.max(0, Number(c.revisiones || 0))
                         };
                     });
+                    syncFromModuloClientes();
                     return;
                 }
             }
         } catch (e) {}
         clientes = seedClientes();
+        syncFromModuloClientes();
         saveClientes();
     }
 
-    function escQuick(s) {
-        return String(s == null ? '' : s)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
-    }
+    var escQuick = window._escHtml;
 
     function renderTipoProductoTags() {
         if (!tipoProductoTagsWrap) return;
@@ -21568,7 +21853,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         clientes.unshift({
-            id: 'c_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+            id: 'CL-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random() * 90 + 10),
             nombre: nombre,
             telefono: telefono,
             tipoProducto: tiposSeleccionados[0],
@@ -21579,6 +21864,8 @@ document.addEventListener('DOMContentLoaded', function() {
             revisiones: revisiones
         });
         saveClientes();
+        // Sync back to module store
+        syncQuickToModulo(clientes[0]);
         renderClientes();
         inpNombre.value = '';
         inpTelefono.value = '';
@@ -22241,9 +22528,29 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- html5-qrcode -->
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-<script src="./config.js"></script>
+
+<!-- Firebase initialization -->
+<script>
+if (window.firebase && (!window.firebase.apps || !window.firebase.apps.length)) {
+    window.firebase.initializeApp({
+        apiKey: "AIzaSyAr8-ybVqcaeubCs-bApA_FAKnDgj9S7vM",
+        authDomain: "maquilero-8344b.firebaseapp.com",
+        projectId: "maquilero-8344b",
+        storageBucket: "maquilero-8344b.firebasestorage.app",
+        messagingSenderId: "323366654858",
+        appId: "1:323366654858:web:5527744db419863da6ee73",
+        measurementId: "G-H26F2MCQWD"
+    });
+}
+window._escHtml = function(s) {
+    return String(s == null ? '' : s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+};
+</script>
 
 <!-- ═══════════════════════════════════════════════════════════════
      MÓDULO DE PRODUCCIÓN — Panel HTML
@@ -22431,28 +22738,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 /* Módulo de Producción */
 document.addEventListener('DOMContentLoaded', function() {
-    var PROD_FB_CFG = {
-        apiKey: "AIzaSyAr8-ybVqcaeubCs-bApA_FAKnDgj9S7vM",
-        authDomain: "maquilero-8344b.firebaseapp.com",
-        projectId: "maquilero-8344b",
-        storageBucket: "maquilero-8344b.firebasestorage.app",
-        messagingSenderId: "323366654858",
-        appId: "1:323366654858:web:5527744db419863da6ee73"
-    };
     var PROD_COLLECTION = 'production_orders';
     function getProdDB() {
         if (!window.firebase) { alert('Firebase SDK no disponible'); return null; }
-        try {
-            if (!window.firebase.apps || !window.firebase.apps.length)
-                window.firebase.initializeApp(PROD_FB_CFG);
-        } catch(e) {}
         return window.firebase.firestore();
     }
     var currentTab = 'pendiente';
     var allOrders = [];
-    function esc(str) {
-        return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
+    var esc = window._escHtml;
     var panelProduccion  = document.getElementById('panelProduccion');
     var btnProduccion    = document.getElementById('btnProduccion');
     var produccionBack   = document.getElementById('produccionBack');
@@ -23100,22 +23393,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 /* Módulo de Entregas */
 document.addEventListener('DOMContentLoaded', function() {
-    var ENT_FB_CFG = {
-        apiKey: "AIzaSyAr8-ybVqcaeubCs-bApA_FAKnDgj9S7vM",
-        authDomain: "maquilero-8344b.firebaseapp.com",
-        projectId: "maquilero-8344b",
-        storageBucket: "maquilero-8344b.firebasestorage.app",
-        messagingSenderId: "323366654858",
-        appId: "1:323366654858:web:5527744db419863da6ee73"
-    };
     var ENT_COLLECTION = 'delivery_orders';
 
     function getEntDB() {
         if (!window.firebase) { alert('Firebase SDK no disponible'); return null; }
-        try {
-            if (!window.firebase.apps || !window.firebase.apps.length)
-                window.firebase.initializeApp(ENT_FB_CFG);
-        } catch(e) {}
         return window.firebase.firestore();
     }
 
@@ -23127,9 +23408,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var entUserMarker = null;
     var qrScannerInstance = null;
 
-    function escEnt(s) {
-        return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
+    var escEnt = window._escHtml;
 
     // Haversine distance in km
     function haversineKm(lat1, lng1, lat2, lng2) {
@@ -23505,6 +23784,715 @@ document.addEventListener('DOMContentLoaded', function() {
         if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     });
 });
+</script>
+
+<!-- ===== SISTEMA DE LOGIN, ATAJOS RÁPIDOS, ENVÍO/INSTALACIÓN, GESTIÓN DE USUARIOS ===== -->
+<script>
+(function() {
+    'use strict';
+
+    // ===== FIREBASE AUTH CONFIG =====
+    const LOGIN_FB_CONFIG = {
+        apiKey: "AIzaSyAr8-ybVqcaeubCs-bApA_FAKnDgj9S7vM",
+        authDomain: "maquilero-8344b.firebaseapp.com",
+        projectId: "maquilero-8344b",
+        storageBucket: "maquilero-8344b.firebasestorage.app",
+        messagingSenderId: "323366654858",
+        appId: "1:323366654858:web:5527744db419863da6ee73"
+    };
+
+    const USERS_FIRESTORE_COLLECTION = 'system_users';
+    let cachedUsers = [];
+    let firebaseAuthApp = null;
+
+    // ===== FIREBASE HELPERS =====
+    const getAuthApp = () => {
+        if (firebaseAuthApp) return firebaseAuthApp;
+        if (!window.firebase) return null;
+        try {
+            firebaseAuthApp = window.firebase.apps.find(a => a.name === 'authApp') ||
+                window.firebase.initializeApp(LOGIN_FB_CONFIG, 'authApp');
+            return firebaseAuthApp;
+        } catch (e) {
+            try { firebaseAuthApp = window.firebase.app('authApp'); return firebaseAuthApp; } catch (_) {}
+            return null;
+        }
+    };
+
+    const getFirestoreDB = () => {
+        try {
+            const app = getAuthApp();
+            if (!app) return null;
+            return window.firebase.firestore(app);
+        } catch (_) { return null; }
+    };
+
+    // ===== GESTIÓN DE USUARIOS (FIRESTORE) =====
+    const loadUsersFromFirestore = async () => {
+        let db = null;
+        try {
+            // Try using the default Firebase app's Firestore first (same project)
+            db = window.firebase.firestore();
+        } catch (_) {
+            db = getFirestoreDB();
+        }
+        if (!db) { console.warn('Firestore no disponible para cargar usuarios'); return cachedUsers; }
+        try {
+            const snap = await db.collection(USERS_FIRESTORE_COLLECTION).get();
+            cachedUsers = [];
+            snap.forEach(doc => {
+                cachedUsers.push({ id: doc.id, ...doc.data() });
+            });
+            // Sort locally to avoid needing a Firestore index
+            cachedUsers.sort((a, b) => String(a.nombre || '').localeCompare(String(b.nombre || '')));
+            return cachedUsers;
+        } catch (err) {
+            console.warn('Error cargando usuarios de Firestore:', err);
+            return cachedUsers;
+        }
+    };
+
+    const getDefaultDB = () => {
+        try { return window.firebase.firestore(); } catch (_) { return getFirestoreDB(); }
+    };
+
+    const saveUserToFirestore = async (userData) => {
+        const db = getDefaultDB();
+        if (!db) throw new Error('Firestore no disponible.');
+        const docRef = await db.collection(USERS_FIRESTORE_COLLECTION).add({
+            correo: userData.correo,
+            nombre: userData.nombre,
+            rol: userData.rol,
+            activo: true,
+            creadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+        });
+        return docRef.id;
+    };
+
+    const updateUserInFirestore = async (docId, updates) => {
+        const db = getDefaultDB();
+        if (!db) return;
+        await db.collection(USERS_FIRESTORE_COLLECTION).doc(docId).update(updates);
+    };
+
+    const deleteUserFromFirestore = async (docId) => {
+        const db = getDefaultDB();
+        if (!db) return;
+        await db.collection(USERS_FIRESTORE_COLLECTION).doc(docId).delete();
+    };
+
+    const findUserByEmail = (email) => {
+        const norm = String(email || '').trim().toLowerCase();
+        return cachedUsers.find(u => String(u.correo || '').trim().toLowerCase() === norm) || null;
+    };
+
+    window._maqSystemUsers = { load: loadUsersFromFirestore, find: findUserByEmail, cached: () => cachedUsers };
+
+    // ===== CREATE USER IN FIREBASE AUTH + FIRESTORE =====
+    const createUserInFirebase = async (correo, password, nombre, rol) => {
+        const app = getAuthApp();
+        if (!app) throw new Error('Firebase no disponible.');
+        const auth = window.firebase.auth(app);
+
+        // Save current user reference (admin creating the account)
+        const currentUser = auth.currentUser;
+
+        // Create user in Firebase Auth
+        const cred = await auth.createUserWithEmailAndPassword(correo, password);
+        const newUser = cred.user;
+
+        // Update display name
+        await newUser.updateProfile({ displayName: nombre });
+
+        // Sign back in as admin if we were logged in
+        const adminEmail = localStorage.getItem('logged_user_email');
+        const adminPass = sessionStorage.getItem('_admin_temp_pass');
+        // We can't sign back in without the admin password, so we'll stay signed in as admin
+        // The new user was created, now save to Firestore
+
+        // Save user profile to Firestore
+        const docId = await saveUserToFirestore({ correo, nombre, rol });
+
+        // Re-authenticate as the original admin user if possible
+        if (adminEmail && adminPass) {
+            try { await auth.signInWithEmailAndPassword(adminEmail, adminPass); } catch (_) {}
+        }
+
+        return { uid: newUser.uid, docId };
+    };
+
+    // ===== LOGIN SYSTEM =====
+    const loginOverlay = document.getElementById('loginOverlay');
+    const loginCorreo = document.getElementById('loginCorreo');
+    const loginPassword = document.getElementById('loginPassword');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginError = document.getElementById('loginError');
+
+    const doLogin = async () => {
+        const email = String(loginCorreo?.value || '').trim();
+        const pass = String(loginPassword?.value || '').trim();
+        if (!email || !pass) { loginError.textContent = 'Ingresa correo y contraseña.'; return; }
+        loginError.textContent = '';
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Ingresando...';
+
+        try {
+            const app = getAuthApp();
+            if (!app) throw new Error('Firebase no disponible.');
+            const auth = window.firebase.auth(app);
+            const cred = await auth.signInWithEmailAndPassword(email, pass);
+            const fbUser = cred.user;
+
+            // Load users from Firestore to get role & name
+            await loadUsersFromFirestore();
+            const sysUser = findUserByEmail(email);
+            const userName = sysUser?.nombre || fbUser.displayName || email.split('@')[0];
+            const userRole = sysUser?.rol || 'vendedor';
+
+            localStorage.setItem('logged_user_email', email);
+            localStorage.setItem('logged_user_name', userName);
+            localStorage.setItem('logged_user_role', userRole);
+            // Store password temporarily for re-auth during user creation
+            sessionStorage.setItem('_admin_temp_pass', pass);
+
+            completeLogin(userName, userRole);
+        } catch (err) {
+            const msgs = {
+                'auth/user-not-found': 'Usuario no encontrado.',
+                'auth/wrong-password': 'Contraseña incorrecta.',
+                'auth/invalid-email': 'Correo inválido.',
+                'auth/invalid-credential': 'Credenciales inválidas.',
+                'auth/too-many-requests': 'Demasiados intentos. Intenta más tarde.',
+                'auth/network-request-failed': 'Error de red. Verifica tu conexión.'
+            };
+            loginError.textContent = msgs[err.code] || err.message || 'Error al iniciar sesión.';
+        } finally {
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'INGRESAR';
+        }
+    };
+
+    const completeLogin = (userName, userRole) => {
+        if (loginOverlay) loginOverlay.style.display = 'none';
+        const vendedorInput = document.getElementById('ordenVendedor');
+        if (vendedorInput) vendedorInput.value = userName;
+
+        if (userRole === 'disenador') {
+            const disSel = document.getElementById('ordenDisenador');
+            if (disSel) {
+                for (const opt of disSel.options) {
+                    if (opt.value.toLowerCase().includes(userName.toLowerCase())) { disSel.value = opt.value; break; }
+                }
+            }
+        }
+
+        // Apply permissions based on role
+        applyRolePermissions(userRole);
+    };
+
+    // ===== PERMISOS POR ROL =====
+    const applyRolePermissions = (role) => {
+        const isAdmin = role === 'admin';
+        const isVendedor = role === 'vendedor';
+        const isDisenador = role === 'disenador';
+
+        // Config button: visible for all roles (permissions enforced inside)
+        const btnAjustes = document.getElementById('btnAjustesMain');
+        if (btnAjustes) btnAjustes.style.display = '';
+
+        // Caja module: admin and vendedor
+        const cajaCards = document.querySelectorAll('.inicio-card');
+        cajaCards.forEach(card => {
+            const label = (card.textContent || '').trim().toLowerCase();
+            if (label.includes('caja') || label.includes('reportes')) {
+                card.style.opacity = (isAdmin || isVendedor) ? '1' : '0.4';
+                card.style.pointerEvents = (isAdmin || isVendedor) ? '' : 'none';
+            }
+            if (label.includes('producción')) {
+                card.style.opacity = (isAdmin || isDisenador) ? '1' : '0.4';
+                card.style.pointerEvents = (isAdmin || isDisenador) ? '' : 'none';
+            }
+        });
+
+        // Discount button: only admin
+        const descuentoBtn = document.getElementById('ordenBtnDescuento');
+        if (descuentoBtn) {
+            descuentoBtn.style.opacity = isAdmin ? '1' : '0.5';
+            if (!isAdmin) {
+                descuentoBtn.title = 'Solo administradores pueden aplicar descuentos';
+            }
+        }
+
+        // Show logged user role badge
+        const vendedorInput = document.getElementById('ordenVendedor');
+        if (vendedorInput && vendedorInput.parentElement) {
+            let badge = vendedorInput.parentElement.querySelector('.login-user-badge');
+            if (!badge) {
+                badge = document.createElement('span');
+                badge.className = 'login-user-badge';
+                vendedorInput.parentElement.appendChild(badge);
+            }
+            const roleLabels = { admin: '🟡 Admin', vendedor: '🟢 Vendedor', disenador: '🟣 Diseñador' };
+            badge.textContent = roleLabels[role] || role;
+        }
+    };
+
+    // Check session on load
+    const checkSession = () => {
+        const savedName = localStorage.getItem('logged_user_name');
+        const savedEmail = localStorage.getItem('logged_user_email');
+        if (savedName && savedEmail) {
+            const role = localStorage.getItem('logged_user_role') || 'vendedor';
+            completeLogin(savedName, role);
+            // Reload user data from Firestore in background
+            loadUsersFromFirestore().then(() => {
+                const sysUser = findUserByEmail(savedEmail);
+                if (sysUser && sysUser.rol !== role) {
+                    localStorage.setItem('logged_user_role', sysUser.rol);
+                    applyRolePermissions(sysUser.rol);
+                }
+            }).catch(() => {});
+        } else {
+            if (loginOverlay) loginOverlay.style.display = 'flex';
+        }
+    };
+
+    if (loginBtn) loginBtn.addEventListener('click', doLogin);
+    if (loginPassword) loginPassword.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); doLogin(); } });
+    if (loginCorreo) loginCorreo.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); loginPassword?.focus(); } });
+
+    const waitForFirebase = () => {
+        if (window.firebase) { checkSession(); }
+        else { setTimeout(waitForFirebase, 100); }
+    };
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', waitForFirebase); }
+    else { waitForFirebase(); }
+
+    // ===== USUARIOS CONFIG TAB (FIRESTORE) =====
+    const esc = (s) => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+    const renderConfigUsersTable = async () => {
+        const tbody = document.getElementById('configUsersTableBody');
+        const countEl = document.getElementById('configUsersCount');
+        const syncStatus = document.getElementById('configUsersSyncStatus');
+        if (!tbody) return;
+
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#9ca3af;padding:20px;">⏳ Cargando usuarios desde Firebase...</td></tr>';
+
+        try {
+            const users = await loadUsersFromFirestore();
+            if (syncStatus) syncStatus.textContent = '✅ Conectado a Firebase — ' + users.length + ' usuarios cargados';
+            if (countEl) countEl.textContent = users.length + ' usuario' + (users.length !== 1 ? 's' : '');
+
+            if (!users.length) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#9ca3af;padding:20px;">No hay usuarios registrados en Firebase.</td></tr>';
+                return;
+            }
+
+            const currentEmail = (localStorage.getItem('logged_user_email') || '').toLowerCase();
+            const currentRole = localStorage.getItem('logged_user_role') || '';
+
+            tbody.innerHTML = users.map((u) => {
+                const isSelf = String(u.correo||'').toLowerCase() === currentEmail;
+                const roleClass = u.rol === 'admin' ? 'admin' : u.rol === 'disenador' ? 'disenador' : 'vendedor';
+                const roleLabel = u.rol === 'admin' ? 'Administrador' : u.rol === 'disenador' ? 'Diseñador' : 'Vendedor';
+                const activo = u.activo !== false;
+                const canDelete = currentRole === 'admin' && !isSelf;
+                const canToggle = currentRole === 'admin' && !isSelf;
+                const canChangeRole = currentRole === 'admin' && !isSelf;
+
+                return `<tr${isSelf ? ' style="background:#fef7ed;"' : ''}>
+                    <td>${esc(u.correo)}${isSelf ? ' <span style="font-size:0.45rem;color:#ff9900;font-weight:700;">(tú)</span>' : ''}</td>
+                    <td style="font-weight:700;color:#111827;">${esc(u.nombre)}</td>
+                    <td>
+                        ${canChangeRole
+                            ? `<select class="config-user-role-select" data-doc-id="${esc(u.id)}" style="font-size:0.52rem;padding:4px 8px;border-radius:6px;background:#f9fafb;color:#374151;border:1px solid #d1d5db;">
+                                <option value="vendedor"${u.rol==='vendedor'?' selected':''}>🟢 Vendedor</option>
+                                <option value="disenador"${u.rol==='disenador'?' selected':''}>🟣 Diseñador</option>
+                                <option value="admin"${u.rol==='admin'?' selected':''}>🟡 Admin</option>
+                            </select>`
+                            : `<span class="config-user-role-badge ${roleClass}">${roleLabel}</span>`
+                        }
+                    </td>
+                    <td>
+                        <span class="config-user-status">
+                            <span class="dot ${activo ? 'active' : 'inactive'}"></span>
+                            ${activo ? 'Activo' : 'Inactivo'}
+                        </span>
+                    </td>
+                    <td style="text-align:center;white-space:nowrap;">
+                        ${canToggle ? `<button class="productos-btn config-user-toggle" data-doc-id="${esc(u.id)}" data-active="${activo}" style="padding:4px 10px;font-size:0.48rem;margin-right:4px;background:#f3f4f6;border:1px solid #d1d5db;color:#374151;border-radius:6px;cursor:pointer;" title="${activo ? 'Desactivar' : 'Activar'}">${activo ? '⏸' : '▶'}</button>` : ''}
+                        ${currentRole === 'admin' ? `<button class="productos-btn config-user-resetpw" data-email="${esc(u.correo)}" data-name="${esc(u.nombre)}" style="padding:4px 10px;font-size:0.48rem;margin-right:4px;background:#eef2ff;border:1px solid #c7d2fe;color:#4338ca;border-radius:6px;cursor:pointer;" title="Enviar email para resetear contraseña">🔑</button>` : ''}
+                        ${canDelete ? `<button class="productos-btn delete config-user-delete" data-doc-id="${esc(u.id)}" data-name="${esc(u.nombre)}" style="padding:4px 10px;font-size:0.48rem;background:#fef2f2;border:1px solid #fecaca;color:#dc2626;border-radius:6px;cursor:pointer;" title="Eliminar">🗑️</button>` : ''}
+                        ${!canDelete && !canToggle && currentRole !== 'admin' ? '<span style="color:#d1d5db;font-size:0.45rem;">—</span>' : ''}
+                    </td>
+                </tr>`;
+            }).join('');
+
+            // Bind role change
+            tbody.querySelectorAll('.config-user-role-select').forEach(sel => {
+                sel.addEventListener('change', async () => {
+                    const docId = sel.dataset.docId;
+                    const newRole = sel.value;
+                    try {
+                        sel.disabled = true;
+                        await updateUserInFirestore(docId, { rol: newRole });
+                        await renderConfigUsersTable();
+                    } catch (err) {
+                        alert('Error al cambiar rol: ' + err.message);
+                        sel.disabled = false;
+                    }
+                });
+            });
+
+            // Bind toggle active
+            tbody.querySelectorAll('.config-user-toggle').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const docId = btn.dataset.docId;
+                    const isActive = btn.dataset.active === 'true';
+                    try {
+                        btn.disabled = true;
+                        await updateUserInFirestore(docId, { activo: !isActive });
+                        await renderConfigUsersTable();
+                    } catch (err) {
+                        alert('Error: ' + err.message);
+                        btn.disabled = false;
+                    }
+                });
+            });
+
+            // Bind password reset
+            tbody.querySelectorAll('.config-user-resetpw').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const email = btn.dataset.email;
+                    const name = btn.dataset.name;
+                    if (!confirm(`¿Enviar correo de restablecimiento de contraseña a "${name}" (${email})?`)) return;
+                    btn.disabled = true;
+                    btn.textContent = '⏳';
+                    try {
+                        const auth = window.firebase.auth(getAuthApp());
+                        await auth.sendPasswordResetEmail(email);
+                        alert(`✅ Correo de restablecimiento enviado a ${email}`);
+                    } catch (err) {
+                        alert('❌ Error al enviar correo: ' + (err.message || err));
+                    } finally {
+                        btn.disabled = false;
+                        btn.textContent = '🔑';
+                    }
+                });
+            });
+
+            // Bind delete
+            tbody.querySelectorAll('.config-user-delete').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const docId = btn.dataset.docId;
+                    const name = btn.dataset.name;
+                    if (!confirm(`¿Eliminar permanentemente al usuario "${name}"?\n\nEsto eliminará su perfil de Firestore. La cuenta de Firebase Auth se mantendrá pero no podrá acceder.`)) return;
+                    try {
+                        btn.disabled = true;
+                        await deleteUserFromFirestore(docId);
+                        await renderConfigUsersTable();
+                    } catch (err) {
+                        alert('Error al eliminar: ' + err.message);
+                        btn.disabled = false;
+                    }
+                });
+            });
+
+        } catch (err) {
+            if (syncStatus) syncStatus.textContent = '❌ Error conectando con Firebase: ' + err.message;
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#ef4444;padding:20px;">Error al cargar usuarios: ' + esc(err.message) + '</td></tr>';
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // CREATE USER
+        const addBtn = document.getElementById('configUserAgregar');
+        const statusEl = document.getElementById('configUserCrearStatus');
+
+        if (addBtn) {
+            addBtn.addEventListener('click', async () => {
+                const correoInput = document.getElementById('configUserCorreo');
+                const nombreInput = document.getElementById('configUserNombre');
+                const passInput = document.getElementById('configUserPassword');
+                const rolSelect = document.getElementById('configUserRol');
+
+                const correo = String(correoInput?.value || '').trim();
+                const nombre = String(nombreInput?.value || '').trim();
+                const password = String(passInput?.value || '').trim();
+                const rol = String(rolSelect?.value || 'vendedor');
+
+                if (!correo || !nombre || !password) {
+                    if (statusEl) { statusEl.textContent = '⚠️ Completa todos los campos.'; statusEl.style.color = '#fbbf24'; }
+                    return;
+                }
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+                    if (statusEl) { statusEl.textContent = '⚠️ Correo inválido.'; statusEl.style.color = '#fbbf24'; }
+                    return;
+                }
+                if (password.length < 6) {
+                    if (statusEl) { statusEl.textContent = '⚠️ La contraseña debe tener al menos 6 caracteres.'; statusEl.style.color = '#fbbf24'; }
+                    return;
+                }
+
+                // Check duplicate in cached users
+                if (cachedUsers.find(u => u.correo?.toLowerCase() === correo.toLowerCase())) {
+                    if (statusEl) { statusEl.textContent = '⚠️ Este correo ya está registrado.'; statusEl.style.color = '#fbbf24'; }
+                    return;
+                }
+
+                addBtn.disabled = true;
+                addBtn.textContent = '⏳ Creando...';
+                if (statusEl) { statusEl.textContent = 'Creando cuenta en Firebase Auth...'; statusEl.style.color = '#8a9bb5'; }
+
+                try {
+                    await createUserInFirebase(correo, password, nombre, rol);
+                    if (statusEl) { statusEl.textContent = '✅ Usuario "' + nombre + '" creado exitosamente.'; statusEl.style.color = '#22c55e'; }
+                    if (correoInput) correoInput.value = '';
+                    if (nombreInput) nombreInput.value = '';
+                    if (passInput) passInput.value = '';
+                    await renderConfigUsersTable();
+                } catch (err) {
+                    const msgs = {
+                        'auth/email-already-in-use': 'Este correo ya tiene cuenta en Firebase. Se registrará solo en Firestore.',
+                        'auth/weak-password': 'La contraseña es muy débil (mínimo 6 caracteres).',
+                        'auth/invalid-email': 'Correo inválido.'
+                    };
+                    if (err.code === 'auth/email-already-in-use') {
+                        // User exists in Auth but not in Firestore — just save to Firestore
+                        try {
+                            await saveUserToFirestore({ correo, nombre, rol });
+                            if (statusEl) { statusEl.textContent = '✅ Perfil guardado en Firestore (cuenta Auth ya existía).'; statusEl.style.color = '#22c55e'; }
+                            if (correoInput) correoInput.value = '';
+                            if (nombreInput) nombreInput.value = '';
+                            if (passInput) passInput.value = '';
+                            await renderConfigUsersTable();
+                        } catch (e2) {
+                            if (statusEl) { statusEl.textContent = '❌ Error: ' + e2.message; statusEl.style.color = '#ef4444'; }
+                        }
+                    } else {
+                        if (statusEl) { statusEl.textContent = '❌ ' + (msgs[err.code] || err.message); statusEl.style.color = '#ef4444'; }
+                    }
+
+                    // Re-auth as admin
+                    const adminEmail = localStorage.getItem('logged_user_email');
+                    const adminPass = sessionStorage.getItem('_admin_temp_pass');
+                    if (adminEmail && adminPass) {
+                        try {
+                            const auth = window.firebase.auth(getAuthApp());
+                            await auth.signInWithEmailAndPassword(adminEmail, adminPass);
+                        } catch (_) {}
+                    }
+                } finally {
+                    addBtn.disabled = false;
+                    addBtn.textContent = '➕ CREAR USUARIO';
+                }
+            });
+        }
+
+        // Sync button
+        const syncBtn = document.getElementById('configUsersSyncBtn');
+        if (syncBtn) {
+            syncBtn.addEventListener('click', () => {
+                renderConfigUsersTable();
+            });
+        }
+
+        // Render on config tab switch
+        document.querySelectorAll('.config-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                if (tab.dataset.tab === 'usuarios') {
+                    setTimeout(renderConfigUsersTable, 50);
+                }
+            });
+        });
+    });
+
+    // ===== COSTO DE ENVÍO / INSTALACIÓN =====
+    window.costoEnvio = 0;
+    window.costoInstalacion = 0;
+
+    const showCostoExtraPopup = (tipo, cb) => {
+        const existing = document.getElementById('costoExtraPopupOverlay');
+        if (existing) existing.remove();
+
+        const titleText = tipo === 'envio' ? 'Costo de envío' : 'Costo de instalación';
+        const overlay = document.createElement('div');
+        overlay.id = 'costoExtraPopupOverlay';
+        overlay.className = 'orden-costo-extra-popup';
+        overlay.innerHTML = `<div class="orden-costo-extra-card">
+            <h3>${titleText}</h3>
+            <div class="login-field">
+                <label>Monto a agregar al total ($)</label>
+                <input id="costoExtraInput" type="number" min="0" step="0.01" placeholder="0.00" autofocus>
+            </div>
+            <div class="popup-actions">
+                <button id="costoExtraCancelar" class="orden-btn" type="button">CANCELAR</button>
+                <button id="costoExtraAceptar" class="orden-btn primary" type="button">ACEPTAR</button>
+            </div>
+        </div>`;
+        document.body.appendChild(overlay);
+
+        const input = document.getElementById('costoExtraInput');
+        const aceptar = document.getElementById('costoExtraAceptar');
+        const cancelar = document.getElementById('costoExtraCancelar');
+
+        const doAccept = () => {
+            const val = Math.max(0, Number(input?.value || 0));
+            overlay.remove();
+            cb(val);
+        };
+        const doCancel = () => {
+            overlay.remove();
+            cb(null);
+        };
+
+        aceptar.addEventListener('click', doAccept);
+        cancelar.addEventListener('click', doCancel);
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { e.preventDefault(); doAccept(); }
+            if (e.key === 'Escape') { e.preventDefault(); doCancel(); }
+        });
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) doCancel(); });
+        setTimeout(() => input?.focus(), 50);
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const chkEnvio = document.getElementById('ordenRequiereEnvio');
+        const chkInstalacion = document.getElementById('ordenRequiereInstalacion');
+
+        if (chkEnvio) {
+            chkEnvio.addEventListener('change', () => {
+                if (chkEnvio.checked) {
+                    showCostoExtraPopup('envio', (val) => {
+                        if (val === null || val === 0) { chkEnvio.checked = false; window.costoEnvio = 0; }
+                        else { window.costoEnvio = val; }
+                        updateExtraCosts();
+                    });
+                } else {
+                    window.costoEnvio = 0;
+                    updateExtraCosts();
+                }
+            });
+        }
+
+        if (chkInstalacion) {
+            chkInstalacion.addEventListener('change', () => {
+                if (chkInstalacion.checked) {
+                    showCostoExtraPopup('instalacion', (val) => {
+                        if (val === null || val === 0) { chkInstalacion.checked = false; window.costoInstalacion = 0; }
+                        else { window.costoInstalacion = val; }
+                        updateExtraCosts();
+                    });
+                } else {
+                    window.costoInstalacion = 0;
+                    updateExtraCosts();
+                }
+            });
+        }
+    });
+
+    const updateExtraCosts = () => {
+        const totalMainEl = document.getElementById('ordenTotalMain');
+        if (!totalMainEl) return;
+        const subtotalEl = document.getElementById('ordenSubtotal');
+        const impuestosEl = document.getElementById('ordenImpuestos');
+        const descuentoEl = document.getElementById('ordenDescuento');
+
+        const parseMoney = (el) => Number(String(el?.textContent || '0').replace(/[^0-9.\-]/g, '') || 0);
+        const subtotal = parseMoney(subtotalEl);
+        const impuestos = parseMoney(impuestosEl);
+        const descuento = parseMoney(descuentoEl);
+        const baseTotal = Math.max(0, subtotal + impuestos - descuento);
+        const extras = window.costoEnvio + window.costoInstalacion;
+        const finalTotal = baseTotal + extras;
+
+        const formatMoney = (n) => `$${Number(n||0).toFixed(2)}`;
+
+        let extrasLabel = '';
+        if (window.costoEnvio > 0) extrasLabel += ` + Envío ${formatMoney(window.costoEnvio)}`;
+        if (window.costoInstalacion > 0) extrasLabel += ` + Inst. ${formatMoney(window.costoInstalacion)}`;
+
+        totalMainEl.innerHTML = `<span class="orden-total-label">TOTAL${extrasLabel ? '<br><span style="font-size:0.5rem;color:#8a9bb5;font-weight:400;">' + extrasLabel.trim() + '</span>' : ''}</span><span class="orden-total-amount">${formatMoney(finalTotal)}</span>`;
+    };
+
+    // Observe mutations on the total to always add extras
+    document.addEventListener('DOMContentLoaded', () => {
+        const totalMainEl = document.getElementById('ordenTotalMain');
+        if (totalMainEl) {
+            const observer = new MutationObserver(() => {
+                if (window.costoEnvio > 0 || window.costoInstalacion > 0) {
+                    observer.disconnect();
+                    updateExtraCosts();
+                    observer.observe(totalMainEl, { childList: true, subtree: true, characterData: true });
+                }
+            });
+            observer.observe(totalMainEl, { childList: true, subtree: true, characterData: true });
+        }
+    });
+
+    // ===== KEYBOARD SHORTCUTS =====
+    document.addEventListener('keydown', (ev) => {
+        const tag = (ev.target?.tagName || '').toUpperCase();
+        const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+        const isLoginVisible = loginOverlay && loginOverlay.style.display !== 'none' && loginOverlay.offsetParent !== null;
+        if (isLoginVisible) return;
+
+        if (ev.key === 'F2') { ev.preventDefault(); document.getElementById('ordenRegistrarCliente')?.click(); return; }
+        if (ev.key === 'F3') { ev.preventDefault(); document.getElementById('ordenSeleccionarCliente')?.click(); return; }
+        if (ev.key === 'F5') { ev.preventDefault(); document.getElementById('ordenTicketAdd')?.click(); return; }
+        if (ev.key === 'Delete' && !isInput) { ev.preventDefault(); document.getElementById('ordenBtnLimpiar')?.click(); return; }
+
+        if (ev.key === 'Enter' && !isInput) {
+            const popups = [
+                { popup: document.getElementById('ordenPagoPopup'), btn: document.getElementById('ordenPagoAceptar') },
+                { popup: document.getElementById('ordenConfirmPopup'), btn: document.getElementById('ordenConfirmAceptar') },
+                { popup: document.getElementById('ordenVentaRapidaPopup'), btn: document.getElementById('ordenVrAgregar') },
+                { popup: document.getElementById('ordenDescuentoPopup'), btn: document.getElementById('ordenDescuentoAplicar') },
+                { popup: document.getElementById('fondoCajaPopup'), btn: document.getElementById('fondoCajaAceptar') }
+            ];
+            for (const { popup, btn } of popups) {
+                if (popup && popup.style.display === 'flex' && btn) { ev.preventDefault(); btn.click(); return; }
+            }
+        }
+
+        if (ev.key === 'Escape' && !isInput) {
+            const costoPopup = document.getElementById('costoExtraPopupOverlay');
+            if (costoPopup) { costoPopup.remove(); return; }
+        }
+    });
+
+    // F1 handler in capture phase
+    document.addEventListener('keydown', (ev) => {
+        if (ev.key === 'F1') {
+            ev.preventDefault();
+            ev.stopImmediatePropagation();
+            const isLoginVisible = loginOverlay && loginOverlay.style.display !== 'none' && loginOverlay.offsetParent !== null;
+            if (isLoginVisible) return;
+            const popupListado = document.getElementById('popupListado');
+            const stockPopup = document.getElementById('ordenStockPopup');
+            if (popupListado && popupListado.style.display === 'flex') {
+                if (stockPopup && stockPopup.style.display === 'flex') {
+                    document.getElementById('ordenStockClose')?.click();
+                } else {
+                    document.getElementById('ordenAddStock')?.click();
+                }
+            }
+        }
+    }, true);
+
+    // ===== LOGOUT =====
+    window.cerrarSesion = () => {
+        localStorage.removeItem('logged_user_email');
+        localStorage.removeItem('logged_user_name');
+        localStorage.removeItem('logged_user_role');
+        sessionStorage.removeItem('_admin_temp_pass');
+        const app = getAuthApp();
+        if (app) { try { window.firebase.auth(app).signOut(); } catch (_) {} }
+        if (loginOverlay) loginOverlay.style.display = 'flex';
+    };
+
+})();
 </script>
 </body>
 </html>
