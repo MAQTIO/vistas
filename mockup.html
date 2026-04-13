@@ -24056,8 +24056,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const role = localStorage.getItem('logged_user_role') || 'vendedor';
             completeLogin(savedName, role);
             // Reload user data from Firestore in background
-            loadUsersFromFirestore().then(() => {
-                const sysUser = findUserByEmail(savedEmail);
+            loadUsersFromFirestore().then(async () => {
+                let sysUser = findUserByEmail(savedEmail);
+                // Auto-register if not in Firestore yet
+                if (!sysUser) {
+                    try {
+                        await saveUserToFirestore({ correo: savedEmail, nombre: savedName, rol: role });
+                        await loadUsersFromFirestore();
+                        sysUser = findUserByEmail(savedEmail);
+                    } catch (_) {}
+                }
                 if (sysUser && sysUser.rol !== role) {
                     localStorage.setItem('logged_user_role', sysUser.rol);
                     applyRolePermissions(sysUser.rol);
