@@ -10561,17 +10561,34 @@ const imgBolsaDeliveryBase = new Image();
             <div class="orden-field"><label>Nombre del cliente</label><input id="mpFiltroNombre" type="text"></div>
             <div class="orden-field"><label>Teléfono</label><input id="mpFiltroTelefono" type="text"></div>
             <div class="orden-field"><label>Diseñador</label><input id="mpFiltroDisenador" type="text"></div>
-            <div class="orden-field"><label>Fecha emitida</label><input id="mpFiltroFechaEmitida" type="date"></div>
-            <div class="orden-field"><label>Fecha de entrega</label><input id="mpFiltroFechaEntrega" type="date"></div>
+            <div class="orden-field">
+                <label>Filtro por fecha</label>
+                <select id="mpFiltroFechaRapido">
+                    <option value="">Todos</option>
+                    <option value="hoy">Hoy</option>
+                    <option value="semana">Última semana</option>
+                    <option value="mes">Último mes</option>
+                    <option value="anio">Último año</option>
+                    <option value="rango">Rango personalizado</option>
+                </select>
+            </div>
+            <div class="orden-field" id="mpFechaRangoWrap" style="display:none;">
+                <label>Desde</label><input id="mpFiltroFechaDesde" type="date">
+            </div>
+            <div class="orden-field" id="mpFechaRangoWrap2" style="display:none;">
+                <label>Hasta</label><input id="mpFiltroFechaHasta" type="date">
+            </div>
+            <div class="orden-field">
+                <label>Fecha sobre</label>
+                <select id="mpFiltroFechaCampo">
+                    <option value="emitida">Fecha emitida</option>
+                    <option value="entrega">Fecha de entrega</option>
+                </select>
+            </div>
             <div class="orden-field">
                 <label>Estatus de producción</label>
                 <select id="mpFiltroEstatus">
                     <option value="">Todos</option>
-                    <option value="pendiente">Pendiente</option>
-                    <option value="en-produccion">En producción</option>
-                    <option value="pendiente-por-entregar">Pendiente por entregar</option>
-                    <option value="terminado">Terminado</option>
-                    <option value="entregado">Entregado</option>
                 </select>
             </div>
             <div class="orden-field"><label>Adeudos del cliente</label><input id="mpFiltroAdeudo" type="number" min="0" step="0.01" placeholder="Min"></div>
@@ -10606,6 +10623,72 @@ const imgBolsaDeliveryBase = new Image();
             <div class="mispedidos-foot-item"><b>Total en ventas</b><span id="mpTotalVentas">$0.00</span></div>
             <div class="mispedidos-foot-item"><b>Total de inversión</b><span id="mpTotalInversion">$0.00</span></div>
             <div class="mispedidos-foot-item"><b>Total de ganancia</b><span id="mpTotalGanancia">$0.00</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- POPUP DETALLE ORDEN/COTIZACION -->
+<div id="popupDetalleOrden" class="popup-overlay" aria-hidden="true" style="z-index:100010;">
+    <div class="popup-card wide" role="dialog" aria-modal="true" style="max-width:900px;max-height:92vh;overflow-y:auto;padding:0;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:18px 22px 10px;">
+            <div>
+                <div style="font-size:0.55rem;color:#6b7280;">ORDEN DE TRABAJO</div>
+                <div id="mpDetFolio" style="font-size:1.3em;font-weight:900;color:#1e3a5f;"></div>
+            </div>
+            <div style="text-align:right;">
+                <div id="mpDetFechaEmitida" style="font-size:0.55rem;color:#6b7280;"></div>
+                <div id="mpDetEstatus" style="font-size:0.6rem;font-weight:700;padding:3px 10px;border-radius:8px;display:inline-block;margin-top:4px;background:#e0e7ff;color:#3730a3;"></div>
+            </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 280px;gap:0;border-top:1px solid #e5e7eb;">
+            <!-- LEFT COLUMN: Client + Products -->
+            <div style="padding:14px 22px;border-right:1px solid #e5e7eb;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+                    <div><div style="font-size:0.48rem;color:#9ca3af;font-weight:700;">CLIENTE</div><div id="mpDetCliente" style="font-weight:800;font-size:0.62rem;"></div></div>
+                    <div><div style="font-size:0.48rem;color:#9ca3af;font-weight:700;">TELÉFONO</div><div id="mpDetTelefono" style="font-weight:600;font-size:0.58rem;"></div></div>
+                    <div><div style="font-size:0.48rem;color:#9ca3af;font-weight:700;">VENDEDOR</div><div id="mpDetVendedor" style="font-weight:600;font-size:0.58rem;"></div></div>
+                    <div><div style="font-size:0.48rem;color:#9ca3af;font-weight:700;">DISEÑADOR</div><div id="mpDetDisenador" style="font-weight:600;font-size:0.58rem;"></div></div>
+                    <div><div style="font-size:0.48rem;color:#9ca3af;font-weight:700;">FECHA ENTREGA</div><div id="mpDetFechaEntrega" style="font-weight:600;font-size:0.58rem;"></div></div>
+                    <div><div style="font-size:0.48rem;color:#9ca3af;font-weight:700;">MÉTODO DE PAGO</div><div id="mpDetMetodoPago" style="font-weight:600;font-size:0.58rem;"></div></div>
+                </div>
+                <table style="width:100%;border-collapse:collapse;font-size:0.52rem;">
+                    <thead>
+                        <tr style="background:#f3f4f6;font-weight:800;text-transform:uppercase;">
+                            <th style="padding:6px 8px;text-align:left;border-bottom:2px solid #d1d5db;">Producto</th>
+                            <th style="padding:6px 8px;text-align:left;border-bottom:2px solid #d1d5db;">Medida</th>
+                            <th style="padding:6px 8px;text-align:left;border-bottom:2px solid #d1d5db;">Material</th>
+                            <th style="padding:6px 8px;text-align:center;border-bottom:2px solid #d1d5db;">Cant.</th>
+                            <th style="padding:6px 8px;text-align:right;border-bottom:2px solid #d1d5db;">Precio</th>
+                            <th style="padding:6px 8px;text-align:right;border-bottom:2px solid #d1d5db;">Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mpDetProductosBody"></tbody>
+                </table>
+                <div id="mpDetComentarios" style="margin-top:12px;font-size:0.52rem;color:#4b5563;display:none;">
+                    <div style="font-weight:700;color:#374151;margin-bottom:4px;">COMENTARIOS:</div>
+                    <div id="mpDetComentariosTxt"></div>
+                </div>
+            </div>
+            <!-- RIGHT COLUMN: Totals -->
+            <div style="padding:14px 18px;background:#f8fafc;">
+                <div style="font-size:0.5rem;font-weight:800;color:#374151;margin-bottom:10px;">RESUMEN FINANCIERO</div>
+                <div style="display:flex;flex-direction:column;gap:6px;font-size:0.55rem;">
+                    <div style="display:flex;justify-content:space-between;"><span>Subtotal</span><span id="mpDetSubtotal" style="font-weight:700;"></span></div>
+                    <div style="display:flex;justify-content:space-between;"><span>Impuestos</span><span id="mpDetImpuestos" style="font-weight:700;"></span></div>
+                    <div style="display:flex;justify-content:space-between;"><span>Descuento</span><span id="mpDetDescuento" style="font-weight:700;color:#dc2626;"></span></div>
+                    <div style="display:flex;justify-content:space-between;border-top:2px solid #1e3a5f;padding-top:8px;margin-top:4px;font-size:0.65rem;font-weight:900;color:#1e3a5f;"><span>TOTAL</span><span id="mpDetTotal"></span></div>
+                    <div style="display:flex;justify-content:space-between;margin-top:8px;"><span>Anticipo</span><span id="mpDetAnticipo" style="font-weight:700;color:#15803d;"></span></div>
+                    <div style="display:flex;justify-content:space-between;font-weight:800;color:#be123c;font-size:0.6rem;"><span>RESTANTE</span><span id="mpDetAdeudo"></span></div>
+                    <div style="display:flex;justify-content:space-between;margin-top:8px;border-top:1px solid #e5e7eb;padding-top:6px;"><span style="color:#6b7280;">Inversión</span><span id="mpDetInversion" style="font-weight:700;"></span></div>
+                    <div style="display:flex;justify-content:space-between;color:#b45309;font-weight:700;"><span>Ganancia</span><span id="mpDetGanancia"></span></div>
+                </div>
+                <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px;">
+                    <button id="mpDetWhatsapp" class="productos-btn primary" type="button" style="width:100%;font-size:0.52rem;padding:8px;">📱 ENVIAR TICKET POR WHATSAPP</button>
+                    <button id="mpDetPdf" class="productos-btn" type="button" style="width:100%;font-size:0.52rem;padding:8px;">📄 EXPORTAR PDF</button>
+                    <button id="mpDetStatusWA" class="productos-btn" type="button" style="width:100%;font-size:0.52rem;padding:8px;">📩 ENVIAR ESTATUS POR WHATSAPP</button>
+                    <button id="mpDetCerrar" class="productos-btn" type="button" style="width:100%;font-size:0.52rem;padding:8px;background:#6b7280;color:#fff;">CERRAR</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -11719,6 +11802,7 @@ const imgBolsaDeliveryBase = new Image();
             <button class="config-tab" data-tab="reportes">Reportes</button>
             <button class="config-tab" data-tab="promociones">Promociones</button>
             <button class="config-tab" data-tab="permisos">Permisos</button>
+            <button class="config-tab" data-tab="produccion">Producción</button>
             <button class="config-tab" data-tab="usuarios">Usuarios</button>
         </div>
         
@@ -11999,6 +12083,19 @@ const imgBolsaDeliveryBase = new Image();
                     <div class="orden-field" style="grid-column: 1 / -1;">
                         <label for="configPermisosDescuentoUsuarios">Usuarios autorizados a aplicar descuentos (uno por línea)</label>
                         <textarea id="configPermisosDescuentoUsuarios" rows="8" placeholder="juan.perez&#10;caja1&#10;admin"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: PRODUCCION -->
+            <div class="config-tab-panel" id="tabProduccion" data-tab="produccion">
+                <h3>Estatus de producción</h3>
+                <div class="popup-panel">
+                    <p style="font-size:0.52rem;color:#6b7280;margin:0 0 10px;">Define los estatus que pueden tener las órdenes. Puedes agregar, renombrar o eliminar. El primero será el estatus por defecto para nuevas órdenes.</p>
+                    <div id="configProduccionLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;"></div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <input id="configProduccionNuevo" type="text" placeholder="Nuevo estatus..." style="flex:1;padding:6px 10px;font-size:0.55rem;border:1px solid #d1d5db;border-radius:6px;">
+                        <button id="configProduccionAgregar" class="productos-btn primary" type="button" style="padding:6px 14px;font-size:0.52rem;">+ AGREGAR</button>
                     </div>
                 </div>
             </div>
@@ -12534,8 +12631,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const mpFiltroNombre = document.getElementById('mpFiltroNombre');
     const mpFiltroTelefono = document.getElementById('mpFiltroTelefono');
     const mpFiltroDisenador = document.getElementById('mpFiltroDisenador');
-    const mpFiltroFechaEmitida = document.getElementById('mpFiltroFechaEmitida');
-    const mpFiltroFechaEntrega = document.getElementById('mpFiltroFechaEntrega');
+    const mpFiltroFechaRapido = document.getElementById('mpFiltroFechaRapido');
+    const mpFiltroFechaDesde = document.getElementById('mpFiltroFechaDesde');
+    const mpFiltroFechaHasta = document.getElementById('mpFiltroFechaHasta');
+    const mpFiltroFechaCampo = document.getElementById('mpFiltroFechaCampo');
+    const mpFechaRangoWrap = document.getElementById('mpFechaRangoWrap');
+    const mpFechaRangoWrap2 = document.getElementById('mpFechaRangoWrap2');
     const mpFiltroEstatus = document.getElementById('mpFiltroEstatus');
     const mpFiltroAdeudo = document.getElementById('mpFiltroAdeudo');
     const mpLimpiarFiltros = document.getElementById('mpLimpiarFiltros');
@@ -13084,12 +13185,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         ordenAnticipo = Math.max(0, Number(anticipo || 0));
         ordenPagoDetalle = { metodo: method, consumoInsumosAplicado: true, ...detalle };
-        if (ordenAnticipo > 0) {
-            loadMisPedidos();
-            const venta = buildPedidoRegistro('venta');
-            upsertMisPedidoRegistro(venta);
-            saveMisPedidos();
-        }
+        loadMisPedidos();
+        const venta = buildPedidoRegistro('venta');
+        upsertMisPedidoRegistro(venta);
+        saveMisPedidos();
         setMetodoPagoActivo(method);
         saveTicketActivo();
         recalcResumen();
@@ -13754,6 +13853,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const lista = getConfigValue('permisos', 'descuentoUsuarios');
             configPermisosDescuentoUsuarios.value = (Array.isArray(lista) ? lista : []).join('\n');
         }
+
+        // Producción - render status list
+        renderProduccionStatusList();
     };
 
     const saveConfiguracionesFromPopup = () => {
@@ -13842,6 +13944,75 @@ document.addEventListener('DOMContentLoaded', () => {
         renderDisenadoresSelect();
         notifyInfo('Configuraciones guardadas correctamente.', 'Configuraciones');
     };
+
+    // ===== PRODUCCION STATUS CONFIG =====
+    const MP_STATUSES_KEY_CFG = 'config_produccion_statuses';
+    const getProduccionStatusesCfg = () => {
+        try {
+            const raw = JSON.parse(localStorage.getItem(MP_STATUSES_KEY_CFG) || 'null');
+            if (Array.isArray(raw) && raw.length) return raw;
+        } catch(_){}
+        return [
+            {value:'pendiente', label:'Pendiente'},
+            {value:'en-produccion', label:'En producción'},
+            {value:'pendiente-por-entregar', label:'Pendiente por entregar'},
+            {value:'terminado', label:'Terminado'},
+            {value:'entregado', label:'Entregado'}
+        ];
+    };
+    const saveProduccionStatusesCfg = (arr) => {
+        try { localStorage.setItem(MP_STATUSES_KEY_CFG, JSON.stringify(arr)); } catch(_){}
+    };
+
+    const renderProduccionStatusList = () => {
+        const container = document.getElementById('configProduccionLista');
+        if (!container) return;
+        const statuses = getProduccionStatusesCfg();
+        container.innerHTML = statuses.map((s, i) => `<div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:#f8fafc;border-radius:6px;border:1px solid #e5e7eb;">
+            <span style="font-size:0.55rem;font-weight:700;color:#6b7280;min-width:18px;">${i+1}.</span>
+            <input type="text" value="${String(s.label||'').replace(/"/g,'&quot;')}" data-status-idx="${i}" class="configStatusInput" style="flex:1;padding:4px 8px;font-size:0.55rem;border:1px solid #d1d5db;border-radius:4px;">
+            ${i === 0 ? '<span style="font-size:0.45rem;color:#16a34a;font-weight:700;">DEFAULT</span>' : ''}
+            <button type="button" data-status-del="${i}" class="configStatusDel" style="background:none;border:none;cursor:pointer;font-size:0.7rem;color:#dc2626;" title="Eliminar">&times;</button>
+        </div>`).join('');
+    };
+
+    document.getElementById('configProduccionAgregar')?.addEventListener('click', () => {
+        const inp = document.getElementById('configProduccionNuevo');
+        const label = String(inp?.value || '').trim();
+        if (!label) return;
+        const value = label.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        if (!value) return;
+        const statuses = getProduccionStatusesCfg();
+        if (statuses.some(s => s.value === value)) { alert('Ese estatus ya existe.'); return; }
+        statuses.push({ value, label });
+        saveProduccionStatusesCfg(statuses);
+        if (inp) inp.value = '';
+        renderProduccionStatusList();
+    });
+
+    document.getElementById('configProduccionLista')?.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('[data-status-del]');
+        if (!btn) return;
+        const idx = Number(btn.dataset.statusDel);
+        const statuses = getProduccionStatusesCfg();
+        if (statuses.length <= 1) { alert('Debe haber al menos un estatus.'); return; }
+        statuses.splice(idx, 1);
+        saveProduccionStatusesCfg(statuses);
+        renderProduccionStatusList();
+    });
+
+    document.getElementById('configProduccionLista')?.addEventListener('input', (ev) => {
+        const inp = ev.target.closest('.configStatusInput');
+        if (!inp) return;
+        const idx = Number(inp.dataset.statusIdx);
+        const statuses = getProduccionStatusesCfg();
+        if (!statuses[idx]) return;
+        const newLabel = String(inp.value).trim();
+        if (!newLabel) return;
+        statuses[idx].label = newLabel;
+        statuses[idx].value = newLabel.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        saveProduccionStatusesCfg(statuses);
+    });
 
     const openConfiguracionesPopup = () => {
         if (!popupConfiguraciones) return;
@@ -16293,16 +16464,76 @@ document.addEventListener('DOMContentLoaded', () => {
     const mpInput = (v) => String(v || '').toLowerCase();
     const mpMatch = (src, term) => mpInput(src).includes(mpInput(term));
 
+    const MP_STATUSES_KEY = 'config_produccion_statuses';
+    const getProduccionStatuses = () => {
+        try {
+            const raw = JSON.parse(localStorage.getItem(MP_STATUSES_KEY) || 'null');
+            if (Array.isArray(raw) && raw.length) return raw;
+        } catch(_){}
+        return [
+            {value:'pendiente', label:'Pendiente'},
+            {value:'en-produccion', label:'En producción'},
+            {value:'pendiente-por-entregar', label:'Pendiente por entregar'},
+            {value:'terminado', label:'Terminado'},
+            {value:'entregado', label:'Entregado'}
+        ];
+    };
+    const saveProduccionStatuses = (arr) => {
+        try { localStorage.setItem(MP_STATUSES_KEY, JSON.stringify(arr)); } catch(_){}
+    };
+
+    const populateMpEstatusFilter = () => {
+        if (!mpFiltroEstatus) return;
+        const current = mpFiltroEstatus.value;
+        const statuses = getProduccionStatuses();
+        mpFiltroEstatus.innerHTML = '<option value="">Todos</option>' + statuses.map(s => `<option value="${s.value}">${s.label}</option>`).join('');
+        mpFiltroEstatus.value = current;
+    };
+
+    const getMpDateRange = () => {
+        const rapid = mpFiltroFechaRapido?.value || '';
+        if (!rapid) return null;
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let desde, hasta;
+        if (rapid === 'hoy') {
+            desde = hasta = today;
+        } else if (rapid === 'semana') {
+            desde = new Date(today); desde.setDate(desde.getDate() - 7);
+            hasta = today;
+        } else if (rapid === 'mes') {
+            desde = new Date(today); desde.setMonth(desde.getMonth() - 1);
+            hasta = today;
+        } else if (rapid === 'anio') {
+            desde = new Date(today); desde.setFullYear(desde.getFullYear() - 1);
+            hasta = today;
+        } else if (rapid === 'rango') {
+            const d = mpFiltroFechaDesde?.value || '';
+            const h = mpFiltroFechaHasta?.value || '';
+            if (!d && !h) return null;
+            desde = d ? new Date(d + 'T00:00:00') : new Date('2000-01-01');
+            hasta = h ? new Date(h + 'T23:59:59') : new Date('2099-12-31');
+        }
+        if (!desde || !hasta) return null;
+        const campo = mpFiltroFechaCampo?.value === 'entrega' ? 'fechaEntrega' : 'fechaEmitida';
+        return { desde, hasta, campo };
+    };
+
     const getMisPedidosFiltrados = () => {
         const minAdeudo = Number(mpFiltroAdeudo?.value || 0);
+        const dateRange = getMpDateRange();
         return misPedidosData.filter((row) => {
             if (row.tipo !== misPedidosTab) return false;
             if (!mpMatch(row.folio, mpFiltroFolio?.value || '')) return false;
             if (!mpMatch(row.clienteNombre, mpFiltroNombre?.value || '')) return false;
             if (!mpMatch(row.telefono, mpFiltroTelefono?.value || '')) return false;
             if (!mpMatch(row.disenador, mpFiltroDisenador?.value || '')) return false;
-            if ((mpFiltroFechaEmitida?.value || '') && row.fechaEmitida !== mpFiltroFechaEmitida.value) return false;
-            if ((mpFiltroFechaEntrega?.value || '') && row.fechaEntrega !== mpFiltroFechaEntrega.value) return false;
+            if (dateRange) {
+                const fechaStr = row[dateRange.campo] || '';
+                if (!fechaStr) return false;
+                const fecha = new Date(fechaStr + 'T00:00:00');
+                if (fecha < dateRange.desde || fecha > dateRange.hasta) return false;
+            }
             if ((mpFiltroEstatus?.value || '') && row.estatusProduccion !== mpFiltroEstatus.value) return false;
             if ((mpFiltroAdeudo?.value || '') && Number(row.adeudoCliente || 0) < minAdeudo) return false;
             return true;
@@ -16399,7 +16630,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (disenador === null) return;
         const vendedor = prompt('Vendedor (deja vacío para no cambiar):', rows.length === 1 ? (base.vendedor || '') : '');
         if (vendedor === null) return;
-        const estatus = prompt('Estatus (pendiente|en-produccion|pendiente-por-entregar|terminado|entregado):', rows.length === 1 ? (base.estatusProduccion || 'pendiente') : '');
+        const statusOpts = getProduccionStatuses().map(s => s.value).join('|');
+        const estatus = prompt(`Estatus (${statusOpts}):`, rows.length === 1 ? (base.estatusProduccion || 'pendiente') : '');
         if (estatus === null) return;
         const anticipoTxt = prompt('Anticipo (deja vacío para no cambiar):', rows.length === 1 ? String(base.anticipo || 0) : '');
         if (anticipoTxt === null) return;
@@ -16433,6 +16665,7 @@ document.addEventListener('DOMContentLoaded', () => {
         popupMisPedidos.setAttribute('aria-hidden', 'false');
         document.body.classList.add('popup-open');
         document.documentElement.classList.add('popup-open');
+        populateMpEstatusFilter();
         loadMisPedidos();
         renderMisPedidos();
     };
@@ -16448,6 +16681,150 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.openMisPedidosPopupGlobal = openMisPedidosPopup;
+
+    // ===== DETALLE ORDEN POPUP =====
+    const popupDetalleOrden = document.getElementById('popupDetalleOrden');
+    let mpDetOrdenActual = null;
+
+    const openDetalleOrdenPopup = (row) => {
+        if (!popupDetalleOrden || !row) return;
+        mpDetOrdenActual = row;
+        const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        const fm = (n) => `$${Number(n||0).toFixed(2)}`;
+
+        const elF = (id) => document.getElementById(id);
+        elF('mpDetFolio').textContent = row.folio || '-';
+        elF('mpDetFechaEmitida').textContent = `Emitida: ${row.fechaEmitida || '-'}`;
+        elF('mpDetEstatus').textContent = (row.estatusProduccion || 'pendiente').replace(/-/g,' ').toUpperCase();
+        elF('mpDetCliente').textContent = row.clienteNombre || 'SIN CLIENTE';
+        elF('mpDetTelefono').textContent = row.telefono || '-';
+        elF('mpDetVendedor').textContent = row.vendedor || '-';
+        elF('mpDetDisenador').textContent = row.disenador || '-';
+        elF('mpDetFechaEntrega').textContent = row.fechaEntrega || '-';
+        elF('mpDetMetodoPago').textContent = row.metodoPago || '-';
+        elF('mpDetSubtotal').textContent = fm(row.subtotal);
+        elF('mpDetImpuestos').textContent = fm(row.impuestos);
+        elF('mpDetDescuento').textContent = row.descuento ? `-${fm(row.descuento)}` : fm(0);
+        elF('mpDetTotal').textContent = fm(row.total);
+        elF('mpDetAnticipo').textContent = fm(row.anticipo);
+        elF('mpDetAdeudo').textContent = fm(row.adeudoCliente);
+        elF('mpDetInversion').textContent = fm(row.inversion);
+        elF('mpDetGanancia').textContent = fm(row.ganancia);
+
+        const lineas = Array.isArray(row.lineas) ? row.lineas : [];
+        const tbody = elF('mpDetProductosBody');
+        if (tbody) {
+            if (!lineas.length) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#9ca3af;padding:12px;">Sin productos registrados</td></tr>';
+            } else {
+                tbody.innerHTML = lineas.map(l => {
+                    const importe = Number(l.precio||0) * Number(l.cantidad||1);
+                    return `<tr style="border-bottom:1px solid #e5e7eb;">
+                        <td style="padding:5px 8px;">${esc(l.producto)}</td>
+                        <td style="padding:5px 8px;">${esc(l.medida)}</td>
+                        <td style="padding:5px 8px;">${esc(l.material)}</td>
+                        <td style="padding:5px 8px;text-align:center;">${l.cantidad||1}</td>
+                        <td style="padding:5px 8px;text-align:right;">${fm(l.precio)}</td>
+                        <td style="padding:5px 8px;text-align:right;font-weight:700;">${fm(importe)}</td>
+                    </tr>`;
+                }).join('');
+            }
+        }
+
+        const comentariosCont = elF('mpDetComentarios');
+        const comentariosTxt = elF('mpDetComentariosTxt');
+        if (row.comentarios && String(row.comentarios).trim()) {
+            if (comentariosCont) comentariosCont.style.display = '';
+            if (comentariosTxt) comentariosTxt.textContent = row.comentarios;
+        } else {
+            if (comentariosCont) comentariosCont.style.display = 'none';
+        }
+
+        popupDetalleOrden.style.display = 'flex';
+        popupDetalleOrden.setAttribute('aria-hidden', 'false');
+    };
+
+    const closeDetalleOrdenPopup = () => {
+        if (!popupDetalleOrden) return;
+        popupDetalleOrden.style.display = 'none';
+        popupDetalleOrden.setAttribute('aria-hidden', 'true');
+        mpDetOrdenActual = null;
+    };
+
+    // Detalle buttons
+    document.getElementById('mpDetCerrar')?.addEventListener('click', closeDetalleOrdenPopup);
+    popupDetalleOrden?.addEventListener('click', (ev) => { if (ev.target === popupDetalleOrden) closeDetalleOrdenPopup(); });
+
+    document.getElementById('mpDetWhatsapp')?.addEventListener('click', () => {
+        if (!mpDetOrdenActual) return;
+        const r = mpDetOrdenActual;
+        const numero = String(r.telefono || '').replace(/\D/g, '');
+        if (!numero) { alert('Este cliente no tiene teléfono registrado.'); return; }
+        const lineas = Array.isArray(r.lineas) ? r.lineas : [];
+        const productosTexto = lineas.map(l => `• ${l.producto} (${l.cantidad}x) - $${Number(l.precio||0).toFixed(2)}`).join('\n');
+        const mensaje = [
+            `📋 *ORDEN ${r.folio}*`,
+            ``,
+            `👤 Cliente: ${r.clienteNombre}`,
+            `📅 Fecha: ${r.fechaEmitida}`,
+            `📦 Entrega: ${r.fechaEntrega}`,
+            ``,
+            `*PRODUCTOS:*`,
+            productosTexto || '(sin productos)',
+            ``,
+            `💰 *Total: $${Number(r.total||0).toFixed(2)}*`,
+            `✅ Anticipo: $${Number(r.anticipo||0).toFixed(2)}`,
+            `⚠️ Restante: $${Number(r.adeudoCliente||0).toFixed(2)}`,
+            ``,
+            `Estado: ${(r.estatusProduccion||'pendiente').replace(/-/g,' ').toUpperCase()}`
+        ].join('\n');
+        window.open(`https://wa.me/52${numero}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    });
+
+    document.getElementById('mpDetPdf')?.addEventListener('click', () => {
+        if (!mpDetOrdenActual) return;
+        const r = mpDetOrdenActual;
+        const lineas = Array.isArray(r.lineas) ? r.lineas : [];
+        const fm = (n) => `$${Number(n||0).toFixed(2)}`;
+        const esc = (v) => String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        const productosHtml = lineas.map(l => {
+            const imp = Number(l.precio||0)*Number(l.cantidad||1);
+            return `<tr><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;">${esc(l.producto)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;">${esc(l.medida)}</td><td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;">${esc(l.material)}</td><td style="padding:6px 10px;text-align:center;border-bottom:1px solid #e5e7eb;">${l.cantidad||1}</td><td style="padding:6px 10px;text-align:right;border-bottom:1px solid #e5e7eb;">${fm(l.precio)}</td><td style="padding:6px 10px;text-align:right;font-weight:700;border-bottom:1px solid #e5e7eb;">${fm(imp)}</td></tr>`;
+        }).join('');
+        const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Cotización ${esc(r.folio)}</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}body{padding:30px;color:#1e293b;font-size:12px;}h1{font-size:22px;color:#1e3a5f;margin-bottom:4px;}table{width:100%;border-collapse:collapse;margin-top:14px;}th{background:#f1f5f9;padding:8px 10px;text-align:left;font-size:11px;border-bottom:2px solid #cbd5e1;text-transform:uppercase;}.totals{margin-top:16px;text-align:right;font-size:13px;}.totals div{margin:3px 0;}.totals .total-line{font-size:18px;font-weight:900;color:#1e3a5f;border-top:2px solid #1e3a5f;padding-top:6px;margin-top:6px;}.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0;font-size:12px;}.info-grid b{color:#6b7280;font-size:10px;text-transform:uppercase;display:block;}@media print{body{padding:20px;}}</style></head><body>
+        <h1>COTIZACIÓN ${esc(r.folio)}</h1>
+        <div style="color:#6b7280;">Fecha: ${esc(r.fechaEmitida)}</div>
+        <div class="info-grid"><div><b>Cliente</b>${esc(r.clienteNombre)}</div><div><b>Teléfono</b>${esc(r.telefono)}</div><div><b>Vendedor</b>${esc(r.vendedor)}</div><div><b>Diseñador</b>${esc(r.disenador)}</div><div><b>Entrega</b>${esc(r.fechaEntrega)}</div><div><b>Método pago</b>${esc(r.metodoPago)}</div></div>
+        <table><thead><tr><th>Producto</th><th>Medida</th><th>Material</th><th>Cant.</th><th style="text-align:right">Precio</th><th style="text-align:right">Importe</th></tr></thead><tbody>${productosHtml || '<tr><td colspan="6" style="text-align:center;padding:12px;color:#999;">Sin productos</td></tr>'}</tbody></table>
+        <div class="totals"><div>Subtotal: ${fm(r.subtotal)}</div><div>Impuestos: ${fm(r.impuestos)}</div><div>Descuento: -${fm(r.descuento)}</div><div class="total-line">TOTAL: ${fm(r.total)}</div><div style="margin-top:8px;">Anticipo: ${fm(r.anticipo)}</div><div style="color:#be123c;font-weight:700;">Restante: ${fm(r.adeudoCliente)}</div></div>
+        ${r.comentarios ? '<div style="margin-top:16px;padding:10px;background:#f8fafc;border-radius:6px;"><b style="font-size:10px;color:#6b7280;">COMENTARIOS:</b><div style="margin-top:4px;">'+esc(r.comentarios)+'</div></div>' : ''}
+        </body></html>`;
+        const w = window.open('', '_blank');
+        if (w) {
+            w.document.write(html);
+            w.document.close();
+            setTimeout(() => w.print(), 400);
+        }
+    });
+
+    document.getElementById('mpDetStatusWA')?.addEventListener('click', () => {
+        if (!mpDetOrdenActual) return;
+        const r = mpDetOrdenActual;
+        const numero = String(r.telefono || '').replace(/\D/g, '');
+        if (!numero) { alert('Este cliente no tiene teléfono registrado.'); return; }
+        const mensaje = [
+            `📦 *ACTUALIZACIÓN DE PEDIDO*`,
+            ``,
+            `Orden: *${r.folio}*`,
+            `Estado actual: *${(r.estatusProduccion||'pendiente').replace(/-/g,' ').toUpperCase()}*`,
+            ``,
+            `Restante por pagar: $${Number(r.adeudoCliente||0).toFixed(2)}`,
+            `Fecha de entrega: ${r.fechaEntrega || 'Por definir'}`,
+            ``,
+            `¡Gracias por tu preferencia! 🙏`
+        ].join('\n');
+        window.open(`https://wa.me/52${numero}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    });
 
     const prodEscape = window._escHtml;
 
@@ -19214,6 +19591,14 @@ document.addEventListener('DOMContentLoaded', () => {
             else mpSelectedIds.add(id);
             renderMisPedidos();
         });
+        mpTablaBody.addEventListener('dblclick', (ev) => {
+            const tr = ev.target.closest('tr[data-mp-id]');
+            if (!tr) return;
+            const id = tr.dataset.mpId;
+            if (!id) return;
+            const row = misPedidosData.find(r => r.id === id);
+            if (row) openDetalleOrdenPopup(row);
+        });
     }
 
     if (mispedidosTabVentas) {
@@ -19244,20 +19629,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    [mpFiltroFolio, mpFiltroNombre, mpFiltroTelefono, mpFiltroDisenador, mpFiltroFechaEmitida, mpFiltroFechaEntrega, mpFiltroEstatus, mpFiltroAdeudo]
+    [mpFiltroFolio, mpFiltroNombre, mpFiltroTelefono, mpFiltroDisenador, mpFiltroFechaRapido, mpFiltroFechaDesde, mpFiltroFechaHasta, mpFiltroFechaCampo, mpFiltroEstatus, mpFiltroAdeudo]
         .filter(Boolean)
         .forEach((input) => {
             input.addEventListener('input', renderMisPedidos);
             input.addEventListener('change', renderMisPedidos);
         });
 
+    if (mpFiltroFechaRapido) {
+        mpFiltroFechaRapido.addEventListener('change', () => {
+            const isRango = mpFiltroFechaRapido.value === 'rango';
+            if (mpFechaRangoWrap) mpFechaRangoWrap.style.display = isRango ? '' : 'none';
+            if (mpFechaRangoWrap2) mpFechaRangoWrap2.style.display = isRango ? '' : 'none';
+            renderMisPedidos();
+        });
+    }
+
     if (mpLimpiarFiltros) {
         mpLimpiarFiltros.addEventListener('click', () => {
-            [mpFiltroFolio, mpFiltroNombre, mpFiltroTelefono, mpFiltroDisenador, mpFiltroFechaEmitida, mpFiltroFechaEntrega, mpFiltroEstatus, mpFiltroAdeudo]
+            [mpFiltroFolio, mpFiltroNombre, mpFiltroTelefono, mpFiltroDisenador, mpFiltroFechaRapido, mpFiltroFechaDesde, mpFiltroFechaHasta, mpFiltroFechaCampo, mpFiltroEstatus, mpFiltroAdeudo]
                 .filter(Boolean)
                 .forEach((input) => {
                     input.value = '';
                 });
+            if (mpFechaRangoWrap) mpFechaRangoWrap.style.display = 'none';
+            if (mpFechaRangoWrap2) mpFechaRangoWrap2.style.display = 'none';
             mpSelectedIds = new Set();
             renderMisPedidos();
         });
