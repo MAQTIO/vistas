@@ -5317,6 +5317,60 @@
             font-weight: 400;
         }
 
+        /* Demo Mode Toggle */
+        .demo-toggle-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 6px 0 2px;
+        }
+        .demo-toggle-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: #9ca3af;
+            letter-spacing: 0.5px;
+            user-select: none;
+            transition: color 0.2s;
+        }
+        .demo-toggle-label.active { color: #f59e0b; }
+        .demo-toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            cursor: pointer;
+        }
+        .demo-toggle input { opacity: 0; width: 0; height: 0; }
+        .demo-toggle .demo-slider {
+            position: absolute;
+            inset: 0;
+            background: #d1d5db;
+            border-radius: 24px;
+            transition: background 0.25s;
+        }
+        .demo-toggle .demo-slider::before {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform 0.25s;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        .demo-toggle input:checked + .demo-slider { background: #f59e0b; }
+        .demo-toggle input:checked + .demo-slider::before { transform: translateX(20px); }
+        .demo-status {
+            font-size: 0.55rem;
+            color: #9ca3af;
+            text-align: center;
+            min-height: 14px;
+            transition: color 0.2s;
+        }
+        .demo-status.on { color: #f59e0b; }
+
         .inicio-grid {
             width: 100%;
             display: grid;
@@ -5906,7 +5960,7 @@
                     display: none;
                     position: fixed;
                     inset: 0;
-                    background: #0a0f1a;
+                    background: #f8f9fb;
                     z-index: 9100;
                     flex-direction: column;
                     overflow: hidden;
@@ -5922,8 +5976,8 @@
                     align-items: center;
                     justify-content: flex-start;
                     padding: 12px 20px 12px 52px;
-                    background: #0d1421;
-                    border-bottom: 2px solid #0288d1;
+                    background: linear-gradient(135deg, #ff9900, #ffb84d);
+                    border-bottom: none;
                     flex-shrink: 0;
                 }
                 .produccion-back {
@@ -5933,21 +5987,21 @@
                     width: 30px;
                     height: 30px;
                     border-radius: 999px;
-                    border: 1px solid #274665;
-                    background: #0f1b2b;
-                    color: #ffffff;
+                    border: none;
+                    background: rgba(255,255,255,0.25);
+                    color: #fff;
                     font-size: 0.95rem;
                     font-weight: 900;
                     line-height: 1;
                     cursor: pointer;
                     display: grid;
                     place-items: center;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
                     z-index: 2;
+                    backdrop-filter: blur(4px);
                 }
                 .produccion-back:hover {
-                    background: #13263d;
-                    border-color: #2d5a86;
+                    background: rgba(255,255,255,0.4);
                 }
                 .produccion-body {
                     display: flex;
@@ -5955,10 +6009,10 @@
                     overflow: hidden;
                 }
                 .produccion-left {
-                    width: 360px;
+                    width: 340px;
                     flex-shrink: 0;
-                    background: #0f1724;
-                    border-right: 1px solid #1e2e40;
+                    background: #fff;
+                    border-right: 1px solid #e5e7eb;
                     overflow-y: auto;
                     padding: 14px;
                     display: flex;
@@ -5972,32 +6026,33 @@
                     overflow: hidden;
                     padding: 14px;
                     gap: 10px;
+                    background: #f8f9fb;
                 }
                 .prod-section-title {
                     font-size: 0.65rem;
                     font-weight: 800;
                     letter-spacing: 1px;
-                    color: #7ecff5;
+                    color: #ff9900;
                     padding-bottom: 6px;
-                    border-bottom: 1px solid #1e2e40;
+                    border-bottom: 1px solid #fde8c8;
                 }
                 /* PDF Drop zone */
                 .pdf-drop-zone {
-                    border: 2px dashed #0288d1;
+                    border: 2px dashed #fbbf24;
                     border-radius: 10px;
                     padding: 16px 10px;
                     text-align: center;
                     cursor: pointer;
                     transition: border-color 0.15s, background 0.15s;
-                    background: rgba(2,136,209,0.05);
+                    background: rgba(255,153,0,0.04);
                 }
                 .pdf-drop-zone:hover, .pdf-drop-zone.drag-over {
-                    border-color: #29b6f6;
-                    background: rgba(41,182,246,0.1);
+                    border-color: #ff9900;
+                    background: rgba(255,153,0,0.08);
                 }
                 .pdf-drop-icon { font-size: 1.8rem; line-height: 1; }
-                .pdf-drop-text { font-size: 0.68rem; color: #90bdd4; margin-top: 6px; line-height: 1.4; }
-                .pdf-link { color: #29b6f6; cursor: pointer; text-decoration: underline; }
+                .pdf-drop-text { font-size: 0.68rem; color: #92400e; margin-top: 6px; line-height: 1.4; }
+                .pdf-link { color: #ff9900; cursor: pointer; text-decoration: underline; }
                 .pdf-status {
                     font-size: 0.68rem;
                     padding: 5px 8px;
@@ -6023,13 +6078,13 @@
                 .prod-form { display: flex; flex-direction: column; gap: 8px; }
                 .prod-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
                 .prod-field { display: flex; flex-direction: column; gap: 3px; }
-                .prod-field label { font-size: 0.6rem; font-weight: 700; color: #7a9ab4; letter-spacing: 0.5px; }
+                .prod-field label { font-size: 0.6rem; font-weight: 700; color: #92400e; letter-spacing: 0.5px; }
                 .prod-field input,
                 .prod-field select,
                 .prod-field textarea {
-                    background: #0d1421;
-                    border: 1px solid #1e3048;
-                    color: #e0eaf4;
+                    background: #fffbf5;
+                    border: 1px solid #fde8c8;
+                    color: #1f2937;
                     border-radius: 6px;
                     padding: 6px 8px;
                     font-size: 0.7rem;
@@ -6040,9 +6095,9 @@
                 }
                 .prod-field input:focus,
                 .prod-field select:focus,
-                .prod-field textarea:focus { border-color: #0288d1; }
+                .prod-field textarea:focus { border-color: #ff9900; }
                 .prod-save-btn {
-                    background: linear-gradient(135deg, #0277bd, #0288d1);
+                    background: linear-gradient(135deg, #ff9900, #ffb84d);
                     color: #fff;
                     border: none;
                     padding: 10px;
@@ -6053,7 +6108,7 @@
                     transition: filter 0.15s;
                     margin-top: 4px;
                 }
-                .prod-save-btn:hover { filter: brightness(1.1); }
+                .prod-save-btn:hover { filter: brightness(1.08); }
                 .prod-save-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: none; }
                 /* Tabs */
                 .prod-tabs {
@@ -6062,9 +6117,9 @@
                     flex-shrink: 0;
                 }
                 .prod-tab {
-                    background: rgba(255,255,255,0.05);
-                    border: 1px solid #1e3048;
-                    color: #7a9ab4;
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    color: #6b7280;
                     padding: 6px 12px;
                     border-radius: 8px;
                     font-size: 0.62rem;
@@ -6073,8 +6128,8 @@
                     transition: all 0.15s;
                     white-space: nowrap;
                 }
-                .prod-tab:hover { background: rgba(255,255,255,0.08); }
-                .prod-tab.active { background: #0288d1; border-color: #0288d1; color: #fff; }
+                .prod-tab:hover { background: #fff7ed; }
+                .prod-tab.active { background: #ff9900; border-color: #ff9900; color: #fff; }
                 /* Search bar */
                 .prod-search-bar {
                     display: flex;
@@ -6083,26 +6138,26 @@
                 }
                 .prod-search-bar input {
                     flex: 1;
-                    background: #0d1421;
-                    border: 1px solid #1e3048;
-                    color: #e0eaf4;
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    color: #1f2937;
                     border-radius: 8px;
                     padding: 7px 10px;
                     font-size: 0.7rem;
                     outline: none;
                 }
-                .prod-search-bar input:focus { border-color: #0288d1; }
+                .prod-search-bar input:focus { border-color: #ff9900; }
                 .prod-search-bar button {
-                    background: rgba(255,255,255,0.07);
-                    border: 1px solid #1e3048;
-                    color: #fff;
+                    background: #fff7ed;
+                    border: 1px solid #fde8c8;
+                    color: #92400e;
                     border-radius: 8px;
                     padding: 0 12px;
                     cursor: pointer;
                     font-size: 0.9rem;
                     transition: background 0.15s;
                 }
-                .prod-search-bar button:hover { background: rgba(255,255,255,0.14); }
+                .prod-search-bar button:hover { background: #ffedd5; }
                 /* Order list */
                 .prod-orden-list {
                     flex: 1;
@@ -6114,21 +6169,22 @@
                 }
                 .prod-loading, .prod-empty {
                     text-align: center;
-                    color: #4a6a84;
+                    color: #9ca3af;
                     font-size: 0.72rem;
                     padding: 30px;
                 }
                 .prod-orden-card {
-                    background: #0d1421;
-                    border: 1px solid #1e2e40;
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
                     border-radius: 10px;
                     padding: 12px 14px;
                     display: flex;
                     flex-direction: column;
                     gap: 8px;
                     transition: border-color 0.15s;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
                 }
-                .prod-orden-card:hover { border-color: #0288d1; }
+                .prod-orden-card:hover { border-color: #ff9900; }
                 .prod-orden-top {
                     display: flex;
                     align-items: flex-start;
@@ -6138,20 +6194,20 @@
                 .prod-orden-folio {
                     font-size: 0.8rem;
                     font-weight: 800;
-                    color: #29b6f6;
+                    color: #ff9900;
                 }
                 .prod-orden-fecha {
                     font-size: 0.58rem;
-                    color: #4a6a84;
+                    color: #9ca3af;
                 }
                 .prod-orden-info {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
                     gap: 3px 12px;
                     font-size: 0.63rem;
-                    color: #a0b8cc;
+                    color: #6b7280;
                 }
-                .prod-orden-info strong { color: #ccdde9; }
+                .prod-orden-info strong { color: #374151; }
                 .prod-orden-bottom {
                     display: flex;
                     align-items: center;
@@ -6160,9 +6216,9 @@
                     flex-wrap: wrap;
                 }
                 .prod-status-select {
-                    background: #0a111d;
-                    border: 1px solid #1e3048;
-                    color: #e0eaf4;
+                    background: #fff;
+                    border: 1px solid #e5e7eb;
+                    color: #374151;
                     border-radius: 6px;
                     padding: 4px 8px;
                     font-size: 0.62rem;
@@ -6172,9 +6228,9 @@
                 }
                 .prod-orden-actions { display: flex; gap: 6px; }
                 .prod-btn-action {
-                    background: rgba(255,255,255,0.07);
-                    border: 1px solid rgba(255,255,255,0.1);
-                    color: #e0eaf4;
+                    background: #f9fafb;
+                    border: 1px solid #e5e7eb;
+                    color: #374151;
                     padding: 4px 10px;
                     border-radius: 6px;
                     font-size: 0.62rem;
@@ -6182,13 +6238,62 @@
                     cursor: pointer;
                     transition: background 0.15s;
                 }
-                .prod-btn-action:hover { background: rgba(255,255,255,0.15); }
-                .prod-btn-action.print { background: rgba(255,153,0,0.12); border-color: rgba(255,153,0,0.3); color: #ffb300; }
-                .prod-btn-action.print:hover { background: rgba(255,153,0,0.22); }
-                .prod-btn-action.del { background: rgba(244,67,54,0.1); border-color: rgba(244,67,54,0.25); color: #ef5350; }
-                .prod-btn-action.del:hover { background: rgba(244,67,54,0.2); }
-                .prod-btn-action.entrega { background: rgba(76,175,80,0.12); border-color: rgba(76,175,80,0.3); color: #81c784; }
-                .prod-btn-action.entrega:hover { background: rgba(76,175,80,0.22); }
+                .prod-btn-action:hover { background: #f3f4f6; }
+                .prod-btn-action.print { background: #fff7ed; border-color: #fde8c8; color: #92400e; }
+                .prod-btn-action.print:hover { background: #ffedd5; }
+                .prod-btn-action.del { background: #fef2f2; border-color: #fecaca; color: #dc2626; }
+                .prod-btn-action.del:hover { background: #fee2e2; }
+                .prod-btn-action.entrega { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+                .prod-btn-action.entrega:hover { background: #dcfce7; }
+
+                /* ═══════════════════════════════════════════════════════
+                   MÓDULO DE DISEÑO
+                ════════════════════════════════════════════════════════ */
+                .diseno-overlay {
+                    display: none; position: fixed; inset: 0; background: #f5f3ff; z-index: 9100; flex-direction: column; overflow: hidden;
+                }
+                .diseno-header {
+                    position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 12px 20px 12px 52px;
+                    background: linear-gradient(135deg, #7c3aed, #a78bfa); border-bottom: none; flex-shrink: 0;
+                }
+                .diseno-back {
+                    position: absolute; top: 10px; left: 12px; width: 30px; height: 30px; border-radius: 999px;
+                    border: none; background: rgba(255,255,255,0.25); color: #fff; font-size: 0.95rem; font-weight: 900;
+                    cursor: pointer; display: grid; place-items: center; z-index: 2; backdrop-filter: blur(4px);
+                }
+                .diseno-back:hover { background: rgba(255,255,255,0.4); }
+                .diseno-body { display: flex; flex: 1; overflow: hidden; }
+                .diseno-list-panel {
+                    flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 14px; gap: 10px; background: #f5f3ff;
+                }
+                .diseno-card {
+                    background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px;
+                    display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: border-color .15s;
+                }
+                .diseno-card:hover { border-color: #7c3aed; }
+
+                /* ═══════════════════════════════════════════════════════
+                   MÓDULO DE ALMACÉN PEDIDOS
+                ════════════════════════════════════════════════════════ */
+                .almacenpedidos-overlay {
+                    display: none; position: fixed; inset: 0; background: #fafaf9; z-index: 9100; flex-direction: column; overflow: hidden;
+                }
+                .almacenpedidos-header {
+                    position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 12px 20px 12px 52px;
+                    background: linear-gradient(135deg, #0d9488, #2dd4bf); border-bottom: none; flex-shrink: 0;
+                }
+                .almacenpedidos-back {
+                    position: absolute; top: 10px; left: 12px; width: 30px; height: 30px; border-radius: 999px;
+                    border: none; background: rgba(255,255,255,0.25); color: #fff; font-size: 0.95rem; font-weight: 900;
+                    cursor: pointer; display: grid; place-items: center; z-index: 2; backdrop-filter: blur(4px);
+                }
+                .almacenpedidos-back:hover { background: rgba(255,255,255,0.4); }
+                .almacenpedidos-body { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+                .almped-card {
+                    background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px;
+                    display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: border-color .15s;
+                }
+                .almped-card:hover { border-color: #0d9488; }
 
                 /* ═══════════════════════════════════════════════════════
                    MÓDULO DE ENTREGAS
@@ -6297,6 +6402,94 @@
                     border: 1px solid #1a3020; flex-shrink: 0; background: #0d1a13;
                 }
                 .entrega-map-tip { font-size: 0.6rem; color: #4a6a54; text-align: center; }
+                /* Temp order button */
+                .btn-temp-order {
+                    position: absolute; top: 8px; right: 8px; z-index: 1000;
+                    background: linear-gradient(135deg, #ff9900, #ffb84d);
+                    color: #fff; border: none; border-radius: 50%;
+                    width: 40px; height: 40px; font-size: 1.4rem; line-height: 1;
+                    cursor: pointer; box-shadow: 0 3px 12px rgba(255,153,0,0.5);
+                    display: flex; align-items: center; justify-content: center;
+                    transition: transform 0.15s, box-shadow 0.15s;
+                }
+                .btn-temp-order:hover { transform: scale(1.1); box-shadow: 0 4px 14px rgba(255,153,0,0.6); }
+                /* Temp order modal */
+                .temp-order-modal {
+                    position: fixed; inset: 0; z-index: 200002;
+                    background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+                    display: flex; align-items: center; justify-content: center;
+                    padding: 16px;
+                }
+                .temp-order-card {
+                    background: #fff; border-radius: 16px; width: min(480px, 95vw);
+                    max-height: 90vh; overflow-y: auto; padding: 24px;
+                    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+                }
+                .temp-order-card h3 {
+                    margin: 0 0 16px; font-size: 0.95rem; font-weight: 800;
+                    color: #ff9900; display: flex; align-items: center; gap: 8px;
+                }
+                .temp-order-card .to-field { margin-bottom: 12px; }
+                .temp-order-card .to-field label {
+                    display: block; font-size: 0.65rem; font-weight: 700;
+                    color: #374151; margin-bottom: 4px; text-transform: uppercase;
+                }
+                .temp-order-card .to-field input,
+                .temp-order-card .to-field textarea {
+                    width: 100%; padding: 8px 10px; border: 1px solid #d1d5db;
+                    border-radius: 8px; font-size: 0.75rem; box-sizing: border-box;
+                    font-family: inherit; transition: border-color 0.15s;
+                }
+                .temp-order-card .to-field input:focus,
+                .temp-order-card .to-field textarea:focus {
+                    outline: none; border-color: #ff9900;
+                }
+                .temp-order-card .to-actions {
+                    display: flex; gap: 8px; margin-top: 16px;
+                }
+                .temp-order-card .to-btn {
+                    flex: 1; padding: 10px; border-radius: 10px;
+                    font-size: 0.72rem; font-weight: 700; cursor: pointer;
+                    border: none; transition: opacity 0.15s;
+                }
+                .temp-order-card .to-btn.save {
+                    background: linear-gradient(135deg, #ff9900, #ffb84d);
+                    color: #fff;
+                }
+                .temp-order-card .to-btn.cancel {
+                    background: #f3f4f6; color: #6b7280; border: 1px solid #e5e7eb;
+                }
+                .temp-order-card .to-btn:hover { opacity: 0.85; }
+                .temp-order-card .to-coords {
+                    display: flex; gap: 8px; font-size: 0.62rem; color: #6b7280;
+                    background: #f9fafb; border: 1px solid #e5e7eb;
+                    border-radius: 6px; padding: 6px 8px; margin-top: 4px;
+                }
+                .temp-order-card .to-coords strong { color: #16a34a; }
+                /* Temp orders list */
+                .temp-orders-section {
+                    background: #fffbf2; border: 1.5px dashed #fbbf24;
+                    border-radius: 10px; padding: 10px; margin-top: 8px;
+                }
+                .temp-orders-section .to-section-title {
+                    font-size: 0.65rem; font-weight: 800; color: #92400e;
+                    margin-bottom: 6px;
+                }
+                .temp-order-item {
+                    background: #fff; border: 1px solid #fde8c8; border-radius: 8px;
+                    padding: 8px 10px; margin-bottom: 6px; font-size: 0.68rem;
+                    display: flex; justify-content: space-between; align-items: center;
+                }
+                .temp-order-item .to-info { flex: 1; }
+                .temp-order-item .to-info .to-name { font-weight: 700; color: #111; }
+                .temp-order-item .to-info .to-detail { font-size: 0.6rem; color: #6b7280; margin-top: 2px; }
+                .temp-order-item .to-btns { display: flex; gap: 4px; }
+                .temp-order-item .to-btns button {
+                    background: none; border: 1px solid #e5e7eb; border-radius: 6px;
+                    padding: 4px 8px; font-size: 0.6rem; cursor: pointer;
+                    transition: background 0.1s;
+                }
+                .temp-order-item .to-btns button:hover { background: #f3f4f6; }
                 /* Delivery tabs */
                 .entrega-tabs { display: flex; gap: 4px; flex-shrink: 0; }
                 .entrega-tab {
@@ -6929,10 +7122,20 @@
         </div>
         <div class="inicio-title">PANEL DE VENTAS</div>
         <div class="inicio-sub">Selecciona un modulo principal para iniciar</div>
+        <div class="demo-toggle-wrap">
+            <span class="demo-toggle-label" id="demoLabel">🧪 MODO DEMO</span>
+            <label class="demo-toggle">
+                <input type="checkbox" id="demoModeToggle">
+                <span class="demo-slider"></span>
+            </label>
+        </div>
+        <div class="demo-status" id="demoStatus"></div>
         <div class="inicio-grid">
             <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('NUEVA ORDEN')"><span class="ico">🆕</span><span>NUEVA ORDEN</span></button>
             <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('MIS PEDIDOS')"><span class="ico">📦</span><span>MIS PEDIDOS</span></button>
-            <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('PRODUCCION')"><span class="ico">🏭</span><span>PRODUCCION</span></button>
+            <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('DISENO')"><span class="ico">🎨</span><span>DISEÑO</span></button>
+            <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('PRODUCCION')"><span class="ico">🏭</span><span>PRODUCCIÓN</span></button>
+            <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('ALMACEN PEDIDOS')"><span class="ico">📦</span><span>ALMACÉN PEDIDOS</span></button>
             <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('REPARTO')"><span class="ico">🚚</span><span>REPARTO</span></button>
             <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('PRODUCTOS')"><span class="ico">🧾</span><span>PRODUCTOS</span></button>
             <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('DASHBOARD')"><span class="ico">📈</span><span>DASHBOARD</span></button>
@@ -7163,6 +7366,24 @@
                 CP
                 <input id="cliFormCp" type="text" placeholder="Codigo postal" autocomplete="off">
             </label>
+
+            <div style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;margin-top:4px;">
+                <div style="font-size:0.65rem;font-weight:800;color:#ff9900;margin-bottom:8px;">📍 UBICACIONES GUARDADAS</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                    <label class="clientesform-field">
+                        🏠 Domicilio
+                        <input id="cliFormUbiDomicilio" type="text" placeholder="Dirección de casa" autocomplete="off">
+                    </label>
+                    <label class="clientesform-field">
+                        🏢 Negocio
+                        <input id="cliFormUbiNegocio" type="text" placeholder="Dirección del negocio" autocomplete="off">
+                    </label>
+                    <label class="clientesform-field">
+                        📌 Punto Medio
+                        <input id="cliFormUbiPuntoMedio" type="text" placeholder="Punto de encuentro" autocomplete="off">
+                    </label>
+                </div>
+            </div>
             <label class="clientesform-field">
                 Razon social
                 <input id="cliFormRazonSocial" type="text" placeholder="Razon social" autocomplete="off">
@@ -8948,9 +9169,36 @@ const imgBolsaDeliveryBase = new Image();
             return;
         }
 
+        if (key === 'DISENO' || key === 'DISEÑO') {
+            ocultarInicioSistema();
+            if (window.openDisenoPopupGlobal) window.openDisenoPopupGlobal();
+            return;
+        }
+
         if (key === 'PRODUCCION') {
             ocultarInicioSistema();
-            if (window.openProduccionPopupGlobal) window.openProduccionPopupGlobal();
+            try {
+                if (window.openProduccionPopupGlobal) {
+                    window.openProduccionPopupGlobal();
+                } else {
+                    // Fallback directo
+                    var pp = document.getElementById('panelProduccion');
+                    if (pp) { pp.style.display = 'flex'; }
+                    else { alert('Error: Panel de producción no encontrado en el DOM.'); }
+                }
+            } catch(e) {
+                console.error('Error abriendo producción:', e);
+                // Fallback directo en caso de error
+                var pp2 = document.getElementById('panelProduccion');
+                if (pp2) pp2.style.display = 'flex';
+                alert('Producción abierto con fallback. Error: ' + e.message);
+            }
+            return;
+        }
+
+        if (key === 'ALMACEN PEDIDOS') {
+            ocultarInicioSistema();
+            if (window.openAlmacenPedidosPopupGlobal) window.openAlmacenPedidosPopupGlobal();
             return;
         }
 
@@ -10573,8 +10821,18 @@ const imgBolsaDeliveryBase = new Image();
             </div>
 
             <div class="orden-field">
-                <label>COMENTARIOS</label>
-                <textarea id="ordenComentarios" rows="2" placeholder="Comentarios de la orden"></textarea>
+                <label>COMENTARIOS GENERALES</label>
+                <textarea id="ordenComentarios" rows="2" placeholder="Comentarios visibles para todos"></textarea>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div class="orden-field">
+                    <label>📝 NOTAS PARA PRODUCCIÓN</label>
+                    <textarea id="ordenNotasProduccion" rows="2" placeholder="Instrucciones para el equipo de producción..." style="border-color:#fde8c8;background:#fffbf5;"></textarea>
+                </div>
+                <div class="orden-field">
+                    <label>🎨 NOTAS PARA DISEÑADOR</label>
+                    <textarea id="ordenNotasDisenador" rows="2" placeholder="Indicaciones para el diseñador..." style="border-color:#e0e7ff;background:#f5f7ff;"></textarea>
+                </div>
             </div>
 
             <div class="orden-extras-checks">
@@ -12738,6 +12996,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const cliFormRazonSocial = document.getElementById('cliFormRazonSocial');
     const cliFormRfc = document.getElementById('cliFormRfc');
     const cliFormReferenciaBancaria = document.getElementById('cliFormReferenciaBancaria');
+    const cliFormUbiDomicilio = document.getElementById('cliFormUbiDomicilio');
+    const cliFormUbiNegocio = document.getElementById('cliFormUbiNegocio');
+    const cliFormUbiPuntoMedio = document.getElementById('cliFormUbiPuntoMedio');
     const cliFormCancel = document.getElementById('cliFormCancel');
     const cliFormSave = document.getElementById('cliFormSave');
     const popupCaja = document.getElementById('popupCaja');
@@ -13470,6 +13731,28 @@ document.addEventListener('DOMContentLoaded', () => {
         saveTicketActivo();
         recalcResumen();
         notifyInfo(`Pago registrado por ${formatMoney(ordenAnticipo)}.`, 'Pago aplicado');
+
+        // Auto-enviar a DISEÑO cuando se registra una venta (Diseño → Producción → Almacén → Reparto)
+        if (typeof window.enviarAutoADiseno === 'function' && venta.lineas && venta.lineas.length) {
+            window.enviarAutoADiseno(venta);
+        } else if (typeof window.enviarAutoAProduccion === 'function' && venta.lineas && venta.lineas.length) {
+            const linea0 = venta.lineas[0];
+            const cantTotal = venta.lineas.reduce((s, l) => s + Number(l.cantidad || 1), 0);
+            window.enviarAutoAProduccion({
+                folio: venta.folio,
+                clienteNombre: venta.clienteNombre,
+                telefono: venta.telefono,
+                clienteId: '',
+                fechaEntrega: venta.fechaEntrega,
+                producto: typeof window.mapProductoParaProduccion === 'function' ? window.mapProductoParaProduccion(linea0.producto) : linea0.producto,
+                medida: linea0.medida || '',
+                cantidad: cantTotal,
+                total: venta.total,
+                origen: 'venta',
+                notasProduccion: venta.notasProduccion || '',
+                notasDisenador: venta.notasDisenador || ''
+            });
+        }
     };
 
     const renderPagoPopup = (method) => {
@@ -14972,44 +15255,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mkClienteModuloId = () => `CL-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 90 + 10)}`;
 
-    const seedClientesModulo = () => ([
-        {
-            id: 'CL-001',
-            nombre: 'Alma Cruz',
-            empresa: 'Boutique Alma',
-            telefono: '9511012233',
-            correo: 'alma.cruz@correo.com',
-            calle: 'Av. Juarez',
-            colonia: 'Centro',
-            numero: 'Int 2, Ext 18',
-            pais: 'Mexico',
-            ciudad: 'Oaxaca de Juarez',
-            estado: 'Oaxaca',
-            cp: '68000',
-            razonSocial: 'Alma Cruz Boutique SA de CV',
-            rfc: 'ACB210101AB1',
-            referenciaBancaria: 'BBVA 01234',
-            tipoCliente: 'Publico en general'
-        },
-        {
-            id: 'CL-002',
-            nombre: 'Luis Mendoza',
-            empresa: 'Mendoza Publicidad',
-            telefono: '9513342210',
-            correo: 'luis.mendoza@correo.com',
-            calle: 'Calzada Madero',
-            colonia: 'Reforma',
-            numero: 'Ext 230',
-            pais: 'Mexico',
-            ciudad: 'Oaxaca de Juarez',
-            estado: 'Oaxaca',
-            cp: '68050',
-            razonSocial: 'Mendoza Publicidad SA de CV',
-            rfc: 'MPS220202CD2',
-            referenciaBancaria: 'Santander 44556',
-            tipoCliente: 'Revendedor'
-        }
-    ]);
+    const seedClientesModulo = () => ([]);
 
     const saveClientesModulo = () => {
         try {
@@ -15316,6 +15562,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cliFormRazonSocial) cliFormRazonSocial.value = isEdit ? String(cliente?.razonSocial || '') : '';
         if (cliFormRfc) cliFormRfc.value = isEdit ? String(cliente?.rfc || '') : '';
         if (cliFormReferenciaBancaria) cliFormReferenciaBancaria.value = isEdit ? String(cliente?.referenciaBancaria || '') : '';
+        if (cliFormUbiDomicilio) cliFormUbiDomicilio.value = isEdit ? String(cliente?.ubiDomicilio || '') : '';
+        if (cliFormUbiNegocio) cliFormUbiNegocio.value = isEdit ? String(cliente?.ubiNegocio || '') : '';
+        if (cliFormUbiPuntoMedio) cliFormUbiPuntoMedio.value = isEdit ? String(cliente?.ubiPuntoMedio || '') : '';
         if (cliFormTipo) cliFormTipo.value = isEdit ? String(cliente?.tipoCliente || 'Publico en general') : 'Publico en general';
         if (cliFormSave) cliFormSave.textContent = ordenClienteFormMode === 'register-order' ? 'Aceptar' : 'Guardar cliente';
 
@@ -15341,7 +15590,10 @@ document.addEventListener('DOMContentLoaded', () => {
             razonSocial: String(cliFormRazonSocial?.value || '').trim(),
             rfc: String(cliFormRfc?.value || '').trim(),
             referenciaBancaria: String(cliFormReferenciaBancaria?.value || '').trim(),
-            tipoCliente: String(cliFormTipo?.value || 'Publico en general').trim() || 'Publico en general'
+            tipoCliente: String(cliFormTipo?.value || 'Publico en general').trim() || 'Publico en general',
+            ubiDomicilio: String(cliFormUbiDomicilio?.value || '').trim(),
+            ubiNegocio: String(cliFormUbiNegocio?.value || '').trim(),
+            ubiPuntoMedio: String(cliFormUbiPuntoMedio?.value || '').trim()
         };
 
         if (!payload.id) payload.id = mkClienteModuloId();
@@ -17007,6 +17259,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const productoPrincipal = lineas[0]?.producto || 'Sin producto';
         const productoResumen = lineas.length > 1 ? `${productoPrincipal} +${lineas.length - 1}` : productoPrincipal;
 
+        const notasProduccion = (el('ordenNotasProduccion')?.value || '').trim();
+        const notasDisenador = (el('ordenNotasDisenador')?.value || '').trim();
+        const comentariosGenerales = (el('ordenComentarios')?.value || '').trim();
+
         return {
             id: `MP-${Date.now().toString(36).toUpperCase()}`,
             tipo,
@@ -17028,7 +17284,10 @@ document.addEventListener('DOMContentLoaded', () => {
             descuento: descuentoVal,
             total: totalVal,
             inversion: inversionVal,
-            ganancia: gananciaVal
+            ganancia: gananciaVal,
+            notasProduccion,
+            notasDisenador,
+            comentarios: comentariosGenerales
         };
     };
 
@@ -22948,13 +23207,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var tiposSeleccionadosCliente = ['BOLSA BOUTIQUE TROQUELADA'];
 
     function seedClientes() {
-        return [
-            { id: 'CL-001', nombre: 'Alma Cruz', telefono: '9511012233', tipoProducto: 'BOLSA BOUTIQUE TROQUELADA', modulo: 'BOLSA BOUTIQUE TROQUELADA', entregas: 2, revisiones: 1 },
-            { id: 'CL-002', nombre: 'Luis Mendoza', telefono: '9513342210', tipoProducto: 'BOLSAS KRAFT', modulo: 'BOLSAS KRAFT', entregas: 1, revisiones: 0 },
-            { id: 'CL-003', nombre: 'Rosa Varela', telefono: '9515549901', tipoProducto: 'TARJETAS DE PRESENTACIÓN', modulo: 'TARJETAS DE PRESENTACIÓN', entregas: 3, revisiones: 2 },
-            { id: 'CL-004', nombre: 'Carlos Tejada', telefono: '9511120088', tipoProducto: 'VOLANTES', modulo: 'VOLANTES', entregas: 0, revisiones: 1 },
-            { id: 'CL-005', nombre: 'Mariana Solis', telefono: '9516017722', tipoProducto: 'BOLSA BOUTIQUE TROQUELADA', modulo: 'BOLSA BOUTIQUE TROQUELADA', entregas: 1, revisiones: 3 }
-        ];
+        return [];
     }
 
     function moduloFromTipoProducto(tipoProducto) {
@@ -23967,6 +24220,78 @@ window._escHtml = function(s) {
 };
 </script>
 
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   UTILIDADES COMPARTIDAS — Diseño, Producción, Entregas
+   Centraliza patrones repetidos: carga, filtrado, cambio de estado, eliminación
+════════════════════════════════════════════════════════════════ */
+window.MU = (function() {
+    var esc = window._escHtml;
+    function db() { return window.firebase ? window.firebase.firestore() : null; }
+    return {
+        esc: esc,
+        db: db,
+        /** Carga documentos de una colección ordenados por creadoEn desc */
+        load: function(collection, listEl, loadingHTML, cb) {
+            listEl.innerHTML = loadingHTML;
+            var d = db(); if (!d) return;
+            d.collection(collection).orderBy('creadoEn','desc').get().then(function(snap) {
+                cb(null, snap.docs.map(function(doc){ return Object.assign({id:doc.id}, doc.data()); }));
+            }).catch(function(err) { cb(err, []); });
+        },
+        /** Filtra órdenes por pestaña activa y query de búsqueda */
+        filter: function(orders, tab, query, fields) {
+            var q = (query||'').toLowerCase().trim();
+            return orders.filter(function(o) {
+                if (o.estado !== tab) return false;
+                if (!q) return true;
+                return fields.some(function(f){ return (o[f]||'').toLowerCase().includes(q); });
+            });
+        },
+        /** Ordena por fechaEntrega ascendente (más urgente primero) */
+        sortUrgent: function(list) {
+            list.sort(function(a,b) {
+                var da=String(a.fechaEntrega||'9999-12-31'), d2=String(b.fechaEntrega||'9999-12-31');
+                if (da!==d2) return da.localeCompare(d2);
+                var ta=(a.creadoEn&&a.creadoEn.toMillis)?a.creadoEn.toMillis():9e15;
+                var tb=(b.creadoEn&&b.creadoEn.toMillis)?b.creadoEn.toMillis():9e15;
+                return ta-tb;
+            });
+            return list;
+        },
+        /** Genera HTML de <option> para un <select> de estados */
+        statusOpts: function(current, statuses) {
+            return statuses.map(function(s){
+                return '<option value="'+s[0]+'"'+(s[0]===current?' selected':'')+'>'+s[1]+'</option>';
+            }).join('');
+        },
+        /** Vincula cambio de estado en selects dentro de un contenedor */
+        bindSelects: function(container, selClass, collection, orders, renderFn, afterFn) {
+            container.querySelectorAll(selClass).forEach(function(sel) {
+                sel.addEventListener('change', function() {
+                    var id=sel.dataset.id, v=sel.value, d=db(); if(!d) return;
+                    d.collection(collection).doc(id).update({
+                        estado:v, actualizadoEn:window.firebase.firestore.FieldValue.serverTimestamp()
+                    }).then(function(){
+                        var o=orders.find(function(x){return x.id===id;}); if(o) o.estado=v;
+                        renderFn(); if(afterFn) afterFn();
+                    }).catch(function(e){ alert('Error: '+e.message); });
+                });
+            });
+        },
+        /** Elimina un documento y actualiza el array local */
+        remove: function(collection, docId, orders, renderFn, afterFn, msg) {
+            if (!confirm(msg||'¿Eliminar permanentemente?')) return;
+            var d=db(); if(!d) return;
+            d.collection(collection).doc(docId).delete().then(function() {
+                for(var i=orders.length-1;i>=0;i--) if(orders[i].id===docId){orders.splice(i,1);break;}
+                renderFn(); if(afterFn) afterFn();
+            }).catch(function(e){ alert('Error: '+e.message); });
+        }
+    };
+})();
+</script>
+
 <!-- ═══════════════════════════════════════════════════════════════
      MÓDULO DE PRODUCCIÓN — Panel HTML
 ════════════════════════════════════════════════════════════════ -->
@@ -23975,162 +24300,56 @@ window._escHtml = function(s) {
     <div class="produccion-header">
             <button id="produccionBack" class="produccion-back" type="button" title="Volver al menú principal" aria-label="Volver al menú principal">←</button>
       <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.6rem;line-height:1;">📦</span>
+        <span style="font-size:1.6rem;line-height:1;">🏭</span>
         <div>
-          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">MÓDULO DE PRODUCCIÓN</div>
-          <div style="font-size:0.6rem;color:#4a8fad;">Gestión de órdenes recibidas y autorizadas</div>
+          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">PRODUCCIÓN</div>
+          <div style="font-size:0.6rem;color:rgba(255,255,255,0.7);">Órdenes autorizadas desde diseño — más urgente primero</div>
         </div>
       </div>
     </div>
     <div class="produccion-body">
       <div class="produccion-left">
-        <div class="prod-section-title">📄 NUEVA ORDEN DE PRODUCCIÓN</div>
-        <div class="prod-form">
-                    <div class="prod-field">
-                        <label>PRODUCTO</label>
-                        <select id="prodProducto">
-                            <option>Bolsa Boutique Troquelada</option>
-                            <option>Bolsas Kraft</option>
-                            <option>Bolsas Kraft Blancas</option>
-                            <option>Bolsa Ecológica</option>
-                            <option>Tarjetas de Presentación</option>
-                            <option>Volantes</option>
-                            <option>Otro</option>
-                        </select>
-                    </div>
-          <div class="prod-field">
-            <label>FOLIO / NO. ORDEN</label>
-                        <input type="number" id="prodFolio" placeholder="Ej: 1119" autocomplete="off" inputmode="numeric" min="1" step="1">
+        <div class="prod-section-title">📊 RESUMEN DE PRODUCCIÓN</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#fff7ed;border:1px solid #fde8c8;border-radius:10px;padding:12px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#92400e;margin-bottom:6px;">⏳ PENDIENTES</div>
+            <div id="prodResumenPendientes" style="font-size:1.5rem;font-weight:900;color:#ff9900;">0</div>
           </div>
-          <div class="prod-field">
-                        <label>NOMBRE DEL CLIENTE</label>
-            <input type="text" id="prodCliente" placeholder="Nombre del cliente" autocomplete="off">
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#166534;margin-bottom:6px;">⚙️ EN PROCESO</div>
+            <div id="prodResumenEnProceso" style="font-size:1.5rem;font-weight:900;color:#16a34a;">0</div>
           </div>
-                    <div class="prod-field">
-                        <label>NÚMERO DE TELÉFONO</label>
-                        <input type="tel" id="prodTelefono" placeholder="Ej: 5512345678" autocomplete="off">
-                    </div>
-                    <div class="prod-row">
-                        <div class="prod-field">
-                            <label>ID CLIENTE</label>
-                            <input type="number" id="prodClienteId" placeholder="Ej: 165" autocomplete="off" inputmode="numeric" min="1" step="1">
-                        </div>
-                        <div class="prod-field">
-                            <label>FECHA DE CREACIÓN</label>
-                            <input type="date" id="prodFechaCreacion" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="prod-field">
-                        <label>FECHA DE ENTREGA</label>
-                        <input type="date" id="prodFechaEntrega" autocomplete="off">
-                    </div>
-                    <div class="prod-row">
-                        <div class="prod-field" id="prodFieldColorWrap">
-                            <label id="prodColorLabel">COLOR</label>
-                            <input type="text" id="prodColor" placeholder="Ej: Rosa pastel" autocomplete="off">
-            </div>
-            <div class="prod-field">
-              <label>CANTIDAD</label>
-                            <input type="number" id="prodCantidad" placeholder="Ej: 120" autocomplete="off" inputmode="numeric" min="1" step="1">
-            </div>
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#1e40af;margin-bottom:6px;">✅ TERMINADAS HOY</div>
+            <div id="prodResumenTerminadas" style="font-size:1.5rem;font-weight:900;color:#2563eb;">0</div>
           </div>
-
-                    <div id="secProductoBoutique" class="prod-product-section">
-                        <div class="prod-field">
-                            <label>TAMAÑO DE LA BOLSA</label>
-                            <input type="text" id="prodTamanoBolsa" placeholder="Ej: CHICA 28X35 CM" autocomplete="off">
-                        </div>
-                    </div>
-
-                    <div id="secProductoKraft" class="prod-product-section" style="display:none;">
-                        <div class="prod-row">
-                            <div class="prod-field">
-                                <label>TAMAÑO BOLSA KRAFT</label>
-                                <select id="prodTamanoKraft">
-                                    <option value="">-- Selecciona medida --</option>
-                                </select>
-                            </div>
-                            <div class="prod-field">
-                                <label>MATERIAL</label>
-                                <input type="text" id="prodMaterialKraft" placeholder="Ej: KRAFT NATURAL" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="secProductoEcologica" class="prod-product-section" style="display:none;">
-                        <div class="prod-row">
-                            <div class="prod-field">
-                                <label>TAMAÑO BOLSA ECOLÓGICA</label>
-                                <input type="text" id="prodTamanoEcologica" placeholder="Ej: 30X40 CM" autocomplete="off">
-                            </div>
-                            <div class="prod-field">
-                                <label>MATERIAL</label>
-                                <input type="text" id="prodMaterialEcologica" placeholder="Ej: NON WOVEN" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="secProductoTarjeta" class="prod-product-section" style="display:none;">
-                        <div class="prod-row">
-                            <div class="prod-field">
-                                <label>TIPO</label>
-                                <select id="prodTipoTarjeta">
-                                    <option value="">-- Selecciona --</option>
-                                    <option>4X1</option>
-                                    <option>4X4</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="secProductoVolante" class="prod-product-section" style="display:none;">
-                        <div class="prod-row">
-                            <div class="prod-field">
-                                <label>MEDIDA</label>
-                                <select id="prodMedidaVolante">
-                                    <option value="">-- Selecciona --</option>
-                                    <option>1/4 DE CARTA</option>
-                                    <option>MEDIA CARTA</option>
-                                    <option>CARTA</option>
-                                </select>
-                            </div>
-                            <div class="prod-field">
-                                <label>TIPO</label>
-                                <select id="prodTipoVolante">
-                                    <option value="">-- Selecciona --</option>
-                                    <option>4X1</option>
-                                    <option>4X4</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="secProductoOtro" class="prod-product-section" style="display:none;">
-                        <div class="prod-field">
-                            <label>DETALLE DEL PRODUCTO</label>
-                            <input type="text" id="prodDetalleOtro" placeholder="Describe medidas/acabados" autocomplete="off">
-                        </div>
-          </div>
-
-                    <div class="prod-row">
-                        <div class="prod-field">
-                            <label>DISEÑO (ARCHIVO)</label>
-                            <input type="file" id="prodDisenoFile" accept="image/*,.pdf" autocomplete="off">
-                        </div>
-                        <div class="prod-field">
-                            <label>URL DISEÑO (OPCIONAL)</label>
-                            <input type="url" id="prodDisenoUrl" placeholder="https://..." autocomplete="off">
-                        </div>
-                    </div>
-
-          <div class="prod-field">
-                        <label>COMENTARIOS</label>
-                        <textarea id="prodNotas" rows="3" placeholder="Comentarios o instrucciones"></textarea>
-          </div>
-          <button id="btnGuardarOrden" class="prod-save-btn">💾 GUARDAR ORDEN DE PRODUCCIÓN</button>
         </div>
+
+        <div class="prod-section-title" style="margin-top:8px;">📝 NOTAS DE PRODUCCIÓN</div>
+        <div class="prod-field">
+          <textarea id="prodNotasGenerales" rows="4" placeholder="Anotaciones del equipo de producción..." style="background:#fffbf5;border:1px solid #fde8c8;color:#1f2937;border-radius:8px;padding:8px;font-size:0.7rem;resize:vertical;font-family:inherit;"></textarea>
+          <button id="btnGuardarNotasProd" type="button" style="margin-top:4px;background:#ff9900;color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:0.65rem;font-weight:700;cursor:pointer;">💾 Guardar notas</button>
+        </div>
+
+        <div class="prod-section-title" style="margin-top:8px;">📦 SOLICITAR INSUMOS</div>
+        <div class="prod-field">
+          <input type="text" id="prodInsumoNombre" placeholder="Nombre del insumo" style="background:#fffbf5;border:1px solid #fde8c8;color:#1f2937;border-radius:6px;padding:6px 8px;font-size:0.7rem;">
+        </div>
+        <div class="prod-row">
+          <div class="prod-field">
+            <input type="number" id="prodInsumoCantidad" placeholder="Cantidad" min="1" style="background:#fffbf5;border:1px solid #fde8c8;color:#1f2937;border-radius:6px;padding:6px 8px;font-size:0.7rem;">
+          </div>
+          <div class="prod-field">
+            <select id="prodInsumoUrgencia" style="background:#fffbf5;border:1px solid #fde8c8;color:#1f2937;border-radius:6px;padding:6px 8px;font-size:0.7rem;">
+              <option value="normal">Normal</option>
+              <option value="urgente">Urgente</option>
+            </select>
+          </div>
+        </div>
+        <button id="btnSolicitarInsumo" type="button" class="prod-save-btn" style="font-size:0.68rem;">📦 Solicitar insumo</button>
+        <div id="prodInsumosSolicitados" style="margin-top:6px;font-size:0.62rem;color:#6b7280;max-height:120px;overflow-y:auto;"></div>
       </div>
-      <div class="produccion-right">
+<div class="produccion-right">
         <div class="prod-section-title">📋 ÓRDENES DE PRODUCCIÓN</div>
         <div class="prod-tabs" id="prodTabs">
           <button class="prod-tab active" data-status="pendiente">⏳ Pendientes</button>
@@ -24188,19 +24407,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return 'MVP-' + hashSimple(base).padStart(8, '0');
     }
 
-    function diasDesdeIngreso(fechaISO) {
-        if (!fechaISO) return 0;
+    function diasParaEntrega(fechaISO) {
+        if (!fechaISO) return 999;
         var d = new Date(fechaISO + 'T00:00:00');
-        if (isNaN(d.getTime())) return 0;
+        if (isNaN(d.getTime())) return 999;
         var now = new Date();
-        var diff = Math.floor((now - d) / 86400000);
-        return Math.max(0, diff);
+        now.setHours(0,0,0,0);
+        var diff = Math.floor((d - now) / 86400000);
+        return diff;
     }
 
     function nivelUrgencia(fechaISO) {
-        var dias = diasDesdeIngreso(fechaISO);
-        if (dias >= 7) return { text: 'ALTA', days: dias };
-        if (dias >= 3) return { text: 'MEDIA', days: dias };
+        var dias = diasParaEntrega(fechaISO);
+        if (dias <= 1) return { text: 'ALTA', days: dias };
+        if (dias <= 3) return { text: 'MEDIA', days: dias };
+        return { text: 'BAJA', days: dias };
         return { text: 'BAJA', days: dias };
     }
 
@@ -24335,26 +24556,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function openProduccionPanel() {
+        if (!panelProduccion) { panelProduccion = document.getElementById('panelProduccion'); }
+        if (!panelProduccion) { alert('Panel de producción no encontrado'); return; }
         panelProduccion.style.display = 'flex';
-        cargarMedidasKraftProduccion();
-        generarFolio();
-        if (!document.getElementById('prodFechaCreacion').value) {
-            document.getElementById('prodFechaCreacion').value = new Date().toISOString().slice(0, 10);
-        }
-        document.getElementById('prodProducto').value = 'Bolsa Boutique Troquelada';
-        actualizarSeccionesProducto();
         cargarOrdenes();
     }
 
     function closeProduccionPanel() {
-        panelProduccion.style.display = 'none';
+        if (panelProduccion) panelProduccion.style.display = 'none';
     }
 
     window.openProduccionPopupGlobal = openProduccionPanel;
     window.closeProduccionPopupGlobal = closeProduccionPanel;
 
     if (btnProduccion) btnProduccion.addEventListener('click', openProduccionPanel);
-    document.getElementById('prodProducto').addEventListener('change', actualizarSeccionesProducto);
+    var prodProductoEl = document.getElementById('prodProducto');
+    if (prodProductoEl) prodProductoEl.addEventListener('change', actualizarSeccionesProducto);
     if (produccionBack) produccionBack.addEventListener('click', function() {
         closeProduccionPanel();
         if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
@@ -24465,88 +24682,61 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnRecargar)  btnRecargar.addEventListener('click', function() { cargarOrdenes(); });
 
     function cargarOrdenes() {
-        prodOrdenList.innerHTML = '<div class="prod-loading">Cargando ordenes...</div>';
-        var db = getProdDB(); if (!db) return;
-        db.collection(PROD_COLLECTION).orderBy('creadoEn','desc').get().then(function(snap) {
-            allOrders = snap.docs.map(function(doc){ return Object.assign({id:doc.id}, doc.data()); });
-            renderOrdenes();
-        }).catch(function(err) {
-            prodOrdenList.innerHTML = '<div class="prod-loading">Error: '+esc(err.message)+'</div>';
+        MU.load(PROD_COLLECTION, prodOrdenList, '<div class="prod-loading">Cargando ordenes...</div>', function(err, orders) {
+            if (err) { prodOrdenList.innerHTML = '<div class="prod-loading">Error: '+esc(err.message)+'</div>'; return; }
+            allOrders = orders; renderOrdenes(); actualizarResumenProduccion();
         });
     }
 
     function renderOrdenes() {
-        var q = (prodBuscador.value||'').toLowerCase().trim();
-        var lista = allOrders.filter(function(o) {
-            if (o.estado !== currentTab) return false;
-            if (!q) return true;
-            return (o.folio||'').toLowerCase().includes(q) || (o.cliente||'').toLowerCase().includes(q) || (o.producto||'').toLowerCase().includes(q);
-        });
-        lista.sort(function(a, b) {
-            var da = String(a.fechaCreacion || '9999-12-31');
-            var db = String(b.fechaCreacion || '9999-12-31');
-            if (da !== db) return da.localeCompare(db); // más antigua = más urgente
-            var ta = (a.creadoEn && a.creadoEn.toMillis) ? a.creadoEn.toMillis() : Number.MAX_SAFE_INTEGER;
-            var tb = (b.creadoEn && b.creadoEn.toMillis) ? b.creadoEn.toMillis() : Number.MAX_SAFE_INTEGER;
-            return ta - tb;
-        });
+        var lista = MU.sortUrgent(MU.filter(allOrders, currentTab, prodBuscador.value, ['folio','cliente','producto']));
         if (lista.length===0) { prodOrdenList.innerHTML='<div class="prod-empty">No hay ordenes en esta categoria.</div>'; return; }
         prodOrdenList.innerHTML = lista.map(function(o) {
             var fecha = o.creadoEn && o.creadoEn.toDate ? o.creadoEn.toDate().toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'}) : 'Sin fecha';
             var colorLabel = o.producto === 'Bolsas Kraft' ? 'Tinta' : 'Color';
-            var urg = nivelUrgencia(o.fechaCreacion);
-            var opts = [['pendiente','⏳ Pendiente'],['en_proceso','⚙️ En Proceso'],['terminada','✅ Terminada'],['cancelada','❌ Cancelada']]
-                .map(function(p){ return '<option value="'+p[0]+'"'+(p[0]===o.estado?' selected':'')+'>'+p[1]+'</option>'; }).join('');
-            return '<div class="prod-orden-card" data-id="'+esc(o.id)+'">'+
+            var urg = nivelUrgencia(o.fechaEntrega);
+            var opts = MU.statusOpts(o.estado, [['pendiente','⏳ Pendiente'],['en_proceso','⚙️ En Proceso'],['terminada','✅ Terminada'],['cancelada','❌ Cancelada']]);
+            var urgColor = urg.text === 'ALTA' ? '#dc2626' : urg.text === 'MEDIA' ? '#f59e0b' : '#16a34a';
+            var urgBg = urg.text === 'ALTA' ? '#fef2f2' : urg.text === 'MEDIA' ? '#fffbeb' : '#f0fdf4';
+            return '<div class="prod-orden-card" data-id="'+esc(o.id)+'" style="border-left:3px solid '+urgColor+';">'+
                 '<div class="prod-orden-top">'+
-                  '<div><div class="prod-orden-folio">'+esc(o.folio||'Sin folio')+'</div><div class="prod-orden-fecha">'+fecha+' · Urgencia '+esc(urg.text)+' ('+esc(String(urg.days))+'d)</div></div>'+
+                  '<div><div class="prod-orden-folio">'+esc(o.folio||'Sin folio')+'</div>'+
+                  '<div class="prod-orden-fecha"><span style="display:inline-block;padding:1px 6px;border-radius:4px;background:'+urgBg+';color:'+urgColor+';font-weight:700;">'+esc(urg.text)+' ('+esc(String(urg.days))+'d)</span> · Entrega: '+esc(o.fechaEntrega||'—')+'</div></div>'+
                   '<select class="prod-status-select" data-id="'+esc(o.id)+'">'+opts+'</select>'+
                 '</div>'+
                 '<div class="prod-orden-info">'+
                   '<span><strong>Cliente:</strong> '+esc(o.cliente||'—')+'</span>'+
-                                    '<span><strong>Teléfono:</strong> '+esc(o.telefono||'—')+'</span>'+
-                                    '<span><strong>ID Cliente:</strong> '+esc(o.clienteId||'—')+'</span>'+
                   '<span><strong>Producto:</strong> '+esc(o.producto||'—')+'</span>'+
-                                      '<span><strong>'+esc(colorLabel)+':</strong> '+esc(o.color||'—')+'</span>'+
+                  '<span><strong>'+esc(colorLabel)+':</strong> '+esc(o.color||'—')+'</span>'+
                   '<span><strong>Cantidad:</strong> '+esc(o.cantidad||'—')+'</span>'+
-                                    '<span><strong>Detalle Producto:</strong> '+esc(o.detalleProducto||'—')+'</span>'+
-                                    '<span><strong>Creación:</strong> '+esc(o.fechaCreacion||'—')+'</span>'+
-                                    '<span><strong>Entrega:</strong> '+esc(o.fechaEntrega||'—')+'</span>'+
-                  (o.notas?'<span style="grid-column:1/-1"><strong>Notas:</strong> '+esc(o.notas)+'</span>':'')+
+                  '<span><strong>Detalle:</strong> '+esc(o.detalleProducto||'—')+'</span>'+
+                  '<span><strong>Creación:</strong> '+esc(o.fechaCreacion||'—')+'</span>'+
+                  (o.notas?'<span style="grid-column:1/-1"><strong>Notas prod:</strong> '+esc(o.notas)+'</span>':'')+
+                  (o.disenoUrl?'<span style="grid-column:1/-1"><a href="'+esc(o.disenoUrl)+'" target="_blank" style="color:#ff9900;font-weight:700;">🎨 Ver diseño</a></span>':'')+
                 '</div>'+
                 '<div class="prod-orden-bottom"><div class="prod-orden-actions">'+
-                                    (o.estado === 'pendiente' ? '<button class="prod-btn-action" data-action="iniciar" data-id="'+esc(o.id)+'">🚀 Comenzar</button>' : '')+
-                                    (o.estado === 'terminada' ? '<button class="prod-btn-action entrega" data-action="a-entregas" data-id="'+esc(o.id)+'">🚚 A Entregas</button>' : '')+
-                                    '<button class="prod-btn-action" data-action="ver-diseno" data-id="'+esc(o.id)+'" '+(o.disenoUrl ? '' : 'style="opacity:0.45;pointer-events:none;"')+'>🎨 Ver diseño</button>'+
+                                    (o.estado === 'pendiente' ? '<button class="prod-btn-action" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;" data-action="iniciar" data-id="'+esc(o.id)+'">🚀 Iniciar</button>' : '')+
+                                    (o.estado === 'en_proceso' ? '<button class="prod-btn-action" style="background:#fef2f2;border-color:#fecaca;color:#dc2626;" data-action="a-pendiente" data-id="'+esc(o.id)+'">⏸ A Pendiente</button>' : '')+
+                                    (o.estado === 'terminada' ? '<button class="prod-btn-action entrega" data-action="a-almacen" data-id="'+esc(o.id)+'">📦 A Almacén</button>' : '')+
                                     '<button class="prod-btn-action" data-action="etiqueta" data-id="'+esc(o.id)+'">🏷 Etiqueta</button>'+
-                  '<button class="prod-btn-action print" data-action="imprimir" data-id="'+esc(o.id)+'">🖨 Imprimir</button>'+
+                  '<button class="prod-btn-action print" data-action="imprimir" data-id="'+esc(o.id)+'">🖨</button>'+
                   '<button class="prod-btn-action del" data-action="eliminar" data-id="'+esc(o.id)+'">🗑</button>'+
                 '</div></div>'+
               '</div>';
         }).join('');
 
-        prodOrdenList.querySelectorAll('.prod-status-select').forEach(function(sel) {
-            sel.addEventListener('change', function() {
-                var docId=sel.dataset.id, nuevoEstado=sel.value;
-                var db=getProdDB(); if(!db) return;
-                db.collection(PROD_COLLECTION).doc(docId).update({
-                    estado:nuevoEstado, actualizadoEn:window.firebase.firestore.FieldValue.serverTimestamp()
-                }).then(function() {
-                    var o=allOrders.find(function(x){return x.id===docId;}); if(o) o.estado=nuevoEstado; renderOrdenes();
-                }).catch(function(err){ alert('Error: '+err.message); });
-            });
-        });
+        MU.bindSelects(prodOrdenList, '.prod-status-select', PROD_COLLECTION, allOrders, renderOrdenes);
 
         prodOrdenList.querySelectorAll('[data-action]').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 var action=btn.dataset.action, docId=btn.dataset.id;
                 var orden=allOrders.find(function(o){return o.id===docId;}); if(!orden) return;
                 if(action==='iniciar') iniciarTrabajoOrden(docId);
-                if(action==='ver-diseno') verDisenoOrden(orden);
+                if(action==='a-pendiente') regresarAPendiente(docId);
                 if(action==='etiqueta') imprimirEtiquetaOrden(orden);
                 if(action==='imprimir') imprimirOrden(orden);
                 if(action==='eliminar') eliminarOrden(docId);
-                if(action==='a-entregas') enviarAEntregas(orden);
+                if(action==='a-almacen') enviarAAlmacenPedidos(orden);
             });
         });
     }
@@ -24567,10 +24757,132 @@ document.addEventListener('DOMContentLoaded', function() {
             var o = allOrders.find(function(x){ return x.id === docId; });
             if (o) o.estado = 'en_proceso';
             renderOrdenes();
+            actualizarResumenProduccion();
         } catch (err) {
             alert('Error al iniciar orden: ' + err.message);
         }
     }
+
+    async function regresarAPendiente(docId) {
+        var motivo = prompt('Motivo para regresar a pendiente (ej: falta material, error, etc.):');
+        if (motivo === null) return;
+        var db = getProdDB(); if (!db) return;
+        try {
+            await db.collection(PROD_COLLECTION).doc(docId).update({
+                estado: 'pendiente',
+                motivoPendiente: motivo || 'Sin motivo especificado',
+                actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+            });
+            var o = allOrders.find(function(x){ return x.id === docId; });
+            if (o) { o.estado = 'pendiente'; o.motivoPendiente = motivo; }
+            renderOrdenes();
+            actualizarResumenProduccion();
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+
+    async function enviarAAlmacenPedidos(orden) {
+        var db = getProdDB(); if (!db) return;
+        try {
+            var existing = await db.collection('stored_orders')
+                .where('folioProduccion', '==', String(orden.folio || ''))
+                .limit(1).get();
+            if (!existing.empty) {
+                alert('Esta orden ya está en almacén de pedidos (folio ' + orden.folio + ').');
+                return;
+            }
+            await db.collection('stored_orders').add({
+                folioProduccion: String(orden.folio || ''),
+                produccionDocId: orden.id || '',
+                cliente: orden.cliente || '',
+                clienteId: orden.clienteId || '',
+                producto: orden.producto || '',
+                cantidad: orden.cantidad || '',
+                detalleProducto: orden.detalleProducto || '',
+                color: orden.color || '',
+                fechaEntrega: orden.fechaEntrega || '',
+                disenoUrl: orden.disenoUrl || '',
+                estado: 'almacenado',
+                envioDecidido: false,
+                creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
+                actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+            });
+            await db.collection(PROD_COLLECTION).doc(orden.id).update({ estado: 'almacenada', actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp() });
+            var o = allOrders.find(function(x){ return x.id === orden.id; });
+            if (o) o.estado = 'almacenada';
+            renderOrdenes();
+            actualizarResumenProduccion();
+            alert('✅ Pedido enviado a Almacén de Pedidos.');
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+    }
+
+    function actualizarResumenProduccion() {
+        var pend = allOrders.filter(function(o){ return o.estado === 'pendiente'; }).length;
+        var proc = allOrders.filter(function(o){ return o.estado === 'en_proceso'; }).length;
+        var hoy = new Date().toISOString().slice(0,10);
+        var term = allOrders.filter(function(o){ return o.estado === 'terminada' && o.fechaCreacion === hoy; }).length;
+        var el1 = document.getElementById('prodResumenPendientes'); if (el1) el1.textContent = pend;
+        var el2 = document.getElementById('prodResumenEnProceso'); if (el2) el2.textContent = proc;
+        var el3 = document.getElementById('prodResumenTerminadas'); if (el3) el3.textContent = term;
+    }
+
+    // Insumos request
+    var btnSolicitarInsumo = document.getElementById('btnSolicitarInsumo');
+    if (btnSolicitarInsumo) {
+        btnSolicitarInsumo.addEventListener('click', async function() {
+            var nombre = (document.getElementById('prodInsumoNombre')?.value || '').trim();
+            var cantidad = document.getElementById('prodInsumoCantidad')?.value || '1';
+            var urgencia = document.getElementById('prodInsumoUrgencia')?.value || 'normal';
+            if (!nombre) { alert('Escribe el nombre del insumo.'); return; }
+            var db = getProdDB(); if (!db) return;
+            try {
+                await db.collection('supply_requests').add({
+                    nombre: nombre, cantidad: Number(cantidad), urgencia: urgencia,
+                    estado: 'solicitado',
+                    creadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+                });
+                document.getElementById('prodInsumoNombre').value = '';
+                document.getElementById('prodInsumoCantidad').value = '';
+                cargarInsumosSolicitados();
+                alert('✅ Insumo solicitado: ' + nombre);
+            } catch(err) { alert('Error: ' + err.message); }
+        });
+    }
+
+    function cargarInsumosSolicitados() {
+        var cont = document.getElementById('prodInsumosSolicitados'); if (!cont) return;
+        var db = getProdDB(); if (!db) return;
+        db.collection('supply_requests').orderBy('creadoEn','desc').limit(10).get().then(function(snap) {
+            if (snap.empty) { cont.innerHTML = '<em>Sin solicitudes</em>'; return; }
+            cont.innerHTML = snap.docs.map(function(d) {
+                var r = d.data();
+                var urgStyle = r.urgencia === 'urgente' ? 'color:#dc2626;font-weight:700;' : '';
+                return '<div style="padding:3px 0;border-bottom:1px solid #fde8c8;'+urgStyle+'">'+
+                    (r.urgencia==='urgente'?'🔴 ':'')+r.nombre+' x'+r.cantidad+' — '+r.estado+'</div>';
+            }).join('');
+        });
+    }
+
+    // Production notes save
+    var btnGuardarNotasProd = document.getElementById('btnGuardarNotasProd');
+    if (btnGuardarNotasProd) {
+        btnGuardarNotasProd.addEventListener('click', function() {
+            var notas = (document.getElementById('prodNotasGenerales')?.value || '').trim();
+            localStorage.setItem('produccion_notas_generales', notas);
+            alert('✅ Notas guardadas.');
+        });
+        // Load saved notes
+        var savedNotas = localStorage.getItem('produccion_notas_generales');
+        if (savedNotas) { var el = document.getElementById('prodNotasGenerales'); if (el) el.value = savedNotas; }
+    }
+
+    // Load insumos on panel open
+    var origOpen = openProduccionPanel;
+    openProduccionPanel = function() { origOpen(); cargarInsumosSolicitados(); };
+    window.openProduccionPopupGlobal = openProduccionPanel;
 
     function imprimirEtiquetaOrden(orden) {
         var uid = crearUidOrden(orden);
@@ -24676,18 +24988,499 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function eliminarOrden(docId) {
-        if(!confirm('Eliminar esta orden permanentemente?')) return;
-        var db=getProdDB(); if(!db) return;
-        db.collection(PROD_COLLECTION).doc(docId).delete().then(function() {
-            allOrders=allOrders.filter(function(o){return o.id!==docId;}); renderOrdenes();
-        }).catch(function(err){ alert('Error: '+err.message); });
+        MU.remove(PROD_COLLECTION, docId, allOrders, renderOrdenes, null, 'Eliminar esta orden permanentemente?');
     }
+    // ── Selector de cliente para producción ──
+    var prodSelCliente = document.getElementById('prodSeleccionarCliente');
+    if (prodSelCliente) {
+        prodSelCliente.addEventListener('click', function() {
+            var clientes = [];
+            try { clientes = JSON.parse(localStorage.getItem('mock_clientes_modulo_v1') || '[]'); } catch(_){}
+            clientes = clientes.filter(function(c){ return !c.deshabilitado; });
+            if (!clientes.length) { alert('No hay clientes registrados.'); return; }
+
+            var existing = document.getElementById('prodClientePickerOverlay');
+            if (existing) existing.remove();
+
+            var overlay = document.createElement('div');
+            overlay.id = 'prodClientePickerOverlay';
+            overlay.style.cssText = 'position:fixed;inset:0;z-index:200001;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:20px;';
+            var card = document.createElement('div');
+            card.style.cssText = 'background:#fff;border-radius:14px;width:min(520px,95vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 18px 40px rgba(0,0,0,0.25);overflow:hidden;';
+            card.innerHTML =
+                '<div style="padding:14px 18px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center;">' +
+                  '<div style="font-weight:800;font-size:0.85rem;color:#0277bd;">👥 SELECCIONAR CLIENTE</div>' +
+                  '<button id="prodPickerClose" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#6b7280;">✕</button>' +
+                '</div>' +
+                '<div style="padding:10px 18px;"><input id="prodPickerSearch" type="text" placeholder="Buscar por nombre, teléfono o empresa..." style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:0.75rem;box-sizing:border-box;"></div>' +
+                '<div id="prodPickerList" style="flex:1;overflow-y:auto;padding:0 18px 14px;"></div>';
+            overlay.appendChild(card);
+            document.body.appendChild(overlay);
+
+            var search = document.getElementById('prodPickerSearch');
+            var listDiv = document.getElementById('prodPickerList');
+
+            function renderPickerList() {
+                var q = (search.value || '').toLowerCase().trim();
+                var filtered = clientes.filter(function(c) {
+                    if (!q) return true;
+                    return (c.nombre||'').toLowerCase().includes(q) || (c.telefono||'').toLowerCase().includes(q) || (c.empresa||'').toLowerCase().includes(q) || (c.id||'').toLowerCase().includes(q);
+                });
+                if (!filtered.length) { listDiv.innerHTML = '<div style="padding:20px;text-align:center;color:#9ca3af;font-size:0.75rem;">Sin resultados</div>'; return; }
+                listDiv.innerHTML = filtered.slice(0, 50).map(function(c) {
+                    return '<div class="prod-picker-row" data-id="'+esc(c.id)+'" style="padding:10px 12px;border-bottom:1px solid #f3f4f6;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .1s;" onmouseover="this.style.background=\'#f0f9ff\'" onmouseout="this.style.background=\'\'">'+
+                        '<div><div style="font-weight:700;font-size:0.78rem;color:#111;">'+esc(c.nombre||'—')+'</div>'+
+                        '<div style="font-size:0.65rem;color:#6b7280;">'+esc(c.telefono||'')+' · '+esc(c.empresa||'Sin empresa')+' · ID: '+esc(c.id)+'</div></div>'+
+                        '<div style="font-size:0.6rem;color:#0277bd;font-weight:700;">Seleccionar</div></div>';
+                }).join('');
+                listDiv.querySelectorAll('.prod-picker-row').forEach(function(row) {
+                    row.addEventListener('click', function() {
+                        var cid = row.dataset.id;
+                        var c = clientes.find(function(x){ return x.id === cid; });
+                        if (!c) return;
+                        document.getElementById('prodCliente').value = c.nombre || '';
+                        document.getElementById('prodTelefono').value = c.telefono || '';
+                        var numId = String(c.id || '').replace(/\D/g, '');
+                        document.getElementById('prodClienteId').value = numId || c.id || '';
+                        overlay.remove();
+                    });
+                });
+            }
+            renderPickerList();
+            search.addEventListener('input', renderPickerList);
+            document.getElementById('prodPickerClose').addEventListener('click', function(){ overlay.remove(); });
+            overlay.addEventListener('click', function(e){ if (e.target === overlay) overlay.remove(); });
+            search.focus();
+        });
+    }
+
+    // ── Envío automático a producción desde cotización/venta ──
+    window.enviarAutoAProduccion = function(datos) {
+        var db = getProdDB(); if (!db) return;
+        var folio = datos.folio || String(Date.now()).slice(-7);
+        db.collection(PROD_COLLECTION).add({
+            folio: String(folio),
+            cliente: datos.clienteNombre || datos.cliente || '',
+            telefono: datos.telefono || '',
+            clienteId: datos.clienteId || '',
+            fechaCreacion: datos.fechaCreacion || new Date().toISOString().slice(0, 10),
+            fechaEntrega: datos.fechaEntrega || '',
+            producto: datos.producto || 'Bolsa Boutique Troquelada',
+            color: datos.color || '',
+            cantidad: String(datos.cantidad || 1),
+            detalleProducto: datos.detalleProducto || datos.medida || '',
+            notas: datos.notas || ('Auto-generado desde ' + (datos.origen || 'venta') + '. Total: $' + Number(datos.total || 0).toFixed(2)),
+            disenoUrl: datos.disenoUrl || '',
+            disenoNombre: datos.disenoNombre || '',
+            disenoTipo: '',
+            estado: 'pendiente',
+            inicioTrabajoEn: null,
+            origenAuto: true,
+            creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
+            actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function() {
+            if (typeof notifyInfo === 'function') notifyInfo('Orden enviada automáticamente a producción.', 'Producción');
+        }).catch(function(err) {
+            console.error('Error auto-producción:', err);
+        });
+    };
 });
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     MÓDULO DE ENTREGAS — Panel HTML
+     MÓDULO DE DISEÑO — Panel HTML
 ════════════════════════════════════════════════════════════════ -->
+<div id="panelDiseno" class="diseno-overlay">
+  <div style="display:flex;flex-direction:column;height:100%;">
+    <div class="diseno-header">
+      <button id="disenoBack" class="diseno-back" type="button" title="Volver" aria-label="Volver">←</button>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.6rem;line-height:1;">🎨</span>
+        <div>
+          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">MÓDULO DE DISEÑO</div>
+          <div style="font-size:0.6rem;color:rgba(255,255,255,0.7);">Todas las órdenes llegan aquí primero — diseña y envía a producción</div>
+        </div>
+      </div>
+    </div>
+    <div class="diseno-body">
+      <div class="diseno-list-panel">
+        <div style="display:flex;gap:6px;flex-shrink:0;">
+          <button class="prod-tab active" data-dis-status="pendiente" style="background:#7c3aed;border-color:#7c3aed;color:#fff;">⏳ Pendientes</button>
+          <button class="prod-tab" data-dis-status="en_diseno" style="">🎨 En Diseño</button>
+          <button class="prod-tab" data-dis-status="listo" style="">✅ Listos</button>
+          <button class="prod-tab" data-dis-status="enviado" style="">📦 Enviados a Prod.</button>
+        </div>
+        <div style="display:flex;gap:6px;flex-shrink:0;">
+          <input type="text" id="disenoBuscador" placeholder="🔍 Buscar por folio, cliente o producto..." style="flex:1;background:#fff;border:1px solid #e5e7eb;color:#1f2937;border-radius:8px;padding:7px 10px;font-size:0.7rem;">
+          <button id="disenoRecargar" style="background:#f5f3ff;border:1px solid #e5e7eb;color:#7c3aed;border-radius:8px;padding:0 12px;cursor:pointer;font-size:0.9rem;">🔄</button>
+        </div>
+        <div id="disenoOrdenList" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;">
+          <div style="text-align:center;color:#9ca3af;font-size:0.72rem;padding:30px;">Cargando órdenes de diseño...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Módulo de Diseño */
+document.addEventListener('DOMContentLoaded', function() {
+    var DIS_COLLECTION = 'design_orders';
+    function getDisDB() {
+        if (!window.firebase) return null;
+        return window.firebase.firestore();
+    }
+    var allDisOrders = [];
+    var currentDisTab = 'pendiente';
+    var esc = window._escHtml;
+    var panelDiseno = document.getElementById('panelDiseno');
+    var disenoBack = document.getElementById('disenoBack');
+    var disenoList = document.getElementById('disenoOrdenList');
+    var disenoBuscador = document.getElementById('disenoBuscador');
+
+    function openDisenoPanel() {
+        panelDiseno.style.display = 'flex';
+        cargarDisOrdenes();
+    }
+    function closeDisenoPanel() {
+        panelDiseno.style.display = 'none';
+    }
+    window.openDisenoPopupGlobal = openDisenoPanel;
+    window.closeDisenoPopupGlobal = closeDisenoPanel;
+
+    if (disenoBack) disenoBack.addEventListener('click', function() {
+        closeDisenoPanel();
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
+    });
+
+    // Tab clicks  
+    panelDiseno.querySelectorAll('[data-dis-status]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            panelDiseno.querySelectorAll('[data-dis-status]').forEach(function(b) {
+                b.classList.remove('active');
+                b.style.background = ''; b.style.borderColor = ''; b.style.color = '';
+            });
+            btn.classList.add('active');
+            btn.style.background = '#7c3aed'; btn.style.borderColor = '#7c3aed'; btn.style.color = '#fff';
+            currentDisTab = btn.dataset.disStatus;
+            renderDisOrdenes();
+        });
+    });
+
+    if (disenoBuscador) disenoBuscador.addEventListener('input', renderDisOrdenes);
+    var disenoRecargar = document.getElementById('disenoRecargar');
+    if (disenoRecargar) disenoRecargar.addEventListener('click', cargarDisOrdenes);
+
+    function cargarDisOrdenes() {
+        MU.load(DIS_COLLECTION, disenoList, '<div style="text-align:center;color:#9ca3af;padding:30px;">Cargando...</div>', function(err, orders) {
+            if (err) { disenoList.innerHTML = '<div style="text-align:center;color:#dc2626;padding:30px;">Error: '+esc(err.message)+'</div>'; return; }
+            allDisOrders = orders; renderDisOrdenes();
+        });
+    }
+
+    function renderDisOrdenes() {
+        var lista = MU.sortUrgent(MU.filter(allDisOrders, currentDisTab, disenoBuscador.value, ['folio','cliente','producto']));
+        if (!lista.length) { disenoList.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;">Sin órdenes en esta categoría.</div>'; return; }
+        disenoList.innerHTML = lista.map(function(o) {
+            var opts = MU.statusOpts(o.estado, [['pendiente','⏳ Pendiente'],['en_diseno','🎨 En Diseño'],['listo','✅ Listo'],['enviado','📦 Enviado']]);
+            return '<div class="diseno-card" data-id="'+esc(o.id)+'">'+
+                '<div style="display:flex;justify-content:space-between;align-items:flex-start;">'+
+                  '<div><div style="font-size:0.8rem;font-weight:800;color:#7c3aed;">'+esc(o.folio||'Sin folio')+'</div>'+
+                  '<div style="font-size:0.55rem;color:#9ca3af;">Entrega: '+esc(o.fechaEntrega||'—')+' · '+esc(o.producto||'—')+'</div></div>'+
+                  '<select class="dis-status-sel" data-id="'+esc(o.id)+'" style="background:#fff;border:1px solid #e5e7eb;color:#374151;border-radius:6px;padding:4px 8px;font-size:0.6rem;font-weight:700;">'+opts+'</select>'+
+                '</div>'+
+                '<div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:0.63rem;color:#6b7280;">'+
+                  '<span><strong style="color:#374151;">Cliente:</strong> '+esc(o.cliente||'—')+'</span>'+
+                  '<span><strong style="color:#374151;">Cantidad:</strong> '+esc(o.cantidad||'—')+'</span>'+
+                  '<span><strong style="color:#374151;">Diseñador:</strong> '+esc(o.disenador||'Sin asignar')+'</span>'+
+                  '<span><strong style="color:#374151;">Color:</strong> '+esc(o.color||'—')+'</span>'+
+                  (o.notasDisenador?'<span style="grid-column:1/-1;color:#7c3aed;"><strong>Notas diseñador:</strong> '+esc(o.notasDisenador)+'</span>':'')+
+                  (o.disenoUrl?'<span style="grid-column:1/-1"><a href="'+esc(o.disenoUrl)+'" target="_blank" style="color:#7c3aed;font-weight:700;">🎨 Ver diseño actual</a></span>':'')+
+                '</div>'+
+                '<div style="display:flex;gap:6px;flex-wrap:wrap;">'+
+                  '<label style="font-size:0.6rem;font-weight:700;color:#6b7280;display:flex;align-items:center;gap:4px;cursor:pointer;background:#f5f3ff;padding:4px 10px;border-radius:6px;border:1px solid #e5e7eb;">📎 Subir diseño <input type="file" accept="image/*,.pdf,.ai,.psd,.cdr" data-upload-id="'+esc(o.id)+'" style="display:none;"></label>'+
+                  (o.estado==='listo'?'<button class="prod-btn-action entrega" data-action="enviar-prod" data-id="'+esc(o.id)+'" style="background:#f0fdf4;border-color:#bbf7d0;color:#166534;">🏭 Enviar a Producción</button>':'')+
+                  '<button class="prod-btn-action del" data-action="dis-eliminar" data-id="'+esc(o.id)+'">🗑</button>'+
+                '</div></div>';
+        }).join('');
+
+        // Status change
+        MU.bindSelects(disenoList, '.dis-status-sel', DIS_COLLECTION, allDisOrders, renderDisOrdenes);
+
+        // File upload
+        disenoList.querySelectorAll('[data-upload-id]').forEach(function(inp) {
+            inp.addEventListener('change', async function() {
+                var file = inp.files && inp.files[0]; if (!file) return;
+                var docId = inp.dataset.uploadId;
+                try {
+                    var storage = window.firebase.storage();
+                    var path = 'design_files/' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+                    var ref = storage.ref(path);
+                    await ref.put(file);
+                    var url = await ref.getDownloadURL();
+                    var db = getDisDB();
+                    await db.collection(DIS_COLLECTION).doc(docId).update({ disenoUrl: url, disenoNombre: file.name, actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp() });
+                    var o = allDisOrders.find(function(x){ return x.id === docId; });
+                    if (o) o.disenoUrl = url;
+                    renderDisOrdenes();
+                    alert('✅ Diseño subido correctamente.');
+                } catch(err) { alert('Error al subir: '+err.message); }
+            });
+        });
+
+        // Actions
+        disenoList.querySelectorAll('[data-action]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var action = btn.dataset.action, docId = btn.dataset.id;
+                var orden = allDisOrders.find(function(x){ return x.id === docId; }); if (!orden) return;
+                if (action === 'enviar-prod') enviarDisenoAProduccion(orden);
+                if (action === 'dis-eliminar') eliminarDisOrden(docId);
+            });
+        });
+    }
+
+    async function enviarDisenoAProduccion(orden) {
+        var db = getDisDB(); if (!db) return;
+        try {
+            // Create production order
+            await db.collection('production_orders').add({
+                folio: orden.folio || '',
+                cliente: orden.cliente || '',
+                clienteId: orden.clienteId || '',
+                telefono: orden.telefono || '',
+                fechaCreacion: new Date().toISOString().slice(0,10),
+                fechaEntrega: orden.fechaEntrega || '',
+                producto: orden.producto || '',
+                color: orden.color || '',
+                cantidad: orden.cantidad || '',
+                detalleProducto: orden.detalleProducto || '',
+                notas: orden.notasProduccion || '',
+                disenoUrl: orden.disenoUrl || '',
+                disenoNombre: orden.disenoNombre || '',
+                disenoTipo: '',
+                estado: 'pendiente',
+                origenDiseno: true,
+                disenoDocId: orden.id,
+                inicioTrabajoEn: null,
+                creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
+                actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+            });
+            // Update design order status
+            await db.collection(DIS_COLLECTION).doc(orden.id).update({
+                estado: 'enviado', actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+            });
+            orden.estado = 'enviado';
+            renderDisOrdenes();
+            alert('✅ Diseño enviado a producción.');
+        } catch(err) { alert('Error: '+err.message); }
+    }
+
+    function eliminarDisOrden(docId) {
+        MU.remove(DIS_COLLECTION, docId, allDisOrders, renderDisOrdenes, null, '¿Eliminar esta orden de diseño?');
+    }
+
+    // Auto-send from cotizador → diseño
+    window.enviarAutoADiseno = function(venta) {
+        var db = getDisDB(); if (!db) return;
+        var linea0 = (venta.lineas && venta.lineas[0]) || {};
+        var cantTotal = (venta.lineas || []).reduce(function(s,l){ return s + Number(l.cantidad || 1); }, 0);
+        db.collection(DIS_COLLECTION).add({
+            folio: venta.folio || '',
+            cliente: venta.clienteNombre || '',
+            telefono: venta.telefono || '',
+            clienteId: '',
+            producto: typeof window.mapProductoParaProduccion === 'function' ? window.mapProductoParaProduccion(linea0.producto||'') : (linea0.producto||''),
+            color: '',
+            cantidad: String(cantTotal),
+            detalleProducto: linea0.medida || '',
+            fechaEntrega: venta.fechaEntrega || '',
+            disenador: venta.disenador || '',
+            notasProduccion: venta.notasProduccion || '',
+            notasDisenador: venta.notasDisenador || '',
+            comentarios: venta.comentarios || '',
+            disenoUrl: '',
+            disenoNombre: '',
+            estado: 'pendiente',
+            total: venta.total || 0,
+            creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
+            actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function() {
+            if (typeof notifyInfo === 'function') notifyInfo('Orden enviada automáticamente a Diseño.', 'Diseño');
+        }).catch(function(err) { console.error('Error auto-diseño:', err); });
+    };
+});
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MÓDULO ALMACÉN DE PEDIDOS — Panel HTML
+════════════════════════════════════════════════════════════════ -->
+<div id="panelAlmacenPedidos" class="almacenpedidos-overlay">
+  <div style="display:flex;flex-direction:column;height:100%;">
+    <div class="almacenpedidos-header">
+      <button id="almacenPedidosBack" class="almacenpedidos-back" type="button" title="Volver" aria-label="Volver">←</button>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.6rem;line-height:1;">📦</span>
+        <div>
+          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">ALMACÉN DE PEDIDOS</div>
+          <div style="font-size:0.6rem;color:rgba(255,255,255,0.7);">Pedidos terminados — decide si se envían o se entregan en local</div>
+        </div>
+      </div>
+    </div>
+    <div class="almacenpedidos-body">
+      <div style="display:flex;gap:6px;flex-shrink:0;">
+        <button class="prod-tab active" data-alm-status="almacenado" style="background:#0d9488;border-color:#0d9488;color:#fff;">📦 Almacenados</button>
+        <button class="prod-tab" data-alm-status="para_envio">🚚 Para Envío</button>
+        <button class="prod-tab" data-alm-status="entregado_local">🏪 Entregado en Local</button>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0;">
+        <input type="text" id="almPedBuscador" placeholder="🔍 Buscar por folio, cliente..." style="flex:1;background:#fff;border:1px solid #e5e7eb;color:#1f2937;border-radius:8px;padding:7px 10px;font-size:0.7rem;">
+        <button id="almPedRecargar" style="background:#f0fdfa;border:1px solid #ccfbf1;color:#0d9488;border-radius:8px;padding:0 12px;cursor:pointer;font-size:0.9rem;">🔄</button>
+      </div>
+      <div id="almPedList" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Módulo Almacén de Pedidos */
+document.addEventListener('DOMContentLoaded', function() {
+    var ALMP_COLLECTION = 'stored_orders';
+    function getAlmpDB() { return window.firebase ? window.firebase.firestore() : null; }
+    var allAlmPed = [];
+    var currentAlmTab = 'almacenado';
+    var esc = window._escHtml;
+    var panel = document.getElementById('panelAlmacenPedidos');
+    var backBtn = document.getElementById('almacenPedidosBack');
+    var listEl = document.getElementById('almPedList');
+    var buscador = document.getElementById('almPedBuscador');
+
+    function openAlmPedPanel() { panel.style.display = 'flex'; cargarAlmPed(); }
+    function closeAlmPedPanel() { panel.style.display = 'none'; }
+    window.openAlmacenPedidosPopupGlobal = openAlmPedPanel;
+    window.closeAlmacenPedidosPopupGlobal = closeAlmPedPanel;
+
+    if (backBtn) backBtn.addEventListener('click', function() { closeAlmPedPanel(); if (typeof mostrarInicioSistema==='function') mostrarInicioSistema(); });
+
+    panel.querySelectorAll('[data-alm-status]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            panel.querySelectorAll('[data-alm-status]').forEach(function(b){ b.classList.remove('active'); b.style.background=''; b.style.borderColor=''; b.style.color=''; });
+            btn.classList.add('active'); btn.style.background='#0d9488'; btn.style.borderColor='#0d9488'; btn.style.color='#fff';
+            currentAlmTab = btn.dataset.almStatus; renderAlmPed();
+        });
+    });
+    if (buscador) buscador.addEventListener('input', renderAlmPed);
+    var recargar = document.getElementById('almPedRecargar');
+    if (recargar) recargar.addEventListener('click', cargarAlmPed);
+
+    function cargarAlmPed() {
+        listEl.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;">Cargando...</div>';
+        var db = getAlmpDB(); if (!db) return;
+        db.collection(ALMP_COLLECTION).orderBy('creadoEn','desc').get().then(function(snap) {
+            allAlmPed = snap.docs.map(function(d){ return Object.assign({id:d.id}, d.data()); });
+            renderAlmPed();
+        }).catch(function(err) { listEl.innerHTML = '<div style="text-align:center;color:#dc2626;padding:30px;">Error: '+esc(err.message)+'</div>'; });
+    }
+
+    function renderAlmPed() {
+        var q = (buscador.value||'').toLowerCase().trim();
+        var lista = allAlmPed.filter(function(o) {
+            if (o.estado !== currentAlmTab) return false;
+            if (!q) return true;
+            return (o.folioProduccion||'').toLowerCase().includes(q)||(o.cliente||'').toLowerCase().includes(q);
+        });
+        if (!lista.length) { listEl.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;">Sin pedidos en esta categoría.</div>'; return; }
+        listEl.innerHTML = lista.map(function(o) {
+            return '<div class="almped-card" data-id="'+esc(o.id)+'">'+
+                '<div style="display:flex;justify-content:space-between;align-items:center;">'+
+                  '<div><div style="font-size:0.8rem;font-weight:800;color:#0d9488;">'+esc(o.folioProduccion||o.id)+'</div>'+
+                  '<div style="font-size:0.55rem;color:#9ca3af;">Entrega: '+esc(o.fechaEntrega||'—')+'</div></div>'+
+                  '<div style="font-size:0.58rem;font-weight:700;color:#6b7280;background:#f3f4f6;padding:3px 8px;border-radius:6px;">'+esc(o.estado||'')+'</div>'+
+                '</div>'+
+                '<div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:0.63rem;color:#6b7280;">'+
+                  '<span><strong style="color:#374151;">Cliente:</strong> '+esc(o.cliente||'—')+'</span>'+
+                  '<span><strong style="color:#374151;">Producto:</strong> '+esc(o.producto||'—')+'</span>'+
+                  '<span><strong style="color:#374151;">Cantidad:</strong> '+esc(o.cantidad||'—')+'</span>'+
+                  '<span><strong style="color:#374151;">Color:</strong> '+esc(o.color||'—')+'</span>'+
+                  (o.disenoUrl?'<span style="grid-column:1/-1"><a href="'+esc(o.disenoUrl)+'" target="_blank" style="color:#0d9488;font-weight:700;">📷 Ver imagen</a></span>':'')+
+                '</div>'+
+                '<div style="display:flex;gap:6px;">'+
+                  (o.estado==='almacenado'?'<button class="prod-btn-action entrega" data-action="a-envio" data-id="'+esc(o.id)+'" style="background:#f0fdf4;border-color:#bbf7d0;color:#166534;">🚚 Preparar Envío</button>'+
+                  '<button class="prod-btn-action" data-action="entrega-local" data-id="'+esc(o.id)+'" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;">🏪 Entrega en Local</button>':'')+
+                  (o.estado==='para_envio'?'<button class="prod-btn-action entrega" data-action="a-reparto" data-id="'+esc(o.id)+'" style="background:#eff6ff;border-color:#bfdbfe;color:#1e40af;">🚚 Enviar a Reparto</button>':'')+
+                  '<button class="prod-btn-action" data-action="etiqueta-alm" data-id="'+esc(o.id)+'" style="background:#f9fafb;border-color:#e5e7eb;color:#374151;">🏷 Etiqueta</button>'+
+                '</div></div>';
+        }).join('');
+
+        listEl.querySelectorAll('[data-action]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var action=btn.dataset.action, docId=btn.dataset.id;
+                var orden = allAlmPed.find(function(x){ return x.id===docId; }); if (!orden) return;
+                if (action==='a-envio') cambiarEstadoAlmPed(docId, 'para_envio');
+                if (action==='entrega-local') cambiarEstadoAlmPed(docId, 'entregado_local');
+                if (action==='a-reparto') enviarAlmPedAReparto(orden);
+                if (action==='etiqueta-alm') imprimirEtiquetaAlmacen(orden);
+            });
+        });
+    }
+
+    async function cambiarEstadoAlmPed(docId, nuevoEstado) {
+        var db = getAlmpDB(); if (!db) return;
+        try {
+            await db.collection(ALMP_COLLECTION).doc(docId).update({ estado: nuevoEstado, actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp() });
+            var o = allAlmPed.find(function(x){ return x.id===docId; }); if (o) o.estado = nuevoEstado;
+            renderAlmPed();
+        } catch(err) { alert('Error: '+err.message); }
+    }
+
+    async function enviarAlmPedAReparto(orden) {
+        var db = getAlmpDB(); if (!db) return;
+        try {
+            await db.collection('delivery_orders').add({
+                folioProduccion: orden.folioProduccion || '',
+                produccionDocId: orden.produccionDocId || '',
+                cliente: orden.cliente || '',
+                clienteId: orden.clienteId || '',
+                telefono: '',
+                producto: orden.producto || '',
+                cantidad: orden.cantidad || '',
+                detalleProducto: orden.detalleProducto || '',
+                fechaEntrega: orden.fechaEntrega || '',
+                disenoUrl: orden.disenoUrl || '',
+                correo: '',
+                tipoDireccion: 'negocio',
+                direccion: '',
+                lat: null, lng: null,
+                estado: 'pendiente',
+                notas: '',
+                creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
+                actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+            });
+            await db.collection(ALMP_COLLECTION).doc(orden.id).update({ estado: 'enviado_reparto', actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp() });
+            var o = allAlmPed.find(function(x){ return x.id===orden.id; }); if (o) o.estado = 'enviado_reparto';
+            renderAlmPed();
+            alert('✅ Pedido enviado a Reparto.');
+        } catch(err) { alert('Error: '+err.message); }
+    }
+
+    function imprimirEtiquetaAlmacen(orden) {
+        var uid = 'ALP-' + String(Date.now()).slice(-8);
+        var w = window.open('','_blank','width=520,height=500');
+        w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Etiqueta '+esc(orden.folioProduccion)+'</title>'+
+            '<style>body{font-family:Segoe UI,sans-serif;padding:14px;}.label{width:360px;border:2px solid #0d9488;padding:14px;margin:0 auto;border-radius:8px;}'+
+            '.title{font-size:14px;font-weight:800;color:#0d9488;margin-bottom:8px;}.row{font-size:12px;line-height:1.5;}.uid{text-align:center;font-weight:700;margin-top:10px;font-size:11px;color:#6b7280;}</style></head><body>'+
+            '<div class="label"><div class="title">📦 ALMACÉN DE PEDIDOS</div>'+
+            '<div class="row"><strong>Folio:</strong> '+esc(orden.folioProduccion||'—')+'</div>'+
+            '<div class="row"><strong>Cliente:</strong> '+esc(orden.cliente||'—')+'</div>'+
+            '<div class="row"><strong>Producto:</strong> '+esc(orden.producto||'—')+' x'+esc(orden.cantidad||'')+'</div>'+
+            '<div class="row"><strong>Entrega:</strong> '+esc(orden.fechaEntrega||'—')+'</div>'+
+            '<div class="row"><strong>Estado:</strong> '+esc(orden.estado||'—')+'</div>'+
+            '<div class="uid">'+uid+'</div></div>'+
+            '<scr'+'ipt>window.onload=function(){window.print();}<\/scr'+'ipt></body></html>');
+        w.document.close();
+    }
+});
+</script>
+
 <div id="panelEntregas" class="entrega-overlay">
   <div class="entrega-container">
     <div class="entrega-header">
@@ -24702,81 +25495,40 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="entrega-body">
 
-      <!-- LEFT: QR scanner + form -->
+      <!-- LEFT: Summary panel — datos llegan de Almacén de Pedidos automáticamente -->
       <div class="entrega-left">
 
-        <div class="entrega-section-title">📷 ESCÁNER DE CÓDIGO QR</div>
+        <div class="entrega-section-title">📊 RESUMEN DE ENTREGAS</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#166534;margin-bottom:6px;">📬 PENDIENTES</div>
+            <div id="entResumenPendientes" style="font-size:1.5rem;font-weight:900;color:#16a34a;">0</div>
+          </div>
+          <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#92400e;margin-bottom:6px;">🚚 EN CAMINO</div>
+            <div id="entResumenEnCamino" style="font-size:1.5rem;font-weight:900;color:#f59e0b;">0</div>
+          </div>
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#1e40af;margin-bottom:6px;">✅ ENTREGADAS HOY</div>
+            <div id="entResumenEntregadas" style="font-size:1.5rem;font-weight:900;color:#2563eb;">0</div>
+          </div>
+        </div>
+
+        <div class="entrega-section-title" style="margin-top:10px;">ℹ️ FLUJO DE ENTREGA</div>
+        <div style="font-size:0.65rem;color:#6b7280;line-height:1.6;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px;">
+          Los pedidos llegan aquí automáticamente desde <strong style="color:#0d9488;">Almacén de Pedidos</strong> cuando se elige <em>"Preparar Envío"</em>.<br><br>
+          📦 Almacén → 🚚 Reparto → ✅ Entregado
+        </div>
+
+        <div class="entrega-section-title" style="margin-top:10px;">📷 ESCÁNER QR (opcional)</div>
         <div class="qr-scanner-box">
           <div class="qr-scanner-controls">
-            <button id="entBtnEscanear" class="qr-btn">📷 Iniciar Escáner</button>
+            <button id="entBtnEscanear" class="qr-btn">📷 Escanear</button>
             <button id="entBtnDetenerQR" class="qr-btn stop" style="display:none">⏹ Detener</button>
-            <span id="entQrStatus" class="qr-status">Listo para escanear</span>
+            <span id="entQrStatus" class="qr-status">Listo</span>
           </div>
           <div id="entQrReader" style="width:100%;display:none;"></div>
           <div id="entQrResult" class="qr-result"></div>
-        </div>
-
-        <div class="entrega-section-title">📦 DATOS DE PRODUCCIÓN</div>
-        <div class="entrega-form">
-          <div class="prod-row">
-            <div class="entrega-field">
-              <label>FOLIO DE ORDEN</label>
-              <input type="text" id="entFolio" readonly placeholder="Escáner o envío desde producción">
-            </div>
-            <div class="entrega-field">
-              <label>ID CLIENTE</label>
-              <input type="text" id="entClienteId" readonly placeholder="Auto">
-            </div>
-          </div>
-          <div class="entrega-field">
-            <label>NOMBRE DEL CLIENTE</label>
-            <input type="text" id="entCliente" placeholder="Nombre completo">
-          </div>
-          <div class="prod-row">
-            <div class="entrega-field">
-              <label>NÚMERO DE TELÉFONO</label>
-              <input type="tel" id="entTelefono" placeholder="10 dígitos">
-            </div>
-            <div class="entrega-field">
-              <label>CORREO ELECTRÓNICO</label>
-              <input type="email" id="entCorreo" placeholder="cliente@email.com">
-            </div>
-          </div>
-          <div class="prod-row">
-            <div class="entrega-field">
-              <label>PRODUCTO</label>
-              <input type="text" id="entProducto" readonly placeholder="Auto">
-            </div>
-            <div class="entrega-field">
-              <label>CANTIDAD</label>
-              <input type="text" id="entCantidad" readonly placeholder="Auto">
-            </div>
-          </div>
-          <div class="entrega-field">
-            <label>FECHA DE ENTREGA</label>
-            <input type="date" id="entFechaEntrega">
-          </div>
-        </div>
-
-        <div class="entrega-section-title">📍 DIRECCIÓN DE ENTREGA</div>
-        <div class="entrega-form">
-          <div class="entrega-field">
-            <label>TIPO DE DIRECCIÓN</label>
-            <select id="entTipoDireccion">
-              <option value="negocio">🏢 Negocio</option>
-              <option value="casa">🏠 Casa</option>
-              <option value="ubicacion">📌 Ubicación Específica Pactada</option>
-            </select>
-          </div>
-          <div class="entrega-field">
-            <label id="entDireccionLabel">DIRECCIÓN DEL NEGOCIO</label>
-            <textarea id="entDireccion" rows="3" placeholder="Nombre del negocio, calle, número, colonia, ciudad..."></textarea>
-          </div>
-          <div class="entrega-field">
-            <label>NOTAS DE ENTREGA</label>
-            <textarea id="entNotas" rows="2" placeholder="Referencias, instrucciones especiales..."></textarea>
-          </div>
-          <button id="btnGuardarEntrega" class="entrega-save-btn">💾 GUARDAR ENTREGA</button>
         </div>
       </div>
 
@@ -24784,7 +25536,11 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="entrega-right">
         <div class="entrega-section-title">🗺 MAPA GENERAL DE ENTREGAS</div>
         <div id="entregaMapContainer"></div>
-        <div class="entrega-map-tip">📍 Pines de todos los clientes activos — lista ordenada de más cercano a más lejano según tu ubicación</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;">
+          <div class="entrega-map-tip" style="margin:0;">📍 Pines de todos los clientes activos — ordenados por distancia</div>
+          <button id="btnAgregarTempOrder" type="button" title="Agregar entrega temporal manual" style="background:linear-gradient(135deg,#ff9900,#ffb84d);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:0.68rem;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 2px 8px rgba(255,153,0,0.3);transition:opacity .15s;display:flex;align-items:center;gap:4px;">＋ Agregar Temporal</button>
+        </div>
+        <div id="tempOrdersContainer"></div>
 
         <div class="entrega-tabs" id="entTabs">
           <button class="entrega-tab active" data-status="pendiente">📬 Pendientes</button>
@@ -24858,21 +25614,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function aplicarDatosQR(payload) {
-        if (payload.ORD) document.getElementById('entFolio').value = payload.ORD;
-        if (payload.CLI) document.getElementById('entCliente').value = payload.CLI;
-        if (payload.CID) document.getElementById('entClienteId').value = payload.CID;
-        if (payload.TEL) document.getElementById('entTelefono').value = payload.TEL;
+        // Form removed — QR data is informational only now
         if (payload.ORD) {
-            var db = getEntDB(); if (!db) return;
-            db.collection('production_orders').where('folio', '==', Number(payload.ORD)).limit(1).get()
-                .then(function(snap) {
-                    if (!snap.empty) {
-                        var d = snap.docs[0].data();
-                        if (d.producto) document.getElementById('entProducto').value = d.producto;
-                        if (d.cantidad) document.getElementById('entCantidad').value = d.cantidad;
-                        if (d.fechaEntrega) document.getElementById('entFechaEntrega').value = d.fechaEntrega;
-                    }
-                }).catch(function(){});
+            var qrResult = document.getElementById('entQrResult');
+            if (qrResult) {
+                qrResult.style.display = 'block';
+                qrResult.textContent = '✅ Orden: ' + payload.ORD + (payload.CLI ? ' | Cliente: ' + payload.CLI : '');
+            }
         }
     }
 
@@ -24960,28 +25708,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load from Firestore
     function cargarEntregas() {
-        var db = getEntDB(); if (!db) return;
-        document.getElementById('entregaList').innerHTML = '<div class="entrega-loading">Cargando...</div>';
-        db.collection(ENT_COLLECTION).orderBy('creadoEn', 'desc').get().then(function(snap) {
-            allEntregas = snap.docs.map(function(d) { var o = d.data(); o.id = d.id; return o; });
-            renderEntregas();
-            actualizarMapaMarcadores(allEntregas);
-        }).catch(function(err) {
-            document.getElementById('entregaList').innerHTML = '<div class="entrega-empty">Error: ' + escEnt(err.message) + '</div>';
+        var entList = document.getElementById('entregaList');
+        MU.load(ENT_COLLECTION, entList, '<div class="entrega-loading">Cargando...</div>', function(err, orders) {
+            if (err) { entList.innerHTML = '<div class="entrega-empty">Error: '+escEnt(err.message)+'</div>'; return; }
+            allEntregas = orders; renderEntregas(); actualizarResumenEntregas(); actualizarMapaMarcadores(allEntregas);
         });
     }
 
     var tipoDirLabel = { negocio: '🏢 Negocio', casa: '🏠 Casa', ubicacion: '📌 Ubicación Específica' };
 
     function renderEntregas() {
-        var q = (document.getElementById('entBuscador').value || '').toLowerCase().trim();
-        var lista = allEntregas.filter(function(e) {
-            if (e.estado !== currentEntTab) return false;
-            if (!q) return true;
-            return (e.folioProduccion||'').toLowerCase().includes(q) ||
-                   (e.cliente||'').toLowerCase().includes(q) ||
-                   (e.direccion||'').toLowerCase().includes(q);
-        });
+        var lista = MU.filter(allEntregas, currentEntTab, document.getElementById('entBuscador').value, ['folioProduccion','cliente','direccion']);
 
         if (userCoords) {
             lista.sort(function(a, b) {
@@ -25000,8 +25737,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         listEl.innerHTML = lista.map(function(e) {
             var dist = (userCoords && e.lat && e.lng) ? haversineKm(userCoords.lat, userCoords.lng, e.lat, e.lng).toFixed(1) + ' km' : (e.lat ? '📍 Ubicado' : '📭 Sin geocodificar');
-            var opts = [['pendiente','📬 Pendiente'],['en_camino','🚚 En Camino'],['entregada','✅ Entregada'],['no_entregada','❌ No Entregada']]
-                .map(function(p){ return '<option value="'+p[0]+'"'+(p[0]===e.estado?' selected':'')+'>'+p[1]+'</option>'; }).join('');
+            var opts = MU.statusOpts(e.estado, [['pendiente','📬 Pendiente'],['en_camino','🚚 En Camino'],['entregada','✅ Entregada'],['no_entregada','❌ No Entregada']]);
             var mapsUrl = (e.lat && e.lng)
                 ? 'https://www.google.com/maps/dir/?api=1&destination=' + e.lat + ',' + e.lng
                 : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(e.direccion || e.cliente || '');
@@ -25023,25 +25759,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 '</div>' +
                 '<div class="entrega-card-actions">' +
                   '<button class="entrega-btn nav" data-action="navegar" data-id="'+escEnt(e.id)+'" data-url="'+escEnt(mapsUrl)+'">🗺 Navegar</button>' +
+                  '<button class="entrega-btn" data-action="etiqueta-ent" data-id="'+escEnt(e.id)+'" style="background:rgba(255,153,0,0.12);border-color:rgba(255,153,0,0.3);color:#ffb300;">🏷 Etiqueta</button>' +
                   '<button class="entrega-btn" data-action="editar" data-id="'+escEnt(e.id)+'">✏️ Editar</button>' +
                   '<button class="entrega-btn del" data-action="eliminar" data-id="'+escEnt(e.id)+'">🗑</button>' +
                 '</div></div>';
         }).join('');
 
-        listEl.querySelectorAll('.entrega-status-select').forEach(function(sel) {
-            sel.addEventListener('change', function() {
-                var docId = sel.dataset.id, nuevoEstado = sel.value;
-                var db = getEntDB(); if (!db) return;
-                db.collection(ENT_COLLECTION).doc(docId).update({
-                    estado: nuevoEstado,
-                    actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-                }).then(function() {
-                    var o = allEntregas.find(function(x){ return x.id === docId; });
-                    if (o) o.estado = nuevoEstado;
-                    renderEntregas();
-                    actualizarMapaMarcadores(allEntregas);
-                }).catch(function(err){ alert('Error: ' + err.message); });
-            });
+        MU.bindSelects(listEl, '.entrega-status-select', ENT_COLLECTION, allEntregas, renderEntregas, function() {
+            actualizarResumenEntregas(); actualizarMapaMarcadores(allEntregas);
         });
 
         listEl.querySelectorAll('[data-action]').forEach(function(btn) {
@@ -25051,107 +25776,113 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (action === 'navegar') window.open(btn.dataset.url, '_blank');
                 if (action === 'editar') cargarEntregaEnForm(entrega);
                 if (action === 'eliminar') eliminarEntrega(docId);
+                if (action === 'etiqueta-ent') mostrarEtiquetaEntrega(entrega);
             });
         });
     }
 
-    function cargarEntregaEnForm(e) {
-        document.getElementById('entFolio').value = e.folioProduccion || '';
-        document.getElementById('entClienteId').value = e.clienteId || '';
-        document.getElementById('entCliente').value = e.cliente || '';
-        document.getElementById('entTelefono').value = e.telefono || '';
-        document.getElementById('entCorreo').value = e.correo || '';
-        document.getElementById('entProducto').value = e.producto || '';
-        document.getElementById('entCantidad').value = e.cantidad || '';
-        document.getElementById('entFechaEntrega').value = e.fechaEntrega || '';
-        document.getElementById('entTipoDireccion').value = e.tipoDireccion || 'negocio';
-        document.getElementById('entDireccion').value = e.direccion || '';
-        document.getElementById('entNotas').value = e.notas || '';
-        actualizarLabelDireccion();
-        var btn = document.getElementById('btnGuardarEntrega');
-        btn.dataset.editId = e.id;
-        btn.textContent = '💾 ACTUALIZAR ENTREGA';
-        document.querySelector('.entrega-left').scrollTo({ top: 0, behavior: 'smooth' });
+    function mostrarEtiquetaEntrega(e) {
+        var mapsUrl = (e.lat && e.lng)
+            ? 'https://www.google.com/maps/dir/?api=1&destination='+e.lat+','+e.lng
+            : 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(e.direccion||e.cliente||'');
+        var mapImg = (e.lat && e.lng)
+            ? '<div id="entEtiquetaMap" style="width:100%;height:180px;border-radius:8px;margin:8px 0;border:1px solid #e5e7eb;"></div>'
+            : '<div style="text-align:center;padding:20px;color:#9ca3af;font-size:0.7rem;">📭 Sin coordenadas para mostrar mapa</div>';
+        var imgSection = e.disenoUrl
+            ? '<div style="margin-top:8px;"><div style="font-size:0.6rem;font-weight:700;color:#92400e;margin-bottom:4px;">📷 Foto del producto</div><img src="'+escEnt(e.disenoUrl)+'" style="max-width:100%;max-height:160px;border-radius:8px;border:1px solid #e5e7eb;"></div>'
+            : '';
+        // Build popup
+        var popup = document.createElement('div');
+        popup.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);';
+        popup.innerHTML = '<div style="background:#fff;border-radius:14px;max-width:420px;width:90%;max-height:90vh;overflow-y:auto;padding:20px;box-shadow:0 20px 40px rgba(0,0,0,0.2);">'+
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">'+
+              '<div style="font-size:1rem;font-weight:800;color:#ff9900;">🏷 Etiqueta de Entrega</div>'+
+              '<button id="btnCerrarEtiquetaEnt" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#9ca3af;">✕</button>'+
+            '</div>'+
+            '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.72rem;color:#374151;">'+
+              '<div><strong style="color:#92400e;">Folio:</strong><br>'+escEnt(e.folioProduccion||e.id)+'</div>'+
+              '<div><strong style="color:#92400e;">Estado:</strong><br>'+escEnt(e.estado||'—')+'</div>'+
+              '<div><strong style="color:#92400e;">Cliente:</strong><br>'+escEnt(e.cliente||'—')+'</div>'+
+              '<div><strong style="color:#92400e;">Teléfono:</strong><br><a href="tel:'+escEnt(e.telefono||'')+'" style="color:#ff9900;">'+escEnt(e.telefono||'—')+'</a></div>'+
+              '<div style="grid-column:1/-1"><strong style="color:#92400e;">Dirección:</strong><br>'+escEnt(e.direccion||'—')+'</div>'+
+              '<div><strong style="color:#92400e;">Producto:</strong><br>'+escEnt(e.producto||'—')+'</div>'+
+              '<div><strong style="color:#92400e;">Cantidad:</strong><br>'+escEnt(e.cantidad||'—')+'</div>'+
+              '<div><strong style="color:#92400e;">Entrega:</strong><br>'+escEnt(e.fechaEntrega||'—')+'</div>'+
+              '<div><strong style="color:#92400e;">Adeudo:</strong><br><span style="color:#dc2626;font-weight:700;">Consultar en caja</span></div>'+
+            '</div>'+
+            mapImg+
+            imgSection+
+            '<div style="display:flex;gap:8px;margin-top:12px;">'+
+              '<a href="'+escEnt(mapsUrl)+'" target="_blank" style="flex:1;text-align:center;background:#ff9900;color:#fff;text-decoration:none;padding:10px;border-radius:8px;font-weight:700;font-size:0.72rem;">🗺 Abrir en Mapa</a>'+
+              '<button id="btnImprimirEtiquetaEnt" style="flex:1;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;font-weight:700;font-size:0.72rem;cursor:pointer;">🖨 Imprimir</button>'+
+            '</div>'+
+        '</div>';
+        document.body.appendChild(popup);
+        popup.querySelector('#btnCerrarEtiquetaEnt').addEventListener('click', function(){ popup.remove(); });
+        popup.addEventListener('click', function(ev){ if (ev.target === popup) popup.remove(); });
+
+        // Initialize mini map with Leaflet
+        if (e.lat && e.lng && window.L) {
+            setTimeout(function() {
+                var mapCont = document.getElementById('entEtiquetaMap');
+                if (mapCont) {
+                    var miniMap = L.map(mapCont).setView([e.lat, e.lng], 15);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:18}).addTo(miniMap);
+                    L.marker([e.lat, e.lng]).addTo(miniMap);
+                    setTimeout(function(){ miniMap.invalidateSize(); }, 200);
+                }
+            }, 100);
+        }
+
+        // Print button
+        popup.querySelector('#btnImprimirEtiquetaEnt').addEventListener('click', function() {
+            var w = window.open('','_blank','width=520,height=600');
+            w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Entrega '+escEnt(e.folioProduccion||'')+'</title>'+
+                '<style>body{font-family:Segoe UI,sans-serif;padding:14px;} .lbl{width:380px;border:2px solid #ff9900;padding:16px;margin:0 auto;border-radius:10px;}'+
+                '.title{font-size:15px;font-weight:800;color:#ff9900;margin-bottom:10px;} .r{font-size:12px;line-height:1.6;}</style></head><body>'+
+                '<div class="lbl"><div class="title">🚚 ETIQUETA DE ENTREGA</div>'+
+                '<div class="r"><strong>Folio:</strong> '+escEnt(e.folioProduccion||'—')+'</div>'+
+                '<div class="r"><strong>Cliente:</strong> '+escEnt(e.cliente||'—')+'</div>'+
+                '<div class="r"><strong>Teléfono:</strong> '+escEnt(e.telefono||'—')+'</div>'+
+                '<div class="r"><strong>Dirección:</strong> '+escEnt(e.direccion||'—')+'</div>'+
+                '<div class="r"><strong>Producto:</strong> '+escEnt(e.producto||'—')+' x'+escEnt(e.cantidad||'')+'</div>'+
+                '<div class="r"><strong>Entrega:</strong> '+escEnt(e.fechaEntrega||'—')+'</div>'+
+                '</div><scr'+'ipt>window.onload=function(){window.print();}<\/scr'+'ipt></body></html>');
+            w.document.close();
+        });
     }
 
-    document.getElementById('btnGuardarEntrega').addEventListener('click', async function() {
-        var btn = this;
-        var cliente = document.getElementById('entCliente').value.trim();
-        var telefono = document.getElementById('entTelefono').value.trim();
-        var direccion = document.getElementById('entDireccion').value.trim();
-        if (!cliente) { alert('Ingresa el nombre del cliente.'); return; }
-        if (!telefono) { alert('Ingresa el teléfono del cliente.'); return; }
-        if (!direccion) { alert('Ingresa la dirección de entrega.'); return; }
-        btn.disabled = true; btn.textContent = '⏳ Guardando...';
-        var coords = await geocodirDireccion(direccion);
-        var db = getEntDB();
-        if (!db) { btn.disabled = false; btn.textContent = '💾 GUARDAR ENTREGA'; return; }
-        var docData = {
-            folioProduccion: document.getElementById('entFolio').value.trim(),
-            clienteId: document.getElementById('entClienteId').value.trim(),
-            cliente: cliente,
-            telefono: telefono,
-            correo: document.getElementById('entCorreo').value.trim(),
-            producto: document.getElementById('entProducto').value.trim(),
-            cantidad: document.getElementById('entCantidad').value.trim(),
-            fechaEntrega: document.getElementById('entFechaEntrega').value,
-            tipoDireccion: document.getElementById('entTipoDireccion').value,
-            direccion: direccion,
-            lat: coords ? coords.lat : null,
-            lng: coords ? coords.lng : null,
-            notas: document.getElementById('entNotas').value.trim(),
-            actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-        };
-        var editId = btn.dataset.editId;
-        try {
-            if (editId) {
-                await db.collection(ENT_COLLECTION).doc(editId).update(docData);
-                delete btn.dataset.editId;
-            } else {
-                docData.estado = 'pendiente';
-                docData.creadoEn = window.firebase.firestore.FieldValue.serverTimestamp();
-                await db.collection(ENT_COLLECTION).add(docData);
-            }
-            limpiarFormEntrega();
-            cargarEntregas();
-        } catch(err) { alert('Error al guardar: ' + err.message); }
-        btn.disabled = false; btn.textContent = '💾 GUARDAR ENTREGA';
-    });
+    function cargarEntregaEnForm(e) {
+        // Form removed — show detail popup instead
+        var info = '📋 Detalle de entrega:\n\n' +
+            'Folio: ' + (e.folioProduccion||'—') + '\n' +
+            'Cliente: ' + (e.cliente||'—') + '\n' +
+            'Teléfono: ' + (e.telefono||'—') + '\n' +
+            'Correo: ' + (e.correo||'—') + '\n' +
+            'Producto: ' + (e.producto||'—') + '\n' +
+            'Cantidad: ' + (e.cantidad||'—') + '\n' +
+            'Fecha: ' + (e.fechaEntrega||'—') + '\n' +
+            'Dirección: ' + (e.direccion||'—') + '\n' +
+            'Notas: ' + (e.notas||'—');
+        alert(info);
+    }
+
+    // btnGuardarEntrega removed — deliveries come from Almacén workflow
+    // Manual save form no longer exists
 
     function limpiarFormEntrega() {
-        ['entFolio','entClienteId','entCliente','entTelefono','entCorreo','entProducto','entCantidad','entFechaEntrega','entDireccion','entNotas'].forEach(function(id){
-            document.getElementById(id).value = '';
-        });
-        document.getElementById('entTipoDireccion').value = 'negocio';
-        actualizarLabelDireccion();
-        document.getElementById('entQrResult').style.display = 'none';
-        var btn = document.getElementById('btnGuardarEntrega');
-        delete btn.dataset.editId;
-        btn.textContent = '💾 GUARDAR ENTREGA';
+        // Form removed — just hide QR result if present
+        var qrResult = document.getElementById('entQrResult');
+        if (qrResult) qrResult.style.display = 'none';
     }
 
     function eliminarEntrega(docId) {
-        if (!confirm('¿Eliminar esta entrega permanentemente?')) return;
-        var db = getEntDB(); if (!db) return;
-        db.collection(ENT_COLLECTION).doc(docId).delete().then(function() {
-            allEntregas = allEntregas.filter(function(e){ return e.id !== docId; });
-            renderEntregas();
-            actualizarMapaMarcadores(allEntregas);
-        }).catch(function(err){ alert('Error: ' + err.message); });
+        MU.remove(ENT_COLLECTION, docId, allEntregas, renderEntregas, function(){ actualizarMapaMarcadores(allEntregas); }, '¿Eliminar esta entrega permanentemente?');
     }
 
     function actualizarLabelDireccion() {
-        var tipo = document.getElementById('entTipoDireccion').value;
-        var labels = { negocio: '🏢 DIRECCIÓN DEL NEGOCIO', casa: '🏠 DIRECCIÓN DE CASA', ubicacion: '📌 PUNTO DE ENCUENTRO PACTADO' };
-        var placeholders = {
-            negocio: 'Nombre del negocio, calle, número, colonia, ciudad...',
-            casa: 'Calle, número, colonia, ciudad, referencias...',
-            ubicacion: 'Descripción del punto de encuentro pactado con el cliente...'
-        };
-        document.getElementById('entDireccionLabel').textContent = labels[tipo] || 'DIRECCIÓN';
-        document.getElementById('entDireccion').placeholder = placeholders[tipo] || '';
+        // Form removed — direction type selector no longer exists
     }
-    document.getElementById('entTipoDireccion').addEventListener('change', actualizarLabelDireccion);
 
     document.getElementById('entTabs').querySelectorAll('.entrega-tab').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -25170,11 +25901,22 @@ document.addEventListener('DOMContentLoaded', function() {
     var panelEntregas = document.getElementById('panelEntregas');
     var entregaBack = document.getElementById('entregaBack');
 
+    function actualizarResumenEntregas() {
+        var pendientes = allEntregas.filter(function(e){ return e.estado === 'pendiente'; }).length;
+        var enCamino = allEntregas.filter(function(e){ return e.estado === 'en_camino'; }).length;
+        var entregadas = allEntregas.filter(function(e){ return e.estado === 'entregada'; }).length;
+        var ep = document.getElementById('entResumenPendientes');
+        var ec = document.getElementById('entResumenEnCamino');
+        var ee = document.getElementById('entResumenEntregadas');
+        if (ep) ep.textContent = pendientes;
+        if (ec) ec.textContent = enCamino;
+        if (ee) ee.textContent = entregadas;
+    }
+
     function openRepartoPanel() {
         panelEntregas.style.display = 'flex';
         setTimeout(function() { iniciarMapa(); }, 50);
         cargarEntregas();
-        actualizarLabelDireccion();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(pos) {
                 userCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
@@ -25198,6 +25940,354 @@ document.addEventListener('DOMContentLoaded', function() {
         closeRepartoPanel();
         if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     });
+
+    // Client selector removed — deliveries come from Almacén workflow
+
+    // ═══════════════════════════════════════════════════════════
+    // ÓRDENES TEMPORALES MANUALES (temp_delivery_orders)
+    // ═══════════════════════════════════════════════════════════
+    var TEMP_COLLECTION = 'temp_delivery_orders';
+    var allTempOrders = [];
+    var escT = window._escHtml;
+
+    function extraerCoordsDeLink(link) {
+        if (!link) return null;
+        var m;
+        // google.com/maps/place/.../@lat,lng,... 
+        m = link.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+        if (m) return { lat: parseFloat(m[1]), lng: parseFloat(m[2]) };
+        // google.com/maps?q=lat,lng
+        m = link.match(/[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/);
+        if (m) return { lat: parseFloat(m[1]), lng: parseFloat(m[2]) };
+        // maps.app.goo.gl or short links with /dir/lat,lng
+        m = link.match(/\/dir\/(-?\d+\.\d+),(-?\d+\.\d+)/);
+        if (m) return { lat: parseFloat(m[1]), lng: parseFloat(m[2]) };
+        // destination=lat,lng
+        m = link.match(/destination=(-?\d+\.\d+),(-?\d+\.\d+)/);
+        if (m) return { lat: parseFloat(m[1]), lng: parseFloat(m[2]) };
+        // plain coords pasted: lat, lng or lat,lng
+        m = link.trim().match(/^(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)$/);
+        if (m) return { lat: parseFloat(m[1]), lng: parseFloat(m[2]) };
+        return null;
+    }
+
+    function abrirModalTempOrder() {
+        var existing = document.getElementById('tempOrderModal');
+        if (existing) existing.remove();
+
+        var hoy = new Date().toISOString().slice(0, 10);
+        var modal = document.createElement('div');
+        modal.id = 'tempOrderModal';
+        modal.className = 'temp-order-modal';
+        modal.innerHTML =
+            '<div class="temp-order-card">' +
+              '<h3>📋 Agregar Entrega Temporal</h3>' +
+              '<div class="to-field"><label>Nombre del cliente</label><input id="toCliente" type="text" placeholder="Ej: Juan Pérez"></div>' +
+              '<div class="to-field"><label>Número de orden</label><input id="toOrden" type="text" placeholder="Ej: 2604001"></div>' +
+              '<div class="to-field"><label>Adeudo ($)</label><input id="toAdeudo" type="text" placeholder="Ej: 1,250.00"></div>' +
+              '<div class="to-field"><label>Fecha de entrega</label><input id="toFecha" type="date" value="' + hoy + '"></div>' +
+              '<div class="to-field"><label>Link de Google Maps (pegar completo)</label>' +
+                '<textarea id="toMapsLink" rows="2" placeholder="https://maps.google.com/... o coordenadas 17.065,-96.723"></textarea>' +
+                '<div id="toCoordsPreview" class="to-coords" style="display:none;"></div>' +
+              '</div>' +
+              '<div class="to-field"><label>Notas (opcional)</label><input id="toNotas" type="text" placeholder="Indicaciones de entrega..."></div>' +
+              '<div class="to-actions">' +
+                '<button class="to-btn cancel" id="toCancelar">Cancelar</button>' +
+                '<button class="to-btn save" id="toGuardar">💾 Guardar y Generar Etiqueta</button>' +
+              '</div>' +
+            '</div>';
+        document.body.appendChild(modal);
+
+        // Auto-extract coords on paste/input
+        var linkInput = document.getElementById('toMapsLink');
+        var preview = document.getElementById('toCoordsPreview');
+        linkInput.addEventListener('input', function() {
+            var coords = extraerCoordsDeLink(linkInput.value);
+            if (coords) {
+                preview.style.display = 'flex';
+                preview.innerHTML = '✅ Coordenadas: <strong>' + coords.lat.toFixed(6) + ', ' + coords.lng.toFixed(6) + '</strong>';
+            } else {
+                preview.style.display = linkInput.value.trim() ? 'flex' : 'none';
+                preview.innerHTML = linkInput.value.trim() ? '⚠️ No se detectaron coordenadas — se guardará el link' : '';
+            }
+        });
+
+        // Close
+        document.getElementById('toCancelar').addEventListener('click', function() { modal.remove(); });
+        modal.addEventListener('click', function(e) { if (e.target === modal) modal.remove(); });
+
+        // Save
+        document.getElementById('toGuardar').addEventListener('click', function() {
+            var cliente = document.getElementById('toCliente').value.trim();
+            var orden = document.getElementById('toOrden').value.trim();
+            var adeudo = document.getElementById('toAdeudo').value.trim();
+            var fecha = document.getElementById('toFecha').value;
+            var mapsLink = document.getElementById('toMapsLink').value.trim();
+            var notas = document.getElementById('toNotas').value.trim();
+            if (!cliente) { alert('Ingresa el nombre del cliente.'); return; }
+            if (!orden) { alert('Ingresa el número de orden.'); return; }
+            var coords = extraerCoordsDeLink(mapsLink);
+
+            var btn = document.getElementById('toGuardar');
+            btn.disabled = true; btn.textContent = '⏳ Guardando...';
+
+            var db = getEntDB(); if (!db) { btn.disabled = false; btn.textContent = '💾 Guardar y Generar Etiqueta'; return; }
+            var docData = {
+                cliente: cliente,
+                orden: orden,
+                adeudo: adeudo,
+                fecha: fecha,
+                mapsLink: mapsLink,
+                lat: coords ? coords.lat : null,
+                lng: coords ? coords.lng : null,
+                notas: notas,
+                estado: 'pendiente',
+                temporal: true,
+                creadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+            };
+            db.collection(TEMP_COLLECTION).add(docData).then(function(docRef) {
+                docData.id = docRef.id;
+                allTempOrders.unshift(docData);
+                renderTempOrders();
+                modal.remove();
+                // Agregar marcador al mapa
+                if (coords && entMap) {
+                    var icon = L.divIcon({
+                        className: '',
+                        html: '<div style="background:#ff9900;width:16px;height:16px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(255,153,0,0.6);"></div>',
+                        iconSize: [16, 16], iconAnchor: [8, 8]
+                    });
+                    L.marker([coords.lat, coords.lng], { icon: icon }).addTo(entMap)
+                        .bindPopup('<strong>' + escT(cliente) + '</strong><br>Orden: ' + escT(orden) + '<br>Adeudo: $' + escT(adeudo));
+                }
+                // Generar etiqueta inmediatamente
+                generarEtiquetaTemp(docData);
+            }).catch(function(err) {
+                alert('Error guardando: ' + err.message);
+                btn.disabled = false; btn.textContent = '💾 Guardar y Generar Etiqueta';
+            });
+        });
+
+        // Focus first field
+        setTimeout(function() { document.getElementById('toCliente').focus(); }, 100);
+    }
+
+    function generarEtiquetaTemp(order) {
+        var mapsUrl = order.mapsLink || '';
+        if (!mapsUrl && order.lat && order.lng) {
+            mapsUrl = 'https://www.google.com/maps/dir/?api=1&destination=' + order.lat + ',' + order.lng;
+        }
+
+        // QR payload: encodes all key data into a URL-safe format
+        var qrData = window.location.origin + window.location.pathname + '?tempOrder=' + encodeURIComponent(order.id);
+        var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(qrData);
+
+        var mapImg = (order.lat && order.lng)
+            ? '<div id="tempEtiquetaMap" style="width:100%;height:160px;border-radius:8px;margin:8px 0;border:1px solid #e5e7eb;"></div>'
+            : '';
+
+        var popup = document.createElement('div');
+        popup.style.cssText = 'position:fixed;inset:0;z-index:200003;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);padding:16px;';
+        popup.innerHTML =
+            '<div style="background:#fff;border-radius:14px;max-width:440px;width:95%;max-height:92vh;overflow-y:auto;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,0.25);">' +
+              '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">' +
+                '<div style="font-size:0.95rem;font-weight:800;color:#ff9900;">🏷 Etiqueta de Entrega</div>' +
+                '<button id="btnCerrarEtTemp" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#9ca3af;">✕</button>' +
+              '</div>' +
+              '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:0.72rem;color:#374151;">' +
+                '<div><strong style="color:#92400e;">Cliente:</strong><br>' + escT(order.cliente || '—') + '</div>' +
+                '<div><strong style="color:#92400e;">Orden:</strong><br>' + escT(order.orden || '—') + '</div>' +
+                '<div><strong style="color:#92400e;">Adeudo:</strong><br><span style="color:#dc2626;font-weight:700;">$' + escT(order.adeudo || '0') + '</span></div>' +
+                '<div><strong style="color:#92400e;">Fecha:</strong><br>' + escT(order.fecha || '—') + '</div>' +
+                (order.notas ? '<div style="grid-column:1/-1"><strong style="color:#92400e;">Notas:</strong><br>' + escT(order.notas) + '</div>' : '') +
+                (mapsUrl ? '<div style="grid-column:1/-1"><strong style="color:#92400e;">Ubicación:</strong><br><a href="' + escT(mapsUrl) + '" target="_blank" style="color:#ff9900;word-break:break-all;font-size:0.62rem;">Abrir en Maps</a></div>' : '') +
+              '</div>' +
+              mapImg +
+              '<div style="text-align:center;margin:12px 0;">' +
+                '<img src="' + escT(qrUrl) + '" alt="QR" style="width:180px;height:180px;border:1px solid #e5e7eb;border-radius:8px;">' +
+                '<div style="font-size:0.58rem;color:#9ca3af;margin-top:4px;">Escanea para ver info completa</div>' +
+              '</div>' +
+              '<div style="display:flex;gap:8px;">' +
+                (mapsUrl ? '<a href="' + escT(mapsUrl) + '" target="_blank" style="flex:1;text-align:center;background:#ff9900;color:#fff;text-decoration:none;padding:10px;border-radius:8px;font-weight:700;font-size:0.72rem;">🗺 Abrir Mapa</a>' : '') +
+                '<button id="btnImprimirEtTemp" style="flex:1;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;font-weight:700;font-size:0.72rem;cursor:pointer;padding:10px;">🖨 Imprimir</button>' +
+              '</div>' +
+            '</div>';
+        document.body.appendChild(popup);
+
+        popup.querySelector('#btnCerrarEtTemp').addEventListener('click', function() { popup.remove(); });
+        popup.addEventListener('click', function(e) { if (e.target === popup) popup.remove(); });
+
+        // Mini mapa
+        if (order.lat && order.lng && window.L) {
+            setTimeout(function() {
+                var mapEl = document.getElementById('tempEtiquetaMap');
+                if (mapEl) {
+                    var miniMap = L.map(mapEl).setView([order.lat, order.lng], 15);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(miniMap);
+                    L.marker([order.lat, order.lng]).addTo(miniMap);
+                    setTimeout(function() { miniMap.invalidateSize(); }, 200);
+                }
+            }, 100);
+        }
+
+        // Imprimir
+        popup.querySelector('#btnImprimirEtTemp').addEventListener('click', function() {
+            var w = window.open('', '_blank', 'width=520,height=700');
+            w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Entrega ' + escT(order.orden) + '</title>' +
+                '<style>body{font-family:Segoe UI,sans-serif;padding:14px;} .lbl{width:380px;border:2px solid #ff9900;padding:16px;margin:0 auto;border-radius:10px;}' +
+                '.title{font-size:15px;font-weight:800;color:#ff9900;margin-bottom:10px;} .r{font-size:12px;line-height:1.6;}' +
+                '.qr{text-align:center;margin:12px 0;} .qr img{width:200px;height:200px;}</style></head><body>' +
+                '<div class="lbl"><div class="title">🚚 ETIQUETA DE ENTREGA TEMPORAL</div>' +
+                '<div class="r"><strong>Cliente:</strong> ' + escT(order.cliente || '—') + '</div>' +
+                '<div class="r"><strong>Orden:</strong> ' + escT(order.orden || '—') + '</div>' +
+                '<div class="r"><strong>Adeudo:</strong> $' + escT(order.adeudo || '0') + '</div>' +
+                '<div class="r"><strong>Fecha:</strong> ' + escT(order.fecha || '—') + '</div>' +
+                (order.notas ? '<div class="r"><strong>Notas:</strong> ' + escT(order.notas) + '</div>' : '') +
+                '<div class="qr"><img src="' + escT(qrUrl) + '" alt="QR"><div style="font-size:10px;color:#999;margin-top:4px;">Escanear para ver detalle</div></div>' +
+                '</div><scr' + 'ipt>window.onload=function(){window.print();}<\/scr' + 'ipt></body></html>');
+            w.document.close();
+        });
+    }
+
+    function cargarTempOrders() {
+        var db = getEntDB(); if (!db) return;
+        var hoy = new Date().toISOString().slice(0, 10);
+        db.collection(TEMP_COLLECTION).orderBy('creadoEn', 'desc').get().then(function(snap) {
+            allTempOrders = snap.docs.map(function(d) { var o = d.data(); o.id = d.id; return o; });
+            renderTempOrders();
+            // Agregar marcadores naranja al mapa
+            allTempOrders.forEach(function(to) {
+                if (to.lat && to.lng && entMap) {
+                    var icon = L.divIcon({
+                        className: '',
+                        html: '<div style="background:#ff9900;width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px rgba(255,153,0,0.5);"></div>',
+                        iconSize: [14, 14], iconAnchor: [7, 7]
+                    });
+                    L.marker([to.lat, to.lng], { icon: icon }).addTo(entMap)
+                        .bindPopup('<strong>' + escT(to.cliente || '—') + '</strong><br>Orden: ' + escT(to.orden || '—') + '<br>$' + escT(to.adeudo || '0'));
+                }
+            });
+        }).catch(function(err) {
+            console.error('Error cargando temp orders:', err);
+        });
+    }
+
+    function renderTempOrders() {
+        var cont = document.getElementById('tempOrdersContainer');
+        if (!cont) return;
+        if (!allTempOrders.length) { cont.innerHTML = ''; return; }
+
+        var pendientes = allTempOrders.filter(function(o) { return o.estado === 'pendiente'; });
+        var entregados = allTempOrders.filter(function(o) { return o.estado === 'entregada'; });
+
+        cont.innerHTML =
+            '<div class="temp-orders-section">' +
+              '<div class="to-section-title">📋 ENTREGAS TEMPORALES (' + allTempOrders.length + ')</div>' +
+              allTempOrders.map(function(o) {
+                var estadoIcon = o.estado === 'entregada' ? '✅' : (o.estado === 'en_camino' ? '🚚' : '📬');
+                var mapsUrl = o.mapsLink || ((o.lat && o.lng) ? 'https://www.google.com/maps/dir/?api=1&destination=' + o.lat + ',' + o.lng : '');
+                return '<div class="temp-order-item" data-id="' + escT(o.id) + '">' +
+                  '<div class="to-info">' +
+                    '<div class="to-name">' + estadoIcon + ' ' + escT(o.cliente || '—') + '</div>' +
+                    '<div class="to-detail">Orden: ' + escT(o.orden || '—') + ' · Adeudo: $' + escT(o.adeudo || '0') + ' · ' + escT(o.fecha || '') + '</div>' +
+                  '</div>' +
+                  '<div class="to-btns">' +
+                    '<button data-action="etiqueta" title="Ver etiqueta">🏷</button>' +
+                    (mapsUrl ? '<button data-action="navegar" data-url="' + escT(mapsUrl) + '" title="Navegar">🗺</button>' : '') +
+                    '<button data-action="estado" title="Cambiar estado">🔄</button>' +
+                    '<button data-action="eliminar" title="Eliminar" style="color:#ef4444;">🗑</button>' +
+                  '</div>' +
+                '</div>';
+              }).join('') +
+            '</div>';
+
+        // Bind actions
+        cont.querySelectorAll('[data-action]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var action = btn.dataset.action;
+                var item = btn.closest('.temp-order-item');
+                var docId = item ? item.dataset.id : null;
+                var order = allTempOrders.find(function(o) { return o.id === docId; });
+                if (!order) return;
+
+                if (action === 'etiqueta') generarEtiquetaTemp(order);
+                if (action === 'navegar') window.open(btn.dataset.url, '_blank');
+                if (action === 'eliminar') {
+                    if (!confirm('¿Eliminar esta entrega temporal?')) return;
+                    var db = getEntDB(); if (!db) return;
+                    db.collection(TEMP_COLLECTION).doc(docId).delete().then(function() {
+                        allTempOrders = allTempOrders.filter(function(o) { return o.id !== docId; });
+                        renderTempOrders();
+                    }).catch(function(err) { alert('Error: ' + err.message); });
+                }
+                if (action === 'estado') {
+                    var estados = ['pendiente', 'en_camino', 'entregada'];
+                    var idx = estados.indexOf(order.estado || 'pendiente');
+                    var nuevo = estados[(idx + 1) % estados.length];
+                    var db = getEntDB(); if (!db) return;
+                    db.collection(TEMP_COLLECTION).doc(docId).update({ estado: nuevo }).then(function() {
+                        order.estado = nuevo;
+                        renderTempOrders();
+                    }).catch(function(err) { alert('Error: ' + err.message); });
+                }
+            });
+        });
+    }
+
+    // Botón +
+    var btnTempOrder = document.getElementById('btnAgregarTempOrder');
+    if (btnTempOrder) btnTempOrder.addEventListener('click', abrirModalTempOrder);
+
+    // Cargar temp orders cuando se abre el panel
+    var origOpenReparto = openRepartoPanel;
+    openRepartoPanel = function() {
+        origOpenReparto();
+        setTimeout(cargarTempOrders, 500);
+    };
+    window.openRepartoPopupGlobal = openRepartoPanel;
+
+    // ── Handler para QR scan de temp orders ──
+    // Si la URL tiene ?tempOrder=ID, mostrar la info
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        var tempId = params.get('tempOrder');
+        if (!tempId) return;
+        // Esperar a que Firebase esté listo
+        var checkFb = setInterval(function() {
+            if (!window.firebase) return;
+            clearInterval(checkFb);
+            var db = window.firebase.firestore();
+            db.collection('temp_delivery_orders').doc(tempId).get().then(function(doc) {
+                if (!doc.exists) { alert('Orden temporal no encontrada.'); return; }
+                var o = doc.data(); o.id = doc.id;
+                // Mostrar popup con info
+                var esc = window._escHtml || function(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+                var mapsUrl = o.mapsLink || ((o.lat && o.lng) ? 'https://www.google.com/maps/dir/?api=1&destination=' + o.lat + ',' + o.lng : '');
+                var popup = document.createElement('div');
+                popup.style.cssText = 'position:fixed;inset:0;z-index:200010;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);padding:16px;';
+                popup.innerHTML =
+                    '<div style="background:#fff;border-radius:16px;max-width:420px;width:95%;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,0.3);">' +
+                      '<div style="font-size:1rem;font-weight:800;color:#ff9900;margin-bottom:16px;">📦 Detalle de Entrega</div>' +
+                      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.78rem;color:#374151;">' +
+                        '<div><strong>Cliente:</strong><br>' + esc(o.cliente || '—') + '</div>' +
+                        '<div><strong>Orden:</strong><br>' + esc(o.orden || '—') + '</div>' +
+                        '<div><strong>Adeudo:</strong><br><span style="color:#dc2626;font-weight:700;">$' + esc(o.adeudo || '0') + '</span></div>' +
+                        '<div><strong>Fecha:</strong><br>' + esc(o.fecha || '—') + '</div>' +
+                        '<div><strong>Estado:</strong><br>' + esc(o.estado || 'pendiente') + '</div>' +
+                        (o.notas ? '<div style="grid-column:1/-1"><strong>Notas:</strong><br>' + esc(o.notas) + '</div>' : '') +
+                      '</div>' +
+                      (mapsUrl ? '<a href="' + esc(mapsUrl) + '" target="_blank" style="display:block;text-align:center;margin-top:14px;background:#ff9900;color:#fff;text-decoration:none;padding:12px;border-radius:10px;font-weight:700;">🗺 Abrir en Google Maps</a>' : '') +
+                      '<button onclick="this.closest(\047div[style]\047).remove()" style="display:block;width:100%;margin-top:8px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;padding:10px;font-weight:700;cursor:pointer;">Cerrar</button>' +
+                    '</div>';
+                document.body.appendChild(popup);
+                // Clean URL
+                window.history.replaceState({}, '', window.location.pathname);
+            }).catch(function(err) {
+                console.error('Error fetching temp order:', err);
+            });
+        }, 300);
+    })();
+
 });
 </script>
 
@@ -25435,8 +26525,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.style.pointerEvents = (isAdmin || isVendedor) ? '' : 'none';
             }
             if (label.includes('producción')) {
-                card.style.opacity = (isAdmin || isDisenador) ? '1' : '0.4';
-                card.style.pointerEvents = (isAdmin || isDisenador) ? '' : 'none';
+                card.style.opacity = '1';
+                card.style.pointerEvents = '';
             }
         });
 
@@ -25982,6 +27072,289 @@ document.addEventListener('DOMContentLoaded', function() {
         if (loginOverlay) loginOverlay.style.display = 'flex';
     };
 
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MODO DEMO — Datos ficticios para probar todo el sistema
+════════════════════════════════════════════════════════════════ -->
+<script>
+(function() {
+    'use strict';
+    var DEMO_FLAG = 'demo_mode_active';
+    var DEMO_IDS_KEY = 'demo_firestore_doc_ids';
+    var toggle = document.getElementById('demoModeToggle');
+    var label = document.getElementById('demoLabel');
+    var status = document.getElementById('demoStatus');
+    if (!toggle) return;
+
+    // ── Datos ficticios ──
+    var HOY = new Date().toISOString().slice(0,10);
+    function fechaFutura(d) { var f = new Date(); f.setDate(f.getDate()+d); return f.toISOString().slice(0,10); }
+    function fechaPasada(d) { var f = new Date(); f.setDate(f.getDate()-d); return f.toISOString().slice(0,10); }
+
+    var DEMO_CLIENTES = [
+        {id:'1001',nombre:'María García López',telefono:'9511234567',correo:'maria.garcia@email.com',empresa:'Boutique Eleganza',negocio:'Tienda de ropa',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68000',razonSocial:'Boutique Eleganza SA de CV',rfc:'BEL2001015A1',referenciaBancaria:'BBVA 0123456789',tipoCliente:'Empresarial',deshabilitado:false},
+        {id:'1002',nombre:'Carlos Mendoza Ruiz',telefono:'9519876543',correo:'carlos.mendoza@gmail.com',empresa:'Panadería Don Carlos',negocio:'Panadería',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68050',razonSocial:'',rfc:'',referenciaBancaria:'',tipoCliente:'Publico en general',deshabilitado:false},
+        {id:'1003',nombre:'Ana Sofía Hernández',telefono:'9515551234',correo:'ana.sofia@outlook.com',empresa:'Floristería Primavera',negocio:'Floristería',ciudad:'Santa Cruz Xoxocotlán',estado:'Oaxaca',cp:'71230',razonSocial:'Floristería Primavera SC',rfc:'FPR1905028B3',referenciaBancaria:'Banorte 9876543210',tipoCliente:'Empresarial',deshabilitado:false},
+        {id:'1004',nombre:'Roberto Jiménez Torres',telefono:'9517778899',correo:'rjimenez@hotmail.com',empresa:'Restaurante El Sabor',negocio:'Restaurante',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68020',razonSocial:'El Sabor Oaxaqueño SA',rfc:'ESO1801129C5',referenciaBancaria:'Santander 1122334455',tipoCliente:'Empresarial',deshabilitado:false},
+        {id:'1005',nombre:'Luisa Fernanda Vega',telefono:'9513334455',correo:'luisa.vega@gmail.com',empresa:'Dulcería La Catrina',negocio:'Dulcería',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68040',razonSocial:'',rfc:'',referenciaBancaria:'',tipoCliente:'Publico en general',deshabilitado:false},
+        {id:'1006',nombre:'Pedro Martínez Sánchez',telefono:'9516667788',correo:'pedro.ms@email.com',empresa:'Zapatería Martínez',negocio:'Zapatería',ciudad:'Tlalixtac de Cabrera',estado:'Oaxaca',cp:'68270',razonSocial:'Zapatería Martínez SC',rfc:'ZMS2003154D7',referenciaBancaria:'HSBC 5566778899',tipoCliente:'Empresarial',deshabilitado:false},
+        {id:'1007',nombre:'Gabriela Díaz Morales',telefono:'9512223344',correo:'gaby.diaz@yahoo.com',empresa:'Café Oaxaqueño',negocio:'Cafetería',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68000',razonSocial:'',rfc:'',referenciaBancaria:'',tipoCliente:'Publico en general',deshabilitado:false},
+        {id:'1008',nombre:'Fernando Castillo Rivera',telefono:'9518889900',correo:'fcastillo@empresa.com',empresa:'Mueblería Don Fer',negocio:'Mueblería',ciudad:'San Bartolo Coyotepec',estado:'Oaxaca',cp:'71256',razonSocial:'Muebles Castillo SA de CV',rfc:'MCR1907203F2',referenciaBancaria:'Banamex 3344556677',tipoCliente:'Empresarial',deshabilitado:false}
+    ];
+
+    var DEMO_CLIENTES_QUICK = DEMO_CLIENTES.map(function(c) {
+        return {id:c.id, nombre:c.nombre, telefono:c.telefono, email:c.correo, negocio:c.negocio};
+    });
+
+    var DEMO_PRODUCTOS = [
+        {id:'P001',codigo:'BB-001',nombre:'Bolsa Boutique Rosa Pastel',categoria:'Bolsa Boutique Troquelada',tipo:'bolsa_boutique',medida:'MEDIANA (35x41)',color:'Rosa Pastel',precio:45,precioMayoreo:38,stock:250,stockMin:50,activo:true,foto:''},
+        {id:'P002',codigo:'BB-002',nombre:'Bolsa Boutique Azul Marino',categoria:'Bolsa Boutique Troquelada',tipo:'bolsa_boutique',medida:'CHICA (28x35)',color:'Azul Marino',precio:35,precioMayoreo:28,stock:180,stockMin:40,activo:true,foto:''},
+        {id:'P003',codigo:'BK-001',nombre:'Bolsa Kraft Natural #3',categoria:'Bolsas Kraft',tipo:'bolsa_kraft',medida:'3 12.5x26.5+6.5',color:'Natural',precio:12,precioMayoreo:9,stock:500,stockMin:100,activo:true,foto:''},
+        {id:'P004',codigo:'BK-002',nombre:'Bolsa Kraft Natural #6',categoria:'Bolsas Kraft',tipo:'bolsa_kraft',medida:'6 14.5x34+9',color:'Natural',precio:18,precioMayoreo:14,stock:320,stockMin:80,activo:true,foto:''},
+        {id:'P005',codigo:'KB-001',nombre:'Bolsa Kraft Blanca #4',categoria:'Bolsas Kraft Blancas',tipo:'bolsa_kraft_blanca',medida:'4 13x30+7',color:'Blanca',precio:22,precioMayoreo:17,stock:200,stockMin:50,activo:true,foto:''},
+        {id:'P006',codigo:'TP-001',nombre:'Tarjeta de Presentación 4x1',categoria:'Tarjetas de Presentación',tipo:'tarjeta',medida:'STD 9x5 horizontal',color:'Full Color',precio:350,precioMayoreo:280,stock:50,stockMin:10,activo:true,foto:''},
+        {id:'P007',codigo:'VL-001',nombre:'Volante Media Carta 4x1',categoria:'Volantes',tipo:'volante',medida:'MEDIA CARTA 14x21.5',color:'Full Color',precio:800,precioMayoreo:650,stock:30,stockMin:5,activo:true,foto:''},
+        {id:'P008',codigo:'BE-001',nombre:'Bolsa Ecológica Chica',categoria:'Bolsa Ecológica',tipo:'bolsa_ecologica',medida:'CHICA',color:'Crudo',precio:55,precioMayoreo:45,stock:150,stockMin:30,activo:true,foto:''}
+    ];
+
+    var DEMO_PEDIDOS = [
+        {id:'DP001',folio:'260401',clienteNombre:'María García López',clienteTelefono:'9511234567',clienteId:'1001',producto:'Bolsa Boutique Troquelada',medida:'MEDIANA (35x41)',color:'Rosa Pastel',cantidad:200,total:9000,anticipo:4500,resto:4500,inversion:5000,ganancia:4000,adeudoCliente:4500,fechaCreacion:fechaPasada(5),fechaEmitida:fechaPasada(5),fechaEntrega:fechaFutura(3),vendedor:'Admin',disenador:'Diseñador 1',estado:'pendiente',estatusProduccion:'pendiente',tipo:'venta',formaPago:'TRANSFERENCIA',notas:'Urgente — evento fin de semana'},
+        {id:'DP002',folio:'260402',clienteNombre:'Carlos Mendoza Ruiz',clienteTelefono:'9519876543',clienteId:'1002',producto:'Bolsas Kraft',medida:'3 12.5x26.5+6.5',color:'Dorado',cantidad:500,total:6000,anticipo:3000,resto:3000,inversion:3200,ganancia:2800,adeudoCliente:3000,fechaCreacion:fechaPasada(3),fechaEmitida:fechaPasada(3),fechaEntrega:fechaFutura(5),vendedor:'Admin',disenador:'',estado:'en_proceso',estatusProduccion:'en_proceso',tipo:'venta',formaPago:'EFECTIVO',notas:'Para nueva sucursal'},
+        {id:'DP003',folio:'260403',clienteNombre:'Ana Sofía Hernández',clienteTelefono:'9515551234',clienteId:'1003',producto:'Bolsa Boutique Troquelada',medida:'CHICA (28x35)',color:'Verde Esmeralda',cantidad:150,total:5250,anticipo:5250,resto:0,inversion:2800,ganancia:2450,adeudoCliente:0,fechaCreacion:fechaPasada(7),fechaEmitida:fechaPasada(7),fechaEntrega:fechaFutura(1),vendedor:'Admin',disenador:'Diseñador 1',estado:'terminada',estatusProduccion:'terminada',tipo:'venta',formaPago:'TARJETA',notas:''},
+        {id:'DP004',folio:'260404',clienteNombre:'Roberto Jiménez Torres',clienteTelefono:'9517778899',clienteId:'1004',producto:'Bolsas Kraft',medida:'6 14.5x34+9',color:'Negro',cantidad:300,total:5400,anticipo:2700,resto:2700,inversion:2900,ganancia:2500,adeudoCliente:2700,fechaCreacion:fechaPasada(2),fechaEmitida:fechaPasada(2),fechaEntrega:fechaFutura(7),vendedor:'Admin',disenador:'',estado:'pendiente',estatusProduccion:'pendiente',tipo:'venta',formaPago:'DEPOSITO',notas:'Incluir bolsas extra de muestra'},
+        {id:'DP005',folio:'260405',clienteNombre:'Luisa Fernanda Vega',clienteTelefono:'9513334455',clienteId:'1005',producto:'Bolsas Kraft Blancas',medida:'4 13x30+7',color:'Dorado',cantidad:400,total:8800,anticipo:4400,resto:4400,inversion:4600,ganancia:4200,adeudoCliente:4400,fechaCreacion:fechaPasada(1),fechaEmitida:fechaPasada(1),fechaEntrega:fechaFutura(10),vendedor:'Admin',disenador:'Diseñador 1',estado:'pendiente',estatusProduccion:'pendiente',tipo:'venta',formaPago:'TRANSFERENCIA',notas:'Primer pedido — dar seguimiento'},
+        {id:'DP006',folio:'260406',clienteNombre:'Gabriela Díaz Morales',clienteTelefono:'9512223344',clienteId:'1007',producto:'Tarjetas de Presentación',medida:'STD 9x5 horizontal',color:'',cantidad:1000,total:350,anticipo:350,resto:0,inversion:180,ganancia:170,adeudoCliente:0,fechaCreacion:fechaPasada(4),fechaEmitida:fechaPasada(4),fechaEntrega:fechaFutura(2),vendedor:'Admin',disenador:'Diseñador 1',estado:'terminada',estatusProduccion:'terminada',tipo:'venta',formaPago:'EFECTIVO',notas:'4x1 mate'}
+    ];
+
+    var DEMO_MOVIMIENTOS_STOCK = [
+        {id:'MS001',productoId:'P001',tipo:'entrada',cantidad:100,fecha:fechaPasada(10),nota:'Restock inicial'},
+        {id:'MS002',productoId:'P003',tipo:'salida',cantidad:50,fecha:fechaPasada(5),nota:'Venta Carlos Mendoza'},
+        {id:'MS003',productoId:'P004',tipo:'entrada',cantidad:200,fecha:fechaPasada(3),nota:'Compra proveedor'},
+        {id:'MS004',productoId:'P002',tipo:'salida',cantidad:30,fecha:fechaPasada(1),nota:'Venta Ana Hernández'}
+    ];
+
+    var DEMO_CAJA_MOVS = [
+        {id:'CM001',tipo:'ingreso',monto:4500,concepto:'Anticipo Orden 260401 — María García',fecha:fechaPasada(5),formaPago:'TRANSFERENCIA',folio:'260401'},
+        {id:'CM002',tipo:'ingreso',monto:3000,concepto:'Anticipo Orden 260402 — Carlos Mendoza',fecha:fechaPasada(3),formaPago:'EFECTIVO',folio:'260402'},
+        {id:'CM003',tipo:'ingreso',monto:5250,concepto:'Pago total Orden 260403 — Ana Sofía',fecha:fechaPasada(7),formaPago:'TARJETA',folio:'260403'},
+        {id:'CM004',tipo:'egreso',monto:1200,concepto:'Compra de tintas — Proveedor Tintas MX',fecha:fechaPasada(2),formaPago:'TRANSFERENCIA',folio:''},
+        {id:'CM005',tipo:'ingreso',monto:2700,concepto:'Anticipo Orden 260404 — Roberto Jiménez',fecha:fechaPasada(2),formaPago:'DEPOSITO',folio:'260404'},
+        {id:'CM006',tipo:'ingreso',monto:350,concepto:'Pago total Orden 260406 — Gabriela Díaz',fecha:fechaPasada(4),formaPago:'EFECTIVO',folio:'260406'},
+        {id:'CM007',tipo:'egreso',monto:800,concepto:'Compra papel kraft — Papelera del Sur',fecha:fechaPasada(1),formaPago:'EFECTIVO',folio:''}
+    ];
+
+    var DEMO_CALENDARIO = {};
+    DEMO_CALENDARIO[fechaFutura(1)] = [{id:'CA01',texto:'Entrega Ana Sofía — 150 bolsas verdes',tipo:'entrega',hora:'10:00'}];
+    DEMO_CALENDARIO[fechaFutura(3)] = [{id:'CA02',texto:'Entrega María García — 200 bolsas rosa',tipo:'entrega',hora:'14:00'},{id:'CA03',texto:'Revisión diseño Roberto Jiménez',tipo:'diseno',hora:'09:00'}];
+    DEMO_CALENDARIO[fechaFutura(5)] = [{id:'CA04',texto:'Entrega Carlos Mendoza — 500 kraft',tipo:'entrega',hora:'11:00'}];
+    DEMO_CALENDARIO[fechaFutura(7)] = [{id:'CA05',texto:'Entrega Roberto Jiménez — 300 kraft',tipo:'entrega',hora:'16:00'}];
+    DEMO_CALENDARIO[fechaFutura(10)] = [{id:'CA06',texto:'Entrega Luisa Vega — 400 kraft blancas',tipo:'entrega',hora:'13:00'}];
+
+    var DEMO_PROVEEDORES = [
+        {id:'PRV001',nombre:'Papelera del Sur',contacto:'Ing. Ramírez',telefono:'9514443322',correo:'ventas@papeleradelsur.com',productos:'Papel kraft, papel couché, cartulina',notas:'Entrega en 3-5 días hábiles',activo:true},
+        {id:'PRV002',nombre:'Tintas MX Oaxaca',contacto:'Laura Pérez',telefono:'9516665544',correo:'oaxaca@tintasmx.com',productos:'Tintas serigráficas, solventes, emulsiones',notas:'Mínimo de compra $500',activo:true},
+        {id:'PRV003',nombre:'Distribuidora de Plásticos',contacto:'José Méndez',telefono:'9518887766',correo:'dist.plasticos@gmail.com',productos:'Bolsas plásticas, película stretch, cinta adhesiva',notas:'',activo:true}
+    ];
+
+    var DEMO_INSUMOS = [
+        {id:'INS001',nombre:'Papel Kraft Natural 120g',categoria:'Papel',unidad:'kg',stock:85,stockMin:20,precio:45,proveedorId:'PRV001',foto:''},
+        {id:'INS002',nombre:'Tinta Serigráfica Dorada',categoria:'Tintas',unidad:'litro',stock:12,stockMin:5,precio:380,proveedorId:'PRV002',foto:''},
+        {id:'INS003',nombre:'Tinta Serigráfica Negra',categoria:'Tintas',unidad:'litro',stock:8,stockMin:5,precio:320,proveedorId:'PRV002',foto:''},
+        {id:'INS004',nombre:'Papel Couché 150g',categoria:'Papel',unidad:'kg',stock:40,stockMin:10,precio:65,proveedorId:'PRV001',foto:''},
+        {id:'INS005',nombre:'Cuerda de Algodón',categoria:'Accesorios',unidad:'metro',stock:200,stockMin:50,precio:8,proveedorId:'PRV003',foto:''}
+    ];
+
+    // ── Firestore demo data ──
+    var DEMO_PRODUCCION = [
+        {folio:'260401',cliente:'María García López',telefono:'9511234567',clienteId:'1001',fechaCreacion:fechaPasada(4),fechaEntrega:fechaFutura(3),producto:'Bolsa Boutique Troquelada',color:'Rosa Pastel',cantidad:'200',detalleProducto:'MEDIANA (35x41)',notas:'Urgente — evento fin de semana',disenoUrl:'',estado:'en_proceso',inicioTrabajoEn:null},
+        {folio:'260402',cliente:'Carlos Mendoza Ruiz',telefono:'9519876543',clienteId:'1002',fechaCreacion:fechaPasada(3),fechaEntrega:fechaFutura(5),producto:'Bolsas Kraft',color:'Dorado',cantidad:'500',detalleProducto:'3 12.5x26.5+6.5',notas:'Para nueva sucursal',disenoUrl:'',estado:'pendiente',inicioTrabajoEn:null},
+        {folio:'260404',cliente:'Roberto Jiménez Torres',telefono:'9517778899',clienteId:'1004',fechaCreacion:fechaPasada(2),fechaEntrega:fechaFutura(7),producto:'Bolsas Kraft',color:'Negro',cantidad:'300',detalleProducto:'6 14.5x34+9',notas:'Incluir bolsas extra de muestra',disenoUrl:'',estado:'pendiente',inicioTrabajoEn:null},
+        {folio:'260403',cliente:'Ana Sofía Hernández',telefono:'9515551234',clienteId:'1003',fechaCreacion:fechaPasada(7),fechaEntrega:fechaFutura(1),producto:'Bolsa Boutique Troquelada',color:'Verde Esmeralda',cantidad:'150',detalleProducto:'CHICA (28x35)',notas:'',disenoUrl:'',estado:'terminada',inicioTrabajoEn:null}
+    ];
+
+    var DEMO_DISENO = [
+        {folio:'260405',cliente:'Luisa Fernanda Vega',telefono:'9513334455',clienteId:'1005',producto:'Bolsas Kraft Blancas',color:'Dorado',cantidad:'400',detalleProducto:'4 13x30+7',fechaEntrega:fechaFutura(10),disenador:'Diseñador 1',notasProduccion:'',notasDisenador:'Cliente envía logo por WhatsApp',disenoUrl:'',estado:'pendiente',total:8800},
+        {folio:'260406',cliente:'Gabriela Díaz Morales',telefono:'9512223344',clienteId:'1007',producto:'Tarjetas de Presentación',color:'',cantidad:'1000',detalleProducto:'STD 9x5 horizontal — 4x1 mate',fechaEntrega:fechaFutura(2),disenador:'Diseñador 1',notasProduccion:'',notasDisenador:'Usar tipografía Montserrat',disenoUrl:'',estado:'en_diseno',total:350},
+        {folio:'260407',cliente:'Pedro Martínez Sánchez',telefono:'9516667788',clienteId:'1006',producto:'Bolsa Boutique Troquelada',color:'Rojo Vino',cantidad:'100',detalleProducto:'GRANDE (50x50)',fechaEntrega:fechaFutura(8),disenador:'',notasProduccion:'',notasDisenador:'',disenoUrl:'',estado:'pendiente',total:6500}
+    ];
+
+    var DEMO_ALMACEN = [
+        {folioProduccion:'260403',produccionDocId:'',cliente:'Ana Sofía Hernández',clienteId:'1003',producto:'Bolsa Boutique Troquelada',cantidad:'150',detalleProducto:'CHICA (28x35)',color:'Verde Esmeralda',fechaEntrega:fechaFutura(1),disenoUrl:'',estado:'almacenado',envioDecidido:false}
+    ];
+
+    var DEMO_ENTREGAS = [
+        {folioProduccion:'260398',produccionDocId:'',cliente:'Fernando Castillo Rivera',telefono:'9518889900',clienteId:'1008',producto:'Bolsa Boutique Troquelada',cantidad:'80',detalleProducto:'CHICA (28x35)',fechaEntrega:HOY,disenoUrl:'',correo:'fcastillo@empresa.com',tipoDireccion:'negocio',direccion:'Calle Macedonio Alcalá 302, Centro, Oaxaca de Juárez',lat:17.0621,lng:-96.7251,estado:'pendiente',notas:'Preguntar por Don Fernando en la mueblería'},
+        {folioProduccion:'260397',produccionDocId:'',cliente:'María García López',telefono:'9511234567',clienteId:'1001',producto:'Bolsas Kraft',cantidad:'200',detalleProducto:'3 12.5x26.5+6.5',fechaEntrega:fechaPasada(1),disenoUrl:'',correo:'maria.garcia@email.com',tipoDireccion:'negocio',direccion:'Av. Universidad 123, Reforma, Oaxaca de Juárez',lat:17.0735,lng:-96.7295,estado:'en_camino',notas:'Llamar antes de llegar'},
+        {folioProduccion:'260395',produccionDocId:'',cliente:'Gabriela Díaz Morales',telefono:'9512223344',clienteId:'1007',producto:'Bolsa Boutique Troquelada',cantidad:'50',detalleProducto:'MEDIANA (35x41)',fechaEntrega:fechaPasada(3),disenoUrl:'',correo:'gaby.diaz@yahoo.com',tipoDireccion:'negocio',direccion:'Calle García Vigil 205, Centro, Oaxaca de Juárez',lat:17.0655,lng:-96.7220,estado:'entregada',notas:''}
+    ];
+
+    var DEMO_TEMP_ENTREGAS = [
+        {cliente:'Juan Ramírez (temporal)',orden:'260499',adeudo:'1,250.00',fecha:HOY,mapsLink:'https://www.google.com/maps/@17.0669,-96.7232,15z',lat:17.0669,lng:-96.7232,notas:'Entregar en mostrador — pregunta por Sandra',estado:'pendiente',temporal:true}
+    ];
+
+    // ── localStorage keys ──
+    var LS_KEYS = {
+        clientes: 'mock_clientes_modulo_v1',
+        clientesQuick: 'mock_clientes_quick_v1',
+        pedidos: 'mock_mis_pedidos_v1',
+        productos: 'mock_productos_v1',
+        movStock: 'mock_movimientos_stock_v1',
+        cajaMov: 'mock_caja_movs_v1',
+        calendario: 'mock_calendario_alertas_v1',
+        proveedores: 'mock_proveedores_modulo_v1',
+        insumos: 'mock_insumos_modulo_v1'
+    };
+
+    var FS_COLLECTIONS = ['production_orders','design_orders','stored_orders','delivery_orders','temp_delivery_orders'];
+
+    // ── Helper: get Firestore ──
+    function getDB() { return window.firebase ? window.firebase.firestore() : null; }
+
+    // ── ACTIVAR DEMO ──
+    function activarDemo(cb) {
+        status.textContent = '⏳ Cargando datos ficticios...';
+        status.className = 'demo-status';
+
+        // 1. Guardar en localStorage
+        localStorage.setItem(LS_KEYS.clientes, JSON.stringify(DEMO_CLIENTES));
+        localStorage.setItem(LS_KEYS.clientesQuick, JSON.stringify(DEMO_CLIENTES_QUICK));
+        localStorage.setItem(LS_KEYS.pedidos, JSON.stringify(DEMO_PEDIDOS));
+        localStorage.setItem(LS_KEYS.productos, JSON.stringify(DEMO_PRODUCTOS));
+        localStorage.setItem(LS_KEYS.movStock, JSON.stringify(DEMO_MOVIMIENTOS_STOCK));
+        localStorage.setItem(LS_KEYS.cajaMov, JSON.stringify(DEMO_CAJA_MOVS));
+        localStorage.setItem(LS_KEYS.calendario, JSON.stringify(DEMO_CALENDARIO));
+        localStorage.setItem(LS_KEYS.proveedores, JSON.stringify(DEMO_PROVEEDORES));
+        localStorage.setItem(LS_KEYS.insumos, JSON.stringify(DEMO_INSUMOS));
+
+        // 2. Guardar en Firestore
+        var db = getDB();
+        if (!db) {
+            finalizarActivacion([]);
+            cb && cb();
+            return;
+        }
+
+        var batch = db.batch();
+        var ids = [];
+        var ts = window.firebase.firestore.FieldValue.serverTimestamp();
+
+        function addDocs(collection, docs) {
+            docs.forEach(function(d) {
+                var ref = db.collection(collection).doc();
+                ids.push({collection: collection, id: ref.id});
+                batch.set(ref, Object.assign({}, d, {creadoEn: ts, actualizadoEn: ts, _demo: true}));
+            });
+        }
+
+        addDocs('production_orders', DEMO_PRODUCCION);
+        addDocs('design_orders', DEMO_DISENO);
+        addDocs('stored_orders', DEMO_ALMACEN);
+        addDocs('delivery_orders', DEMO_ENTREGAS);
+        addDocs('temp_delivery_orders', DEMO_TEMP_ENTREGAS);
+
+        batch.commit().then(function() {
+            finalizarActivacion(ids);
+            cb && cb();
+        }).catch(function(err) {
+            console.warn('Error cargando datos demo en Firestore:', err);
+            finalizarActivacion([]);
+            cb && cb();
+        });
+    }
+
+    function finalizarActivacion(ids) {
+        localStorage.setItem(DEMO_FLAG, '1');
+        localStorage.setItem(DEMO_IDS_KEY, JSON.stringify(ids));
+        label.className = 'demo-toggle-label active';
+        status.textContent = '✅ Datos demo cargados — 8 clientes, 6 pedidos, 8 productos, 4 producción, 3 diseño, 3 entregas';
+        status.className = 'demo-status on';
+    }
+
+    // ── DESACTIVAR DEMO ──
+    function desactivarDemo(cb) {
+        status.textContent = '⏳ Eliminando datos ficticios...';
+        status.className = 'demo-status';
+
+        // 1. Limpiar localStorage
+        Object.keys(LS_KEYS).forEach(function(k) { localStorage.removeItem(LS_KEYS[k]); });
+
+        // 2. Eliminar documentos de Firestore
+        var db = getDB();
+        var savedIds = [];
+        try { savedIds = JSON.parse(localStorage.getItem(DEMO_IDS_KEY) || '[]'); } catch(_){}
+
+        if (!db || !savedIds.length) {
+            finalizarDesactivacion();
+            cb && cb();
+            return;
+        }
+
+        // Also query for any docs with _demo flag in case IDs were lost
+        var deletePromises = [];
+
+        // Delete by saved IDs
+        var batch = db.batch();
+        var batchCount = 0;
+        savedIds.forEach(function(item) {
+            batch.delete(db.collection(item.collection).doc(item.id));
+            batchCount++;
+        });
+
+        // Also find any straggler _demo docs
+        var findPromises = FS_COLLECTIONS.map(function(col) {
+            return db.collection(col).where('_demo','==',true).get().then(function(snap) {
+                snap.docs.forEach(function(doc) {
+                    batch.delete(doc.ref);
+                    batchCount++;
+                });
+            }).catch(function(){});
+        });
+
+        Promise.all(findPromises).then(function() {
+            if (batchCount === 0) {
+                finalizarDesactivacion();
+                cb && cb();
+                return;
+            }
+            return batch.commit();
+        }).then(function() {
+            finalizarDesactivacion();
+            cb && cb();
+        }).catch(function(err) {
+            console.warn('Error eliminando datos demo:', err);
+            finalizarDesactivacion();
+            cb && cb();
+        });
+    }
+
+    function finalizarDesactivacion() {
+        localStorage.removeItem(DEMO_FLAG);
+        localStorage.removeItem(DEMO_IDS_KEY);
+        label.className = 'demo-toggle-label';
+        status.textContent = 'Datos demo eliminados';
+        status.className = 'demo-status';
+        setTimeout(function() { status.textContent = ''; }, 3000);
+    }
+
+    // ── Toggle handler ──
+    toggle.addEventListener('change', function() {
+        toggle.disabled = true;
+        if (toggle.checked) {
+            activarDemo(function() { toggle.disabled = false; });
+        } else {
+            desactivarDemo(function() { toggle.disabled = false; });
+        }
+    });
+
+    // ── Restaurar estado al cargar ──
+    if (localStorage.getItem(DEMO_FLAG) === '1') {
+        toggle.checked = true;
+        label.className = 'demo-toggle-label active';
+        status.textContent = '🧪 Modo demo activo';
+        status.className = 'demo-status on';
+    }
 })();
 </script>
 </body>
