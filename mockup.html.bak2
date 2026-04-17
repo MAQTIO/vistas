@@ -38,7 +38,7 @@
         .sidebar { 
             width: 400px; 
             min-width: 400px; 
-            background: var(--panel);
+            background: radial-gradient(circle at 18% 20%, rgba(255,153,0,0.08), transparent 42%), linear-gradient(135deg, var(--panel) 0%, #0b1220 100%);
             padding: 4px 6px 8px 6px; 
             border-right: 2px solid var(--border); 
             overflow: hidden;
@@ -63,7 +63,8 @@
             margin-bottom: 3px; 
             border: 1px solid rgba(255,255,255,0.05);
             box-shadow: 0 6px 12px rgba(0,0,0,0.18);
-            transition: none;
+            backdrop-filter: blur(4px);
+            transition: all 0.25s ease;
             min-height: 0;
         }
 
@@ -96,7 +97,7 @@
             content: '';
             width: 3px;
             height: 12px;
-            background: var(--accent);
+            background: linear-gradient(180deg, var(--accent), var(--accent-light));
             border-radius: 3px;
         }
         
@@ -110,13 +111,13 @@
         .btn-mode { 
             padding: 8px 7px; 
             border: 1px solid rgba(255,255,255,0.1); 
-            background: rgba(255,255,255,0.04);
+            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0.35));
             color: #d6d6d6; 
             cursor: pointer; 
             border-radius: 10px; 
             font-size: 0.44rem; 
             font-weight: 800;
-            transition: none;
+            transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.38px;
             min-height: 32px;
@@ -129,7 +130,7 @@
         }
         
         .btn-mode.active { 
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
             border-color: var(--accent);
             color: #000;
             box-shadow: 0 5px 10px rgba(255,153,0,0.2);
@@ -151,7 +152,7 @@
             border-radius: 10px; 
             font-size: 0.44rem; 
             font-weight: 800;
-            transition: none;
+            transition: all 0.2s ease;
             letter-spacing: 0.4px;
         }
 
@@ -162,7 +163,7 @@
         }
 
         .btn-tipo.active {
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
             border-color: var(--accent);
             color: #000;
             box-shadow: 0 5px 10px rgba(255,153,0,0.2);
@@ -184,7 +185,7 @@
             cursor: pointer; 
             font-size: 0.5rem; 
             font-weight: 750;
-            transition: none;
+            transition: all 0.2s ease;
             text-transform: uppercase;
         }
         
@@ -220,7 +221,7 @@
             font-size: 0.46rem; 
             font-weight: 750; 
             text-transform: uppercase;
-            transition: none;
+            transition: all 0.2s ease;
         }
         
         .btn-tab:hover {
@@ -230,7 +231,7 @@
         }
         
         .btn-tab.active { 
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
             color: #000; 
             border-color: var(--accent);
             box-shadow: 0 8px 16px rgba(255,153,0,0.25);
@@ -246,16 +247,17 @@
             color: white; 
             margin-bottom: 3px; 
             text-transform: uppercase; 
-            background: rgba(255,255,255,0.04);
+            background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.35));
             font-size: 0.54rem; 
             text-align: center; 
-            transition: none;
+            transition: all 0.2s ease;
         }
         
         .btn-exp:hover {
             background: rgba(255,153,0,0.09);
             border-color: var(--accent);
             color: var(--accent);
+            transform: translateY(-1px);
         }
         
         .active-tinta { 
@@ -268,6 +270,7 @@
             display: none; 
             grid-template-columns: repeat(2, 1fr);
             gap: 3px 4px;
+            animation: fadeIn 0.3s ease;
             flex: 1 1 auto;
             min-height: 0;
         }
@@ -301,7 +304,7 @@
             border-radius: 8px; 
             border: 2px solid transparent;
             cursor: pointer; 
-            transition: none;
+            transition: all 0.2s ease;
             position: relative;
         }
 
@@ -417,7 +420,7 @@
 
         .popup-result-item:hover { background: rgba(255,255,255,0.05); }
 
-        .popup-result-item.active { color: var(--accent); background: rgba(255,153,0,0.08); }
+        .popup-result-item.active { color: #8fc5ff; background: rgba(100,181,246,0.08); }
 
         .popup-chip-grid {
             display: grid;
@@ -430,17 +433,17 @@
             padding: 6px 8px;
             border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.16);
-            background: rgba(255,255,255,0.04);
+            background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
             font-weight: 650;
             font-size: 0.86rem;
             cursor: pointer;
-            transition: none;
+            transition: all 0.18s ease;
             text-align: center;
             color: #e5eaf1;
         }
 
-        .popup-chip:hover { border-color: var(--accent); color: var(--accent-light); box-shadow: none; }
-        .popup-chip.active { border-color: var(--accent); background: var(--accent); color: #000; box-shadow: none; }
+        .popup-chip:hover { border-color: #64b5f6; color: #bfe0ff; box-shadow: 0 4px 12px rgba(0,0,0,0.18); }
+        .popup-chip.active { border-color: #64b5f6; background: linear-gradient(135deg, #1e88e5 0%, #64b5f6 100%); color: #0a1220; box-shadow: 0 6px 16px rgba(22,119,255,0.28); }
 
         .popup-color-grid {
             display: grid;
@@ -458,7 +461,7 @@
             border-radius: 10px;
             border: 2px solid rgba(255,255,255,0.08);
             cursor: pointer;
-            transition: none;
+            transition: all 0.18s ease;
             position: relative;
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.08);
         }
@@ -480,8 +483,8 @@
         }
 
         .popup-color.is-light::after { color: #0a0f1a; text-shadow: none; }
-        .popup-color:hover { border-color: #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.18); }
-        .popup-color.selected { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(255,153,0,0.45) inset; }
+        .popup-color:hover { border-color: #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.18); transform: translateY(-1px); }
+        .popup-color.selected { border-color: #64b5f6; box-shadow: 0 0 0 2px rgba(100,181,246,0.45) inset; }
 
         /* Popup proveedor layout */
         .popup-overlay {
@@ -489,6 +492,7 @@
             position: fixed;
             inset: 0;
             background: rgba(4, 8, 15, 0.78);
+            backdrop-filter: blur(2px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -506,7 +510,7 @@
         }
 
         .popup-card {
-            background: #0e1726;
+            background: linear-gradient(135deg, #0e1726 0%, #111b2c 100%);
             color: #f3f6fb;
             padding: 16px;
             border-radius: 16px;
@@ -523,7 +527,7 @@
         }
 
         .popup-card.wide {
-            background: #0e1726;
+            background: linear-gradient(135deg, #0e1726 0%, #111b2c 100%);
             color: #f3f6fb;
             grid-template-columns: 1fr;
             max-width: 700px;
@@ -578,7 +582,7 @@
             flex-shrink: 0;
         }
         #popupConfiguraciones .popup-btn.primary {
-            background: #ff9900;
+            background: linear-gradient(135deg, #ff9900, #e68a00);
             color: #fff;
             border: none;
             font-weight: 800;
@@ -674,9 +678,10 @@
             position: relative;
             bottom: auto;
             padding: 10px;
-            background: rgba(14,23,38,0.85);
+            background: linear-gradient(180deg, rgba(14,23,38,0.4) 0%, rgba(14,23,38,0.9) 100%);
             border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.06);
+            backdrop-filter: blur(2px);
         }
 
         .popup-btn {
@@ -690,11 +695,11 @@
         }
 
         .popup-btn.primary { background: #FF8C00; color: #ffffff; box-shadow: 0 8px 20px rgba(255,140,0,0.28); }
-        .popup-btn.primary:hover { box-shadow: 0 10px 24px rgba(255,140,0,0.36); }
-        .popup-btn.whatsapp { background: #25d366; color: #04160d; box-shadow: 0 10px 22px rgba(37,211,102,0.28); }
-        .popup-btn.whatsapp:hover { }
-        .popup-btn.chat { background: #ff9800; color: #2a1700; box-shadow: 0 10px 22px rgba(255,152,0,0.24); }
-        .popup-btn.chat:hover { }
+        .popup-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(255,140,0,0.36); }
+        .popup-btn.whatsapp { background: linear-gradient(135deg, #1eb35a 0%, #2ddf75 100%); color: #04160d; box-shadow: 0 10px 22px rgba(37,211,102,0.28); }
+        .popup-btn.whatsapp:hover { transform: translateY(-1px); }
+        .popup-btn.chat { background: linear-gradient(135deg, #ff9800 0%, #ffca28 100%); color: #2a1700; box-shadow: 0 10px 22px rgba(255,152,0,0.24); }
+        .popup-btn.chat:hover { transform: translateY(-1px); }
         .popup-btn.cancel { background: #525252; color: #ffffff; border: 1px solid #3f3f3f; }
         .popup-btn.cancel:hover { background: #616161; }
 
@@ -724,17 +729,17 @@
             cursor: pointer;
             padding: 4px;
             border-radius: 4px;
-            transition: none;
+            transition: all 0.15s ease;
         }
 
         .popup-icon-btn:hover {
             background: rgba(255,255,255,0.08);
-            color: var(--accent);
+            color: #64b5f6;
         }
 
         /* Nueva Orden: cotizador principal */
         .orden-popup {
-            background: #f2f4f7;
+            background: linear-gradient(180deg, #f7f8fa 0%, #f2f4f7 100%);
             color: #1c1e21;
             width: 100vw;
             height: 100dvh;
@@ -873,7 +878,7 @@
             font-weight: 800;
             cursor: pointer;
             letter-spacing: 0.1px;
-            transition: none;
+            transition: all 0.18s ease;
         }
 
         .orden-header .orden-actions-row .orden-btn {
@@ -899,7 +904,7 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: none;
+            transition: all 0.18s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -908,6 +913,7 @@
         .orden-btn-circular:hover {
             background: #f3f4f6;
             border-color: #1f2937;
+            transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
@@ -919,6 +925,7 @@
         }
 
         .orden-btn-circular.primary:hover {
+            transform: translateY(-1px);
             box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
         }
 
@@ -953,6 +960,7 @@
         }
 
         .orden-btn:hover {
+            transform: translateY(-1px);
             box-shadow: 0 4px 10px rgba(15, 23, 42, 0.11);
         }
 
@@ -1591,6 +1599,7 @@
             align-items: center;
             justify-content: center;
             background: rgba(12, 18, 28, 0.58);
+            backdrop-filter: blur(2px);
             padding: 12px;
         }
 
@@ -2174,7 +2183,7 @@
             padding: 6px;
         }
 
-        .mispedidos-foot-item:nth-child(4) span { color: #ff9900; }
+        .mispedidos-foot-item:nth-child(4) span { color: #1d4ed8; }
 
         .mispedidos-foot-item:nth-child(5) {
             background: #fffbeb;
@@ -2617,7 +2626,7 @@
             border-radius: 14px;
             background: #fff;
             cursor: pointer;
-            transition: none;
+            transition: all 0.2s ease;
             text-align: center;
             min-height: 130px;
             justify-content: center;
@@ -2626,6 +2635,7 @@
             border-color: #f59e0b;
             background: #fffbeb;
             box-shadow: 0 6px 16px rgba(245,158,11,0.15);
+            transform: translateY(-2px);
         }
         .rep-modulo-ico {
             font-size: 2rem;
@@ -3137,7 +3147,7 @@
         .cal-progress-fill {
             height: 100%;
             border-radius: 999px;
-            background: #ff9900;
+            background: linear-gradient(90deg, #f97316 0%, #f59e0b 100%);
         }
 
         .cal-progress-text {
@@ -3428,8 +3438,8 @@
         }
 
         .clientesmod-btn.edit {
-            background: #ff9900;
-            border-color: #e68a00;
+            background: #2563eb;
+            border-color: #1d4ed8;
             color: #ffffff;
         }
 
@@ -3783,7 +3793,7 @@
             cursor: pointer;
             white-space: nowrap;
             position: relative;
-            transition: none;
+            transition: all 0.2s ease;
             border-bottom: 3px solid transparent;
             text-align: center;
             margin-bottom: -2px;
@@ -3812,6 +3822,7 @@
 
         .config-tab-panel {
             display: none;
+            animation: fadeIn 0.15s ease;
         }
 
         .config-tab-panel.active {
@@ -3865,7 +3876,7 @@
             background: #f9fafb;
             color: #111827;
             font-family: inherit;
-            transition: none;
+            transition: all 0.2s;
         }
 
         .config-tab-panel .orden-field input:focus,
@@ -4035,11 +4046,12 @@
         #prodAbrirPlantilla.productos-icon-btn:hover,
         #prodImportarDesde.productos-icon-btn:hover {
             background: #616161;
+            transform: translateY(-1px);
         }
 
         .productos-btn.edit {
-            background: #ff9900;
-            border-color: #e68a00;
+            background: #2563eb;
+            border-color: #1d4ed8;
             color: #ffffff;
         }
 
@@ -4222,7 +4234,7 @@
             height: 34px;
             border-radius: 50%;
             border: 1px solid #d7deea;
-            background: #ffffff;
+            background: linear-gradient(160deg, #ffffff 0%, #eef4ff 100%);
             color: #123f9b;
             font-size: 1rem;
             cursor: pointer;
@@ -4232,6 +4244,7 @@
         }
 
         .ajustes-main-btn:hover {
+            transform: translateY(-1px);
             filter: brightness(1.04);
         }
 
@@ -4335,7 +4348,7 @@
         }
 
         .prod-photo-pane {
-            background: #ff9900;
+            background: linear-gradient(160deg, #f07a00 0%, #d76700 100%);
             border-radius: 10px;
             overflow-y: auto;
             padding: 8px;
@@ -4839,7 +4852,7 @@
             font-weight: bold;
             font-size: 0.6rem;
             margin-left: 6px;
-            transition: none;
+            transition: all 0.2s ease;
         }
 
         .btn-eliminar-item:hover {
@@ -4883,7 +4896,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(14,20,32,0.94);
+            background: linear-gradient(135deg, rgba(20,30,45,0.92) 0%, rgba(10,14,24,0.95) 100%);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 10px;
             padding: 8px 10px;
@@ -4917,7 +4930,7 @@
         }
 
         .wa-send {
-            background: #25d366;
+            background: linear-gradient(135deg, #25d366 0%, #1aaa55 100%);
             color: #000;
             border: none;
             border-radius: 10px;
@@ -4935,7 +4948,7 @@
         }
 
         .wa-chat {
-            background: #ff9900;
+            background: linear-gradient(135deg, #ffb300 0%, #ff8f00 100%);
             color: #1e1200;
             border: none;
             border-radius: 10px;
@@ -4964,7 +4977,7 @@
             font-weight: 800;
             cursor: pointer;
             color: #fff;
-            background: #ff9900;
+            background: linear-gradient(135deg, #ff9800 0%, #fb8c00 100%);
             box-shadow: 0 10px 24px rgba(0,0,0,0.35);
             display: none !important;
         }
@@ -4980,7 +4993,7 @@
             border-radius: 12px;
             border: 1px solid rgba(255, 152, 0, 0.38);
             overflow: hidden;
-            background: #141010;
+            background: linear-gradient(150deg, #1a1208 0%, #130f0c 100%);
             box-shadow: 0 18px 40px rgba(0,0,0,0.45);
             display: none;
             flex-direction: column;
@@ -4999,7 +5012,7 @@
             letter-spacing: 0.12px;
             cursor: pointer;
             color: #fff;
-            background: #ff9900;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
             box-shadow: 0 10px 24px rgba(2, 132, 199, 0.36);
         }
 
@@ -5014,7 +5027,7 @@
             border-radius: 12px;
             border: 1px solid rgba(14, 165, 233, 0.45);
             overflow: hidden;
-            background: #071520;
+            background: linear-gradient(150deg, #06121d 0%, #081a2c 100%);
             box-shadow: 0 18px 40px rgba(0,0,0,0.45);
             flex-direction: column;
         }
@@ -5201,7 +5214,7 @@
             font-size: 0.65rem;
             font-weight: 800;
             cursor: pointer;
-            background: #ff9900;
+            background: linear-gradient(135deg, #ff9800 0%, #ffb300 100%);
             color: #231400;
         }
 
@@ -5430,14 +5443,14 @@
 
         .landing-corner-btn.left {
             left: 12px;
-            background: #ff9900;
+            background: linear-gradient(135deg, #4CAF50 0%, #6fd36f 100%);
             color: #fff;
             box-shadow: 0 4px 10px rgba(76,175,80,0.25);
         }
 
         .landing-corner-btn.right {
             right: 12px;
-            background: #ff9900;
+            background: linear-gradient(135deg, #4fc3f7 0%, #7de3ff 100%);
             color: #001827;
             box-shadow: 0 4px 10px rgba(79,195,247,0.25);
         }
@@ -5445,7 +5458,7 @@
         .landing-corner-btn.center {
             left: 50%;
             transform: translateX(-50%);
-            background: #ff9900;
+            background: linear-gradient(135deg, #7c4dff 0%, #b388ff 100%);
             color: #fff;
             box-shadow: 0 4px 10px rgba(124,77,255,0.25);
         }
@@ -5453,7 +5466,7 @@
         .landing-corner-btn.prod {
             right: 12px;
             top: 52px;
-            background: #ff9900;
+            background: linear-gradient(135deg, #0277bd 0%, #29b6f6 100%);
             color: #fff;
             box-shadow: 0 4px 10px rgba(2,119,189,0.3);
         }
@@ -5461,7 +5474,7 @@
         .landing-corner-btn.clientes {
             left: 12px;
             top: 52px;
-            background: #ff9900;
+            background: linear-gradient(135deg, #8e24aa 0%, #ab47bc 100%);
             color: #fff;
             box-shadow: 0 4px 10px rgba(142,36,170,0.28);
         }
@@ -5482,7 +5495,7 @@
                     overflow: hidden;
                     border-radius: 14px;
                     border: 1px solid rgba(171, 71, 188, 0.35);
-                    background: #1a1008;
+                    background: linear-gradient(145deg, #1b0f24 0%, #130b1b 100%);
                     display: grid;
                     grid-template-columns: 1fr;
                     grid-template-rows: auto 1fr;
@@ -5561,8 +5574,8 @@
                     padding: 7px 8px;
                     outline: none;
                 }
-                .clientes-quick-form input:focus { border-color: #ff9900; }
-                .clientes-quick-form select:focus { border-color: #ff9900; }
+                .clientes-quick-form input:focus { border-color: #ab47bc; }
+                .clientes-quick-form select:focus { border-color: #ab47bc; }
                 .clientes-tags-control {
                     position: relative;
                     display: flex;
@@ -5629,7 +5642,7 @@
                     margin-top: 4px;
                     border: none;
                     border-radius: 8px;
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #8e24aa, #ab47bc);
                     color: #fff;
                     font-size: 0.72rem;
                     font-weight: 800;
@@ -5646,7 +5659,7 @@
                     outline: none;
                     width: 100%;
                 }
-                .clientes-buscar:focus { border-color: #ff9900; }
+                .clientes-buscar:focus { border-color: #ab47bc; }
                 .clientes-list {
                     display: flex;
                     flex-direction: column;
@@ -5751,7 +5764,7 @@
                     max-width: 500px;
                     height: 90vh;
                     max-height: 700px;
-                    background: #0d1520;
+                    background: linear-gradient(135deg, #0d1b2a 0%, #1a2332 100%);
                     border-radius: 16px;
                     border: 1px solid rgba(138,43,226,0.25);
                     display: flex;
@@ -5760,7 +5773,7 @@
                     overflow: hidden;
                 }
                 .cliente-chat-header {
-                    background: #1a0d08;
+                    background: linear-gradient(135deg, #2d0d47 0%, #1a0a2e 100%);
                     border-bottom: 1px solid rgba(138,43,226,0.2);
                     padding: 14px;
                     display: flex;
@@ -5828,7 +5841,7 @@
                 }
                 .cliente-chat-msg.own {
                     align-self: flex-end;
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
                     color: #1e1200;
                 }
                 .cliente-chat-msg.own::after {
@@ -5878,24 +5891,25 @@
                     font-size: 0.64rem;
                     font-weight: 700;
                     cursor: pointer;
-                    transition: none;
+                    transition: all 0.2s;
                 }
                 .cliente-chat-send-muestra {
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #ff9800 0%, #ffb300 100%);
                     color: #2a1700;
                     box-shadow: 0 4px 10px rgba(255,152,0,0.25);
                 }
                 .cliente-chat-send-pedido {
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
                     color: #f8fbff;
                     box-shadow: 0 4px 10px rgba(37,99,235,0.26);
                 }
                 .cliente-chat-send-produccion {
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
                     color: #f5f3ff;
                     box-shadow: 0 4px 10px rgba(109,40,217,0.3);
                 }
                 .cliente-chat-send-muestra:hover {
+                    transform: translateY(-1px);
                     box-shadow: 0 6px 14px rgba(255,152,0,0.35);
                 }
                 .cliente-chat-actions button[disabled] {
@@ -5923,7 +5937,7 @@
                     color: rgba(232,212,248,0.4);
                 }
                 .cliente-chat-input-row button {
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #ab2dff 0%, #8a2be2 100%);
                     color: #fff;
                     border: none;
                     border-radius: 8px;
@@ -5935,6 +5949,7 @@
                     box-shadow: 0 4px 10px rgba(138,43,226,0.25);
                 }
                 .cliente-chat-input-row button:hover {
+                    transform: translateY(-1px);
                     box-shadow: 0 6px 14px rgba(138,43,226,0.35);
                 }
 
@@ -5961,7 +5976,7 @@
                     align-items: center;
                     justify-content: flex-start;
                     padding: 12px 20px 12px 52px;
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #ff9900, #ffb84d);
                     border-bottom: none;
                     flex-shrink: 0;
                 }
@@ -5983,6 +5998,7 @@
                     place-items: center;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
                     z-index: 2;
+                    backdrop-filter: blur(4px);
                 }
                 .produccion-back:hover {
                     background: rgba(255,255,255,0.4);
@@ -6043,7 +6059,7 @@
                     border-radius: 6px;
                     display: none;
                 }
-                .pdf-status.success { background: rgba(76,175,80,0.15); color: var(--accent-light); display: block; }
+                .pdf-status.success { background: rgba(76,175,80,0.15); color: #81c784; display: block; }
                 .pdf-status.error   { background: rgba(244,67,54,0.15);  color: #e57373; display: block; }
                 .pdf-text-preview {
                     background: #0a111d;
@@ -6081,7 +6097,7 @@
                 .prod-field select:focus,
                 .prod-field textarea:focus { border-color: #ff9900; }
                 .prod-save-btn {
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #ff9900, #ffb84d);
                     color: #fff;
                     border: none;
                     padding: 10px;
@@ -6109,7 +6125,7 @@
                     font-size: 0.62rem;
                     font-weight: 700;
                     cursor: pointer;
-                    transition: none;
+                    transition: all 0.15s;
                     white-space: nowrap;
                 }
                 .prod-tab:hover { background: #fff7ed; }
@@ -6227,7 +6243,7 @@
                 .prod-btn-action.print:hover { background: #ffedd5; }
                 .prod-btn-action.del { background: #fef2f2; border-color: #fecaca; color: #dc2626; }
                 .prod-btn-action.del:hover { background: #fee2e2; }
-                .prod-btn-action.entrega { background: #fff7ed; border-color: #fde8c8; color: #92400e; }
+                .prod-btn-action.entrega { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
                 .prod-btn-action.entrega:hover { background: #dcfce7; }
 
                 /* ═══════════════════════════════════════════════════════
@@ -6238,12 +6254,12 @@
                 }
                 .diseno-header {
                     position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 12px 20px 12px 52px;
-                    background: #ff9900; border-bottom: none; flex-shrink: 0;
+                    background: linear-gradient(135deg, #ff9900, #ffb347); border-bottom: none; flex-shrink: 0;
                 }
                 .diseno-back {
                     position: absolute; top: 10px; left: 12px; width: 30px; height: 30px; border-radius: 999px;
                     border: none; background: rgba(255,255,255,0.25); color: #fff; font-size: 0.95rem; font-weight: 900;
-                    cursor: pointer; display: grid; place-items: center; z-index: 2;
+                    cursor: pointer; display: grid; place-items: center; z-index: 2; backdrop-filter: blur(4px);
                 }
                 .diseno-back:hover { background: rgba(255,255,255,0.4); }
                 .diseno-body { display: flex; flex: 1; overflow: hidden; }
@@ -6264,12 +6280,12 @@
                 }
                 .almacenpedidos-header {
                     position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 12px 20px 12px 52px;
-                    background: #ff9900; border-bottom: none; flex-shrink: 0;
+                    background: linear-gradient(135deg, #0d9488, #2dd4bf); border-bottom: none; flex-shrink: 0;
                 }
                 .almacenpedidos-back {
                     position: absolute; top: 10px; left: 12px; width: 30px; height: 30px; border-radius: 999px;
                     border: none; background: rgba(255,255,255,0.25); color: #fff; font-size: 0.95rem; font-weight: 900;
-                    cursor: pointer; display: grid; place-items: center; z-index: 2;
+                    cursor: pointer; display: grid; place-items: center; z-index: 2; backdrop-filter: blur(4px);
                 }
                 .almacenpedidos-back:hover { background: rgba(255,255,255,0.4); }
                 .almacenpedidos-body { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
@@ -6277,7 +6293,7 @@
                     background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px;
                     display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: border-color .15s;
                 }
-                .almped-card:hover { border-color: #ff9900; }
+                .almped-card:hover { border-color: #0d9488; }
 
                 /* ═══════════════════════════════════════════════════════
                    RECEPCIÓN SUCURSAL (Escáner)
@@ -6287,7 +6303,7 @@
                 }
                 .recepcion-header {
                     position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 12px 20px 12px 52px;
-                    background: #ff9900; border-bottom: none; flex-shrink: 0;
+                    background: linear-gradient(135deg, #ff9900, #ffb347); border-bottom: none; flex-shrink: 0;
                 }
                 .recepcion-back {
                     position: absolute; top: 10px; left: 12px; width: 30px; height: 30px; border-radius: 999px;
@@ -6309,13 +6325,13 @@
                 .landing-corner-btn.entregas {
                     right: 12px;
                     top: 92px;
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
                     color: #fff;
-                    box-shadow: 0 4px 10px rgba(255,153,0,0.3);
+                    box-shadow: 0 4px 10px rgba(46,125,50,0.3);
                 }
                 .entrega-overlay {
                     display: none; position: fixed; inset: 0;
-                    background: #0a0f1a; z-index: 9200;
+                    background: #071410; z-index: 9200;
                     flex-direction: column; overflow: hidden;
                 }
                 .entrega-container { display: flex; flex-direction: column; height: 100%; }
@@ -6323,8 +6339,8 @@
                     position: relative;
                     display: flex; align-items: center; justify-content: space-between;
                     justify-content: flex-start;
-                    padding: 12px 20px 12px 52px; background: var(--panel);
-                    border-bottom: 2px solid var(--accent); flex-shrink: 0;
+                    padding: 12px 20px 12px 52px; background: #0a1c12;
+                    border-bottom: 2px solid #2e7d32; flex-shrink: 0;
                 }
                 .entrega-back {
                     position: absolute;
@@ -6333,8 +6349,8 @@
                     width: 30px;
                     height: 30px;
                     border-radius: 999px;
-                    border: 1px solid var(--border);
-                    background: var(--panel);
+                    border: 1px solid #2f5b3f;
+                    background: #102116;
                     color: #ffffff;
                     font-size: 0.95rem;
                     font-weight: 900;
@@ -6346,13 +6362,13 @@
                     z-index: 2;
                 }
                 .entrega-back:hover {
-                    background: var(--hover);
-                    border-color: var(--accent);
+                    background: #163120;
+                    border-color: #418355;
                 }
                 .entrega-body { display: flex; flex: 1; overflow: hidden; }
                 .entrega-left {
-                    width: 370px; flex-shrink: 0; background: var(--panel);
-                    border-right: 1px solid var(--border); overflow-y: auto;
+                    width: 370px; flex-shrink: 0; background: #0b1a10;
+                    border-right: 1px solid #1a3020; overflow-y: auto;
                     padding: 14px; display: flex; flex-direction: column; gap: 10px;
                 }
                 .entrega-right {
@@ -6361,20 +6377,20 @@
                 }
                 .entrega-section-title {
                     font-size: 0.65rem; font-weight: 800; letter-spacing: 1px;
-                    color: var(--accent-light); padding-bottom: 6px; border-bottom: 1px solid var(--border);
+                    color: #81c784; padding-bottom: 6px; border-bottom: 1px solid #1a3020;
                 }
                 .entrega-form { display: flex; flex-direction: column; gap: 8px; }
                 .entrega-field { display: flex; flex-direction: column; gap: 3px; }
-                .entrega-field label { font-size: 0.6rem; font-weight: 700; color: #9ca3af; letter-spacing: 0.5px; }
+                .entrega-field label { font-size: 0.6rem; font-weight: 700; color: #6a9e74; letter-spacing: 0.5px; }
                 .entrega-field input, .entrega-field select, .entrega-field textarea {
-                    background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: #e0eaf4;
+                    background: #0d1a13; border: 1px solid #1a3a22; color: #e0eaf4;
                     border-radius: 6px; padding: 6px 8px; font-size: 0.7rem;
                     outline: none; transition: border-color 0.15s; font-family: inherit; resize: vertical;
                 }
-                .entrega-field input:focus, .entrega-field select:focus, .entrega-field textarea:focus { border-color: var(--accent); }
+                .entrega-field input:focus, .entrega-field select:focus, .entrega-field textarea:focus { border-color: #4caf50; }
                 .entrega-field input[readonly] { opacity: 0.65; cursor: default; }
                 .entrega-save-btn {
-                    background: #ff9900; color: #fff;
+                    background: linear-gradient(135deg, #2e7d32, #43a047); color: #fff;
                     border: none; padding: 10px; border-radius: 8px;
                     font-size: 0.75rem; font-weight: 700; cursor: pointer;
                     transition: filter 0.15s; margin-top: 4px;
@@ -6383,37 +6399,37 @@
                 .entrega-save-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: none; }
                 /* QR Scanner */
                 .qr-scanner-box {
-                    background: var(--bg); border: 1px dashed var(--accent);
+                    background: #071410; border: 1px dashed #2e7d32;
                     border-radius: 10px; padding: 10px;
                     display: flex; flex-direction: column; gap: 6px;
                 }
                 .qr-scanner-controls { display: flex; gap: 6px; align-items: center; }
                 .qr-btn {
-                    background: rgba(255,153,0,0.15); border: 1px solid var(--accent);
-                    color: var(--accent-light); padding: 5px 12px; border-radius: 6px;
+                    background: rgba(76,175,80,0.15); border: 1px solid #388e3c;
+                    color: #81c784; padding: 5px 12px; border-radius: 6px;
                     font-size: 0.62rem; font-weight: 700; cursor: pointer;
                     transition: background 0.15s; white-space: nowrap;
                 }
-                .qr-btn:hover { background: rgba(255,153,0,0.28); }
+                .qr-btn:hover { background: rgba(76,175,80,0.28); }
                 .qr-btn.stop { background: rgba(244,67,54,0.12); border-color: #c62828; color: #ef5350; }
                 .qr-btn.stop:hover { background: rgba(244,67,54,0.22); }
-                .qr-status { font-size: 0.6rem; color: #6b7280; flex: 1; }
+                .qr-status { font-size: 0.6rem; color: #4a6a54; flex: 1; }
                 #entQrReader { border-radius: 8px; overflow: hidden; background: #000; }
                 .qr-result {
-                    background: rgba(255,153,0,0.08); border: 1px solid var(--accent);
+                    background: rgba(76,175,80,0.08); border: 1px solid #2e7d32;
                     border-radius: 6px; padding: 6px 8px; font-size: 0.62rem;
-                    color: var(--accent-light); display: none; word-break: break-all;
+                    color: #a5d6a7; display: none; word-break: break-all;
                 }
                 /* Map */
                 #entregaMapContainer {
                     height: 240px; border-radius: 10px; overflow: hidden;
-                    border: 1px solid var(--border); flex-shrink: 0; background: var(--bg);
+                    border: 1px solid #1a3020; flex-shrink: 0; background: #0d1a13;
                 }
-                .entrega-map-tip { font-size: 0.6rem; color: #6b7280; text-align: center; }
+                .entrega-map-tip { font-size: 0.6rem; color: #4a6a54; text-align: center; }
                 /* Temp order button */
                 .btn-temp-order {
                     position: absolute; top: 8px; right: 8px; z-index: 1000;
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #ff9900, #ffb84d);
                     color: #fff; border: none; border-radius: 50%;
                     width: 40px; height: 40px; font-size: 1.4rem; line-height: 1;
                     cursor: pointer; box-shadow: 0 3px 12px rgba(255,153,0,0.5);
@@ -6424,7 +6440,7 @@
                 /* Temp order modal */
                 .temp-order-modal {
                     position: fixed; inset: 0; z-index: 200002;
-                    background: rgba(0,0,0,0.55);
+                    background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
                     display: flex; align-items: center; justify-content: center;
                     padding: 16px;
                 }
@@ -6461,7 +6477,7 @@
                     border: none; transition: opacity 0.15s;
                 }
                 .temp-order-card .to-btn.save {
-                    background: #ff9900;
+                    background: linear-gradient(135deg, #ff9900, #ffb84d);
                     color: #fff;
                 }
                 .temp-order-card .to-btn.cancel {
@@ -6501,23 +6517,23 @@
                 /* Delivery tabs */
                 .entrega-tabs { display: flex; gap: 4px; flex-shrink: 0; }
                 .entrega-tab {
-                    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-                    color: #9ca3af; padding: 6px 10px; border-radius: 8px;
+                    background: rgba(255,255,255,0.05); border: 1px solid #1a3020;
+                    color: #6a9e74; padding: 6px 10px; border-radius: 8px;
                     font-size: 0.62rem; font-weight: 700; cursor: pointer;
-                    transition: none; white-space: nowrap;
+                    transition: all 0.15s; white-space: nowrap;
                 }
                 .entrega-tab:hover { background: rgba(255,255,255,0.08); }
-                .entrega-tab.active { background: var(--accent); border-color: var(--accent); color: #000; }
+                .entrega-tab.active { background: #2e7d32; border-color: #2e7d32; color: #fff; }
                 /* Search */
                 .entrega-search-bar { display: flex; gap: 6px; flex-shrink: 0; }
                 .entrega-search-bar input {
-                    flex: 1; background: var(--bg); border: 1px solid var(--border);
+                    flex: 1; background: #0d1a13; border: 1px solid #1a3020;
                     color: #e0eaf4; border-radius: 8px; padding: 7px 10px;
                     font-size: 0.7rem; outline: none;
                 }
-                .entrega-search-bar input:focus { border-color: var(--accent); }
+                .entrega-search-bar input:focus { border-color: #4caf50; }
                 .entrega-search-bar button {
-                    background: rgba(255,255,255,0.07); border: 1px solid var(--border);
+                    background: rgba(255,255,255,0.07); border: 1px solid #1a3020;
                     color: #fff; border-radius: 8px; padding: 0 12px;
                     cursor: pointer; font-size: 0.9rem; transition: background 0.15s;
                 }
@@ -6528,22 +6544,22 @@
                     flex-direction: column; gap: 8px; padding-right: 4px;
                 }
                 .entrega-empty, .entrega-loading {
-                    text-align: center; color: #6b7280; font-size: 0.72rem; padding: 30px;
+                    text-align: center; color: #4a6a54; font-size: 0.72rem; padding: 30px;
                 }
                 .entrega-card {
-                    background: var(--panel); border: 1px solid var(--border);
+                    background: #0b1a12; border: 1px solid #1a3020;
                     border-radius: 10px; padding: 12px 14px;
                     display: flex; flex-direction: column; gap: 8px; transition: border-color 0.15s;
                 }
-                .entrega-card:hover { border-color: var(--accent); }
+                .entrega-card:hover { border-color: #4caf50; }
                 .entrega-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-                .entrega-card-folio { font-size: 0.8rem; font-weight: 800; color: var(--accent); }
-                .entrega-card-dist { font-size: 0.6rem; color: #6b7280; margin-top: 2px; }
+                .entrega-card-folio { font-size: 0.8rem; font-weight: 800; color: #66bb6a; }
+                .entrega-card-dist { font-size: 0.6rem; color: #4a6a54; margin-top: 2px; }
                 .entrega-card-info {
                     display: grid; grid-template-columns: 1fr 1fr;
-                    gap: 3px 12px; font-size: 0.63rem; color: #9ca3af;
+                    gap: 3px 12px; font-size: 0.63rem; color: #a0c8a8;
                 }
-                .entrega-card-info strong { color: #e5e7eb; }
+                .entrega-card-info strong { color: #c8e6c9; }
                 .entrega-card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
                 .entrega-btn {
                     background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
@@ -6551,12 +6567,12 @@
                     font-size: 0.62rem; font-weight: 700; cursor: pointer; transition: background 0.15s;
                 }
                 .entrega-btn:hover { background: rgba(255,255,255,0.15); }
-                .entrega-btn.nav { background: rgba(76,175,80,0.12); border-color: rgba(76,175,80,0.3); color: var(--accent-light); }
+                .entrega-btn.nav { background: rgba(76,175,80,0.12); border-color: rgba(76,175,80,0.3); color: #81c784; }
                 .entrega-btn.nav:hover { background: rgba(76,175,80,0.22); }
                 .entrega-btn.del { background: rgba(244,67,54,0.1); border-color: rgba(244,67,54,0.25); color: #ef5350; }
                 .entrega-btn.del:hover { background: rgba(244,67,54,0.2); }
                 .entrega-status-select {
-                    background: #0b1a12; border: 1px solid var(--border); color: #e0eaf4;
+                    background: #0b1a12; border: 1px solid #1a3a22; color: #e0eaf4;
                     border-radius: 6px; padding: 4px 8px; font-size: 0.62rem;
                     font-weight: 700; cursor: pointer; outline: none;
                 }
@@ -6607,12 +6623,12 @@
             place-items: center;
             gap: 5px;
             cursor: pointer;
-            transition: none;
+            transition: all 0.2s ease;
             text-align: center;
             min-height: 110px;
         }
 
-        .landing-card:hover { box-shadow: 0 12px 20px rgba(0,0,0,0.18); filter: brightness(1.05); }
+        .landing-card:hover { box-shadow: 0 12px 20px rgba(0,0,0,0.18); transform: translateY(-3px); filter: brightness(1.05); }
         .landing-card span { font-size: 0.72rem; font-weight: 780; letter-spacing: 0.32px; color: #ffffff; }
         .landing-icon-svg { width: 38px; height: 38px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18)); }
         .landing-icon-img { width: 38px; height: 38px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18)); }
@@ -6663,6 +6679,7 @@
             display: none;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(6px);
             transition: background .15s;
         }
 
@@ -6759,7 +6776,7 @@
 
         .modal-box {
             width: min(800px, 96vw);
-            background: #0f1626;
+            background: linear-gradient(135deg, #0f1626 0%, #121c2f 100%);
             border: 2px solid var(--border);
             border-radius: 12px;
             padding: 12px;
@@ -6840,7 +6857,7 @@
             width: 420px;
             max-width: 92vw;
             height: 100vh;
-            background: var(--panel);
+            background: linear-gradient(135deg, var(--panel) 0%, #0b1220 100%);
             border-left: 2px solid var(--border);
             box-shadow: -6px 0 24px rgba(0,0,0,0.45);
             padding: 12px 12px 14px 12px;
@@ -6924,7 +6941,7 @@
 
         .kraft-chip.active {
             border-color: rgba(255,177,71,0.95);
-            background: #ff9900;
+            background: linear-gradient(135deg, #ffd166 0%, #ffb347 100%);
             color: #111;
             box-shadow: 0 2px 7px rgba(255,177,71,0.32);
         }
@@ -6968,7 +6985,7 @@
         /* ===== LOGIN SCREEN ===== */
         .login-overlay {
             position: fixed; inset: 0; z-index: 100000;
-            background: #0a0f1a;
+            background: linear-gradient(135deg, #0a0f1a 0%, #141b2a 50%, #1a2332 100%);
             display: flex; align-items: center; justify-content: center;
         }
         .login-card {
@@ -6990,7 +7007,7 @@
         .login-card .login-field input:focus { border-color: var(--accent); }
         .login-card .login-btn {
             width: 100%; padding: 12px; border: none; border-radius: 8px;
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent), #e68a00);
             color: #111; font-weight: 900; font-size: 0.8rem; cursor: pointer;
             letter-spacing: 0.5px;
         }
@@ -7053,7 +7070,7 @@
         .config-users-add input:focus, .config-users-add select:focus { border-color: #ff9900; outline: none; box-shadow: 0 0 0 3px rgba(255,153,0,0.1); }
         .config-users-add label { color: #374151 !important; }
         .config-users-add .config-users-add-actions { grid-column: 1 / -1; display: flex; gap: 8px; justify-content: flex-end; margin-top: 6px; }
-        .config-users-add .productos-btn.primary { background: #ff9900; color: #fff; border: none; font-weight: 800; padding: 10px 22px; border-radius: 8px; }
+        .config-users-add .productos-btn.primary { background: linear-gradient(135deg, #ff9900, #e68a00); color: #fff; border: none; font-weight: 800; padding: 10px 22px; border-radius: 8px; }
         .config-user-role-badge {
             display: inline-block; padding: 3px 12px; border-radius: 6px;
             font-size: 0.5rem; font-weight: 800; letter-spacing: 0.3px; text-transform: uppercase;
@@ -7378,31 +7395,19 @@
 
             <div style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;margin-top:4px;">
                 <div style="font-size:0.65rem;font-weight:800;color:#ff9900;margin-bottom:8px;">📍 UBICACIONES GUARDADAS</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
                     <label class="clientesform-field">
-                        🏠 Domicilio (casa)
-                        <input id="cliFormUbiDomicilio" type="text" placeholder="Dirección de casa o link de Maps" autocomplete="off">
+                        🏠 Domicilio
+                        <input id="cliFormUbiDomicilio" type="text" placeholder="Dirección de casa" autocomplete="off">
                     </label>
                     <label class="clientesform-field">
-                        🏢 Negocio (trabajo)
-                        <input id="cliFormUbiNegocio" type="text" placeholder="Dirección del negocio o link de Maps" autocomplete="off">
+                        🏢 Negocio
+                        <input id="cliFormUbiNegocio" type="text" placeholder="Dirección del negocio" autocomplete="off">
                     </label>
-                </div>
-                <div style="margin-top:8px;">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                        <span style="font-size:0.6rem;font-weight:800;color:#ff9900;">📌 PUNTOS MEDIOS</span>
-                        <button type="button" id="btnAddPuntoMedio" style="background:#ff9900;color:#fff;border:none;border-radius:6px;padding:3px 10px;font-size:0.6rem;font-weight:700;cursor:pointer;">＋ Agregar punto medio</button>
-                    </div>
-                    <div id="puntosMediosContainer" style="display:flex;flex-direction:column;gap:6px;">
-                        <label class="clientesform-field">
-                            📌 Punto Medio principal
-                            <input id="cliFormUbiPuntoMedio" type="text" placeholder="Dirección, coordenadas o link de Google Maps" autocomplete="off">
-                        </label>
-                    </div>
-                    <div id="puntosMediosBuscador" style="margin-top:6px;position:relative;">
-                        <input id="buscarPuntoMedioInput" type="text" placeholder="🔍 Buscar entre puntos medios registrados..." style="width:100%;padding:5px 8px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;background:rgba(255,255,255,0.04);color:#e5eaf1;font-size:0.65rem;" autocomplete="off">
-                        <div id="buscarPuntoMedioResults" style="display:none;position:absolute;top:100%;left:0;right:0;background:#0f1726;border:1px solid rgba(255,255,255,0.12);border-radius:6px;max-height:150px;overflow-y:auto;z-index:10;"></div>
-                    </div>
+                    <label class="clientesform-field">
+                        📌 Punto Medio
+                        <input id="cliFormUbiPuntoMedio" type="text" placeholder="Punto de encuentro" autocomplete="off">
+                    </label>
                 </div>
             </div>
             <label class="clientesform-field">
@@ -7685,7 +7690,7 @@ function abrirPopupProveedorDesdeProductos() {
                 <div style="display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:8px;">
                     <div class="caja-kpi" style="border-left:3px solid #16a34a;"><b>💰 VENTAS TOTALES</b><span id="repKpiVentas" style="color:#16a34a;">$0.00</span></div>
                     <div class="caja-kpi" style="border-left:3px solid #dc2626;"><b>📉 INVERSIÓN</b><span id="repKpiInversion" style="color:#dc2626;">$0.00</span></div>
-                    <div class="caja-kpi" style="border-left:3px solid #ff9900;"><b>📈 GANANCIA</b><span id="repKpiGanancia" style="color:#ff9900;">$0.00</span></div>
+                    <div class="caja-kpi" style="border-left:3px solid #2563eb;"><b>📈 GANANCIA</b><span id="repKpiGanancia" style="color:#2563eb;">$0.00</span></div>
                     <div class="caja-kpi" style="border-left:3px solid #f59e0b;"><b>🧾 ORDENES</b><span id="repKpiOrdenes" style="color:#f59e0b;">0</span></div>
                 </div>
 
@@ -7948,7 +7953,7 @@ function abrirPopupProveedorDesdeProductos() {
                                 <div style="margin-bottom:8px;">
                     
                                 </div>
-                <label for="upLogo" style="display:block; width:100%; background: #ff9900; border-radius: 10px; padding: 7px; cursor: pointer; box-shadow: 0 6px 14px rgba(255,153,0,0.22); border: none;">
+                <label for="upLogo" style="display:block; width:100%; background: linear-gradient(135deg, #ffd166 0%, #ff9900 100%); border-radius: 10px; padding: 7px; cursor: pointer; box-shadow: 0 6px 14px rgba(255,153,0,0.22); border: none;">
                     <div style="display:flex; align-items:center; justify-content:space-between; gap: 6px;">
                         <div style="display:flex; align-items:center; gap: 9px;">
                             <div style="width: 30px; height: 30px; border-radius: 8px; background: rgba(0,0,0,0.08); display: grid; place-items: center; font-size: 16px;">📁</div>
@@ -7964,7 +7969,7 @@ function abrirPopupProveedorDesdeProductos() {
 
             <div id="uploadTarjeta" style="display:none; margin-top:4px;">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <label for="upLogoDual" style="flex:1; display:block; background: #ff9900; border-radius: 10px; padding: 9px; cursor: pointer; box-shadow: 0 6px 14px rgba(79,195,247,0.25); border: none;">
+                    <label for="upLogoDual" style="flex:1; display:block; background: linear-gradient(135deg, #ffd166 0%, #4fc3f7 100%); border-radius: 10px; padding: 9px; cursor: pointer; box-shadow: 0 6px 14px rgba(79,195,247,0.25); border: none;">
                         <div style="display:flex; align-items:center; justify-content:space-between; gap: 8px;">
                             <div style="display:flex; align-items:center; gap: 10px;">
                                 <div style="width: 34px; height: 34px; border-radius: 10px; background: rgba(0,0,0,0.08); display: grid; place-items: center; font-size: 18px;">⬆️</div>
@@ -8060,7 +8065,7 @@ function abrirPopupProveedorDesdeProductos() {
             <div id="panelArmado" style="display: none; margin-top: 2px; border-top: 1px solid var(--border); padding-top: 2px;">
                 <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 4px; margin-bottom: 3px; align-items: center;">
                     <input type="number" id="inputKg" value="1" placeholder="KG" oninput="actualizar()" onkeypress="if(event.key==='Enter') agregarAlPedido()" style="margin-bottom: 0; height: 18px; font-size: 0.4rem; padding: 2px 4px;">
-                    <button class="btn-exp" style="background: var(--accent); color:black; text-align:center; font-weight: 780; border: none; margin-bottom: 0; padding: 4px 6px; height: 22px; font-size: 0.5rem; display:flex; align-items:center; justify-content:center; border-radius: 9px;" onclick="agregarAlPedido()">➕ AÑADIR</button>
+                    <button class="btn-exp" style="background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); color:black; text-align:center; font-weight: 780; border: none; margin-bottom: 0; padding: 4px 6px; height: 22px; font-size: 0.5rem; display:flex; align-items:center; justify-content:center; border-radius: 9px;" onclick="agregarAlPedido()">➕ AÑADIR</button>
                 </div>
                 <div style="display: flex; gap: 2px; margin-bottom: 2px; align-items: stretch;">
                     <button class="btn-exp" style="background: rgba(200,50,50,0.8); color:white; text-align:center; font-weight: 750; border: 2px solid rgba(200,50,50,0.6); flex: 1; margin-bottom: 0; padding: 3px 2px; height: 20px; font-size: 0.46rem;" onclick="limpiarPedido()">🗑️ LIMPIAR</button>
@@ -8070,7 +8075,7 @@ function abrirPopupProveedorDesdeProductos() {
                 </div>
             </div>
 
-            <button id="btnSurtido" class="btn-exp" style="margin-top:auto; background: #ff9900; text-align:center; padding-left:0; font-weight: 700; border: none; padding: 4px 3px;" onclick="activarSurtido()">🌈 SURTIDO</button>
+            <button id="btnSurtido" class="btn-exp" style="margin-top:auto; background:linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f); text-align:center; padding-left:0; font-weight: 700; border: none; padding: 4px 3px;" onclick="activarSurtido()">🌈 SURTIDO</button>
         </div>
 
         <div id="panelTintas" class="group" style="margin-bottom: 2px; height: 100%; display: flex; flex-direction: column; gap: 5px; padding:4px 6px 6px 6px; min-height: 0;">
@@ -8100,7 +8105,7 @@ function abrirPopupProveedorDesdeProductos() {
         <div id="panelAcciones" class="group" style="display: block; padding: 6px 7px 7px 7px; margin-bottom: 0;">
             <h3>ACCIONES</h3>
                 <div style="display: grid; grid-template-columns: 1fr; gap: 5px;">
-                    <button class="btn-exp" style="background: var(--accent); color:#000; height: 28px; font-size: 0.56rem; text-align:center; padding-left:0; border-radius: 8px; font-weight: 750; border: none; box-shadow: 0 4px 8px rgba(255,153,0,0.18);" onclick="descargar()">💾 GUARDAR</button>
+                    <button class="btn-exp" style="background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); color:#000; height: 28px; font-size: 0.56rem; text-align:center; padding-left:0; border-radius: 8px; font-weight: 750; border: none; box-shadow: 0 4px 8px rgba(255,153,0,0.18);" onclick="descargar()">💾 GUARDAR</button>
                     <!-- Copiar pedido button removed per request -->
                     <button id="btnVerBolsasPanel" class="btn-exp" style="display: block; background: rgba(255,255,255,0.08); color:#fff; height: 28px; font-size: 0.56rem; text-align:center; padding-left:0; border-radius: 8px; font-weight: 750; border: 1px solid rgba(255,255,255,0.16); box-shadow: 0 3px 6px rgba(0,0,0,0.22);" onclick="toggleDrawerPedido(true)">👁️ BOLSAS</button>
             </div>
@@ -8186,7 +8191,7 @@ function abrirPopupProveedorDesdeProductos() {
             </div>
         </div>
         <div style="display:flex; justify-content:flex-end; margin-top:10px; gap:8px;">
-            <button class="btn-exp" style="width:auto; padding:6px 10px; background: #ff9900; color:#000; border:none;" onclick="cerrarComparacion()">✅ Aceptar</button>
+            <button class="btn-exp" style="width:auto; padding:6px 10px; background: linear-gradient(135deg, #4caf50 0%, #6ad66a 100%); color:#000; border:none;" onclick="cerrarComparacion()">✅ Aceptar</button>
         </div>
     </div>
 </div>
@@ -9423,12 +9428,12 @@ const imgBolsaDeliveryBase = new Image();
         const btnH = document.getElementById('btnElegirKraftH');
         const btnV = document.getElementById('btnElegirKraftV');
         if (btnH) {
-            btnH.style.background = isH ? '#ff9900' : 'rgba(255,255,255,0.14)';
+            btnH.style.background = isH ? 'linear-gradient(135deg, #ffd166 0%, #ffb347 100%)' : 'rgba(255,255,255,0.14)';
             btnH.style.color = isH ? '#111' : '#fff';
             btnH.style.border = isH ? '1px solid rgba(255,177,71,0.9)' : '1px solid rgba(255,255,255,0.2)';
         }
         if (btnV) {
-            btnV.style.background = !isH ? '#ff9900' : 'rgba(255,255,255,0.14)';
+            btnV.style.background = !isH ? 'linear-gradient(135deg, #ffd166 0%, #ffb347 100%)' : 'rgba(255,255,255,0.14)';
             btnV.style.color = !isH ? '#111' : '#fff';
             btnV.style.border = !isH ? '1px solid rgba(255,177,71,0.9)' : '1px solid rgba(255,255,255,0.2)';
         }
@@ -11192,16 +11197,16 @@ const imgBolsaDeliveryBase = new Image();
 <div id="popupDetalleOrden" class="popup-overlay" aria-hidden="true" style="z-index:100010;">
     <div class="popup-card wide" role="dialog" aria-modal="true" style="max-width:980px;max-height:95vh;overflow-y:auto;padding:0;border-radius:16px;border:none;">
         <!-- HEADER naranja con folio grande -->
-        <div style="background:#ff9900;padding:20px 24px 16px;display:flex;justify-content:space-between;align-items:flex-start;border-radius:16px 16px 0 0;">
+        <div style="background:linear-gradient(135deg,#ff9900,#ffb347);padding:20px 24px 16px;display:flex;justify-content:space-between;align-items:flex-start;border-radius:16px 16px 0 0;">
             <div>
                 <div id="mpDetTipoLabel" style="font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:1px;">ORDEN DE TRABAJO</div>
                 <div id="mpDetFolio" style="font-size:2rem;font-weight:900;color:#fff;line-height:1.1;text-shadow:0 2px 4px rgba(0,0,0,0.1);"></div>
                 <div id="mpDetFechaEmitida" style="font-size:0.65rem;color:rgba(255,255,255,0.85);margin-top:4px;"></div>
             </div>
             <div style="text-align:right;">
-                <div id="mpDetEstatus" style="font-size:0.65rem;font-weight:800;padding:5px 14px;border-radius:20px;display:inline-block;background:rgba(255,255,255,0.25);color:#fff;"></div>
+                <div id="mpDetEstatus" style="font-size:0.65rem;font-weight:800;padding:5px 14px;border-radius:20px;display:inline-block;background:rgba(255,255,255,0.25);color:#fff;backdrop-filter:blur(4px);"></div>
                 <div style="margin-top:8px;">
-                    <button id="mpDetCerrar" style="background:rgba(255,255,255,0.25);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;font-weight:900;">✕</button>
+                    <button id="mpDetCerrar" style="background:rgba(255,255,255,0.25);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;font-weight:900;backdrop-filter:blur(4px);">✕</button>
                 </div>
             </div>
         </div>
@@ -11241,7 +11246,7 @@ const imgBolsaDeliveryBase = new Image();
                 </div>
             </div>
             <!-- RIGHT: Totals + Actions -->
-            <div style="padding:18px 20px;background:#fefce8;background:#fff7ed;">
+            <div style="padding:18px 20px;background:#fefce8;background:linear-gradient(180deg,#fff9f0 0%,#fff7ed 100%);">
                 <div style="font-size:0.55rem;font-weight:800;color:#92400e;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;">Resumen Financiero</div>
                 <div style="display:flex;flex-direction:column;gap:6px;font-size:0.62rem;color:#374151;">
                     <div style="display:flex;justify-content:space-between;"><span>Subtotal</span><span id="mpDetSubtotal" style="font-weight:700;"></span></div>
@@ -11285,7 +11290,7 @@ const imgBolsaDeliveryBase = new Image();
 <!-- POPUP HISTORIAL DE PAGOS -->
 <div id="popupHistorialPagos" class="popup-overlay" aria-hidden="true" style="z-index:100015;">
     <div class="popup-card" role="dialog" aria-modal="true" style="max-width:520px;max-height:85vh;overflow-y:auto;padding:0;border-radius:16px;border:none;">
-        <div style="background:#ff9900;padding:18px 22px;border-radius:16px 16px 0 0;">
+        <div style="background:linear-gradient(135deg,#ff9900,#ffb347);padding:18px 22px;border-radius:16px 16px 0 0;">
             <div style="font-size:0.6rem;color:rgba(255,255,255,0.8);font-weight:700;">HISTORIAL DE PAGOS</div>
             <div id="histPagosFolio" style="font-size:1.2rem;font-weight:900;color:#fff;"></div>
         </div>
@@ -12176,7 +12181,7 @@ const imgBolsaDeliveryBase = new Image();
 <!-- ============ POPUP: CONFIRMAR UBICACIÓN AL GUARDAR ============ -->
 <div id="popupConfirmarUbicacion" class="productos-modal-overlay" aria-hidden="true" style="z-index:2250;">
     <div class="productos-modal-card" role="dialog" aria-modal="true" style="max-width:420px;padding:0;overflow:hidden;border:2px solid #f07a00;">
-        <div style="background:#ff9900;padding:14px 18px;text-align:center;">
+        <div style="background:linear-gradient(160deg,#f07a00 0%,#d76700 100%);padding:14px 18px;text-align:center;">
             <div style="font-size:1.4rem;">📦</div>
             <h3 style="margin:4px 0 0;font-size:0.82rem;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.5px;">Confirmar ubicación del producto</h3>
         </div>
@@ -15664,11 +15669,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     rfc: String(c.rfc || '').trim(),
                     referenciaBancaria: String(c.referenciaBancaria || '').trim(),
                     tipoCliente: String(c.tipoCliente || 'Publico en general').trim() || 'Publico en general',
-                    deshabilitado: !!c.deshabilitado,
-                    ubiDomicilio: String(c.ubiDomicilio || '').trim(),
-                    ubiNegocio: String(c.ubiNegocio || '').trim(),
-                    ubiPuntoMedio: String(c.ubiPuntoMedio || '').trim(),
-                    puntosMedios: Array.isArray(c.puntosMedios) ? c.puntosMedios : (c.ubiPuntoMedio ? [c.ubiPuntoMedio] : [])
+                    deshabilitado: !!c.deshabilitado
                 }));
                 return;
             }
@@ -15806,7 +15807,7 @@ document.addEventListener('DOMContentLoaded', () => {
             notifyError('No hay clientes para exportar.', 'Clientes');
             return;
         }
-        const headers = ['ID','NOMBRE','NEGOCIO','TELEFONO','CORREO','TIPO_CLIENTE','CALLE','COLONIA','NUMERO','PAIS','CIUDAD','ESTADO','CP','RAZON_SOCIAL','RFC','REFERENCIA_BANCARIA','UBI_DOMICILIO','UBI_NEGOCIO','UBI_PUNTO_MEDIO','PUNTOS_MEDIOS'];
+        const headers = ['ID','NOMBRE','NEGOCIO','TELEFONO','CORREO','TIPO_CLIENTE','CALLE','COLONIA','NUMERO','PAIS','CIUDAD','ESTADO','CP','RAZON_SOCIAL','RFC','REFERENCIA_BANCARIA'];
         const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
         const lines = [headers.join(',')].concat(clientesModuloData.map((c) => [
             c.id,
@@ -15824,11 +15825,7 @@ document.addEventListener('DOMContentLoaded', () => {
             c.cp,
             c.razonSocial,
             c.rfc,
-            c.referenciaBancaria,
-            c.ubiDomicilio || '',
-            c.ubiNegocio || '',
-            c.ubiPuntoMedio || '',
-            (c.puntosMedios || []).join(' | ')
+            c.referenciaBancaria
         ].map(esc).join(',')));
         const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
@@ -15987,16 +15984,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tipoCliente: String(cliFormTipo?.value || 'Publico en general').trim() || 'Publico en general',
             ubiDomicilio: String(cliFormUbiDomicilio?.value || '').trim(),
             ubiNegocio: String(cliFormUbiNegocio?.value || '').trim(),
-            ubiPuntoMedio: String(cliFormUbiPuntoMedio?.value || '').trim(),
-            puntosMedios: (function(){
-                var arr = [];
-                document.querySelectorAll('.cli-punto-medio-input').forEach(function(inp){
-                    var v = inp.value.trim(); if(v) arr.push(v);
-                });
-                var mainPM = String(cliFormUbiPuntoMedio?.value || '').trim();
-                if(mainPM && arr.indexOf(mainPM)===-1) arr.unshift(mainPM);
-                return arr;
-            })()
+            ubiPuntoMedio: String(cliFormUbiPuntoMedio?.value || '').trim()
         };
 
         if (!payload.id) payload.id = mkClienteModuloId();
@@ -16066,149 +16054,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.openClientesPopupGlobal = openClientesModuloPopup;
-
-    /* ═══ MULTI-ADDRESS: PUNTOS MEDIOS SYSTEM ═══ */
-    const PUNTOS_MEDIOS_GLOBAL_KEY = 'mock_puntos_medios_global_v1';
-
-    function getAllPuntosMedios() {
-        try {
-            return JSON.parse(localStorage.getItem(PUNTOS_MEDIOS_GLOBAL_KEY) || '[]');
-        } catch(e) { return []; }
-    }
-    function savePuntoMedioGlobal(direccion) {
-        if (!direccion) return;
-        var arr = getAllPuntosMedios();
-        var norm = direccion.trim().toUpperCase();
-        if (!arr.some(function(p){ return p.trim().toUpperCase() === norm; })) {
-            arr.push(direccion.trim());
-            localStorage.setItem(PUNTOS_MEDIOS_GLOBAL_KEY, JSON.stringify(arr));
-        }
-    }
-    function syncAllPuntosMediosFromClientes() {
-        var arr = getAllPuntosMedios();
-        clientesModuloData.forEach(function(c) {
-            (c.puntosMedios || []).forEach(function(pm) {
-                var norm = pm.trim().toUpperCase();
-                if (pm.trim() && !arr.some(function(p){ return p.trim().toUpperCase() === norm; })) {
-                    arr.push(pm.trim());
-                }
-            });
-            if (c.ubiPuntoMedio) {
-                var norm2 = c.ubiPuntoMedio.trim().toUpperCase();
-                if (!arr.some(function(p){ return p.trim().toUpperCase() === norm2; })) {
-                    arr.push(c.ubiPuntoMedio.trim());
-                }
-            }
-        });
-        localStorage.setItem(PUNTOS_MEDIOS_GLOBAL_KEY, JSON.stringify(arr));
-    }
-
-    // Parse Google Maps link to extract coordinates
-    function parseMapsLink(input) {
-        if (!input) return null;
-        var str = input.trim();
-        // Try coords: "17.0669,-96.7232"
-        var coordMatch = str.match(/^(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)$/);
-        if (coordMatch) return { lat: parseFloat(coordMatch[1]), lng: parseFloat(coordMatch[2]), text: str };
-        // Try Google Maps link with @lat,lng
-        var mapsMatch = str.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
-        if (mapsMatch) return { lat: parseFloat(mapsMatch[1]), lng: parseFloat(mapsMatch[2]), text: str };
-        // Try Google Maps link with ?q=lat,lng
-        var qMatch = str.match(/[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/);
-        if (qMatch) return { lat: parseFloat(qMatch[1]), lng: parseFloat(qMatch[2]), text: str };
-        // Try place/lat,lng
-        var placeMatch = str.match(/place\/[^/]*\/(-?\d+\.\d+),(-?\d+\.\d+)/);
-        if (placeMatch) return { lat: parseFloat(placeMatch[1]), lng: parseFloat(placeMatch[2]), text: str };
-        return null;
-    }
-
-    // Add punto medio input row
-    function addPuntoMedioRow(value) {
-        var container = document.getElementById('puntosMediosContainer');
-        if (!container) return;
-        var rowDiv = document.createElement('div');
-        rowDiv.style.cssText = 'display:flex;gap:6px;align-items:center;';
-        var inp = document.createElement('input');
-        inp.type = 'text';
-        inp.className = 'cli-punto-medio-input';
-        inp.placeholder = 'Dirección, coordenadas o link de Google Maps';
-        inp.value = value || '';
-        inp.style.cssText = 'flex:1;padding:5px 8px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;background:rgba(255,255,255,0.04);color:#e5eaf1;font-size:0.65rem;';
-        var btnRemove = document.createElement('button');
-        btnRemove.type = 'button';
-        btnRemove.textContent = '✕';
-        btnRemove.style.cssText = 'background:#525252;color:#fff;border:none;border-radius:6px;padding:4px 8px;cursor:pointer;font-size:0.7rem;';
-        btnRemove.addEventListener('click', function(){ rowDiv.remove(); });
-        rowDiv.appendChild(inp);
-        rowDiv.appendChild(btnRemove);
-        container.appendChild(rowDiv);
-    }
-
-    // Render existing puntos medios in form
-    function renderPuntosMediosInForm(puntosMedios) {
-        var container = document.getElementById('puntosMediosContainer');
-        if (!container) return;
-        // Remove old dynamic rows (keep the first label with cliFormUbiPuntoMedio)
-        container.querySelectorAll('div[style*="display:flex"]').forEach(function(r){ r.remove(); });
-        if (Array.isArray(puntosMedios)) {
-            puntosMedios.forEach(function(pm, idx) {
-                if (idx === 0 && cliFormUbiPuntoMedio) {
-                    cliFormUbiPuntoMedio.value = pm;
-                } else {
-                    addPuntoMedioRow(pm);
-                }
-            });
-        }
-    }
-
-    // Buscador de puntos medios
-    (function(){
-        document.addEventListener('input', function(e){
-            if (e.target.id !== 'buscarPuntoMedioInput') return;
-            var term = e.target.value.trim().toUpperCase();
-            var resultsDiv = document.getElementById('buscarPuntoMedioResults');
-            if (!resultsDiv) return;
-            if (!term) { resultsDiv.style.display = 'none'; return; }
-            var all = getAllPuntosMedios();
-            var matches = all.filter(function(p){ return p.toUpperCase().indexOf(term) !== -1; });
-            if (!matches.length) { resultsDiv.style.display = 'none'; return; }
-            resultsDiv.innerHTML = matches.map(function(m){
-                return '<div class="pm-search-result" style="padding:6px 8px;cursor:pointer;font-size:0.65rem;color:#e5eaf1;border-bottom:1px solid rgba(255,255,255,0.06);" data-pm="'+m.replace(/"/g,'&quot;')+'">📌 '+m+'</div>';
-            }).join('');
-            resultsDiv.style.display = 'block';
-            resultsDiv.querySelectorAll('.pm-search-result').forEach(function(item){
-                item.addEventListener('click', function(){
-                    addPuntoMedioRow(item.dataset.pm);
-                    resultsDiv.style.display = 'none';
-                    document.getElementById('buscarPuntoMedioInput').value = '';
-                });
-            });
-        });
-
-        document.addEventListener('click', function(e){
-            if (e.target.id === 'btnAddPuntoMedio') {
-                addPuntoMedioRow('');
-            }
-        });
-    })();
-
-    // Override openClientesFormPopup to load puntosMedios
-    var _origOpenClientesForm = openClientesFormPopup;
-    // Monkey-patch not needed — we handle in event after form opens
-    var observeFormOpen = new MutationObserver(function(mutations){
-        mutations.forEach(function(m){
-            if (m.target === popupClientesForm && popupClientesForm.style.display === 'flex') {
-                var editingCliente = clientesModuloData.find(function(c){ return c.id === clientesModuloEditingId; });
-                if (editingCliente && editingCliente.puntosMedios) {
-                    renderPuntosMediosInForm(editingCliente.puntosMedios);
-                }
-            }
-        });
-    });
-    if (popupClientesForm) observeFormOpen.observe(popupClientesForm, { attributes: true, attributeFilter: ['style'] });
-
-    // On save, also update global puntos medios
-    var _origSaveCliente = saveClienteFromForm;
 
     const popupProveedoresModulo = document.getElementById('popupProveedoresModulo');
     const proveedoresBack = document.getElementById('proveedoresBack');
@@ -21960,7 +21805,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `<span style="display:inline-flex;align-items:center;gap:3px;background:#fff3e6;border:1px solid #fcd9b0;border-radius:20px;padding:3px 10px;font-size:0.55rem;color:#92400e;font-weight:600;">${prodEscape(v)}<button type="button" data-tipo="${ti}" data-val="${vi}" class="varianteRemoveVal" title="Eliminar" style="background:none;border:none;color:#dc2626;cursor:pointer;font-size:0.63rem;padding:0 2px;line-height:1;">×</button></span>`
             ).join("");
             return `<div style="background:#fff;border:1px solid ${isOpen ? '#f07a00' : '#e5e7eb'};border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:border-color .2s;">
-                <div class="varianteTipoHeader" data-tipo="${ti}" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:${isOpen ? '#fff8f0' : '#fafbfc'};cursor:pointer;user-select:none;border-bottom:${isOpen ? '1px solid #f0e6d9' : 'none'};">
+                <div class="varianteTipoHeader" data-tipo="${ti}" style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:${isOpen ? 'linear-gradient(135deg,#fff8f0,#fff)' : '#fafbfc'};cursor:pointer;user-select:none;border-bottom:${isOpen ? '1px solid #f0e6d9' : 'none'};">
                     <span style="font-size:0.6rem;color:#f07a00;transition:transform .2s;transform:rotate(${isOpen ? '90' : '0'}deg);flex-shrink:0;">▶</span>
                     <span style="width:8px;height:8px;border-radius:50%;background:#f07a00;display:inline-block;flex-shrink:0;"></span>
                     <b style="font-size:0.64rem;color:#1f2937;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${prodEscape(t.tipo)}</b>
@@ -23388,7 +23233,7 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
             + cols.map(c => `<th style="position:sticky;top:0;background:#0f1827;color:#d9ebff;border-bottom:1px solid rgba(255,255,255,0.12);padding:8px;text-align:left;font-size:0.78rem;">${escapeHtml(c)}</th>`).join('');
         const body = rows.map((r, idx) => `<tr>
             <td style="padding:7px 8px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.76rem;white-space:nowrap;">
-                <button type="button" data-design-idx="${idx}" style="background: #ff9900;color:#fff;border:none;border-radius:7px;padding:5px 8px;cursor:pointer;font-size:0.72rem;font-weight:700;">Seleccionar</button>
+                <button type="button" data-design-idx="${idx}" style="background:linear-gradient(135deg,#1d4ed8 0%,#2563eb 100%);color:#fff;border:none;border-radius:7px;padding:5px 8px;cursor:pointer;font-size:0.72rem;font-weight:700;">Seleccionar</button>
             </td>
             ${cols.map(c => `<td style="padding:7px 8px;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.76rem;color:#e8f0ff;white-space:nowrap;">${escapeHtml(r[c])}</td>`).join('')}
         </tr>`).join('');
@@ -25190,7 +25035,7 @@ window.MU = (function() {
           </div>
           <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;">
             <div style="font-size:0.6rem;font-weight:700;color:#1e40af;margin-bottom:6px;">✅ TERMINADAS HOY</div>
-            <div id="prodResumenTerminadas" style="font-size:1.5rem;font-weight:900;color:#ff9900;">0</div>
+            <div id="prodResumenTerminadas" style="font-size:1.5rem;font-weight:900;color:#2563eb;">0</div>
           </div>
         </div>
 
@@ -25874,8 +25719,8 @@ document.addEventListener('DOMContentLoaded', function() {
         w.document.write('<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Orden '+esc(orden.folio)+'</title>'+
             '<style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Segoe UI,sans-serif;color:#111;padding:30px;}'+
             '.hdr{border-bottom:3px solid #0288d1;padding-bottom:14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;}'+
-            '.hdr h1{font-size:1.3rem;color:#ff9900;}.folio{font-size:1rem;font-weight:800;}'+
-            '.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;background:#fff7ed;color:#ff9900;}'+
+            '.hdr h1{font-size:1.3rem;color:#0277bd;}.folio{font-size:1rem;font-weight:800;}'+
+            '.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;background:#e3f2fd;color:#0277bd;}'+
             '.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}'+
             '.field label{font-size:0.65rem;font-weight:700;color:#666;text-transform:uppercase;display:block;margin-bottom:3px;}'+
             '.field span{font-size:0.9rem;font-weight:600;}'+
@@ -25912,63 +25757,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Esta orden ya fue enviada a Entregas (folio ' + orden.folio + ').');
                 return;
             }
-            // Mostrar selector de dirección antes de enviar
-            var clienteNombre = orden.cliente || '';
-            if (typeof mostrarSelectorDireccionEntrega === 'function') {
-                mostrarSelectorDireccionEntrega(clienteNombre, async function(addrResult) {
-                    try {
-                        var coords = (typeof parseMapsLink === 'function') ? parseMapsLink(addrResult.direccion) : null;
-                        await db.collection('delivery_orders').add({
-                            folioProduccion: String(orden.folio || ''),
-                            produccionDocId: orden.id || '',
-                            cliente: orden.cliente || '',
-                            telefono: orden.telefono || '',
-                            clienteId: orden.clienteId || '',
-                            producto: orden.producto || '',
-                            cantidad: orden.cantidad || '',
-                            detalleProducto: orden.detalleProducto || '',
-                            fechaEntrega: orden.fechaEntrega || '',
-                            disenoUrl: orden.disenoUrl || '',
-                            correo: '',
-                            tipoDireccion: addrResult.tipo || 'ubicacion',
-                            direccion: addrResult.direccion || '',
-                            lat: coords ? coords.lat : null,
-                            lng: coords ? coords.lng : null,
-                            estado: 'pendiente',
-                            notas: '',
-                            creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
-                            actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-                        });
-                        alert('✅ Orden enviada a Entregas correctamente.');
-                    } catch (err2) {
-                        alert('Error al enviar a entregas: ' + err2.message);
-                    }
-                });
-            } else {
-                // Fallback sin selector
-                await db.collection('delivery_orders').add({
-                    folioProduccion: String(orden.folio || ''),
-                    produccionDocId: orden.id || '',
-                    cliente: orden.cliente || '',
-                    telefono: orden.telefono || '',
-                    clienteId: orden.clienteId || '',
-                    producto: orden.producto || '',
-                    cantidad: orden.cantidad || '',
-                    detalleProducto: orden.detalleProducto || '',
-                    fechaEntrega: orden.fechaEntrega || '',
-                    disenoUrl: orden.disenoUrl || '',
-                    correo: '',
-                    tipoDireccion: 'ubicacion',
-                    direccion: '',
-                    lat: null,
-                    lng: null,
-                    estado: 'pendiente',
-                    notas: '',
-                    creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
-                    actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-                });
-                alert('✅ Orden enviada a Entregas correctamente.');
-            }
+            await db.collection('delivery_orders').add({
+                folioProduccion: String(orden.folio || ''),
+                produccionDocId: orden.id || '',
+                cliente: orden.cliente || '',
+                telefono: orden.telefono || '',
+                clienteId: orden.clienteId || '',
+                producto: orden.producto || '',
+                cantidad: orden.cantidad || '',
+                detalleProducto: orden.detalleProducto || '',
+                fechaEntrega: orden.fechaEntrega || '',
+                disenoUrl: orden.disenoUrl || '',
+                correo: '',
+                tipoDireccion: 'negocio',
+                direccion: '',
+                lat: null,
+                lng: null,
+                estado: 'pendiente',
+                notas: '',
+                creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
+                actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+            });
+            alert('✅ Orden enviada a Entregas correctamente.');
         } catch (err) {
             alert('Error al enviar a entregas: ' + err.message);
         }
@@ -25996,7 +25806,7 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.cssText = 'background:#fff;border-radius:14px;width:min(520px,95vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 18px 40px rgba(0,0,0,0.25);overflow:hidden;';
             card.innerHTML =
                 '<div style="padding:14px 18px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center;">' +
-                  '<div style="font-weight:800;font-size:0.85rem;color:#ff9900;">👥 SELECCIONAR CLIENTE</div>' +
+                  '<div style="font-weight:800;font-size:0.85rem;color:#0277bd;">👥 SELECCIONAR CLIENTE</div>' +
                   '<button id="prodPickerClose" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#6b7280;">✕</button>' +
                 '</div>' +
                 '<div style="padding:10px 18px;"><input id="prodPickerSearch" type="text" placeholder="Buscar por nombre, teléfono o empresa..." style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:0.75rem;box-sizing:border-box;"></div>' +
@@ -26018,7 +25828,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return '<div class="prod-picker-row" data-id="'+esc(c.id)+'" style="padding:10px 12px;border-bottom:1px solid #f3f4f6;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .1s;" onmouseover="this.style.background=\'#f0f9ff\'" onmouseout="this.style.background=\'\'">'+
                         '<div><div style="font-weight:700;font-size:0.78rem;color:#111;">'+esc(c.nombre||'—')+'</div>'+
                         '<div style="font-size:0.65rem;color:#6b7280;">'+esc(c.telefono||'')+' · '+esc(c.empresa||'Sin empresa')+' · ID: '+esc(c.id)+'</div></div>'+
-                        '<div style="font-size:0.6rem;color:#ff9900;font-weight:700;">Seleccionar</div></div>';
+                        '<div style="font-size:0.6rem;color:#0277bd;font-weight:700;">Seleccionar</div></div>';
                 }).join('');
                 listDiv.querySelectorAll('.prod-picker-row').forEach(function(row) {
                     row.addEventListener('click', function() {
@@ -26237,7 +26047,7 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.id = '_disenoUploadOverlay';
         overlay.style.cssText = 'position:fixed;inset:0;z-index:200001;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:20px;';
         overlay.innerHTML = '<div style="background:#fff;border-radius:14px;width:min(440px,95vw);box-shadow:0 18px 40px rgba(0,0,0,0.25);overflow:hidden;">'+
-            '<div style="background:#ff9900;padding:16px 20px;"><div style="font-size:0.9rem;font-weight:800;color:#fff;">📁 SUBIR DISEÑO</div><div style="font-size:0.55rem;color:rgba(255,255,255,0.8);">Este producto no tiene muestrario asignado. Sube las imágenes de diseño.</div></div>'+
+            '<div style="background:linear-gradient(135deg,#ff9900,#ffb347);padding:16px 20px;"><div style="font-size:0.9rem;font-weight:800;color:#fff;">📁 SUBIR DISEÑO</div><div style="font-size:0.55rem;color:rgba(255,255,255,0.8);">Este producto no tiene muestrario asignado. Sube las imágenes de diseño.</div></div>'+
             '<div style="padding:20px;"><label style="display:block;text-align:center;cursor:pointer;padding:30px;border:2px dashed #fde8c8;border-radius:10px;background:#fff7ed;color:#92400e;font-weight:700;font-size:0.7rem;">📎 Seleccionar archivo<input type="file" id="_disenoUploadFile" accept="image/*,.pdf,.ai,.psd,.cdr" style="display:none;"></label>'+
             '<div id="_disenoUploadStatus" style="text-align:center;margin-top:10px;font-size:0.55rem;color:#9ca3af;"></div>'+
             '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;"><button id="_disenoUploadCancel" style="padding:8px 18px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.65rem;">CERRAR</button></div></div></div>';
@@ -26442,18 +26252,18 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="almacenpedidos-body">
       <div style="display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;">
-        <button class="prod-tab active" data-alm-status="almacenado" style="background:#ff9900;border-color:#e68a00;color:#fff;">📦 Almacenados</button>
+        <button class="prod-tab active" data-alm-status="almacenado" style="background:#0d9488;border-color:#0d9488;color:#fff;">📦 Almacenados</button>
         <button class="prod-tab" data-alm-status="para_envio">🚚 Para Envío</button>
         <button class="prod-tab" data-alm-status="en_transito_sucursal">🏬 En Tránsito</button>
         <button class="prod-tab" data-alm-status="entregado_local">🏪 Entregado en Local</button>
-        <button id="btnRecolectarPedidos" class="prod-tab" style="background:#ff9900;border-color:#e68a00;color:#fff;margin-left:auto;">📷 Recolectar</button>
+        <button id="btnRecolectarPedidos" class="prod-tab" style="background:#7c3aed;border-color:#7c3aed;color:#fff;margin-left:auto;">📷 Recolectar</button>
         <button id="btnEnviarLoteSucursal" class="prod-tab" style="background:#ff9900;border-color:#ff9900;color:#fff;">🏬 Enviar a Sucursal</button>
         <button id="btnConfirmarLlegadaSucursal" class="prod-tab" style="background:#1e40af;border-color:#1e40af;color:#fff;display:none;">📍 Confirmar Llegada</button>
-        <button id="btnEstadisticasTransito" class="prod-tab" style="background:#ff9900;border-color:#e68a00;color:#fff;">📊 Estadísticas</button>
+        <button id="btnEstadisticasTransito" class="prod-tab" style="background:#7c3aed;border-color:#7c3aed;color:#fff;">📊 Estadísticas</button>
       </div>
       <div style="display:flex;gap:6px;flex-shrink:0;">
         <input type="text" id="almPedBuscador" placeholder="🔍 Buscar por folio, cliente..." style="flex:1;background:#fff;border:1px solid #e5e7eb;color:#1f2937;border-radius:8px;padding:7px 10px;font-size:0.7rem;">
-        <button id="almPedRecargar" style="background:#fff7ed;border:1px solid #fde8c8;color:#ff9900;border-radius:8px;padding:0 12px;cursor:pointer;font-size:0.9rem;">🔄</button>
+        <button id="almPedRecargar" style="background:#f0fdfa;border:1px solid #ccfbf1;color:#0d9488;border-radius:8px;padding:0 12px;cursor:pointer;font-size:0.9rem;">🔄</button>
       </div>
       <div id="almPedList" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;"></div>
     </div>
@@ -26484,7 +26294,7 @@ document.addEventListener('DOMContentLoaded', function() {
     panel.querySelectorAll('[data-alm-status]').forEach(function(btn) {
         btn.addEventListener('click', function() {
             panel.querySelectorAll('[data-alm-status]').forEach(function(b){ b.classList.remove('active'); b.style.background=''; b.style.borderColor=''; b.style.color=''; });
-            btn.classList.add('active'); btn.style.background='#ff9900'; btn.style.borderColor='#e68a00'; btn.style.color='#fff';
+            btn.classList.add('active'); btn.style.background='#0d9488'; btn.style.borderColor='#0d9488'; btn.style.color='#fff';
             currentAlmTab = btn.dataset.almStatus;
             // Show/hide buttons based on tab
             if (btnConfirmarLlegada) btnConfirmarLlegada.style.display = (currentAlmTab === 'en_transito_sucursal') ? '' : 'none';
@@ -27125,7 +26935,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 var html = '<div style="text-align:center;margin-bottom:16px;">'+
                     '<div style="font-size:1.5rem;">📊</div>'+
-                    '<div style="font-size:1rem;font-weight:900;color:#ff9900;">ESTADÍSTICAS DE TRÁNSITO</div>'+
+                    '<div style="font-size:1rem;font-weight:900;color:#7c3aed;">ESTADÍSTICAS DE TRÁNSITO</div>'+
                     '<div style="font-size:0.6rem;color:#6b7280;margin-top:4px;">Tiempos de entrega taller → sucursal</div>'+
                 '</div>';
 
@@ -27140,16 +26950,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         '<div style="font-size:1.3rem;font-weight:900;color:#ff9900;">'+enCamino.length+'</div>'+
                     '</div>'+
                     '<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:12px;text-align:center;">'+
-                        '<div style="font-size:0.5rem;font-weight:700;color:#92400e;text-transform:uppercase;">Total Lotes</div>'+
-                        '<div style="font-size:1.3rem;font-weight:900;color:#ff9900;">'+totalLotes+'</div>'+
+                        '<div style="font-size:0.5rem;font-weight:700;color:#6d28d9;text-transform:uppercase;">Total Lotes</div>'+
+                        '<div style="font-size:1.3rem;font-weight:900;color:#7c3aed;">'+totalLotes+'</div>'+
                     '</div>'+
                 '</div>';
 
                 // Time stats
                 html += '<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:14px;margin-bottom:16px;">'+
-                    '<div style="font-size:0.65rem;font-weight:900;color:#ff9900;margin-bottom:8px;">⏱️ TIEMPOS DE TRÁNSITO</div>'+
+                    '<div style="font-size:0.65rem;font-weight:900;color:#6d28d9;margin-bottom:8px;">⏱️ TIEMPOS DE TRÁNSITO</div>'+
                     '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">'+
-                        '<div><div style="font-size:0.52rem;color:#6b7280;font-weight:700;">PROMEDIO</div><div style="font-size:0.9rem;font-weight:900;color:#ff9900;">'+formatDuracion(promedioMs)+'</div></div>'+
+                        '<div><div style="font-size:0.52rem;color:#6b7280;font-weight:700;">PROMEDIO</div><div style="font-size:0.9rem;font-weight:900;color:#7c3aed;">'+formatDuracion(promedioMs)+'</div></div>'+
                         '<div><div style="font-size:0.52rem;color:#6b7280;font-weight:700;">MÁS RÁPIDO</div><div style="font-size:0.9rem;font-weight:900;color:#16a34a;">'+formatDuracion(minMs)+'</div></div>'+
                         '<div><div style="font-size:0.52rem;color:#6b7280;font-weight:700;">MÁS LENTO</div><div style="font-size:0.9rem;font-weight:900;color:#dc2626;">'+formatDuracion(maxMs)+'</div></div>'+
                     '</div>'+
@@ -27170,7 +26980,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     html += '<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:8px;margin-bottom:6px;font-size:0.6rem;">'+
                         '<div style="display:flex;justify-content:space-between;align-items:center;">'+
-                            '<strong style="color:#ff9900;">'+esc(c.loteId||c.id)+'</strong>'+
+                            '<strong style="color:#7c3aed;">'+esc(c.loteId||c.id)+'</strong>'+
                             '<span style="color:'+statusColor+';font-weight:700;">'+statusIcon+'</span>'+
                         '</div>'+
                         '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;margin-top:4px;color:#6b7280;">'+
@@ -27556,7 +27366,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;">
             <div style="font-size:0.6rem;font-weight:700;color:#1e40af;margin-bottom:6px;">✅ ENTREGADAS HOY</div>
-            <div id="entResumenEntregadas" style="font-size:1.5rem;font-weight:900;color:#ff9900;">0</div>
+            <div id="entResumenEntregadas" style="font-size:1.5rem;font-weight:900;color:#2563eb;">0</div>
           </div>
         </div>
 
@@ -27678,7 +27488,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             var popup = document.createElement('div');
-            popup.style.cssText = 'position:fixed;inset:0;z-index:200005;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);padding:16px;';
+            popup.style.cssText = 'position:fixed;inset:0;z-index:200005;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);padding:16px;';
             popup.innerHTML =
                 '<div style="background:#fff;border-radius:16px;max-width:420px;width:95%;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,0.3);">' +
                   '<div style="font-size:1rem;font-weight:800;color:#ff9900;margin-bottom:16px;">📦 Datos del Pedido Escaneado</div>' +
@@ -27818,121 +27628,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    var tipoDirLabel = { negocio: '🏢 Negocio', casa: '🏠 Casa', punto_medio: '📌 Punto Medio', ubicacion: '📌 Ubicación Específica' };
-
-    /* ═══ DELIVERY ADDRESS PICKER ═══ */
-    function mostrarSelectorDireccionEntrega(clienteNombre, callback) {
-        var cliente = null;
-        if (typeof clientesModuloData !== 'undefined') {
-            cliente = clientesModuloData.find(function(c){
-                return c.nombre && c.nombre.toUpperCase() === String(clienteNombre||'').toUpperCase();
-            });
-        }
-        if (!cliente) { callback({ tipo: 'ubicacion', direccion: '' }); return; }
-
-        var opciones = [];
-        if (cliente.ubiDomicilio) opciones.push({ tipo: 'casa', label: '🏠 Casa', direccion: cliente.ubiDomicilio });
-        if (cliente.ubiNegocio) opciones.push({ tipo: 'negocio', label: '🏢 Trabajo', direccion: cliente.ubiNegocio });
-        var pms = cliente.puntosMedios || [];
-        if (pms.length === 0 && cliente.ubiPuntoMedio) pms = [cliente.ubiPuntoMedio];
-        // Default punto medio: last delivered or first in list
-        var lastPM = '';
-        try { lastPM = localStorage.getItem('ultimo_pm_' + cliente.id) || ''; } catch(e){}
-        pms.forEach(function(pm, idx) {
-            opciones.push({ tipo: 'punto_medio', label: '📌 Punto Medio' + (pms.length > 1 ? ' #'+(idx+1) : ''), direccion: pm, isDefault: pm === lastPM });
-        });
-
-        if (opciones.length === 0) {
-            // No addresses, allow manual input
-            callback({ tipo: 'ubicacion', direccion: '' });
-            return;
-        }
-
-        // Mark last PM as default
-        var defaultIdx = opciones.findIndex(function(o){ return o.isDefault; });
-        if (defaultIdx < 0 && opciones.length > 0) defaultIdx = 0;
-
-        var popup = document.createElement('div');
-        popup.style.cssText = 'position:fixed;inset:0;z-index:200005;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:16px;';
-        var html = '<div style="background:#fff;border-radius:14px;max-width:440px;width:92%;padding:20px;max-height:80vh;overflow-y:auto;">';
-        html += '<div style="font-size:0.9rem;font-weight:800;color:#ff9900;margin-bottom:12px;">📍 Seleccionar dirección de entrega</div>';
-        html += '<div style="font-size:0.7rem;color:#6b7280;margin-bottom:12px;">Cliente: <strong>'+escEnt(clienteNombre)+'</strong></div>';
-        html += '<div style="display:flex;flex-direction:column;gap:6px;">';
-        opciones.forEach(function(op, idx) {
-            var sel = idx === defaultIdx ? 'border:2px solid #ff9900;background:#fff7ed;' : 'border:1px solid #e5e7eb;background:#fff;';
-            html += '<button class="addr-option-btn" data-idx="'+idx+'" style="'+sel+'border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;font-size:0.72rem;">';
-            html += '<div style="font-weight:700;color:#111;">'+escEnt(op.label)+'</div>';
-            html += '<div style="font-size:0.65rem;color:#6b7280;margin-top:2px;">'+escEnt(op.direccion)+'</div>';
-            html += '</button>';
-        });
-        html += '<button class="addr-option-btn" data-idx="-1" style="border:1px solid #e5e7eb;background:#f9fafb;border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;font-size:0.72rem;">';
-        html += '<div style="font-weight:700;color:#111;">➕ Agregar nueva dirección</div>';
-        html += '<div style="font-size:0.65rem;color:#6b7280;margin-top:2px;">Ingresar dirección manualmente</div>';
-        html += '</button>';
-        html += '</div>';
-        html += '<div style="margin-top:12px;display:none;" id="addrManualWrap">';
-        html += '<input id="addrManualInput" type="text" placeholder="Dirección, coordenadas o link de Maps" style="width:100%;padding:8px;border:1px solid #d1d5db;border-radius:8px;font-size:0.72rem;">';
-        html += '<div style="display:flex;gap:6px;margin-top:6px;">';
-        html += '<label style="font-size:0.6rem;display:flex;align-items:center;gap:4px;"><input type="checkbox" id="addrSaveAsPM"> Guardar como punto medio del cliente</label>';
-        html += '</div>';
-        html += '</div>';
-        html += '<div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end;">';
-        html += '<button id="addrCancelBtn" style="padding:8px 16px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;font-size:0.72rem;">Cancelar</button>';
-        html += '<button id="addrConfirmBtn" style="padding:8px 16px;border:none;border-radius:8px;background:#ff9900;color:#fff;cursor:pointer;font-weight:700;font-size:0.72rem;">Confirmar</button>';
-        html += '</div></div>';
-        popup.innerHTML = html;
-        document.body.appendChild(popup);
-
-        var selectedIdx = defaultIdx;
-        var manualMode = false;
-
-        function updateSelection() {
-            popup.querySelectorAll('.addr-option-btn').forEach(function(btn){
-                var bIdx = parseInt(btn.dataset.idx);
-                if (bIdx === selectedIdx) {
-                    btn.style.border = '2px solid #ff9900';
-                    btn.style.background = '#fff7ed';
-                } else {
-                    btn.style.border = '1px solid #e5e7eb';
-                    btn.style.background = bIdx === -1 ? '#f9fafb' : '#fff';
-                }
-            });
-            var manualWrap = popup.querySelector('#addrManualWrap');
-            if (manualWrap) manualWrap.style.display = selectedIdx === -1 ? 'block' : 'none';
-        }
-
-        popup.querySelectorAll('.addr-option-btn').forEach(function(btn){
-            btn.addEventListener('click', function(){
-                selectedIdx = parseInt(btn.dataset.idx);
-                updateSelection();
-            });
-        });
-
-        popup.querySelector('#addrCancelBtn').addEventListener('click', function(){ popup.remove(); });
-        popup.addEventListener('click', function(e){ if(e.target === popup) popup.remove(); });
-
-        popup.querySelector('#addrConfirmBtn').addEventListener('click', function(){
-            var result;
-            if (selectedIdx === -1) {
-                var manualVal = (popup.querySelector('#addrManualInput')||{}).value || '';
-                var saveAsPM = (popup.querySelector('#addrSaveAsPM')||{}).checked;
-                if (saveAsPM && manualVal.trim() && cliente) {
-                    if (!cliente.puntosMedios) cliente.puntosMedios = [];
-                    cliente.puntosMedios.push(manualVal.trim());
-                    savePuntoMedioGlobal(manualVal.trim());
-                    if (typeof saveClientesModulo === 'function') saveClientesModulo();
-                }
-                result = { tipo: 'ubicacion', direccion: manualVal.trim() };
-            } else {
-                result = opciones[selectedIdx];
-                if (result.tipo === 'punto_medio' && cliente) {
-                    try { localStorage.setItem('ultimo_pm_' + cliente.id, result.direccion); } catch(e){}
-                }
-            }
-            popup.remove();
-            callback(result);
-        });
-    }
+    var tipoDirLabel = { negocio: '🏢 Negocio', casa: '🏠 Casa', ubicacion: '📌 Ubicación Específica' };
 
     function renderEntregas() {
         var lista = MU.filter(allEntregas, currentEntTab, document.getElementById('entBuscador').value, ['folioProduccion','cliente','direccion']);
@@ -28031,7 +27727,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var telUrl = e.telefono ? 'tel:' + e.telefono : '';
         // Build popup
         var popup = document.createElement('div');
-        popup.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);';
+        popup.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);';
         popup.innerHTML = '<div style="background:#fff;border-radius:14px;max-width:420px;width:90%;max-height:90vh;overflow-y:auto;padding:20px;box-shadow:0 20px 40px rgba(0,0,0,0.2);">'+
             '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">'+
               '<div style="font-size:1rem;font-weight:800;color:#ff9900;">🏷 Etiqueta de Entrega</div>'+
@@ -28460,7 +28156,7 @@ document.addEventListener('DOMContentLoaded', function() {
             : '';
 
         var popup = document.createElement('div');
-        popup.style.cssText = 'position:fixed;inset:0;z-index:200003;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);padding:16px;';
+        popup.style.cssText = 'position:fixed;inset:0;z-index:200003;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);padding:16px;';
         popup.innerHTML =
             '<div style="background:#fff;border-radius:14px;max-width:440px;width:95%;max-height:92vh;overflow-y:auto;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,0.25);">' +
               '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">' +
@@ -28544,7 +28240,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 var esc = window._escHtml || function(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
                 var mapsUrl = o.mapsLink || ((o.lat && o.lng) ? 'https://www.google.com/maps/dir/?api=1&destination=' + o.lat + ',' + o.lng : '');
                 var popup = document.createElement('div');
-                popup.style.cssText = 'position:fixed;inset:0;z-index:200010;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);padding:16px;';
+                popup.style.cssText = 'position:fixed;inset:0;z-index:200010;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);padding:16px;';
                 popup.innerHTML =
                     '<div style="background:#fff;border-radius:16px;max-width:420px;width:95%;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,0.3);">' +
                       '<div style="font-size:1rem;font-weight:800;color:#ff9900;margin-bottom:16px;">📦 Detalle de Entrega</div>' +
@@ -28578,7 +28274,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ════════════════════════════════════════════════════════════════ -->
 <div id="panelRepartoTemporal" class="entrega-overlay" style="display:none;">
   <div class="entrega-container" style="background:#0d1a13;">
-    <div class="entrega-header" style="background:#ff9900;">
+    <div class="entrega-header" style="background:linear-gradient(135deg,#ff9900,#ffb84d);">
       <button id="repartoTempBack" class="entrega-back" type="button" title="Volver" aria-label="Volver" style="background:rgba(255,255,255,0.25);color:#fff;">←</button>
       <div style="display:flex;align-items:center;gap:12px;">
         <span style="font-size:1.6rem;line-height:1;">📋</span>
@@ -28602,10 +28298,10 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px;">
             <div style="font-size:0.6rem;font-weight:700;color:#1e40af;margin-bottom:6px;">✅ ENTREGADAS</div>
-            <div id="rtResumenEntregadas" style="font-size:1.5rem;font-weight:900;color:#ff9900;">0</div>
+            <div id="rtResumenEntregadas" style="font-size:1.5rem;font-weight:900;color:#2563eb;">0</div>
           </div>
         </div>
-        <button id="btnAgregarTempOrderRT" type="button" style="margin-top:12px;width:100%;background:#ff9900;color:#fff;border:none;border-radius:10px;padding:12px;font-size:0.75rem;font-weight:800;cursor:pointer;">＋ AGREGAR ENTREGA TEMPORAL</button>
+        <button id="btnAgregarTempOrderRT" type="button" style="margin-top:12px;width:100%;background:linear-gradient(135deg,#ff9900,#ffb84d);color:#fff;border:none;border-radius:10px;padding:12px;font-size:0.75rem;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(255,153,0,0.3);">＋ AGREGAR ENTREGA TEMPORAL</button>
       </div>
       <div class="entrega-right">
         <div class="entrega-section-title" style="color:#ff9900;border-color:#fde8c8;">🗺 MAPA DE ENTREGAS TEMPORALES</div>
