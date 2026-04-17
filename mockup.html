@@ -5945,7 +5945,7 @@
                     display: none;
                     position: fixed;
                     inset: 0;
-                    background: #f8f9fb;
+                    background: #f5f7fb;
                     z-index: 9100;
                     flex-direction: column;
                     overflow: hidden;
@@ -5954,38 +5954,40 @@
                     display: flex;
                     flex-direction: column;
                     height: 100%;
+                    padding: 8px;
+                    gap: 6px;
                 }
                 .produccion-header {
                     position: relative;
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
-                    padding: 12px 20px 12px 52px;
-                    background: #ff9900;
-                    border-bottom: none;
+                    padding: 8px 10px 8px 42px;
+                    background: #fff;
+                    border: 1px solid #e4e8ef;
+                    border-radius: 10px;
                     flex-shrink: 0;
                 }
                 .produccion-back {
                     position: absolute;
                     top: 10px;
-                    left: 12px;
+                    left: 10px;
                     width: 30px;
                     height: 30px;
                     border-radius: 999px;
-                    border: none;
-                    background: rgba(255,255,255,0.25);
-                    color: #fff;
+                    border: 1px solid #d4dae4;
+                    background: #fff;
+                    color: #1f2937;
                     font-size: 0.95rem;
                     font-weight: 900;
                     line-height: 1;
                     cursor: pointer;
                     display: grid;
                     place-items: center;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
                     z-index: 2;
                 }
                 .produccion-back:hover {
-                    background: rgba(255,255,255,0.4);
+                    background: #f3f4f6;
                 }
                 .produccion-body {
                     display: flex;
@@ -6234,21 +6236,21 @@
                    MÓDULO DE DISEÑO
                 ════════════════════════════════════════════════════════ */
                 .diseno-overlay {
-                    display: none; position: fixed; inset: 0; background: #fff9f0; z-index: 9100; flex-direction: column; overflow: hidden;
+                    display: none; position: fixed; inset: 0; background: #f5f7fb; z-index: 9100; flex-direction: column; overflow: hidden;
                 }
                 .diseno-header {
-                    position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 12px 20px 12px 52px;
-                    background: #ff9900; border-bottom: none; flex-shrink: 0;
+                    position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 8px 10px 8px 42px;
+                    background: #fff; border: 1px solid #e4e8ef; border-radius: 10px; flex-shrink: 0;
                 }
                 .diseno-back {
-                    position: absolute; top: 10px; left: 12px; width: 30px; height: 30px; border-radius: 999px;
-                    border: none; background: rgba(255,255,255,0.25); color: #fff; font-size: 0.95rem; font-weight: 900;
+                    position: absolute; top: 10px; left: 10px; width: 30px; height: 30px; border-radius: 999px;
+                    border: 1px solid #d4dae4; background: #fff; color: #1f2937; font-size: 0.95rem; font-weight: 900;
                     cursor: pointer; display: grid; place-items: center; z-index: 2;
                 }
-                .diseno-back:hover { background: rgba(255,255,255,0.4); }
+                .diseno-back:hover { background: #f3f4f6; }
                 .diseno-body { display: flex; flex: 1; overflow: hidden; }
                 .diseno-list-panel {
-                    flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 14px; gap: 10px; background: #fff9f0;
+                    flex: 1; display: flex; flex-direction: column; overflow: hidden; padding: 14px; gap: 10px; background: #f5f7fb;
                 }
                 .diseno-card {
                     background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px;
@@ -6260,18 +6262,18 @@
                    MÓDULO DE ALMACÉN PEDIDOS
                 ════════════════════════════════════════════════════════ */
                 .almacenpedidos-overlay {
-                    display: none; position: fixed; inset: 0; background: #fafaf9; z-index: 9100; flex-direction: column; overflow: hidden;
+                    display: none; position: fixed; inset: 0; background: #f5f7fb; z-index: 9100; flex-direction: column; overflow: hidden;
                 }
                 .almacenpedidos-header {
-                    position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 12px 20px 12px 52px;
-                    background: #ff9900; border-bottom: none; flex-shrink: 0;
+                    position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 8px 10px 8px 42px;
+                    background: #fff; border: 1px solid #e4e8ef; border-radius: 10px; flex-shrink: 0;
                 }
                 .almacenpedidos-back {
-                    position: absolute; top: 10px; left: 12px; width: 30px; height: 30px; border-radius: 999px;
-                    border: none; background: rgba(255,255,255,0.25); color: #fff; font-size: 0.95rem; font-weight: 900;
+                    position: absolute; top: 10px; left: 10px; width: 30px; height: 30px; border-radius: 999px;
+                    border: 1px solid #d4dae4; background: #fff; color: #1f2937; font-size: 0.95rem; font-weight: 900;
                     cursor: pointer; display: grid; place-items: center; z-index: 2;
                 }
-                .almacenpedidos-back:hover { background: rgba(255,255,255,0.4); }
+                .almacenpedidos-back:hover { background: #f3f4f6; }
                 .almacenpedidos-body { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
                 .almped-card {
                     background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px;
@@ -6283,18 +6285,18 @@
                    RECEPCIÓN SUCURSAL (Escáner)
                 ════════════════════════════════════════════════════════ */
                 .recepcion-overlay {
-                    display: none; position: fixed; inset: 0; background: #fff9f0; z-index: 9300; flex-direction: column; overflow: hidden;
+                    display: none; position: fixed; inset: 0; background: #f5f7fb; z-index: 9300; flex-direction: column; overflow: hidden;
                 }
                 .recepcion-header {
-                    position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 12px 20px 12px 52px;
-                    background: #ff9900; border-bottom: none; flex-shrink: 0;
+                    position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 8px 10px 8px 42px;
+                    background: #fff; border: 1px solid #e4e8ef; border-radius: 10px; flex-shrink: 0;
                 }
                 .recepcion-back {
-                    position: absolute; top: 10px; left: 12px; width: 30px; height: 30px; border-radius: 999px;
-                    border: none; background: rgba(255,255,255,0.25); color: #fff; font-size: 0.95rem; font-weight: 900;
+                    position: absolute; top: 10px; left: 10px; width: 30px; height: 30px; border-radius: 999px;
+                    border: 1px solid #d4dae4; background: #fff; color: #1f2937; font-size: 0.95rem; font-weight: 900;
                     cursor: pointer; display: grid; place-items: center; z-index: 2;
                 }
-                .recepcion-back:hover { background: rgba(255,255,255,0.4); }
+                .recepcion-back:hover { background: #f3f4f6; }
                 .recepcion-body { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
                 .recepcion-card {
                     background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px 14px;
@@ -6315,44 +6317,42 @@
                 }
                 .entrega-overlay {
                     display: none; position: fixed; inset: 0;
-                    background: #0a0f1a; z-index: 9200;
+                    background: #f5f7fb; z-index: 9200;
                     flex-direction: column; overflow: hidden;
                 }
-                .entrega-container { display: flex; flex-direction: column; height: 100%; }
+                .entrega-container { display: flex; flex-direction: column; height: 100%; padding: 8px; gap: 6px; }
                 .entrega-header {
                     position: relative;
-                    display: flex; align-items: center; justify-content: space-between;
+                    display: flex; align-items: center;
                     justify-content: flex-start;
-                    padding: 12px 20px 12px 52px; background: var(--panel);
-                    border-bottom: 2px solid var(--accent); flex-shrink: 0;
+                    padding: 8px 10px 8px 42px; background: #fff;
+                    border: 1px solid #e4e8ef; border-radius: 10px; flex-shrink: 0;
                 }
                 .entrega-back {
                     position: absolute;
                     top: 10px;
-                    left: 12px;
+                    left: 10px;
                     width: 30px;
                     height: 30px;
                     border-radius: 999px;
-                    border: 1px solid var(--border);
-                    background: var(--panel);
-                    color: #ffffff;
+                    border: 1px solid #d4dae4;
+                    background: #fff;
+                    color: #1f2937;
                     font-size: 0.95rem;
                     font-weight: 900;
                     line-height: 1;
                     cursor: pointer;
                     display: grid;
                     place-items: center;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
                     z-index: 2;
                 }
                 .entrega-back:hover {
-                    background: var(--hover);
-                    border-color: var(--accent);
+                    background: #f3f4f6;
                 }
                 .entrega-body { display: flex; flex: 1; overflow: hidden; }
                 .entrega-left {
-                    width: 370px; flex-shrink: 0; background: var(--panel);
-                    border-right: 1px solid var(--border); overflow-y: auto;
+                    width: 370px; flex-shrink: 0; background: #fff;
+                    border-right: 1px solid #e4e8ef; overflow-y: auto;
                     padding: 14px; display: flex; flex-direction: column; gap: 10px;
                 }
                 .entrega-right {
@@ -6361,17 +6361,17 @@
                 }
                 .entrega-section-title {
                     font-size: 0.65rem; font-weight: 800; letter-spacing: 1px;
-                    color: var(--accent-light); padding-bottom: 6px; border-bottom: 1px solid var(--border);
+                    color: #ff9900; padding-bottom: 6px; border-bottom: 1px solid #fde8c8;
                 }
                 .entrega-form { display: flex; flex-direction: column; gap: 8px; }
                 .entrega-field { display: flex; flex-direction: column; gap: 3px; }
                 .entrega-field label { font-size: 0.6rem; font-weight: 700; color: #9ca3af; letter-spacing: 0.5px; }
                 .entrega-field input, .entrega-field select, .entrega-field textarea {
-                    background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: #e0eaf4;
+                    background: #fff; border: 1px solid #d4dae4; color: #1f2937;
                     border-radius: 6px; padding: 6px 8px; font-size: 0.7rem;
                     outline: none; transition: border-color 0.15s; font-family: inherit; resize: vertical;
                 }
-                .entrega-field input:focus, .entrega-field select:focus, .entrega-field textarea:focus { border-color: var(--accent); }
+                .entrega-field input:focus, .entrega-field select:focus, .entrega-field textarea:focus { border-color: #ff9900; }
                 .entrega-field input[readonly] { opacity: 0.65; cursor: default; }
                 .entrega-save-btn {
                     background: #ff9900; color: #fff;
@@ -6383,31 +6383,31 @@
                 .entrega-save-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: none; }
                 /* QR Scanner */
                 .qr-scanner-box {
-                    background: var(--bg); border: 1px dashed var(--accent);
+                    background: #f8f9fb; border: 1px dashed #ff9900;
                     border-radius: 10px; padding: 10px;
                     display: flex; flex-direction: column; gap: 6px;
                 }
                 .qr-scanner-controls { display: flex; gap: 6px; align-items: center; }
                 .qr-btn {
-                    background: rgba(255,153,0,0.15); border: 1px solid var(--accent);
-                    color: var(--accent-light); padding: 5px 12px; border-radius: 6px;
+                    background: #fff7ed; border: 1px solid #ff9900;
+                    color: #ff9900; padding: 5px 12px; border-radius: 6px;
                     font-size: 0.62rem; font-weight: 700; cursor: pointer;
                     transition: background 0.15s; white-space: nowrap;
                 }
-                .qr-btn:hover { background: rgba(255,153,0,0.28); }
+                .qr-btn:hover { background: #fff3e0; }
                 .qr-btn.stop { background: rgba(244,67,54,0.12); border-color: #c62828; color: #ef5350; }
                 .qr-btn.stop:hover { background: rgba(244,67,54,0.22); }
                 .qr-status { font-size: 0.6rem; color: #6b7280; flex: 1; }
                 #entQrReader { border-radius: 8px; overflow: hidden; background: #000; }
                 .qr-result {
-                    background: rgba(255,153,0,0.08); border: 1px solid var(--accent);
+                    background: #fff7ed; border: 1px solid #ff9900;
                     border-radius: 6px; padding: 6px 8px; font-size: 0.62rem;
-                    color: var(--accent-light); display: none; word-break: break-all;
+                    color: #ff9900; display: none; word-break: break-all;
                 }
                 /* Map */
                 #entregaMapContainer {
                     height: 240px; border-radius: 10px; overflow: hidden;
-                    border: 1px solid var(--border); flex-shrink: 0; background: var(--bg);
+                    border: 1px solid #e4e8ef; flex-shrink: 0; background: #f8f9fb;
                 }
                 .entrega-map-tip { font-size: 0.6rem; color: #6b7280; text-align: center; }
                 /* Temp order button */
@@ -6501,27 +6501,27 @@
                 /* Delivery tabs */
                 .entrega-tabs { display: flex; gap: 4px; flex-shrink: 0; }
                 .entrega-tab {
-                    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-                    color: #9ca3af; padding: 6px 10px; border-radius: 8px;
+                    background: #fff; border: 1px solid #e5e7eb;
+                    color: #6b7280; padding: 6px 10px; border-radius: 8px;
                     font-size: 0.62rem; font-weight: 700; cursor: pointer;
                     transition: none; white-space: nowrap;
                 }
-                .entrega-tab:hover { background: rgba(255,255,255,0.08); }
-                .entrega-tab.active { background: var(--accent); border-color: var(--accent); color: #000; }
+                .entrega-tab:hover { background: #fff7ed; }
+                .entrega-tab.active { background: #ff9900; border-color: #ff9900; color: #fff; }
                 /* Search */
                 .entrega-search-bar { display: flex; gap: 6px; flex-shrink: 0; }
                 .entrega-search-bar input {
-                    flex: 1; background: var(--bg); border: 1px solid var(--border);
-                    color: #e0eaf4; border-radius: 8px; padding: 7px 10px;
+                    flex: 1; background: #fff; border: 1px solid #d4dae4;
+                    color: #1f2937; border-radius: 8px; padding: 7px 10px;
                     font-size: 0.7rem; outline: none;
                 }
-                .entrega-search-bar input:focus { border-color: var(--accent); }
+                .entrega-search-bar input:focus { border-color: #ff9900; }
                 .entrega-search-bar button {
-                    background: rgba(255,255,255,0.07); border: 1px solid var(--border);
-                    color: #fff; border-radius: 8px; padding: 0 12px;
+                    background: #fff7ed; border: 1px solid #fde8c8;
+                    color: #ff9900; border-radius: 8px; padding: 0 12px;
                     cursor: pointer; font-size: 0.9rem; transition: background 0.15s;
                 }
-                .entrega-search-bar button:hover { background: rgba(255,255,255,0.14); }
+                .entrega-search-bar button:hover { background: #fff3e0; }
                 /* Delivery list */
                 .entrega-list {
                     flex: 1; overflow-y: auto; display: flex;
@@ -6531,32 +6531,32 @@
                     text-align: center; color: #6b7280; font-size: 0.72rem; padding: 30px;
                 }
                 .entrega-card {
-                    background: var(--panel); border: 1px solid var(--border);
+                    background: #fff; border: 1px solid #e5e7eb;
                     border-radius: 10px; padding: 12px 14px;
                     display: flex; flex-direction: column; gap: 8px; transition: border-color 0.15s;
                 }
-                .entrega-card:hover { border-color: var(--accent); }
+                .entrega-card:hover { border-color: #ff9900; }
                 .entrega-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-                .entrega-card-folio { font-size: 0.8rem; font-weight: 800; color: var(--accent); }
+                .entrega-card-folio { font-size: 0.8rem; font-weight: 800; color: #ff9900; }
                 .entrega-card-dist { font-size: 0.6rem; color: #6b7280; margin-top: 2px; }
                 .entrega-card-info {
                     display: grid; grid-template-columns: 1fr 1fr;
-                    gap: 3px 12px; font-size: 0.63rem; color: #9ca3af;
+                    gap: 3px 12px; font-size: 0.63rem; color: #6b7280;
                 }
-                .entrega-card-info strong { color: #e5e7eb; }
+                .entrega-card-info strong { color: #1f2937; }
                 .entrega-card-actions { display: flex; gap: 6px; flex-wrap: wrap; }
                 .entrega-btn {
-                    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
-                    color: #e0eaf4; padding: 4px 10px; border-radius: 6px;
+                    background: #f8f9fb; border: 1px solid #e5e7eb;
+                    color: #374151; padding: 4px 10px; border-radius: 6px;
                     font-size: 0.62rem; font-weight: 700; cursor: pointer; transition: background 0.15s;
                 }
-                .entrega-btn:hover { background: rgba(255,255,255,0.15); }
-                .entrega-btn.nav { background: rgba(76,175,80,0.12); border-color: rgba(76,175,80,0.3); color: var(--accent-light); }
-                .entrega-btn.nav:hover { background: rgba(76,175,80,0.22); }
-                .entrega-btn.del { background: rgba(244,67,54,0.1); border-color: rgba(244,67,54,0.25); color: #ef5350; }
-                .entrega-btn.del:hover { background: rgba(244,67,54,0.2); }
+                .entrega-btn:hover { background: #eff1f5; }
+                .entrega-btn.nav { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+                .entrega-btn.nav:hover { background: #dcfce7; }
+                .entrega-btn.del { background: #fef2f2; border-color: #fecaca; color: #dc2626; }
+                .entrega-btn.del:hover { background: #fee2e2; }
                 .entrega-status-select {
-                    background: #0b1a12; border: 1px solid var(--border); color: #e0eaf4;
+                    background: #fff; border: 1px solid #d4dae4; color: #1f2937;
                     border-radius: 6px; padding: 4px 8px; font-size: 0.62rem;
                     font-weight: 700; cursor: pointer; outline: none;
                 }
@@ -11191,18 +11191,16 @@ const imgBolsaDeliveryBase = new Image();
 <!-- POPUP DETALLE ORDEN/COTIZACION -->
 <div id="popupDetalleOrden" class="popup-overlay" aria-hidden="true" style="z-index:100010;">
     <div class="popup-card wide" role="dialog" aria-modal="true" style="max-width:980px;max-height:95vh;overflow-y:auto;padding:0;border-radius:16px;border:none;">
-        <!-- HEADER naranja con folio grande -->
-        <div style="background:#ff9900;padding:20px 24px 16px;display:flex;justify-content:space-between;align-items:flex-start;border-radius:16px 16px 0 0;">
+        <!-- HEADER limpio con folio -->
+        <div style="background:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e4e8ef;border-radius:16px 16px 0 0;">
             <div>
-                <div id="mpDetTipoLabel" style="font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:1px;">ORDEN DE TRABAJO</div>
-                <div id="mpDetFolio" style="font-size:2rem;font-weight:900;color:#fff;line-height:1.1;text-shadow:0 2px 4px rgba(0,0,0,0.1);"></div>
-                <div id="mpDetFechaEmitida" style="font-size:0.65rem;color:rgba(255,255,255,0.85);margin-top:4px;"></div>
+                <div id="mpDetTipoLabel" style="font-size:0.58rem;font-weight:800;color:#64748b;letter-spacing:1px;text-transform:uppercase;">ORDEN DE TRABAJO</div>
+                <div id="mpDetFolio" style="font-size:1.4rem;font-weight:900;color:#1f2937;line-height:1.2;"></div>
+                <div id="mpDetFechaEmitida" style="font-size:0.62rem;color:#9ca3af;margin-top:2px;"></div>
             </div>
-            <div style="text-align:right;">
-                <div id="mpDetEstatus" style="font-size:0.65rem;font-weight:800;padding:5px 14px;border-radius:20px;display:inline-block;background:rgba(255,255,255,0.25);color:#fff;"></div>
-                <div style="margin-top:8px;">
-                    <button id="mpDetCerrar" style="background:rgba(255,255,255,0.25);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;font-weight:900;">✕</button>
-                </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <div id="mpDetEstatus" style="font-size:0.6rem;font-weight:800;padding:5px 14px;border-radius:20px;display:inline-block;background:#fff7ed;color:#ff9900;border:1px solid #fde8c8;"></div>
+                <button id="mpDetCerrar" style="background:#fff;border:1px solid #d4dae4;color:#1f2937;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;font-weight:900;">✕</button>
             </div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 300px;gap:0;background:#fff;">
@@ -11285,9 +11283,9 @@ const imgBolsaDeliveryBase = new Image();
 <!-- POPUP HISTORIAL DE PAGOS -->
 <div id="popupHistorialPagos" class="popup-overlay" aria-hidden="true" style="z-index:100015;">
     <div class="popup-card" role="dialog" aria-modal="true" style="max-width:520px;max-height:85vh;overflow-y:auto;padding:0;border-radius:16px;border:none;">
-        <div style="background:#ff9900;padding:18px 22px;border-radius:16px 16px 0 0;">
-            <div style="font-size:0.6rem;color:rgba(255,255,255,0.8);font-weight:700;">HISTORIAL DE PAGOS</div>
-            <div id="histPagosFolio" style="font-size:1.2rem;font-weight:900;color:#fff;"></div>
+        <div style="background:#fff;padding:18px 22px;border-radius:16px 16px 0 0;border-bottom:1px solid #e4e8ef;">
+            <div style="font-size:0.58rem;color:#64748b;font-weight:800;letter-spacing:1px;text-transform:uppercase;">HISTORIAL DE PAGOS</div>
+            <div id="histPagosFolio" style="font-size:1.2rem;font-weight:900;color:#1f2937;"></div>
         </div>
         <div style="padding:18px 22px;background:#fff;">
             <div id="histPagosResumen" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
@@ -11770,6 +11768,8 @@ const imgBolsaDeliveryBase = new Image();
                     <div class="orden-field prod-stock-only productos-field-span3" data-nat="producto,fabricado,insumo,proceso,servicio"><label for="prodFormDescripcion">Descripción</label><textarea id="prodFormDescripcion" rows="1" placeholder="Descripción del producto" style="resize:none;"></textarea></div>
 
                     <div class="orden-field productos-field-span3" data-nat="producto,fabricado"><label for="prodFormMuestrarioAsociado">📁 Muestrario asociado</label><select id="prodFormMuestrarioAsociado"><option value="">Sin muestrario</option><option value="BOLSA BOUTIQUE TROQUELADA">BOLSA BOUTIQUE TROQUELADA</option><option value="BOLSAS KRAFT">BOLSAS KRAFT</option><option value="BOLSAS KRAFT BLANCAS">BOLSAS KRAFT BLANCAS</option><option value="TARJETAS DE PRESENTACIÓN">TARJETAS DE PRESENTACIÓN</option><option value="VOLANTES">VOLANTES</option></select></div>
+                    <div class="orden-field" data-nat="producto,fabricado"><label for="prodFormRevisionesGratis">🔄 Revisiones gratis</label><input id="prodFormRevisionesGratis" type="number" min="0" max="20" value="2" step="1" placeholder="Ej: 2"></div>
+                    <div class="orden-field" data-nat="producto,fabricado"><label for="prodFormCobroRevision">💰 Cobro extra por revisión</label><input id="prodFormCobroRevision" type="number" min="0" step="0.01" value="0" placeholder="Ej: 150.00"></div>
                     <div class="orden-field productos-field-span3" data-nat="producto,fabricado"><label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="checkbox" id="prodFormImprimirDiseno"> Permitir imprimir diseño en producción</label></div>
 
                     <div class="orden-field prod-gf-only" data-nat="producto" style="display:none;">
@@ -19283,6 +19283,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (notasInternasClear) notasInternasClear.value = '';
         if (activoClear) activoClear.checked = true;
         { const mSelC = document.getElementById('prodFormMuestrarioAsociado'); if (mSelC) mSelC.value = ''; }
+        { const revGratisC = document.getElementById('prodFormRevisionesGratis'); if (revGratisC) revGratisC.value = '2'; }
+        { const cobroRevC = document.getElementById('prodFormCobroRevision'); if (cobroRevC) cobroRevC.value = '0'; }
         { const impDisC = document.getElementById('prodFormImprimirDiseno'); if (impDisC) impDisC.checked = false; }
         updateUbicacionCodigo();
         const costoFieldClear = document.getElementById('prodFormPrecioCompra');
@@ -19342,6 +19344,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (notasInternasEdit) notasInternasEdit.value = row.notasInternas || '';
         if (activoEdit) activoEdit.checked = row.activo !== false;
         { const mSel = document.getElementById('prodFormMuestrarioAsociado'); if (mSel) mSel.value = row.muestrarioAsociado || ''; }
+        { const revGratis = document.getElementById('prodFormRevisionesGratis'); if (revGratis) revGratis.value = row.revisionesGratis != null ? row.revisionesGratis : 2; }
+        { const cobroRev = document.getElementById('prodFormCobroRevision'); if (cobroRev) cobroRev.value = row.cobroRevision || 0; }
         { const impDis = document.getElementById('prodFormImprimirDiseno'); if (impDis) impDis.checked = !!row.permitirImprimirDiseno; }
         updateUbicacionCodigo();
         recetaDraft = Array.isArray(row.recetaInsumos) ? row.recetaInsumos.map(r => ({insumoId: r.insumoId || '', insumoNombre: r.insumoNombre || r.insumoId || '', insumoCode: r.insumoCode || r.insumoId || '', cantidad: Number(r.cantidad || 1), unidad: r.unidad || 'Pza'})) : [];
@@ -19439,6 +19443,8 @@ document.addEventListener('DOMContentLoaded', () => {
             notasInternas: String(document.getElementById('prodFormNotasInternas')?.value || '').trim(),
             activo: document.getElementById('prodFormActivo')?.checked !== false,
             muestrarioAsociado: document.getElementById('prodFormMuestrarioAsociado')?.value || '',
+            revisionesGratis: Math.max(0, Number(document.getElementById('prodFormRevisionesGratis')?.value || 2)),
+            cobroRevision: Math.max(0, Number(document.getElementById('prodFormCobroRevision')?.value || 0)),
             permitirImprimirDiseno: document.getElementById('prodFormImprimirDiseno')?.checked || false
         };
 
@@ -25140,23 +25146,26 @@ window.MU = (function() {
      MÓDULO DE PRODUCCIÓN — Panel HTML
 ════════════════════════════════════════════════════════════════ -->
 <!-- POPUP: Regresar a Pendiente (Producción) -->
-<div id="popupRegresarPendiente" style="display:none;position:fixed;inset:0;z-index:3100;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+<div id="popupRegresarPendiente" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
   <div style="background:#fff;border-radius:12px;padding:24px;width:min(92vw,420px);max-height:80vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
     <h3 style="margin:0 0 12px;font-size:1rem;color:#1f2937;">⏸ Regresar a Pendiente</h3>
-    <p style="font-size:0.75rem;color:#6b7280;margin:0 0 12px;">Selecciona el motivo:</p>
-    <div id="regresarMotivos" style="display:flex;flex-direction:column;gap:6px;">
-      <label style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:0.75rem;">
-        <input type="radio" name="motivoRegresar" value="Falta de material"> Falta de material</label>
-      <label style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:0.75rem;">
-        <input type="radio" name="motivoRegresar" value="Falta de insumos"> Falta de insumos</label>
-      <label style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:0.75rem;">
-        <input type="radio" name="motivoRegresar" value="Error en especificaciones"> Error en especificaciones</label>
-      <label style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:0.75rem;">
-        <input type="radio" name="motivoRegresar" value="Cambio de prioridad"> Cambio de prioridad</label>
-      <label style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;font-size:0.75rem;">
-        <input type="radio" name="motivoRegresar" value="Otro"> Otro</label>
-    </div>
+    <div id="regresarOrdenInfo" style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px;margin-bottom:12px;font-size:0.72rem;color:#374151;"></div>
+    <p style="font-size:0.75rem;color:#6b7280;margin:0 0 8px;font-weight:700;">Selecciona el motivo:</p>
+    <select id="regresarMotivoSelect" style="width:100%;border:1px solid #e5e7eb;border-radius:8px;padding:10px;font-size:0.78rem;color:#374151;background:#fff;cursor:pointer;">
+      <option value="">— Selecciona un motivo —</option>
+      <option value="Falta de insumos">Falta de insumos</option>
+      <option value="Falta de material">Falta de material</option>
+      <option value="Error en diseño">Error en diseño</option>
+      <option value="Error en especificaciones">Error en especificaciones</option>
+      <option value="Máquina descompuesta">Máquina descompuesta</option>
+      <option value="Cambio de prioridad">Cambio de prioridad</option>
+      <option value="Cliente solicitó cambios">Cliente solicitó cambios</option>
+      <option value="Falta de aprobación">Falta de aprobación del cliente</option>
+      <option value="Otro">Otro</option>
+    </select>
     <textarea id="regresarMotivoOtro" placeholder="Describe el motivo..." rows="2" style="display:none;width:100%;margin-top:8px;border:1px solid #e5e7eb;border-radius:8px;padding:8px;font-size:0.75rem;resize:none;box-sizing:border-box;"></textarea>
+    <p style="font-size:0.75rem;color:#6b7280;margin:12px 0 4px;font-weight:700;">Comentarios adicionales:</p>
+    <textarea id="regresarComentarios" placeholder="Escribe un comentario (opcional)..." rows="2" style="width:100%;border:1px solid #e5e7eb;border-radius:8px;padding:8px;font-size:0.75rem;resize:none;box-sizing:border-box;"></textarea>
     <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
       <button id="btnRegresarCancelar" type="button" style="padding:8px 16px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;font-size:0.75rem;">Cancelar</button>
       <button id="btnRegresarAceptar" type="button" style="padding:8px 16px;border:none;border-radius:8px;background:#f07a00;color:#fff;cursor:pointer;font-weight:700;font-size:0.75rem;">Aceptar</button>
@@ -25168,13 +25177,8 @@ window.MU = (function() {
   <div class="produccion-container">
     <div class="produccion-header">
             <button id="produccionBack" class="produccion-back" type="button" title="Volver al menú principal" aria-label="Volver al menú principal">←</button>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.6rem;line-height:1;">🏭</span>
-        <div>
-          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">PRODUCCIÓN</div>
-          <div style="font-size:0.6rem;color:rgba(255,255,255,0.7);">Órdenes autorizadas desde diseño — más urgente primero</div>
-        </div>
-      </div>
+      <h2 style="margin:0;font-size:0.84rem;letter-spacing:0.25px;font-weight:900;text-transform:uppercase;color:#1f2937;">PRODUCCIÓN</h2>
+      <span style="margin-left:auto;font-size:0.62rem;color:#64748b;font-weight:600;">Órdenes autorizadas desde diseño — más urgente primero</span>
     </div>
     <div class="produccion-body">
       <div class="produccion-left">
@@ -25201,22 +25205,30 @@ window.MU = (function() {
         </div>
 
         <div class="prod-section-title" style="margin-top:8px;">📦 SOLICITAR INSUMOS</div>
-        <div class="prod-field">
-          <input type="text" id="prodInsumoNombre" placeholder="Nombre del insumo" style="background:#fffbf5;border:1px solid #fde8c8;color:#1f2937;border-radius:6px;padding:6px 8px;font-size:0.7rem;">
-        </div>
-        <div class="prod-row">
-          <div class="prod-field">
-            <input type="number" id="prodInsumoCantidad" placeholder="Cantidad" min="1" style="background:#fffbf5;border:1px solid #fde8c8;color:#1f2937;border-radius:6px;padding:6px 8px;font-size:0.7rem;">
-          </div>
-          <div class="prod-field">
-            <select id="prodInsumoUrgencia" style="background:#fffbf5;border:1px solid #fde8c8;color:#1f2937;border-radius:6px;padding:6px 8px;font-size:0.7rem;">
-              <option value="normal">Normal</option>
-              <option value="urgente">Urgente</option>
-            </select>
-          </div>
-        </div>
-        <button id="btnSolicitarInsumo" type="button" class="prod-save-btn" style="font-size:0.68rem;">📦 Solicitar insumo</button>
+        <button id="btnAbrirPopupInsumo" type="button" class="prod-save-btn" style="font-size:0.72rem;width:100%;padding:10px 0;">📦 Solicitar Insumo</button>
         <div id="prodInsumosSolicitados" style="margin-top:6px;font-size:0.62rem;color:#6b7280;max-height:120px;overflow-y:auto;"></div>
+
+<!-- POPUP: Solicitar Insumo -->
+<div id="popupSolicitarInsumo" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:12px;padding:24px;width:min(92vw,400px);box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+    <h3 style="margin:0 0 14px;font-size:1rem;color:#1f2937;">📦 Solicitar Insumo</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <input type="text" id="popupInsumoNombre" placeholder="Nombre del insumo..." style="width:100%;border:1px solid #e5e7eb;border-radius:8px;padding:10px;font-size:0.78rem;box-sizing:border-box;">
+      <div style="display:flex;gap:8px;">
+        <input type="number" id="popupInsumoCantidad" placeholder="Cantidad" min="1" value="1" style="flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:10px;font-size:0.78rem;">
+        <select id="popupInsumoUrgencia" style="flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:10px;font-size:0.78rem;background:#fff;">
+          <option value="normal">🟢 Normal</option>
+          <option value="urgente">🔴 Urgente</option>
+        </select>
+      </div>
+      <textarea id="popupInsumoComentarios" placeholder="Comentarios adicionales (opcional)..." rows="2" style="width:100%;border:1px solid #e5e7eb;border-radius:8px;padding:10px;font-size:0.75rem;resize:none;box-sizing:border-box;"></textarea>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:16px;justify-content:flex-end;">
+      <button id="btnPopupInsumoCancelar" type="button" style="padding:8px 16px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;font-size:0.75rem;">Cancelar</button>
+      <button id="btnPopupInsumoEnviar" type="button" style="padding:8px 16px;border:none;border-radius:8px;background:#f07a00;color:#fff;cursor:pointer;font-weight:700;font-size:0.75rem;">📦 Solicitar</button>
+    </div>
+  </div>
+</div>
       </div>
 <div class="produccion-right">
         <div class="prod-section-title">📋 ÓRDENES DE PRODUCCIÓN</div>
@@ -25568,23 +25580,96 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function marcarTerminada(docId) {
-        if (!confirm('¿Marcar esta orden como terminada?')) return;
-        var db = getProdDB(); if (!db) return;
-        try {
-            var codigoBarras = 'PT-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
-            await db.collection(PROD_COLLECTION).doc(docId).update({
-                estado: 'terminada',
-                codigoBarrasTerminado: codigoBarras,
-                terminadaEn: window.firebase.firestore.FieldValue.serverTimestamp(),
-                actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-            });
-            var o = allOrders.find(function(x){ return x.id === docId; });
-            if (o) { o.estado = 'terminada'; o.codigoBarrasTerminado = codigoBarras; }
-            renderOrdenes();
-            actualizarResumenProduccion();
-            // Auto-generate barcode label
-            imprimirEtiquetaTerminado(o || { folio: '', codigoBarrasTerminado: codigoBarras });
-        } catch (err) { alert('Error: ' + err.message); }
+        var orden = allOrders.find(function(x){ return x.id === docId; });
+        // Show popup asking for evidence photo
+        var existing = document.getElementById('popupTerminarOrden');
+        if (existing) existing.remove();
+        var overlay = document.createElement('div');
+        overlay.id = 'popupTerminarOrden';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:center;';
+        overlay.innerHTML = '<div style="background:#fff;border-radius:14px;width:min(94vw,440px);max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.3);">'+
+            '<div style="background:#16a34a;padding:16px 20px;border-radius:14px 14px 0 0;">'+
+                '<div style="font-size:0.95rem;font-weight:800;color:#fff;">✅ Marcar como Terminada</div>'+
+                '<div style="font-size:0.6rem;color:rgba(255,255,255,0.85);">'+esc((orden||{}).folio||'Sin folio')+' — '+esc((orden||{}).producto||'')+' — '+esc((orden||{}).cliente||'')+'</div>'+
+            '</div>'+
+            '<div style="padding:20px;">'+
+                '<p style="font-size:0.72rem;color:#374151;margin:0 0 10px;font-weight:700;">📷 Toma una foto de evidencia del producto terminado:</p>'+
+                '<label style="display:block;text-align:center;cursor:pointer;padding:20px;border:2px dashed #bbf7d0;border-radius:10px;background:#f0fdf4;color:#166534;font-weight:700;font-size:0.72rem;">'+
+                    '📷 Tomar Foto / Seleccionar'+
+                    '<input type="file" id="_terminadaFotoInput" accept="image/*" capture="environment" style="display:none;">'+
+                '</label>'+
+                '<div id="_terminadaFotoPreview" style="text-align:center;margin-top:10px;"></div>'+
+                '<div id="_terminadaStatus" style="text-align:center;margin-top:6px;font-size:0.6rem;color:#9ca3af;"></div>'+
+                '<div style="display:flex;gap:8px;margin-top:14px;">'+
+                    '<button id="_terminadaCancelar" style="flex:1;padding:12px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;font-size:0.75rem;">Cancelar</button>'+
+                    '<button id="_terminadaAceptar" style="flex:1;padding:12px;border:none;border-radius:8px;background:#16a34a;color:#fff;cursor:pointer;font-weight:800;font-size:0.75rem;" disabled>✅ Aceptar y Terminar</button>'+
+                '</div>'+
+            '</div>'+
+        '</div>';
+        document.body.appendChild(overlay);
+
+        var fotoData = null;
+        document.getElementById('_terminadaFotoInput').addEventListener('change', function() {
+            var file = this.files[0]; if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function() {
+                fotoData = reader.result;
+                document.getElementById('_terminadaFotoPreview').innerHTML = '<img src="'+fotoData+'" style="max-width:100%;max-height:180px;border-radius:10px;border:2px solid #16a34a;">';
+                document.getElementById('_terminadaAceptar').disabled = false;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('_terminadaCancelar').addEventListener('click', function() { overlay.remove(); });
+
+        document.getElementById('_terminadaAceptar').addEventListener('click', async function() {
+            var statusEl = document.getElementById('_terminadaStatus');
+            var aceptarBtn = document.getElementById('_terminadaAceptar');
+            aceptarBtn.disabled = true;
+            aceptarBtn.textContent = 'Procesando...';
+            statusEl.textContent = 'Guardando...';
+            statusEl.style.color = '#ff9900';
+
+            var db = getProdDB(); if (!db) return;
+            try {
+                var codigoBarras = 'PT-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+                var fotoEvidenciaUrl = fotoData || '';
+
+                // Try Firebase Storage first, fallback to data URL
+                if (fotoData && fotoData.startsWith('data:')) {
+                    try {
+                        var storage = window.firebase.storage();
+                        var blob = await fetch(fotoData).then(function(r){ return r.blob(); });
+                        var path = 'evidencia_terminado/' + Date.now() + '_' + docId + '.jpg';
+                        var ref = storage.ref(path);
+                        await ref.put(blob);
+                        fotoEvidenciaUrl = await ref.getDownloadURL();
+                    } catch(se) {
+                        // Fallback: keep data URL
+                        fotoEvidenciaUrl = fotoData;
+                    }
+                }
+
+                await db.collection(PROD_COLLECTION).doc(docId).update({
+                    estado: 'terminada',
+                    codigoBarrasTerminado: codigoBarras,
+                    fotoEvidencia: fotoEvidenciaUrl,
+                    terminadaEn: window.firebase.firestore.FieldValue.serverTimestamp(),
+                    actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+                });
+                if (orden) { orden.estado = 'terminada'; orden.codigoBarrasTerminado = codigoBarras; orden.fotoEvidencia = fotoEvidenciaUrl; }
+                renderOrdenes();
+                actualizarResumenProduccion();
+                overlay.remove();
+                // Auto-print label
+                imprimirEtiquetaTerminado(orden || { folio: '', codigoBarrasTerminado: codigoBarras });
+            } catch (err) {
+                statusEl.textContent = 'Error: ' + err.message;
+                statusEl.style.color = '#dc2626';
+                aceptarBtn.disabled = false;
+                aceptarBtn.textContent = '✅ Aceptar y Terminar';
+            }
+        });
     }
 
     function imprimirEtiquetaTerminado(orden) {
@@ -25641,12 +25726,11 @@ document.addEventListener('DOMContentLoaded', function() {
                   (o.estado === 'pendiente' ? '<button class="prod-btn-action print" data-action="imprimir-instrucciones" data-id="'+esc(o.id)+'">🖨 IMPRIMIR ORDEN</button>' : '')+
                   (o.estado === 'pendiente' && checkPermitirImprimirDiseno(o.producto) ? '<button class="prod-btn-action print" data-action="imprimir-diseno" data-id="'+esc(o.id)+'" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;">🎨 IMPRIMIR DISEÑO</button>' : '')+
                   (o.estado === 'pendiente' ? '<button class="prod-btn-action" style="background:#ff9900;border-color:#ff9900;color:#fff;font-weight:800;" data-action="iniciar" data-id="'+esc(o.id)+'">▶ COMENZAR</button>' : '')+
-                  (o.estado === 'en_proceso' && checkPermitirImprimirDiseno(o.producto) ? '<button class="prod-btn-action print" data-action="imprimir-diseno" data-id="'+esc(o.id)+'" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;">🎨 IMPRIMIR DISEÑO</button>' : '')+
-                  (o.estado === 'en_proceso' ? '<button class="prod-btn-action print" data-action="imprimir-instrucciones" data-id="'+esc(o.id)+'">🖨 IMPRIMIR PDF</button>' : '')+
-                  (o.estado === 'en_proceso' ? '<button class="prod-btn-action" style="background:#fef2f2;border-color:#fecaca;color:#dc2626;" data-action="a-pendiente" data-id="'+esc(o.id)+'">⏸ A Pendiente</button>' : '')+
-                  (o.estado === 'en_proceso' ? '<button class="prod-btn-action" style="background:#f0fdf4;border-color:#bbf7d0;color:#166534;font-weight:800;" data-action="terminado" data-id="'+esc(o.id)+'">✅ TERMINADO</button>' : '')+
+                  (o.estado === 'en_proceso' && checkPermitirImprimirDiseno(o.producto) ? '<button class="prod-btn-action" title="Imprimir Diseño" data-action="imprimir-diseno" data-id="'+esc(o.id)+'" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;padding:8px 10px;font-size:0.8rem;">🖼</button>' : '')+
+                  (o.estado === 'en_proceso' ? '<button class="prod-btn-action" title="Imprimir Orden" data-action="imprimir-instrucciones" data-id="'+esc(o.id)+'" style="padding:8px 10px;font-size:0.8rem;">📋</button>' : '')+
+                  (o.estado === 'en_proceso' ? '<button class="prod-btn-action" title="Regresar a Pendiente" style="background:#fef2f2;border-color:#fecaca;color:#dc2626;padding:8px 10px;font-size:0.8rem;" data-action="a-pendiente" data-id="'+esc(o.id)+'">⏸</button>' : '')+
+                  (o.estado === 'en_proceso' ? '<button class="prod-btn-action" title="Terminado" style="background:#f0fdf4;border-color:#bbf7d0;color:#166534;font-weight:800;padding:8px 10px;font-size:0.8rem;" data-action="terminado" data-id="'+esc(o.id)+'">✅</button>' : '')+
                   (o.estado === 'terminada' ? '<button class="prod-btn-action" data-action="etiqueta" data-id="'+esc(o.id)+'">🏷 Reimprimir Etiqueta</button>' : '')+
-                  (o.estado === 'terminada' ? '<button class="prod-btn-action entrega" data-action="a-almacen" data-id="'+esc(o.id)+'">📦 A Almacén</button>' : '')+
                 '</div></div>'+
               '</div>';
         }).join('');
@@ -25660,8 +25744,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if(action==='etiqueta') imprimirEtiquetaTerminado(orden);
                 if(action==='imprimir-instrucciones') imprimirOrden(orden);
                 if(action==='imprimir-diseno') imprimirDisenoOrden(orden);
+                if(action==='ver-diseno') { if (orden.disenoUrl) window.open(orden.disenoUrl, '_blank'); else alert('Sin diseño disponible.'); }
                 if(action==='terminado') marcarTerminada(docId);
-                if(action==='a-almacen') enviarAAlmacenPedidos(orden);
             });
         });
     }
@@ -25673,62 +25757,112 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function iniciarTrabajoOrden(docId) {
         var db = getProdDB(); if (!db) return;
+        var orden = allOrders.find(function(x){ return x.id === docId; });
         try {
             await db.collection(PROD_COLLECTION).doc(docId).update({
                 estado: 'en_proceso',
                 inicioTrabajoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
                 actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
             });
-            var o = allOrders.find(function(x){ return x.id === docId; });
-            if (o) o.estado = 'en_proceso';
+            if (orden) orden.estado = 'en_proceso';
             renderOrdenes();
             actualizarResumenProduccion();
+            // Show popup with order details + print options
+            _mostrarPopupInicioOrden(orden || { id: docId, folio: '', producto: '' });
         } catch (err) {
             alert('Error al iniciar orden: ' + err.message);
         }
     }
 
+    function _mostrarPopupInicioOrden(orden) {
+        var existing = document.getElementById('popupInicioOrden');
+        if (existing) existing.remove();
+        var overlay = document.createElement('div');
+        overlay.id = 'popupInicioOrden';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:center;';
+        var disenoImg = orden.disenoUrl ? '<img src="'+esc(orden.disenoUrl)+'" style="max-width:100%;max-height:280px;border-radius:10px;border:3px solid #ff9900;cursor:pointer;display:block;margin:0 auto;" onclick="window.open(\''+esc(orden.disenoUrl)+'\',\'_blank\')">' : '<div style="text-align:center;padding:30px;color:#9ca3af;font-size:0.72rem;background:#f9fafb;border-radius:10px;">Sin imagen de diseño disponible</div>';
+        overlay.innerHTML = '<div style="background:#fff;border-radius:14px;width:min(94vw,440px);max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.3);">'+
+            '<div style="background:#ff9900;padding:16px 20px;border-radius:14px 14px 0 0;">'+
+                '<div style="font-size:0.95rem;font-weight:800;color:#fff;">▶ Orden Iniciada</div>'+
+                '<div style="font-size:0.6rem;color:rgba(255,255,255,0.85);">'+esc(orden.folio||'Sin folio')+' — '+esc(orden.producto||'')+' — '+esc(orden.cliente||'')+'</div>'+
+            '</div>'+
+            '<div style="padding:20px;">'+
+                '<div style="margin-bottom:14px;">'+disenoImg+'</div>'+
+                '<div style="font-size:0.5rem;color:#9ca3af;text-align:center;margin:-8px 0 12px;">Toca la imagen para ampliarla</div>'+
+                '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">'+
+                    '<button id="_inicioImprimirDiseno" style="padding:12px;background:#fff7ed;border:1px solid #fde8c8;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.72rem;color:#92400e;">🖨 Imprimir Diseño</button>'+
+                    '<button id="_inicioImprimirOrden" style="padding:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.72rem;color:#166534;">📋 Imprimir Orden</button>'+
+                '</div>'+
+                '<button id="_inicioCerrar" style="width:100%;padding:12px;margin-top:14px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;font-size:0.78rem;">✓ Cerrar y continuar</button>'+
+            '</div>'+
+        '</div>';
+        document.body.appendChild(overlay);
+
+        document.getElementById('_inicioImprimirDiseno').addEventListener('click', function() {
+            if (typeof imprimirDisenoOrden === 'function') imprimirDisenoOrden(orden);
+            else if (orden.disenoUrl) window.open(orden.disenoUrl, '_blank');
+        });
+        document.getElementById('_inicioImprimirOrden').addEventListener('click', function() {
+            if (typeof imprimirOrden === 'function') imprimirOrden(orden);
+        });
+        document.getElementById('_inicioCerrar').addEventListener('click', function() { overlay.remove(); });
+        overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
+    }
+
     async function regresarAPendiente(docId) {
         var popup = document.getElementById('popupRegresarPendiente');
         if (!popup) return;
+        var orden = allOrders.find(function(x){ return x.id === docId; });
         popup.style.display = 'flex';
+        // Show order info
+        var infoEl = document.getElementById('regresarOrdenInfo');
+        if (infoEl && orden) {
+            var fecha = orden.creadoEn && orden.creadoEn.toDate ? orden.creadoEn.toDate().toLocaleDateString('es-MX',{day:'2-digit',month:'short',year:'numeric'}) : (orden.fechaCreacion||'Sin fecha');
+            infoEl.innerHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;">'+
+                '<div><strong style="color:#92400e;">Orden:</strong> '+esc(orden.folio||'Sin folio')+'</div>'+
+                '<div><strong style="color:#92400e;">Fecha:</strong> '+esc(fecha)+'</div>'+
+                '<div><strong style="color:#92400e;">Cliente:</strong> '+esc(orden.cliente||'—')+'</div>'+
+                '<div><strong style="color:#92400e;">Producto:</strong> '+esc(orden.producto||'—')+'</div>'+
+                '<div><strong style="color:#92400e;">Entrega:</strong> '+esc(orden.fechaEntrega||'—')+'</div>'+
+                '<div><strong style="color:#92400e;">Usuario:</strong> '+esc(orden.operador||orden.disenador||'Sin asignar')+'</div>'+
+            '</div>';
+        }
         // Reset state
-        document.querySelectorAll('input[name="motivoRegresar"]').forEach(function(r) { r.checked = false; });
-        var otroTxt = document.getElementById('regresarMotivoOtro'); if (otroTxt) otroTxt.style.display = 'none';
-        // Show/hide "Otro" textarea
-        document.querySelectorAll('input[name="motivoRegresar"]').forEach(function(r) {
-            r.onchange = function() {
-                if (otroTxt) otroTxt.style.display = r.value === 'Otro' && r.checked ? 'block' : 'none';
+        var motivoSelect = document.getElementById('regresarMotivoSelect'); if (motivoSelect) motivoSelect.value = '';
+        var otroTxt = document.getElementById('regresarMotivoOtro'); if (otroTxt) { otroTxt.style.display = 'none'; otroTxt.value = ''; }
+        var comentariosTxt = document.getElementById('regresarComentarios'); if (comentariosTxt) comentariosTxt.value = '';
+        // Show/hide "Otro" textarea on dropdown change
+        if (motivoSelect) {
+            motivoSelect.onchange = function() {
+                if (otroTxt) otroTxt.style.display = motivoSelect.value === 'Otro' ? 'block' : 'none';
             };
-        });
+        }
         var btnCancelar = document.getElementById('btnRegresarCancelar');
         var btnAceptar = document.getElementById('btnRegresarAceptar');
         function cleanup() { popup.style.display = 'none'; btnCancelar.onclick = null; btnAceptar.onclick = null; }
         btnCancelar.onclick = cleanup;
         btnAceptar.onclick = async function() {
-            var sel = document.querySelector('input[name="motivoRegresar"]:checked');
-            if (!sel) { alert('Selecciona un motivo.'); return; }
-            var motivo = sel.value === 'Otro' ? (otroTxt?.value || '').trim() || 'Otro' : sel.value;
-            var esFaltaInsumos = sel.value === 'Falta de insumos';
+            var selVal = motivoSelect ? motivoSelect.value : '';
+            if (!selVal) { alert('Selecciona un motivo.'); return; }
+            var motivo = selVal === 'Otro' ? (otroTxt?.value || '').trim() || 'Otro' : selVal;
+            var comentarios = comentariosTxt ? comentariosTxt.value.trim() : '';
+            var esFaltaInsumos = selVal === 'Falta de insumos';
             cleanup();
             var db = getProdDB(); if (!db) return;
             try {
-                await db.collection(PROD_COLLECTION).doc(docId).update({
+                var updateData = {
                     estado: 'pendiente',
                     motivoPendiente: motivo,
                     actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-                });
+                };
+                if (comentarios) updateData.comentariosPendiente = comentarios;
+                await db.collection(PROD_COLLECTION).doc(docId).update(updateData);
                 var o = allOrders.find(function(x){ return x.id === docId; });
                 if (o) { o.estado = 'pendiente'; o.motivoPendiente = motivo; }
                 renderOrdenes();
                 actualizarResumenProduccion();
                 if (esFaltaInsumos) {
-                    // Auto-scroll to and focus the insumo request section
-                    var insumoSection = document.getElementById('prodInsumoNombre');
-                    if (insumoSection) {
-                        insumoSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        setTimeout(function() { insumoSection.focus(); }, 400);
-                    }
+                    setTimeout(function() { abrirPopupSolicitarInsumo('urgente'); }, 300);
                 }
             } catch (err) { alert('Error: ' + err.message); }
         };
@@ -25781,27 +25915,51 @@ document.addEventListener('DOMContentLoaded', function() {
         var el3 = document.getElementById('prodResumenTerminadas'); if (el3) el3.textContent = term;
     }
 
-    // Insumos request
-    var btnSolicitarInsumo = document.getElementById('btnSolicitarInsumo');
-    if (btnSolicitarInsumo) {
-        btnSolicitarInsumo.addEventListener('click', async function() {
-            var nombre = (document.getElementById('prodInsumoNombre')?.value || '').trim();
-            var cantidad = document.getElementById('prodInsumoCantidad')?.value || '1';
-            var urgencia = document.getElementById('prodInsumoUrgencia')?.value || 'normal';
-            if (!nombre) { alert('Escribe el nombre del insumo.'); return; }
+    // Insumos request popup
+    function abrirPopupSolicitarInsumo(urgenciaPredeterminada) {
+        var popup = document.getElementById('popupSolicitarInsumo');
+        if (!popup) return;
+        popup.style.display = 'flex';
+        var nombre = document.getElementById('popupInsumoNombre');
+        var cantidad = document.getElementById('popupInsumoCantidad');
+        var urgencia = document.getElementById('popupInsumoUrgencia');
+        var comentarios = document.getElementById('popupInsumoComentarios');
+        if (nombre) nombre.value = '';
+        if (cantidad) cantidad.value = '1';
+        if (urgencia) urgencia.value = urgenciaPredeterminada || 'normal';
+        if (comentarios) comentarios.value = '';
+        setTimeout(function() { if (nombre) nombre.focus(); }, 200);
+
+        var btnCancelar = document.getElementById('btnPopupInsumoCancelar');
+        var btnEnviar = document.getElementById('btnPopupInsumoEnviar');
+        function cerrar() { popup.style.display = 'none'; if (btnCancelar) btnCancelar.onclick = null; if (btnEnviar) btnEnviar.onclick = null; }
+        if (btnCancelar) btnCancelar.onclick = cerrar;
+        if (btnEnviar) btnEnviar.onclick = async function() {
+            var nom = (nombre?.value || '').trim();
+            var cant = cantidad?.value || '1';
+            var urg = urgencia?.value || 'normal';
+            var com = (comentarios?.value || '').trim();
+            if (!nom) { alert('Escribe el nombre del insumo.'); return; }
             var db = getProdDB(); if (!db) return;
             try {
-                await db.collection('supply_requests').add({
-                    nombre: nombre, cantidad: Number(cantidad), urgencia: urgencia,
+                var data = {
+                    nombre: nom, cantidad: Number(cant), urgencia: urg,
                     estado: 'solicitado',
                     creadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-                });
-                document.getElementById('prodInsumoNombre').value = '';
-                document.getElementById('prodInsumoCantidad').value = '';
+                };
+                if (com) data.comentarios = com;
+                await db.collection('supply_requests').add(data);
+                cerrar();
                 cargarInsumosSolicitados();
-                alert('✅ Insumo solicitado: ' + nombre);
+                alert('✅ Insumo solicitado: ' + nom);
             } catch(err) { alert('Error: ' + err.message); }
-        });
+        };
+    }
+    window.abrirPopupSolicitarInsumo = abrirPopupSolicitarInsumo;
+
+    var btnAbrirPopupInsumo = document.getElementById('btnAbrirPopupInsumo');
+    if (btnAbrirPopupInsumo) {
+        btnAbrirPopupInsumo.addEventListener('click', function() { abrirPopupSolicitarInsumo('normal'); });
     }
 
     function cargarInsumosSolicitados() {
@@ -26078,16 +26236,11 @@ document.addEventListener('DOMContentLoaded', function() {
      MÓDULO DE DISEÑO — Panel HTML
 ════════════════════════════════════════════════════════════════ -->
 <div id="panelDiseno" class="diseno-overlay">
-  <div style="display:flex;flex-direction:column;height:100%;">
+  <div style="display:flex;flex-direction:column;height:100%;padding:8px;gap:6px;">
     <div class="diseno-header">
       <button id="disenoBack" class="diseno-back" type="button" title="Volver" aria-label="Volver">←</button>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.6rem;line-height:1;">🎨</span>
-        <div>
-          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">MÓDULO DE DISEÑO</div>
-          <div style="font-size:0.6rem;color:rgba(255,255,255,0.7);">Todas las órdenes llegan aquí primero — diseña y envía a producción</div>
-        </div>
-      </div>
+      <h2 style="margin:0;font-size:0.84rem;letter-spacing:0.25px;font-weight:900;text-transform:uppercase;color:#1f2937;">MÓDULO DE DISEÑO</h2>
+      <span style="margin-left:auto;font-size:0.62rem;color:#64748b;font-weight:600;">Todas las órdenes llegan aquí primero — diseña y envía a producción</span>
     </div>
     <div class="diseno-body">
       <div class="diseno-list-panel">
@@ -26175,10 +26328,12 @@ document.addEventListener('DOMContentLoaded', function() {
             var revisionInfo = revisionCount > 0 ? '<span style="color:#dc2626;font-weight:700;">🔄 Revisiones: '+revisionCount+'</span>' : '';
             var btns = '';
             if (o.estado==='pendiente') {
-                btns = '<button class="prod-btn-action" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;font-weight:800;font-size:0.7rem;padding:8px 18px;" data-action="dis-comenzar" data-id="'+esc(o.id)+'">▶ COMENZAR</button>';
+                btns = '<button class="prod-btn-action" style="background:#ff9900;border-color:#ff9900;color:#fff;font-weight:800;font-size:0.7rem;padding:8px 18px;" data-action="dis-comenzar" data-id="'+esc(o.id)+'">▶ COMENZAR</button>';
             } else if (o.estado==='en_proceso') {
-                btns = '<span style="font-size:0.55rem;color:#92400e;font-weight:700;background:#fff7ed;padding:4px 10px;border-radius:6px;">🎨 En proceso — esperando aprobación del muestrario</span>';
-                if (o.disenoUrl) btns += ' <a href="'+esc(o.disenoUrl)+'" target="_blank" style="font-size:0.55rem;color:#ff9900;font-weight:700;">Ver diseño actual</a>';
+                var fotosCount = (o.disenoFotos||[]).length;
+                btns = '<button class="prod-btn-action" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;" data-action="dis-upload" data-id="'+esc(o.id)+'">📁 Subir Fotos'+(fotosCount?' ('+fotosCount+')':'')+'</button>';
+                btns += ' <button class="prod-btn-action" style="background:#f0fdf4;border-color:#bbf7d0;color:#166534;font-weight:800;" data-action="dis-terminar" data-id="'+esc(o.id)+'">✅ Terminar Diseño</button>';
+                if (o.disenoUrl) btns += ' <a href="'+esc(o.disenoUrl)+'" target="_blank" style="font-size:0.55rem;color:#ff9900;font-weight:700;">🎨 Ver diseño</a>';
             }
             return '<div class="diseno-card" data-id="'+esc(o.id)+'">'+
                 '<div style="display:flex;justify-content:space-between;align-items:flex-start;">'+
@@ -26200,71 +26355,184 @@ document.addEventListener('DOMContentLoaded', function() {
               '</div>';
         }).join('');
 
-        // COMENZAR button
+        // COMENZAR button — move to en_proceso and open upload popup
         disenoList.querySelectorAll('[data-action="dis-comenzar"]').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 var docId = btn.dataset.id;
                 var orden = allDisOrders.find(function(x){ return x.id===docId; }); if (!orden) return;
-                var muestrario = orden.muestrarioAsignado || '';
                 var db = getDisDB(); if (!db) return;
-                // Change state to en_proceso
                 db.collection(DIS_COLLECTION).doc(docId).update({
                     estado: 'en_proceso', actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
                 }).then(function(){
                     orden.estado = 'en_proceso';
                     renderDisOrdenes();
-                    if (muestrario) {
-                        // Redirect to muestrario module
-                        window._pendingDesignOrderId = docId;
-                        window._pendingDesignMuestrario = muestrario;
-                        closeDisenoPanel();
-                        if (window.abrirModuloPrincipal) abrirModuloPrincipal('MUESTRARIO');
-                        setTimeout(function(){ if (typeof seleccionarProducto === 'function') seleccionarProducto(muestrario); }, 300);
-                    } else {
-                        // Show file upload popup for orders without muestrario
-                        _showDisenoUploadPopup(docId);
-                    }
+                    _showDisenoUploadPopup(docId);
+                }).catch(function(err){ alert('Error: '+err.message); });
+            });
+        });
+
+        // Upload button (en_proceso)
+        disenoList.querySelectorAll('[data-action="dis-upload"]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                _showDisenoUploadPopup(btn.dataset.id);
+            });
+        });
+
+        // Terminar Diseño button — mark terminado and send to production
+        disenoList.querySelectorAll('[data-action="dis-terminar"]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var docId = btn.dataset.id;
+                var orden = allDisOrders.find(function(x){ return x.id===docId; }); if (!orden) return;
+                if (!(orden.disenoFotos && orden.disenoFotos.length)) {
+                    alert('Sube al menos una foto del diseño antes de terminar.');
+                    return;
+                }
+                if (!confirm('¿Terminar diseño y enviar a producción?')) return;
+                var db = getDisDB(); if (!db) return;
+                db.collection(DIS_COLLECTION).doc(docId).update({
+                    estado: 'terminado', actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+                }).then(function(){
+                    orden.estado = 'terminado';
+                    enviarDisenoAProduccion(orden);
+                    renderDisOrdenes();
                 }).catch(function(err){ alert('Error: '+err.message); });
             });
         });
     }
-
-    // Upload popup for designs without muestrario
     function _showDisenoUploadPopup(docId) {
         var existing = document.getElementById('_disenoUploadOverlay');
         if (existing) existing.remove();
+        var orden = allDisOrders.find(function(x){ return x.id===docId; });
+        var fotosExistentes = (orden && orden.disenoFotos) || [];
+
         var overlay = document.createElement('div');
         overlay.id = '_disenoUploadOverlay';
         overlay.style.cssText = 'position:fixed;inset:0;z-index:200001;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:20px;';
-        overlay.innerHTML = '<div style="background:#fff;border-radius:14px;width:min(440px,95vw);box-shadow:0 18px 40px rgba(0,0,0,0.25);overflow:hidden;">'+
-            '<div style="background:#ff9900;padding:16px 20px;"><div style="font-size:0.9rem;font-weight:800;color:#fff;">📁 SUBIR DISEÑO</div><div style="font-size:0.55rem;color:rgba(255,255,255,0.8);">Este producto no tiene muestrario asignado. Sube las imágenes de diseño.</div></div>'+
-            '<div style="padding:20px;"><label style="display:block;text-align:center;cursor:pointer;padding:30px;border:2px dashed #fde8c8;border-radius:10px;background:#fff7ed;color:#92400e;font-weight:700;font-size:0.7rem;">📎 Seleccionar archivo<input type="file" id="_disenoUploadFile" accept="image/*,.pdf,.ai,.psd,.cdr" style="display:none;"></label>'+
-            '<div id="_disenoUploadStatus" style="text-align:center;margin-top:10px;font-size:0.55rem;color:#9ca3af;"></div>'+
-            '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;"><button id="_disenoUploadCancel" style="padding:8px 18px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.65rem;">CERRAR</button></div></div></div>';
+
+        function renderPopup() {
+            var fotosHtml = '';
+            if (fotosExistentes.length) {
+                fotosHtml = '<div style="margin-bottom:12px;"><div style="font-size:0.65rem;font-weight:700;color:#374151;margin-bottom:6px;">📷 Fotos subidas ('+fotosExistentes.length+'):</div>';
+                fotosHtml += '<div style="display:flex;flex-wrap:wrap;gap:8px;max-height:180px;overflow-y:auto;">';
+                fotosExistentes.forEach(function(f, i) {
+                    fotosHtml += '<div style="width:90px;text-align:center;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:6px;position:relative;">'+
+                        '<img src="'+esc(f.url)+'" style="width:80px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;" onclick="window.open(\''+esc(f.url)+'\',\'_blank\')">'+
+                        '<div style="font-size:0.5rem;color:#6b7280;margin-top:3px;word-break:break-all;">'+esc(f.comentario||'Sin comentario')+'</div>'+
+                        '<button data-rm-foto="'+i+'" style="position:absolute;top:2px;right:2px;background:#dc2626;color:#fff;border:none;border-radius:50%;width:16px;height:16px;font-size:0.5rem;cursor:pointer;line-height:1;">✕</button>'+
+                    '</div>';
+                });
+                fotosHtml += '</div></div>';
+            }
+
+            overlay.innerHTML = '<div style="background:#fff;border-radius:14px;width:min(480px,95vw);max-height:90vh;overflow-y:auto;box-shadow:0 18px 40px rgba(0,0,0,0.25);">'+
+                '<div style="background:#ff9900;padding:16px 20px;"><div style="font-size:0.9rem;font-weight:800;color:#fff;">📁 SUBIR DISEÑOS</div><div style="font-size:0.55rem;color:rgba(255,255,255,0.8);">Sube varias fotos del diseño. Agrega un comentario a cada imagen.</div></div>'+
+                '<div style="padding:20px;">'+
+                fotosHtml+
+                '<label style="display:block;text-align:center;cursor:pointer;padding:24px;border:2px dashed #fde8c8;border-radius:10px;background:#fff7ed;color:#92400e;font-weight:700;font-size:0.7rem;">📎 Seleccionar imagen(es)<input type="file" id="_disenoUploadFile" accept="image/*,.pdf,.ai,.psd,.cdr" multiple style="display:none;"></label>'+
+                '<div id="_disenoUploadPreview" style="margin-top:8px;"></div>'+
+                '<textarea id="_disenoUploadComment" placeholder="Comentario para esta(s) imagen(es)..." rows="2" style="width:100%;margin-top:8px;border:1px solid #e5e7eb;border-radius:8px;padding:8px;font-size:0.72rem;resize:none;box-sizing:border-box;"></textarea>'+
+                '<div id="_disenoUploadStatus" style="text-align:center;margin-top:8px;font-size:0.55rem;color:#9ca3af;"></div>'+
+                '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">'+
+                    '<button id="_disenoUploadSubmit" style="padding:8px 18px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.65rem;" disabled>📤 Subir</button>'+
+                    '<button id="_disenoUploadCancel" style="padding:8px 18px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.65rem;">CERRAR</button>'+
+                '</div></div></div>';
+
+            // Wire events
+            document.getElementById('_disenoUploadCancel').addEventListener('click', function(){ overlay.remove(); });
+
+            // Remove photo buttons
+            overlay.querySelectorAll('[data-rm-foto]').forEach(function(btn) {
+                btn.addEventListener('click', async function() {
+                    var idx = parseInt(btn.dataset.rmFoto);
+                    fotosExistentes.splice(idx, 1);
+                    var db = getDisDB();
+                    await db.collection(DIS_COLLECTION).doc(docId).update({
+                        disenoFotos: fotosExistentes,
+                        disenoUrl: fotosExistentes.length ? fotosExistentes[0].url : '',
+                        actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    if (orden) { orden.disenoFotos = fotosExistentes; orden.disenoUrl = fotosExistentes.length ? fotosExistentes[0].url : ''; }
+                    renderDisOrdenes();
+                    renderPopup();
+                });
+            });
+
+            var selectedFiles = [];
+            document.getElementById('_disenoUploadFile').addEventListener('change', function() {
+                selectedFiles = Array.from(this.files || []);
+                var previewEl = document.getElementById('_disenoUploadPreview');
+                var submitBtn = document.getElementById('_disenoUploadSubmit');
+                if (selectedFiles.length) {
+                    previewEl.innerHTML = '<div style="font-size:0.6rem;color:#92400e;font-weight:600;">'+selectedFiles.length+' archivo(s) seleccionados: '+selectedFiles.map(function(f){return esc(f.name);}).join(', ')+'</div>';
+                    submitBtn.disabled = false;
+                } else {
+                    previewEl.innerHTML = '';
+                    submitBtn.disabled = true;
+                }
+            });
+
+            document.getElementById('_disenoUploadSubmit').addEventListener('click', async function() {
+                if (!selectedFiles.length) return;
+                var status = document.getElementById('_disenoUploadStatus');
+                var submitBtn = document.getElementById('_disenoUploadSubmit');
+                var comentario = (document.getElementById('_disenoUploadComment')?.value || '').trim();
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Subiendo...';
+                status.textContent = 'Subiendo '+selectedFiles.length+' archivo(s)...';
+                status.style.color = '#ff9900';
+
+                function fileToBase64(f) {
+                    return new Promise(function(resolve, reject) {
+                        var reader = new FileReader();
+                        reader.onload = function() { resolve(reader.result); };
+                        reader.onerror = reject;
+                        reader.readAsDataURL(f);
+                    });
+                }
+
+                try {
+                    for (var i = 0; i < selectedFiles.length; i++) {
+                        var file = selectedFiles[i];
+                        status.textContent = 'Subiendo '+(i+1)+'/'+selectedFiles.length+': '+file.name;
+                        var url = '';
+                        try {
+                            var storage = window.firebase.storage();
+                            var path = 'design_files/' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+                            var ref = storage.ref(path);
+                            await ref.put(file);
+                            url = await ref.getDownloadURL();
+                        } catch(storageErr) {
+                            // Fallback: convert to base64 data URL
+                            status.textContent = 'Storage no disponible, guardando localmente '+(i+1)+'/'+selectedFiles.length+'...';
+                            url = await fileToBase64(file);
+                        }
+                        fotosExistentes.push({ url: url, nombre: file.name, comentario: comentario, fecha: new Date().toISOString() });
+                    }
+                    var db = getDisDB();
+                    await db.collection(DIS_COLLECTION).doc(docId).update({
+                        disenoFotos: fotosExistentes,
+                        disenoUrl: fotosExistentes[0].url,
+                        disenoNombre: fotosExistentes[0].nombre,
+                        actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    if (orden) { orden.disenoFotos = fotosExistentes; orden.disenoUrl = fotosExistentes[0].url; }
+                    status.textContent = '✅ '+selectedFiles.length+' archivo(s) subido(s) correctamente.';
+                    status.style.color = '#166534';
+                    selectedFiles = [];
+                    renderDisOrdenes();
+                    renderPopup();
+                } catch(err) {
+                    status.textContent = 'Error: '+err.message;
+                    status.style.color = '#dc2626';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '📤 Subir';
+                }
+            });
+        }
+
         document.body.appendChild(overlay);
-        document.getElementById('_disenoUploadCancel').addEventListener('click', function(){ overlay.remove(); });
         overlay.addEventListener('click', function(e){ if (e.target === overlay) overlay.remove(); });
-        document.getElementById('_disenoUploadFile').addEventListener('change', async function() {
-            var file = this.files && this.files[0]; if (!file) return;
-            var status = document.getElementById('_disenoUploadStatus');
-            status.textContent = 'Subiendo...';
-            status.style.color = '#ff9900';
-            try {
-                var storage = window.firebase.storage();
-                var path = 'design_files/' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-                var ref = storage.ref(path);
-                await ref.put(file);
-                var url = await ref.getDownloadURL();
-                var db = getDisDB();
-                await db.collection(DIS_COLLECTION).doc(docId).update({ disenoUrl: url, disenoNombre: file.name, actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp() });
-                var o = allDisOrders.find(function(x){ return x.id === docId; });
-                if (o) o.disenoUrl = url;
-                status.textContent = '✅ Diseño subido correctamente.';
-                status.style.color = '#166534';
-                renderDisOrdenes();
-                setTimeout(function(){ overlay.remove(); }, 1200);
-            } catch(err) { status.textContent = 'Error: '+err.message; status.style.color = '#dc2626'; }
-        });
+        renderPopup();
     }
 
     // Transition from muestrario approval → terminado → auto send to production
@@ -26313,6 +26581,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 notas: orden.notasProduccion || '',
                 disenoUrl: orden.disenoUrl || '',
                 disenoNombre: orden.disenoNombre || '',
+                disenoFotos: orden.disenoFotos || [],
                 disenoTipo: '',
                 estado: 'pendiente',
                 origenDiseno: true,
@@ -26372,31 +26641,17 @@ document.addEventListener('DOMContentLoaded', function() {
      RECEPCIÓN SUCURSAL — Panel HTML
 ════════════════════════════════════════════════════════════════ -->
 <div id="panelRecepcionSucursal" class="recepcion-overlay">
-  <div style="display:flex;flex-direction:column;height:100%;">
+  <div style="display:flex;flex-direction:column;height:100%;padding:8px;gap:6px;">
     <div class="recepcion-header">
       <button id="recepcionBack" class="recepcion-back" type="button" title="Volver" aria-label="Volver">←</button>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.6rem;line-height:1;">📷</span>
-        <div>
-          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">RECEPCIÓN SUCURSAL</div>
-          <div style="font-size:0.6rem;color:rgba(255,255,255,0.7);">Escanea los productos que llegan del taller para confirmar recepción</div>
-        </div>
-      </div>
+      <h2 style="margin:0;font-size:0.84rem;letter-spacing:0.25px;font-weight:900;text-transform:uppercase;color:#1f2937;">RECEPCIÓN SUCURSAL</h2>
+      <span style="margin-left:auto;font-size:0.62rem;color:#64748b;font-weight:600;">Escanea los productos que llegan del taller para confirmar recepción</span>
     </div>
     <div class="recepcion-body">
-      <div style="background:#fff;border:2px dashed #fde8c8;border-radius:12px;padding:16px;">
-        <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">
-          <button id="recepcionBtnScan" style="padding:10px 18px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;font-size:0.75rem;">📷 ESCANEAR</button>
-          <button id="recepcionBtnStopScan" style="padding:10px 18px;background:#dc2626;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;font-size:0.75rem;display:none;">⏹ DETENER</button>
-          <span id="recepcionScanStatus" style="font-size:0.65rem;color:#9ca3af;font-weight:600;">Listo para escanear</span>
-        </div>
-        <div id="recepcionQrReader" style="width:100%;max-width:400px;display:none;margin:0 auto 10px;border-radius:8px;overflow:hidden;"></div>
-        <div style="display:flex;gap:6px;">
-          <input type="text" id="recepcionManualInput" placeholder="📷 Escanear código o escribir manualmente..." style="flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:8px 12px;font-size:0.75rem;">
-          <button id="recepcionBtnVerificar" style="padding:8px 16px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.75rem;">Verificar</button>
-        </div>
-        <div id="recepcionScanResult" style="margin-top:8px;"></div>
+      <div style="text-align:center;margin-bottom:10px;">
+        <button id="recepcionBtnAbrirScanner" style="padding:14px 28px;background:#ff9900;color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:800;font-size:0.85rem;width:100%;">📷 ABRIR ESCÁNER DE RECEPCIÓN</button>
       </div>
+      <div id="recepcionScanResult" style="margin-bottom:8px;"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
         <div style="background:#fff7ed;border:1px solid #fde8c8;border-radius:10px;padding:12px;text-align:center;">
           <div style="font-size:0.5rem;font-weight:700;color:#92400e;text-transform:uppercase;">Esperados</div>
@@ -26429,27 +26684,18 @@ document.addEventListener('DOMContentLoaded', function() {
      MÓDULO ALMACÉN DE PEDIDOS — Panel HTML
 ════════════════════════════════════════════════════════════════ -->
 <div id="panelAlmacenPedidos" class="almacenpedidos-overlay">
-  <div style="display:flex;flex-direction:column;height:100%;">
+  <div style="display:flex;flex-direction:column;height:100%;padding:8px;gap:6px;">
     <div class="almacenpedidos-header">
       <button id="almacenPedidosBack" class="almacenpedidos-back" type="button" title="Volver" aria-label="Volver">←</button>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.6rem;line-height:1;">📦</span>
-        <div>
-          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">ALMACÉN DE PEDIDOS</div>
-          <div style="font-size:0.6rem;color:rgba(255,255,255,0.7);">Pedidos terminados — decide si se envían o se entregan en local</div>
-        </div>
-      </div>
+      <h2 style="margin:0;font-size:0.84rem;letter-spacing:0.25px;font-weight:900;text-transform:uppercase;color:#1f2937;">ALMACÉN DE PEDIDOS</h2>
+      <span style="margin-left:auto;font-size:0.62rem;color:#64748b;font-weight:600;">Recolecta, verifica y entrega pedidos terminados</span>
     </div>
     <div class="almacenpedidos-body">
       <div style="display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;">
-        <button class="prod-tab active" data-alm-status="almacenado" style="background:#ff9900;border-color:#e68a00;color:#fff;">📦 Almacenados</button>
-        <button class="prod-tab" data-alm-status="para_envio">🚚 Para Envío</button>
-        <button class="prod-tab" data-alm-status="en_transito_sucursal">🏬 En Tránsito</button>
-        <button class="prod-tab" data-alm-status="entregado_local">🏪 Entregado en Local</button>
+        <button class="prod-tab active" data-alm-status="almacenado" style="background:#ff9900;border-color:#e68a00;color:#fff;">📦 Escaneados</button>
         <button id="btnRecolectarPedidos" class="prod-tab" style="background:#ff9900;border-color:#e68a00;color:#fff;margin-left:auto;">📷 Recolectar</button>
-        <button id="btnEnviarLoteSucursal" class="prod-tab" style="background:#ff9900;border-color:#ff9900;color:#fff;">🏬 Enviar a Sucursal</button>
+        <button id="btnEnviarLoteSucursal" class="prod-tab" style="background:#ff9900;border-color:#ff9900;color:#fff;">🏬 Entregar a Sucursal</button>
         <button id="btnConfirmarLlegadaSucursal" class="prod-tab" style="background:#1e40af;border-color:#1e40af;color:#fff;display:none;">📍 Confirmar Llegada</button>
-        <button id="btnEstadisticasTransito" class="prod-tab" style="background:#ff9900;border-color:#e68a00;color:#fff;">📊 Estadísticas</button>
       </div>
       <div style="display:flex;gap:6px;flex-shrink:0;">
         <input type="text" id="almPedBuscador" placeholder="🔍 Buscar por folio, cliente..." style="flex:1;background:#fff;border:1px solid #e5e7eb;color:#1f2937;border-radius:8px;padding:7px 10px;font-size:0.7rem;">
@@ -26496,11 +26742,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (recargar) recargar.addEventListener('click', cargarAlmPed);
 
     function cargarAlmPed() {
-        listEl.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;">Cargando...</div>';
+        listEl.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;">📷 Usa <strong>Recolectar</strong> para escanear pedidos terminados y agregarlos aquí.</div>';
         var db = getAlmpDB(); if (!db) return;
         db.collection(ALMP_COLLECTION).orderBy('creadoEn','desc').get().then(function(snap) {
             allAlmPed = snap.docs.map(function(d){ return Object.assign({id:d.id}, d.data()); });
-            renderAlmPed();
+            if (allAlmPed.filter(function(o){ return o.estado === currentAlmTab; }).length > 0) {
+                renderAlmPed();
+            }
         }).catch(function(err) { listEl.innerHTML = '<div style="text-align:center;color:#dc2626;padding:30px;">Error: '+esc(err.message)+'</div>'; });
     }
 
@@ -26511,7 +26759,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!q) return true;
             return (o.folioProduccion||'').toLowerCase().includes(q)||(o.cliente||'').toLowerCase().includes(q);
         });
-        if (!lista.length) { listEl.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;">Sin pedidos en esta categoría.</div>'; return; }
+        if (!lista.length) { listEl.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;">📷 Escanea pedidos con <strong>Recolectar</strong> para verlos aquí.</div>'; return; }
         var estadoLabels = {almacenado:'📦 Almacenado',para_envio:'🚚 Para Envío',en_transito_sucursal:'🏬 En Tránsito',entregado_local:'🏪 En Local',recibido_sucursal:'✅ Recibido',en_sucursal:'✅ En Sucursal'};
         listEl.innerHTML = lista.map(function(o) {
             return '<div class="almped-card" data-id="'+esc(o.id)+'">'+
@@ -26529,10 +26777,6 @@ document.addEventListener('DOMContentLoaded', function() {
                   (o.disenoUrl?'<span style="grid-column:1/-1"><a href="'+esc(o.disenoUrl)+'" target="_blank" style="color:#0d9488;font-weight:700;">📷 Ver imagen</a></span>':'')+
                 '</div>'+
                 '<div style="display:flex;gap:6px;">'+
-                  (o.estado==='almacenado'?'<button class="prod-btn-action entrega" data-action="a-envio" data-id="'+esc(o.id)+'" style="background:#f0fdf4;border-color:#bbf7d0;color:#166534;">🚚 Preparar Envío</button>'+
-                  '<button class="prod-btn-action" data-action="entrega-local" data-id="'+esc(o.id)+'" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;">🏪 Entrega en Local</button>':'')+
-                  (o.estado==='para_envio'?'<button class="prod-btn-action entrega" data-action="a-reparto" data-id="'+esc(o.id)+'" style="background:#eff6ff;border-color:#bfdbfe;color:#1e40af;">🚚 Enviar a Reparto</button>':'')+
-                  (o.estado==='en_transito_sucursal'?'<span style="font-size:0.55rem;color:#ff9900;font-weight:700;background:#fff7ed;padding:4px 10px;border-radius:6px;">📦 En camino a sucursal...</span>':'')+
                   '<button class="prod-btn-action" data-action="etiqueta-alm" data-id="'+esc(o.id)+'" style="background:#f9fafb;border-color:#e5e7eb;color:#374151;">🏷 Etiqueta</button>'+
                 '</div></div>';
         }).join('');
@@ -26541,9 +26785,6 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.addEventListener('click', function() {
                 var action=btn.dataset.action, docId=btn.dataset.id;
                 var orden = allAlmPed.find(function(x){ return x.id===docId; }); if (!orden) return;
-                if (action==='a-envio') cambiarEstadoAlmPed(docId, 'para_envio');
-                if (action==='entrega-local') cambiarEstadoAlmPed(docId, 'entregado_local');
-                if (action==='a-reparto') enviarAlmPedAReparto(orden);
                 if (action==='etiqueta-alm') imprimirEtiquetaAlmacen(orden);
             });
         });
@@ -26614,11 +26855,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function abrirRecolectarPopup() {
-        // Check for production orders with estado=terminada that haven't been collected yet
+        // Open a full scanner popup for collecting orders from production
         var db = getAlmpDB(); if (!db) { alert('Base de datos no disponible.'); return; }
         db.collection('production_orders').where('estado', '==', 'terminada').get().then(function(snap) {
             var terminadas = snap.docs.map(function(d) { return Object.assign({ id: d.id }, d.data()); });
-            // Filter out ones already in stored_orders
             var foliosYaAlmacenados = allAlmPed.map(function(a) { return a.folioProduccion || a.produccionDocId; });
             var pendientes = terminadas.filter(function(o) {
                 return !foliosYaAlmacenados.includes(o.folio) && !foliosYaAlmacenados.includes(o.id);
@@ -26631,73 +26871,173 @@ document.addEventListener('DOMContentLoaded', function() {
         var existing = document.getElementById('popupRecolectar');
         if (existing) existing.remove();
 
+        var recolectados = [];
+
         var overlay = document.createElement('div');
         overlay.id = 'popupRecolectar';
-        overlay.style.cssText = 'position:fixed;inset:0;z-index:3200;background:rgba(0,0,0,0.5);display:flex;justify-content:center;align-items:center;';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.5);display:flex;justify-content:center;align-items:center;';
         var card = document.createElement('div');
-        card.style.cssText = 'background:#fff;border-radius:12px;padding:24px;width:min(95vw,560px);max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.3);';
+        card.style.cssText = 'background:#fff;border-radius:12px;padding:24px;width:min(95vw,600px);max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.3);';
 
-        var html = '<h3 style="margin:0 0 12px;font-size:1rem;color:#0d9488;">📷 Recolectar Pedidos Terminados</h3>';
+        function renderPopupContent() {
+            var html = '<h3 style="margin:0 0 4px;font-size:1rem;color:#1f2937;">📷 Recolectar Pedidos</h3>';
+            html += '<p style="font-size:0.65rem;color:#6b7280;margin:0 0 12px;">Escanea código de barras o QR de cada producto terminado para recolectar.</p>';
 
-        if (!ordenes.length) {
-            html += '<p style="color:#9ca3af;text-align:center;padding:20px;">No hay pedidos terminados pendientes de recolectar.</p>';
-            html += '<div style="text-align:right;"><button onclick="this.closest(\'#popupRecolectar\').remove();" style="padding:8px 16px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;">Cerrar</button></div>';
-        } else {
-            html += '<p style="font-size:0.7rem;color:#6b7280;margin:0 0 8px;">Escanea el código de barras o ingresa manualmente para verificar cada pedido.</p>';
-            html += '<div style="display:flex;gap:6px;margin-bottom:12px;">';
-            html += '<input type="text" id="recolectarScanInput" placeholder="📷 Escanear o escribir código de barras..." style="flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:8px;font-size:0.75rem;">';
-            html += '<button id="btnVerificarScan" style="padding:8px 14px;background:#0d9488;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.75rem;">Verificar</button>';
+            // Scanner section
+            html += '<div style="background:#fff7ed;border:2px dashed #fde8c8;border-radius:12px;padding:14px;margin-bottom:12px;">';
+            html += '<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">';
+            html += '<button id="recolBtnScan" style="padding:8px 16px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;font-size:0.72rem;">📷 ESCANEAR</button>';
+            html += '<button id="recolBtnStop" style="padding:8px 16px;background:#dc2626;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;font-size:0.72rem;display:none;">⏹ DETENER</button>';
+            html += '<span id="recolScanStatus" style="font-size:0.62rem;color:#9ca3af;font-weight:600;">Listo</span>';
             html += '</div>';
-            html += '<div id="recolectarResultado" style="margin-bottom:12px;"></div>';
-            html += '<div style="font-size:0.7rem;font-weight:700;color:#374151;margin-bottom:6px;">Pedidos terminados pendientes ('+ordenes.length+'):</div>';
-            html += '<div style="max-height:300px;overflow-y:auto;">';
-            ordenes.forEach(function(o) {
-                var codigo = o.codigoBarrasTerminado || '—';
-                html += '<div class="recolectar-item" data-orden-id="'+esc(o.id)+'" data-codigo="'+esc(codigo)+'" style="padding:8px;border:1px solid #e5e7eb;border-radius:8px;margin-bottom:4px;font-size:0.7rem;display:flex;justify-content:space-between;align-items:center;">';
-                html += '<div><strong>'+esc(o.folio||'—')+'</strong> · '+esc(o.producto||'—')+' · '+esc(o.cliente||'—')+'<br><span style="color:#9ca3af;font-size:0.6rem;">Código: '+esc(codigo)+'</span></div>';
-                html += '<button class="btn-recolectar-individual" data-orden-id="'+esc(o.id)+'" style="padding:4px 10px;background:#0d9488;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.65rem;font-weight:700;">📦 Recolectar</button>';
+            html += '<div id="recolQrReader" style="width:100%;max-width:350px;display:none;margin:0 auto 10px;border-radius:8px;overflow:hidden;"></div>';
+            html += '<div style="display:flex;gap:6px;">';
+            html += '<input type="text" id="recolManualInput" placeholder="Código de barras o folio..." style="flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:8px 12px;font-size:0.72rem;">';
+            html += '<button id="recolBtnVerificar" style="padding:8px 14px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.72rem;">Verificar</button>';
+            html += '</div>';
+            html += '</div>';
+
+            // Verification result area
+            html += '<div id="recolResultado" style="margin-bottom:12px;"></div>';
+
+            // Collected items list
+            if (recolectados.length) {
+                html += '<div style="font-size:0.68rem;font-weight:800;color:#166534;margin-bottom:6px;">✅ Recolectados ('+recolectados.length+'):</div>';
+                html += '<div style="max-height:200px;overflow-y:auto;margin-bottom:12px;">';
+                recolectados.forEach(function(o) {
+                    html += '<div style="display:flex;gap:10px;align-items:center;padding:8px;border:1px solid #bbf7d0;border-radius:8px;margin-bottom:4px;background:#f0fdf4;">';
+                    if (o.disenoUrl) {
+                        html += '<img src="'+esc(o.disenoUrl)+'" style="width:50px;height:50px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;" onerror="this.style.display=\'none\'">';
+                    }
+                    html += '<div style="flex:1;font-size:0.65rem;"><strong style="color:#166534;">'+esc(o.folio||'—')+'</strong> · '+esc(o.producto||'—')+' · '+esc(o.cliente||'—')+'</div>';
+                    html += '<span style="font-size:0.8rem;">✅</span>';
+                    html += '</div>';
+                });
                 html += '</div>';
-            });
+            }
+
+            // Pending count
+            var pendCount = ordenes.length - recolectados.length;
+            if (pendCount > 0) {
+                html += '<div style="font-size:0.62rem;color:#9ca3af;margin-bottom:8px;">Pendientes por escanear: '+pendCount+'</div>';
+            }
+
+            // Action buttons
+            html += '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">';
+            html += '<button id="recolCerrar" style="padding:8px 16px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;font-size:0.72rem;">Cerrar</button>';
+            if (recolectados.length > 0) {
+                html += '<button id="recolAceptar" style="padding:8px 16px;border:none;border-radius:8px;background:#ff9900;color:#fff;cursor:pointer;font-weight:700;font-size:0.72rem;">✅ Aceptar ('+recolectados.length+')</button>';
+            }
             html += '</div>';
-            html += '<div style="text-align:right;margin-top:12px;"><button onclick="this.closest(\'#popupRecolectar\').remove();" style="padding:8px 16px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;">Cerrar</button></div>';
+            return html;
         }
 
-        card.innerHTML = html;
+        card.innerHTML = renderPopupContent();
         overlay.appendChild(card);
         document.body.appendChild(overlay);
 
-        // Wire scan verification
-        var scanInput = document.getElementById('recolectarScanInput');
-        var btnVerificar = document.getElementById('btnVerificarScan');
-        if (btnVerificar && scanInput) {
-            var verificarFn = function() {
-                var code = scanInput.value.trim();
-                if (!code) return;
-                var match = ordenes.find(function(o) { return o.codigoBarrasTerminado === code; });
-                var resultado = document.getElementById('recolectarResultado');
-                if (match) {
-                    resultado.innerHTML = '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px;font-size:0.75rem;color:#166534;">✅ <strong>Verificado:</strong> '+esc(match.folio||'—')+' · '+esc(match.producto||'—')+' · '+esc(match.cliente||'—')+'<br><button class="btn-confirmar-recolecta" data-orden-id="'+esc(match.id)+'" style="margin-top:6px;padding:4px 12px;background:#0d9488;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:700;">📦 Confirmar Recolecta</button></div>';
-                    resultado.querySelector('.btn-confirmar-recolecta').addEventListener('click', function() {
-                        recolectarOrden(match);
-                    });
-                } else {
-                    resultado.innerHTML = '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px;font-size:0.75rem;color:#dc2626;">❌ <strong>No coincide.</strong> Código no encontrado en pedidos terminados. Registrando penalización...</div>';
-                    registrarPenalizacion('almacen', 'Código escaneado no coincide: ' + code);
-                }
-                scanInput.value = '';
-            };
-            btnVerificar.addEventListener('click', verificarFn);
-            scanInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') verificarFn(); });
+        var qrInstRecol = null;
+
+        function wireEvents() {
+            document.getElementById('recolCerrar').addEventListener('click', function() {
+                if (qrInstRecol) { qrInstRecol.stop().then(function(){ qrInstRecol.clear(); }).catch(function(){}); qrInstRecol = null; }
+                overlay.remove();
+            });
+
+            var aceptarBtn = document.getElementById('recolAceptar');
+            if (aceptarBtn) {
+                aceptarBtn.addEventListener('click', async function() {
+                    aceptarBtn.disabled = true;
+                    aceptarBtn.textContent = 'Guardando...';
+                    for (var i = 0; i < recolectados.length; i++) {
+                        await recolectarOrden(recolectados[i]);
+                    }
+                    if (qrInstRecol) { qrInstRecol.stop().then(function(){ qrInstRecol.clear(); }).catch(function(){}); qrInstRecol = null; }
+                    overlay.remove();
+                });
+            }
+
+            // Camera scanner
+            document.getElementById('recolBtnScan').addEventListener('click', function() {
+                if (!window.Html5Qrcode) { alert('Escáner QR no disponible.'); return; }
+                var readerEl = document.getElementById('recolQrReader');
+                readerEl.style.display = 'block';
+                document.getElementById('recolBtnScan').style.display = 'none';
+                document.getElementById('recolBtnStop').style.display = '';
+                document.getElementById('recolScanStatus').textContent = 'Escaneando...';
+                qrInstRecol = new Html5Qrcode('recolQrReader');
+                qrInstRecol.start({ facingMode: 'environment' }, { fps: 10, qrbox: { width: 250, height: 250 } },
+                    function(texto) { procesarScanRecolectar(texto); },
+                    function() {}
+                ).catch(function(err) {
+                    document.getElementById('recolScanStatus').textContent = 'Error cámara: '+err;
+                    document.getElementById('recolBtnScan').style.display = '';
+                    document.getElementById('recolBtnStop').style.display = 'none';
+                });
+            });
+
+            document.getElementById('recolBtnStop').addEventListener('click', function() {
+                if (qrInstRecol) { qrInstRecol.stop().then(function(){ qrInstRecol.clear(); }).catch(function(){}); qrInstRecol = null; }
+                document.getElementById('recolQrReader').style.display = 'none';
+                document.getElementById('recolBtnScan').style.display = '';
+                document.getElementById('recolBtnStop').style.display = 'none';
+                document.getElementById('recolScanStatus').textContent = 'Listo';
+            });
+
+            // Manual input
+            document.getElementById('recolBtnVerificar').addEventListener('click', function() {
+                var code = document.getElementById('recolManualInput').value.trim();
+                if (code) procesarScanRecolectar(code);
+                document.getElementById('recolManualInput').value = '';
+            });
+            document.getElementById('recolManualInput').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { var code = this.value.trim(); if (code) procesarScanRecolectar(code); this.value = ''; }
+            });
         }
 
-        // Wire individual recolectar buttons
-        overlay.querySelectorAll('.btn-recolectar-individual').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var ordenId = btn.dataset.ordenId;
-                var match = ordenes.find(function(o) { return o.id === ordenId; });
-                if (match) recolectarOrden(match);
+        function procesarScanRecolectar(codigo) {
+            var resultado = document.getElementById('recolResultado');
+            // Check if already collected in this session
+            var yaEnSesion = recolectados.find(function(o) { return o.codigoBarrasTerminado === codigo || o.folio === codigo; });
+            if (yaEnSesion) {
+                resultado.innerHTML = '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px;font-size:0.7rem;color:#92400e;">⚠️ Ya escaneaste este producto: <strong>'+esc(yaEnSesion.folio||'')+'</strong></div>';
+                setTimeout(function() { resultado.innerHTML = ''; }, 3000);
+                return;
+            }
+            // Find matching order
+            var match = ordenes.find(function(o) {
+                return (o.codigoBarrasTerminado === codigo || o.folio === codigo) && !recolectados.includes(o);
             });
-        });
+            if (match) {
+                // Show photo verification
+                var fotoHtml = match.disenoUrl
+                    ? '<img src="'+esc(match.disenoUrl)+'" style="width:120px;height:120px;object-fit:contain;border-radius:8px;border:1px solid #e5e7eb;background:#f9fafb;" onerror="this.outerHTML=\'<div style=padding:20px;color:#9ca3af;font-size:0.65rem>Sin imagen</div>\'">'
+                    : '<div style="width:120px;height:120px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;display:grid;place-items:center;font-size:0.65rem;color:#9ca3af;">Sin muestra digital</div>';
+                resultado.innerHTML = '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px;font-size:0.7rem;color:#166534;">'+
+                    '<div style="display:flex;gap:12px;align-items:center;">'+
+                    fotoHtml+
+                    '<div><div style="font-weight:800;font-size:0.8rem;">✅ '+esc(match.folio||'—')+'</div>'+
+                    '<div>'+esc(match.producto||'—')+' · '+esc(match.cliente||'—')+'</div>'+
+                    '<div style="color:#9ca3af;font-size:0.6rem;">Verifica que el producto corresponda con la muestra digital</div>'+
+                    '</div></div></div>';
+
+                recolectados.push(match);
+                // Re-render to update collected list
+                card.innerHTML = renderPopupContent();
+                wireEvents();
+                // Re-show the verification result
+                document.getElementById('recolResultado').innerHTML = resultado.innerHTML;
+                setTimeout(function() { var r = document.getElementById('recolResultado'); if (r) r.innerHTML = ''; }, 5000);
+            } else {
+                resultado.innerHTML = '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px;font-size:0.7rem;color:#dc2626;">❌ Código no encontrado en pedidos terminados: <strong>'+esc(codigo)+'</strong></div>';
+                if (typeof window.registrarPenalizacion === 'function') {
+                    window.registrarPenalizacion('almacen', 'Código escaneado no coincide: ' + codigo);
+                }
+                setTimeout(function() { resultado.innerHTML = ''; }, 4000);
+            }
+        }
+
+        wireEvents();
     }
 
     async function recolectarOrden(orden) {
@@ -26726,6 +27066,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
                 actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
             });
+            // Update production order status so it disappears from Producción
+            if (orden.id) {
+                await db.collection('production_orders').doc(orden.id).update({
+                    estado: 'almacenada',
+                    actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }
             cargarAlmPed();
             alert('✅ Pedido recolectado y almacenado: ' + (orden.folio || orden.id));
             var popup = document.getElementById('popupRecolectar');
@@ -26765,7 +27112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         batch.commit().then(function() {
             almacenados.forEach(function(o) { o.estado = 'en_transito_sucursal'; o.loteEnvio = loteId; });
             renderAlmPed();
-            alert('✅ Lote ' + loteId + ' enviado a sucursal (' + almacenados.length + ' pedidos).');
+            alert('✅ Lote ' + loteId + ' entregado a sucursal (' + almacenados.length + ' pedidos).');
         }).catch(function(err) { alert('Error: ' + err.message); });
     }
 
@@ -26923,8 +27270,117 @@ document.addEventListener('DOMContentLoaded', function() {
         btnEnviarLote.addEventListener('click', function() {
             var almacenados = allAlmPed.filter(function(o) { return o.estado === 'almacenado'; });
             if (!almacenados.length) { alert('No hay pedidos almacenados para enviar a sucursal.'); return; }
-            if (!confirm('¿Enviar ' + almacenados.length + ' pedido(s) a sucursal?\n\nSe requerirá escanear el código QR del taller para confirmar la salida.')) return;
-            _abrirScanCheckpointTaller(almacenados);
+            _abrirPopupScanEnvioSucursal(almacenados);
+        });
+    }
+
+    function _abrirPopupScanEnvioSucursal(almacenados) {
+        var existingPopup = document.getElementById('popupScanEnvioSucursal');
+        if (existingPopup) existingPopup.remove();
+        var escaneados = [];
+        var overlay = document.createElement('div');
+        overlay.id = 'popupScanEnvioSucursal';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:center;';
+        overlay.innerHTML = '<div style="background:#fff;border-radius:14px;padding:24px;width:min(94vw,450px);max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.3);">'+
+            '<h3 style="margin:0 0 12px;font-size:1rem;color:#1f2937;">📦 Escanear Pedidos para Envío a Sucursal</h3>'+
+            '<p style="font-size:0.7rem;color:#6b7280;margin:0 0 10px;">Escanea el código de cada pedido. Total almacenados: <strong>'+almacenados.length+'</strong></p>'+
+            '<div id="envioSucQrReader" style="width:100%;max-width:320px;margin:0 auto 10px;border-radius:8px;overflow:hidden;"></div>'+
+            '<div id="envioSucStatus" style="font-size:0.7rem;color:#ff9900;font-weight:700;text-align:center;margin-bottom:8px;">Iniciando cámara...</div>'+
+            '<div style="display:flex;gap:6px;margin-bottom:10px;">'+
+                '<input type="text" id="envioSucManualInput" placeholder="Código manual..." style="flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:8px 10px;font-size:0.72rem;">'+
+                '<button id="envioSucBtnManual" style="padding:8px 14px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.72rem;">→</button>'+
+            '</div>'+
+            '<div id="envioSucListaEscaneados" style="max-height:160px;overflow-y:auto;margin-bottom:12px;font-size:0.68rem;"></div>'+
+            '<div style="text-align:right;">'+
+                '<button id="envioSucBtnCerrar" style="padding:10px 20px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;font-size:0.75rem;">Cerrar</button>'+
+            '</div>'+
+        '</div>';
+        document.body.appendChild(overlay);
+
+        var qrInst = null;
+        var statusEl = document.getElementById('envioSucStatus');
+        var listaEl = document.getElementById('envioSucListaEscaneados');
+
+        function actualizarLista() {
+            if (!listaEl) return;
+            if (!escaneados.length) { listaEl.innerHTML = '<em style="color:#9ca3af;">Sin pedidos escaneados aún</em>'; return; }
+            listaEl.innerHTML = escaneados.map(function(e) {
+                return '<div style="padding:4px 8px;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;align-items:center;">'+
+                    '<span>✅ '+esc(e.folioProduccion||e.id)+'</span>'+
+                    '<span style="color:#9ca3af;">'+esc(e.cliente||'')+'</span>'+
+                '</div>';
+            }).join('');
+        }
+        actualizarLista();
+
+        async function procesarScanEnvio(codigo) {
+            var match = almacenados.find(function(o) {
+                return o.codigoBarras === codigo || o.folioProduccion === codigo || o.id === codigo;
+            });
+            if (!match) {
+                statusEl.textContent = '❌ Código no coincide con ningún pedido almacenado';
+                statusEl.style.color = '#dc2626';
+                setTimeout(function() { statusEl.textContent = 'Listo para escanear'; statusEl.style.color = '#ff9900'; }, 2500);
+                return;
+            }
+            if (escaneados.find(function(e){ return e.id === match.id; })) {
+                statusEl.textContent = '⚠️ Ya escaneado: ' + (match.folioProduccion||match.id);
+                statusEl.style.color = '#92400e';
+                setTimeout(function() { statusEl.textContent = 'Listo para escanear'; statusEl.style.color = '#ff9900'; }, 2000);
+                return;
+            }
+            // Send this order immediately
+            var db = getAlmDB(); if (!db) return;
+            try {
+                await db.collection('stored_orders').doc(match.id).update({
+                    estado: 'en_transito_sucursal',
+                    enviadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
+                    actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+                });
+                match.estado = 'en_transito_sucursal';
+                escaneados.push(match);
+                actualizarLista();
+                statusEl.textContent = '✅ Enviado: ' + (match.folioProduccion||match.id) + ' (' + escaneados.length + '/' + almacenados.length + ')';
+                statusEl.style.color = '#16a34a';
+                setTimeout(function() { statusEl.textContent = 'Listo para escanear'; statusEl.style.color = '#ff9900'; }, 2000);
+                if (typeof renderAlmPed === 'function') renderAlmPed();
+            } catch(err) {
+                statusEl.textContent = 'Error: ' + err.message;
+                statusEl.style.color = '#dc2626';
+            }
+        }
+
+        // Start camera
+        if (window.Html5Qrcode) {
+            qrInst = new Html5Qrcode('envioSucQrReader');
+            qrInst.start({ facingMode: 'environment' }, { fps: 10, qrbox: { width: 250, height: 250 } },
+                function(texto) { procesarScanEnvio(texto.trim()); },
+                function() {}
+            ).then(function() {
+                statusEl.textContent = 'Listo para escanear';
+                statusEl.style.color = '#ff9900';
+            }).catch(function(err) {
+                statusEl.textContent = 'Error cámara: ' + err;
+                statusEl.style.color = '#dc2626';
+            });
+        } else {
+            statusEl.textContent = 'Escáner no disponible. Usa entrada manual.';
+            statusEl.style.color = '#dc2626';
+        }
+
+        // Manual input
+        document.getElementById('envioSucBtnManual').addEventListener('click', function() {
+            var code = document.getElementById('envioSucManualInput').value.trim();
+            if (code) { procesarScanEnvio(code); document.getElementById('envioSucManualInput').value = ''; }
+        });
+        document.getElementById('envioSucManualInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { var code = this.value.trim(); if (code) { procesarScanEnvio(code); this.value = ''; } }
+        });
+
+        // Close button
+        document.getElementById('envioSucBtnCerrar').addEventListener('click', function() {
+            if (qrInst) { qrInst.stop().then(function(){ qrInst.clear(); }).catch(function(){}); }
+            overlay.remove();
         });
     }
 
@@ -27014,19 +27470,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 var distM = _haversineKmAlm(myLat, myLng, sucursalLat, sucursalLng) * 1000;
 
                 if (distM <= radioMax) {
-                    resultado.innerHTML = '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px;font-size:0.7rem;color:#166534;">✅ Llegada confirmada. Distancia: '+distM.toFixed(1)+'m. Actualizando lotes...</div>';
-                    // Update all lotes in transit
-                    var db = getAlmpDB(); if (!db) return;
-                    var ahora = new Date().toISOString();
-                    lotesEnTransito.forEach(function(loteId) {
-                        db.collection('checkpoints_transito').doc(loteId).set({
-                            llegadaSucursalEn: ahora,
-                            llegadaSucursalTs: window.firebase.firestore.FieldValue.serverTimestamp(),
-                            llegadaSucursalGeo: { lat: myLat, lng: myLng },
-                            confirmadoEnSucursal: true
-                        }, { merge: true }).catch(function(err) { console.error('Error checkpoint sucursal:', err); });
+                    resultado.innerHTML = '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px;font-size:0.7rem;color:#166534;">'+
+                        '✅ Llegada confirmada. Distancia: '+distM.toFixed(1)+'m.<br>'+
+                        '<div style="margin-top:8px;font-size:0.65rem;color:#6b7280;">Presiona Aceptar para confirmar que todo llegó correctamente a la sucursal.</div>'+
+                        '<button id="chkSucAceptarBtn" style="margin-top:10px;padding:10px 24px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:800;font-size:0.75rem;">✅ ACEPTAR</button></div>';
+                    document.getElementById('chkSucAceptarBtn').addEventListener('click', function() {
+                        this.disabled = true; this.textContent = 'Guardando...';
+                        var db = getAlmpDB(); if (!db) return;
+                        var ahora = new Date().toISOString();
+                        var promises = lotesEnTransito.map(function(loteId) {
+                            return db.collection('checkpoints_transito').doc(loteId).set({
+                                llegadaSucursalEn: ahora,
+                                llegadaSucursalTs: window.firebase.firestore.FieldValue.serverTimestamp(),
+                                llegadaSucursalGeo: { lat: myLat, lng: myLng },
+                                confirmadoEnSucursal: true
+                            }, { merge: true });
+                        });
+                        Promise.all(promises).then(function() {
+                            overlay.remove(); cargarAlmPed();
+                        }).catch(function(err) { alert('Error: ' + err.message); });
                     });
-                    setTimeout(function() { overlay.remove(); cargarAlmPed(); }, 2000);
                 } else {
                     resultado.innerHTML = '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px;font-size:0.7rem;color:#dc2626;">❌ Estás a '+distM.toFixed(1)+'m de la sucursal. Debes estar a máximo '+radioMax+'m. Registrando penalización.</div>';
                     if (typeof window.registrarPenalizacion === 'function') {
@@ -27080,119 +27543,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // === ESTADÍSTICAS DE TRÁNSITO ===
-    var btnEstadisticas = document.getElementById('btnEstadisticasTransito');
-    if (btnEstadisticas) {
-        btnEstadisticas.addEventListener('click', function() {
-            var db = getAlmpDB(); if (!db) return;
-            db.collection('checkpoints_transito').orderBy('creadoEn','desc').limit(50).get().then(function(snap) {
-                var checkpoints = snap.docs.map(function(d) { return Object.assign({id: d.id}, d.data()); });
-
-                var overlay = document.createElement('div');
-                overlay.id = 'popupEstadisticasTransito';
-                overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:99999;display:flex;align-items:center;justify-content:center;';
-                var card = document.createElement('div');
-                card.style.cssText = 'background:#fff;border-radius:16px;padding:20px;max-width:520px;width:95%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.3);';
-
-                var totalLotes = checkpoints.length;
-                var completados = checkpoints.filter(function(c) { return c.confirmadoEnSucursal; });
-                var enCamino = checkpoints.filter(function(c) { return !c.confirmadoEnSucursal; });
-
-                // Calculate average transit times
-                var tiemposTransito = [];
-                completados.forEach(function(c) {
-                    if (c.salidaTallerEn && c.llegadaSucursalEn) {
-                        var tSalida = new Date(c.salidaTallerEn).getTime();
-                        var tLlegada = new Date(c.llegadaSucursalEn).getTime();
-                        if (tSalida && tLlegada && tLlegada > tSalida) {
-                            tiemposTransito.push(tLlegada - tSalida);
-                        }
-                    }
-                });
-
-                var promedioMs = tiemposTransito.length ? tiemposTransito.reduce(function(a,b){return a+b;},0) / tiemposTransito.length : 0;
-                var minMs = tiemposTransito.length ? Math.min.apply(null, tiemposTransito) : 0;
-                var maxMs = tiemposTransito.length ? Math.max.apply(null, tiemposTransito) : 0;
-
-                function formatDuracion(ms) {
-                    if (!ms) return '—';
-                    var mins = Math.floor(ms / 60000);
-                    var hrs = Math.floor(mins / 60);
-                    mins = mins % 60;
-                    if (hrs > 0) return hrs + 'h ' + mins + 'min';
-                    return mins + 'min';
-                }
-
-                var html = '<div style="text-align:center;margin-bottom:16px;">'+
-                    '<div style="font-size:1.5rem;">📊</div>'+
-                    '<div style="font-size:1rem;font-weight:900;color:#ff9900;">ESTADÍSTICAS DE TRÁNSITO</div>'+
-                    '<div style="font-size:0.6rem;color:#6b7280;margin-top:4px;">Tiempos de entrega taller → sucursal</div>'+
-                '</div>';
-
-                // Summary cards
-                html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">'+
-                    '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px;text-align:center;">'+
-                        '<div style="font-size:0.5rem;font-weight:700;color:#166534;text-transform:uppercase;">Completados</div>'+
-                        '<div style="font-size:1.3rem;font-weight:900;color:#16a34a;">'+completados.length+'</div>'+
-                    '</div>'+
-                    '<div style="background:#fff7ed;border:1px solid #fde8c8;border-radius:10px;padding:12px;text-align:center;">'+
-                        '<div style="font-size:0.5rem;font-weight:700;color:#92400e;text-transform:uppercase;">En Camino</div>'+
-                        '<div style="font-size:1.3rem;font-weight:900;color:#ff9900;">'+enCamino.length+'</div>'+
-                    '</div>'+
-                    '<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:12px;text-align:center;">'+
-                        '<div style="font-size:0.5rem;font-weight:700;color:#92400e;text-transform:uppercase;">Total Lotes</div>'+
-                        '<div style="font-size:1.3rem;font-weight:900;color:#ff9900;">'+totalLotes+'</div>'+
-                    '</div>'+
-                '</div>';
-
-                // Time stats
-                html += '<div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:14px;margin-bottom:16px;">'+
-                    '<div style="font-size:0.65rem;font-weight:900;color:#ff9900;margin-bottom:8px;">⏱️ TIEMPOS DE TRÁNSITO</div>'+
-                    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">'+
-                        '<div><div style="font-size:0.52rem;color:#6b7280;font-weight:700;">PROMEDIO</div><div style="font-size:0.9rem;font-weight:900;color:#ff9900;">'+formatDuracion(promedioMs)+'</div></div>'+
-                        '<div><div style="font-size:0.52rem;color:#6b7280;font-weight:700;">MÁS RÁPIDO</div><div style="font-size:0.9rem;font-weight:900;color:#16a34a;">'+formatDuracion(minMs)+'</div></div>'+
-                        '<div><div style="font-size:0.52rem;color:#6b7280;font-weight:700;">MÁS LENTO</div><div style="font-size:0.9rem;font-weight:900;color:#dc2626;">'+formatDuracion(maxMs)+'</div></div>'+
-                    '</div>'+
-                '</div>';
-
-                // Detail table
-                html += '<div style="font-size:0.65rem;font-weight:900;color:#374151;margin-bottom:8px;">HISTORIAL DE LOTES</div>';
-                html += '<div style="max-height:250px;overflow-y:auto;">';
-                checkpoints.forEach(function(c) {
-                    var transitoMs = 0;
-                    if (c.salidaTallerEn && c.llegadaSucursalEn) {
-                        transitoMs = new Date(c.llegadaSucursalEn).getTime() - new Date(c.salidaTallerEn).getTime();
-                    }
-                    var statusColor = c.confirmadoEnSucursal ? '#16a34a' : '#ff9900';
-                    var statusIcon = c.confirmadoEnSucursal ? '✅' : '🚚';
-                    var salidaStr = c.salidaTallerEn ? new Date(c.salidaTallerEn).toLocaleString('es-MX', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
-                    var llegadaStr = c.llegadaSucursalEn ? new Date(c.llegadaSucursalEn).toLocaleString('es-MX', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
-
-                    html += '<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:8px;margin-bottom:6px;font-size:0.6rem;">'+
-                        '<div style="display:flex;justify-content:space-between;align-items:center;">'+
-                            '<strong style="color:#ff9900;">'+esc(c.loteId||c.id)+'</strong>'+
-                            '<span style="color:'+statusColor+';font-weight:700;">'+statusIcon+'</span>'+
-                        '</div>'+
-                        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 8px;margin-top:4px;color:#6b7280;">'+
-                            '<span>🏭 Salida: '+salidaStr+'</span>'+
-                            '<span>🏪 Llegada: '+llegadaStr+'</span>'+
-                            '<span style="grid-column:1/-1;font-weight:700;color:#374151;">⏱️ Tiempo: '+formatDuracion(transitoMs > 0 ? transitoMs : 0)+'</span>'+
-                        '</div>'+
-                    '</div>';
-                });
-                html += '</div>';
-
-                html += '<div style="text-align:right;margin-top:14px;"><button id="cerrarEstadisticasTransito" style="padding:8px 16px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;font-size:0.75rem;">Cerrar</button></div>';
-
-                card.innerHTML = html;
-                overlay.appendChild(card);
-                document.body.appendChild(overlay);
-
-                document.getElementById('cerrarEstadisticasTransito').addEventListener('click', function() { overlay.remove(); });
-            }).catch(function(err) { alert('Error cargando estadísticas: ' + err.message); });
-        });
-    }
-
     // === SISTEMA DE PENALIZACIONES ===
     window.registrarPenalizacion = function(modulo, descripcion) {
         var db = getAlmpDB(); if (!db) return;
@@ -27216,16 +27566,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var buscador = document.getElementById('recepcionBuscador');
     var scanInput = document.getElementById('recepcionManualInput');
     var scanResult = document.getElementById('recepcionScanResult');
-    var btnScan = document.getElementById('recepcionBtnScan');
-    var btnStopScan = document.getElementById('recepcionBtnStopScan');
-    var scanStatus = document.getElementById('recepcionScanStatus');
     var contEsperados = document.getElementById('recepcionContEsperados');
     var contEscaneados = document.getElementById('recepcionContEscaneados');
     var contFaltantes = document.getElementById('recepcionContFaltantes');
 
     var recepcionOrders = []; // All stored_orders with estado=en_transito_sucursal or recibido_sucursal
     var recepcionTab = 'pendientes';
-    var qrInstance = null;
     var checkpointsConfirmados = {}; // loteId -> { confirmadoEnSucursal: bool, ... }
 
     function getRecDB() { return window.firebase ? window.firebase.firestore() : null; }
@@ -27236,7 +27582,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     function closeRecepcionPanel() {
         panel.style.display = 'none';
-        detenerScanRecepcion();
+        var popupScanner = document.getElementById('popupScannerRecepcion');
+        if (popupScanner) popupScanner.remove();
     }
     window.openRecepcionSucursalGlobal = openRecepcionPanel;
     window.closeRecepcionSucursalGlobal = closeRecepcionPanel;
@@ -27331,15 +27678,22 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isRecibido && !loteConfirmado) {
                 bloqueoBanner = '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:6px;padding:5px 8px;margin-top:4px;font-size:0.52rem;color:#dc2626;font-weight:600;">🚫 No se puede escanear — el repartidor no ha confirmado llegada</div>';
             }
+            // Photo verification thumbnail
+            var fotoHtml = '';
+            if (o.disenoUrl) {
+                fotoHtml = '<div style="margin-top:6px;"><img src="'+esc(o.disenoUrl)+'" alt="Diseño" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid #e5e7eb;cursor:pointer;" onclick="window._recVerFoto(\''+esc(o.disenoUrl)+'\',\''+esc(o.folioProduccion||o.id)+'\')"></div>';
+            }
             var acciones = '';
             if (o.estado === 'recibido_sucursal') {
-                acciones = '<div style="display:flex;gap:6px;margin-top:6px;">'+
+                acciones = '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">'+
+                    '<button class="prod-btn-action" data-rec-action="notificar-cliente" data-id="'+esc(o.id)+'" style="background:#ecfdf5;border-color:#a7f3d0;color:#065f46;">📱 Avisar al Cliente</button>'+
                     '<button class="prod-btn-action" data-rec-action="espera-local" data-id="'+esc(o.id)+'" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;">🏪 Espera en Local</button>'+
                     '<button class="prod-btn-action entrega" data-rec-action="enviar-reparto" data-id="'+esc(o.id)+'" style="background:#eff6ff;border-color:#bfdbfe;color:#1e40af;">🚚 Enviar a Reparto</button>'+
                 '</div>';
             } else if (o.estado === 'en_sucursal') {
                 var destino = o.destinoSucursal === 'reparto' ? '🚚 Para reparto' : '🏪 Espera cliente';
-                acciones = '<div style="margin-top:6px;font-size:0.55rem;color:#6b7280;font-weight:600;">Destino: '+destino+'</div>';
+                var notifBtn = '<button class="prod-btn-action" data-rec-action="notificar-cliente" data-id="'+esc(o.id)+'" style="background:#ecfdf5;border-color:#a7f3d0;color:#065f46;margin-top:6px;">📱 Avisar al Cliente</button>';
+                acciones = '<div style="margin-top:6px;"><div style="font-size:0.55rem;color:#6b7280;font-weight:600;">Destino: '+destino+'</div>'+notifBtn+'</div>';
             }
             return '<div class="recepcion-card'+(isRecibido?' escaneado':'')+'" data-id="'+esc(o.id)+'">'+
                 '<div style="display:flex;justify-content:space-between;align-items:center;">'+
@@ -27353,6 +27707,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   '<span><strong style="color:#374151;">Cantidad:</strong> '+esc(o.cantidad||'—')+'</span>'+
                   '<span><strong style="color:#374151;">Lote:</strong> '+esc(o.loteEnvio||'—')+'</span>'+
                 '</div>'+
+                fotoHtml+
                 bloqueoBanner+
                 acciones+
             '</div>';
@@ -27365,115 +27720,215 @@ document.addEventListener('DOMContentLoaded', function() {
                 var docId = btn.dataset.id;
                 if (action === 'espera-local') marcarDestinoSucursal(docId, 'local');
                 if (action === 'enviar-reparto') marcarDestinoSucursal(docId, 'reparto');
+                if (action === 'notificar-cliente') notificarClientePedidoListo(docId);
             });
         });
     }
 
-    // ── Scanner con cámara ──
-    function iniciarScanRecepcion() {
-        if (!window.Html5Qrcode) { alert('Escáner QR no disponible. Recarga la página.'); return; }
-        var readerEl = document.getElementById('recepcionQrReader');
-        readerEl.style.display = 'block';
-        btnScan.style.display = 'none';
-        btnStopScan.style.display = '';
-        scanStatus.textContent = 'Escaneando...';
-        scanStatus.style.color = '#ff9900';
-        qrInstance = new Html5Qrcode('recepcionQrReader');
-        qrInstance.start(
-            { facingMode: 'environment' },
-            { fps: 10, qrbox: { width: 250, height: 250 } },
-            function(texto) {
-                procesarScanRecepcion(texto);
-                detenerScanRecepcion();
-            },
-            function() { /* frame */ }
-        ).catch(function(err) {
-            scanStatus.textContent = 'Error cámara: ' + err;
-            scanStatus.style.color = '#dc2626';
-            btnScan.style.display = '';
-            btnStopScan.style.display = 'none';
-        });
-    }
+    // ── Ver foto ampliada ──
+    window._recVerFoto = function(url, folio) {
+        var overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;';
+        overlay.innerHTML = '<div style="color:#fff;font-size:0.8rem;font-weight:700;margin-bottom:10px;">Diseño — Folio: '+folio+'</div>'+
+            '<img src="'+url+'" style="max-width:90%;max-height:80vh;border-radius:10px;box-shadow:0 4px 30px rgba(0,0,0,0.5);">'+
+            '<div style="color:#9ca3af;font-size:0.65rem;margin-top:10px;">Toca para cerrar</div>';
+        overlay.addEventListener('click', function() { document.body.removeChild(overlay); });
+        document.body.appendChild(overlay);
+    };
 
-    function detenerScanRecepcion() {
-        if (qrInstance) {
-            qrInstance.stop().then(function() { qrInstance.clear(); }).catch(function(){});
-            qrInstance = null;
+    // ── Notificar al cliente que su pedido está listo ──
+    function notificarClientePedidoListo(docId) {
+        var orden = recepcionOrders.find(function(o) { return o.id === docId; });
+        if (!orden) return;
+        var folio = orden.folioProduccion || orden.id;
+        var telefono = (orden.telefono || '').replace(/\D/g, '');
+        var cliente = orden.cliente || 'Cliente';
+        var mensaje = '¡Hola ' + cliente + '! 👋\n\nTu pedido con folio *' + folio + '* está listo y disponible en la sucursal.\n\n¿Te gustaría que te lo enviemos a domicilio 🚚 o prefieres recogerlo en la sucursal 🏪?\n\nQuedamos al pendiente. ¡Gracias!';
+        var msgEncoded = encodeURIComponent(mensaje);
+        if (telefono) {
+            window.open('https://wa.me/' + telefono + '?text=' + msgEncoded, '_blank');
+        } else {
+            // Show popup to enter phone number
+            var phoneInput = prompt('No hay teléfono registrado para ' + cliente + '.\n\nIngresa el número de WhatsApp (con lada, ej: 524491234567):');
+            if (phoneInput) {
+                var cleanPhone = phoneInput.replace(/\D/g, '');
+                if (cleanPhone) {
+                    window.open('https://wa.me/' + cleanPhone + '?text=' + msgEncoded, '_blank');
+                }
+            }
         }
-        var readerEl = document.getElementById('recepcionQrReader');
-        if (readerEl) readerEl.style.display = 'none';
-        if (btnScan) btnScan.style.display = '';
-        if (btnStopScan) btnStopScan.style.display = 'none';
-        if (scanStatus) { scanStatus.textContent = 'Listo para escanear'; scanStatus.style.color = '#9ca3af'; }
     }
 
-    if (btnScan) btnScan.addEventListener('click', iniciarScanRecepcion);
-    if (btnStopScan) btnStopScan.addEventListener('click', detenerScanRecepcion);
+    // ── Scanner popup continuo (Recepción Sucursal) ──
+    function abrirPopupScannerRecepcion() {
+        var existing = document.getElementById('popupScannerRecepcion');
+        if (existing) existing.remove();
+        var escaneadosEnSesion = [];
+        var overlay = document.createElement('div');
+        overlay.id = 'popupScannerRecepcion';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:center;';
+        overlay.innerHTML = '<div style="background:#fff;border-radius:14px;padding:22px;width:min(96vw,480px);max-height:90vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.3);">'+
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">'+
+                '<h3 style="margin:0;font-size:1rem;color:#1f2937;">📷 Escáner de Recepción</h3>'+
+                '<button id="recPopupCerrar" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#6b7280;">✕</button>'+
+            '</div>'+
+            '<div id="recPopupQrReader" style="width:100%;max-width:320px;margin:0 auto 8px;border-radius:8px;overflow:hidden;"></div>'+
+            '<div id="recPopupStatus" style="font-size:0.72rem;color:#ff9900;font-weight:700;text-align:center;margin-bottom:8px;">Iniciando cámara...</div>'+
+            '<div style="display:flex;gap:6px;margin-bottom:10px;">'+
+                '<input type="text" id="recPopupManualInput" placeholder="Código manual..." style="flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:8px 10px;font-size:0.72rem;">'+
+                '<button id="recPopupBtnManual" style="padding:8px 14px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.72rem;">→</button>'+
+            '</div>'+
+            '<div id="recPopupPendingItem" style="margin-bottom:10px;"></div>'+
+            '<div style="font-size:0.68rem;font-weight:700;color:#374151;margin-bottom:4px;">Escaneados en esta sesión: <span id="recPopupContador">0</span></div>'+
+            '<div id="recPopupListaEscaneados" style="max-height:180px;overflow-y:auto;border:1px solid #e5e7eb;border-radius:8px;"></div>'+
+        '</div>';
+        document.body.appendChild(overlay);
 
-    // ── Verificar código manual ──
-    var btnVerificar = document.getElementById('recepcionBtnVerificar');
-    if (btnVerificar) btnVerificar.addEventListener('click', function() {
-        var code = scanInput.value.trim(); if (!code) return;
-        procesarScanRecepcion(code);
-        scanInput.value = '';
-    });
-    if (scanInput) scanInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') { var code = scanInput.value.trim(); if (!code) return; procesarScanRecepcion(code); scanInput.value = ''; }
-    });
+        var qrInst = null;
+        var statusEl = document.getElementById('recPopupStatus');
+        var pendingEl = document.getElementById('recPopupPendingItem');
+        var listaEscEl = document.getElementById('recPopupListaEscaneados');
+        var contadorEl = document.getElementById('recPopupContador');
+        var scanLocked = false;
 
-    function procesarScanRecepcion(codigo) {
-        var match = recepcionOrders.find(function(o) {
-            return o.codigoBarras === codigo && o.estado === 'en_transito_sucursal';
-        });
-        if (match) {
-            // Check if delivery person has confirmed arrival at sucursal
+        function actualizarListaEscaneados() {
+            contadorEl.textContent = String(escaneadosEnSesion.length);
+            if (!escaneadosEnSesion.length) { listaEscEl.innerHTML = '<div style="padding:10px;text-align:center;color:#9ca3af;font-size:0.65rem;">Sin escaneos aún</div>'; return; }
+            listaEscEl.innerHTML = escaneadosEnSesion.map(function(e) {
+                var icon = e.aceptado ? '✅' : '❌';
+                var bgColor = e.aceptado ? '#f0fdf4' : '#fef2f2';
+                return '<div style="padding:6px 10px;border-bottom:1px solid #f3f4f6;background:'+bgColor+';display:flex;justify-content:space-between;align-items:center;font-size:0.65rem;">'+
+                    '<span>'+icon+' '+esc(e.folio)+'</span>'+
+                    '<span style="color:#6b7280;">'+esc(e.cliente||'')+'</span>'+
+                '</div>';
+            }).join('');
+        }
+        actualizarListaEscaneados();
+
+        function procesarScanPopup(codigo) {
+            if (scanLocked) return;
+            var match = recepcionOrders.find(function(o) {
+                return o.codigoBarras === codigo && o.estado === 'en_transito_sucursal';
+            });
+            if (!match) {
+                var yaRecibido = recepcionOrders.find(function(o) {
+                    return o.codigoBarras === codigo && (o.estado === 'recibido_sucursal' || o.estado === 'en_sucursal');
+                });
+                if (yaRecibido) {
+                    statusEl.textContent = '⚠️ Ya recibido: ' + (yaRecibido.folioProduccion||'');
+                    statusEl.style.color = '#92400e';
+                } else {
+                    statusEl.textContent = '❌ Código no reconocido';
+                    statusEl.style.color = '#dc2626';
+                }
+                setTimeout(function() { statusEl.textContent = 'Listo para escanear'; statusEl.style.color = '#ff9900'; }, 2500);
+                return;
+            }
+            // Check checkpoint
             var loteId = match.loteEnvio;
             if (loteId) {
                 var chk = checkpointsConfirmados[loteId];
                 if (!chk || !chk.confirmadoEnSucursal) {
-                    scanResult.innerHTML = '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px;font-size:0.7rem;color:#dc2626;">'+
-                        '🚫 <strong>No puedes recibir este pedido aún.</strong><br>'+
-                        'El repartidor no ha confirmado su llegada a la sucursal.<br>'+
-                        '<span style="font-size:0.6rem;color:#9ca3af;">Lote: '+esc(loteId)+' — Pedido: '+esc(match.folioProduccion||'')+'</span></div>';
-                    setTimeout(function() { scanResult.innerHTML = ''; }, 6000);
+                    statusEl.textContent = '🚫 Repartidor no ha confirmado llegada';
+                    statusEl.style.color = '#dc2626';
+                    setTimeout(function() { statusEl.textContent = 'Listo para escanear'; statusEl.style.color = '#ff9900'; }, 3000);
                     return;
                 }
             }
-            confirmarRecepcion(match, codigo);
-        } else {
-            // Check if already received
-            var yaRecibido = recepcionOrders.find(function(o) {
-                return o.codigoBarras === codigo && (o.estado === 'recibido_sucursal' || o.estado === 'en_sucursal');
-            });
-            if (yaRecibido) {
-                scanResult.innerHTML = '<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px;font-size:0.7rem;color:#92400e;">⚠️ Este pedido ya fue recibido: <strong>'+esc(yaRecibido.folioProduccion||'')+'</strong></div>';
-            } else {
-                scanResult.innerHTML = '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px;font-size:0.7rem;color:#dc2626;">❌ Código no reconocido. No coincide con ningún pedido en tránsito.</div>';
-                if (typeof window.registrarPenalizacion === 'function') {
-                    window.registrarPenalizacion('recepcion_sucursal', 'Código escaneado no coincide: ' + codigo);
+            // Show pending item with accept/reject
+            scanLocked = true;
+            statusEl.textContent = '📦 Pedido encontrado — Verifica y acepta o rechaza';
+            statusEl.style.color = '#92400e';
+            var fotoHtml = match.disenoUrl ? '<img src="'+esc(match.disenoUrl)+'" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:2px solid #ff9900;margin-right:10px;">' : '';
+            pendingEl.innerHTML = '<div style="background:#fffbeb;border:2px solid #fde68a;border-radius:10px;padding:12px;display:flex;align-items:center;">'+
+                fotoHtml+
+                '<div style="flex:1;font-size:0.68rem;">'+
+                    '<div style="font-weight:800;color:#92400e;">'+esc(match.folioProduccion||match.id)+'</div>'+
+                    '<div style="color:#6b7280;">'+esc(match.cliente||'—')+' — '+esc(match.producto||'—')+'</div>'+
+                '</div>'+
+                '<div style="display:flex;gap:6px;">'+
+                    '<button id="_recPopupAceptar" style="width:44px;height:44px;background:#16a34a;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:1.2rem;font-weight:800;">✓</button>'+
+                    '<button id="_recPopupRechazar" style="width:44px;height:44px;background:#dc2626;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:1.2rem;font-weight:800;">✕</button>'+
+                '</div>'+
+            '</div>';
+            document.getElementById('_recPopupAceptar').addEventListener('click', async function() {
+                pendingEl.innerHTML = '';
+                scanLocked = false;
+                var db = getRecDB(); if (!db) return;
+                try {
+                    await db.collection('stored_orders').doc(match.id).update({
+                        estado: 'recibido_sucursal',
+                        recibidoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
+                        recibidoPor: 'vendedor',
+                        actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    match.estado = 'recibido_sucursal';
+                    escaneadosEnSesion.unshift({ folio: match.folioProduccion||match.id, cliente: match.cliente||'', aceptado: true });
+                    actualizarListaEscaneados();
+                    updateContadores();
+                    renderRecepcion();
+                    statusEl.textContent = '✅ Recibido — Listo para el siguiente';
+                    statusEl.style.color = '#16a34a';
+                    setTimeout(function() { statusEl.textContent = 'Listo para escanear'; statusEl.style.color = '#ff9900'; }, 1500);
+                } catch(err) {
+                    statusEl.textContent = 'Error: ' + err.message;
+                    statusEl.style.color = '#dc2626';
                 }
-            }
+            });
+            document.getElementById('_recPopupRechazar').addEventListener('click', function() {
+                pendingEl.innerHTML = '';
+                scanLocked = false;
+                escaneadosEnSesion.unshift({ folio: match.folioProduccion||match.id, cliente: match.cliente||'', aceptado: false });
+                actualizarListaEscaneados();
+                statusEl.textContent = '❌ Rechazado — Listo para el siguiente';
+                statusEl.style.color = '#dc2626';
+                setTimeout(function() { statusEl.textContent = 'Listo para escanear'; statusEl.style.color = '#ff9900'; }, 1500);
+            });
         }
-        setTimeout(function() { scanResult.innerHTML = ''; }, 5000);
+
+        // Start camera (continuous - does NOT stop after scan)
+        if (window.Html5Qrcode) {
+            qrInst = new Html5Qrcode('recPopupQrReader');
+            var lastScanTime = 0;
+            qrInst.start({ facingMode: 'environment' }, { fps: 10, qrbox: { width: 250, height: 250 } },
+                function(texto) {
+                    var now = Date.now();
+                    if (now - lastScanTime < 2000) return; // debounce 2s
+                    lastScanTime = now;
+                    procesarScanPopup(texto.trim());
+                },
+                function() {}
+            ).then(function() {
+                statusEl.textContent = 'Listo para escanear';
+                statusEl.style.color = '#ff9900';
+            }).catch(function(err) {
+                statusEl.textContent = 'Error cámara: ' + err;
+                statusEl.style.color = '#dc2626';
+            });
+        } else {
+            statusEl.textContent = 'Cámara no disponible. Usa entrada manual.';
+            statusEl.style.color = '#dc2626';
+        }
+
+        // Manual input
+        document.getElementById('recPopupBtnManual').addEventListener('click', function() {
+            var code = document.getElementById('recPopupManualInput').value.trim();
+            if (code) { procesarScanPopup(code); document.getElementById('recPopupManualInput').value = ''; }
+        });
+        document.getElementById('recPopupManualInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { var code = this.value.trim(); if (code) { procesarScanPopup(code); this.value = ''; } }
+        });
+
+        // Close
+        function cerrarPopup() {
+            if (qrInst) { qrInst.stop().then(function(){ qrInst.clear(); }).catch(function(){}); }
+            overlay.remove();
+        }
+        document.getElementById('recPopupCerrar').addEventListener('click', cerrarPopup);
     }
 
-    async function confirmarRecepcion(orden, codigo) {
-        var db = getRecDB(); if (!db) return;
-        try {
-            await db.collection('stored_orders').doc(orden.id).update({
-                estado: 'recibido_sucursal',
-                recibidoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
-                recibidoPor: 'vendedor',
-                actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-            });
-            orden.estado = 'recibido_sucursal';
-            scanResult.innerHTML = '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px;font-size:0.7rem;color:#166534;">✅ <strong>Recibido:</strong> '+esc(orden.folioProduccion||'')+' — '+esc(orden.producto||'')+' — '+esc(orden.cliente||'')+'</div>';
-            updateContadores();
-            renderRecepcion();
-        } catch(err) {
-            scanResult.innerHTML = '<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px;font-size:0.7rem;color:#dc2626;">Error: '+esc(err.message)+'</div>';
-        }
-    }
+    var btnAbrirScanner = document.getElementById('recepcionBtnAbrirScanner');
+    if (btnAbrirScanner) btnAbrirScanner.addEventListener('click', abrirPopupScannerRecepcion);
 
     async function marcarDestinoSucursal(docId, destino) {
         var db = getRecDB(); if (!db) return;
@@ -27531,19 +27986,19 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="entrega-container">
     <div class="entrega-header">
             <button id="entregaBack" class="entrega-back" type="button" title="Volver al menú principal" aria-label="Volver al menú principal">←</button>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.6rem;line-height:1;">🚚</span>
-        <div>
-          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">MÓDULO DE ENTREGAS</div>
-          <div style="font-size:0.6rem;color:#66bb6a;">Gestión y seguimiento de entregas a clientes</div>
-        </div>
-      </div>
+      <h2 style="margin:0;font-size:0.84rem;letter-spacing:0.25px;font-weight:900;text-transform:uppercase;color:#1f2937;">MÓDULO DE ENTREGAS</h2>
+      <span style="margin-left:auto;font-size:0.62rem;color:#64748b;font-weight:600;">Gestión y seguimiento de entregas a clientes</span>
     </div>
+
+    <!-- Scan button below header -->
+    <div style="padding:4px 8px 0;">
+      <button id="entBtnAbrirPopupEtiqueta" type="button" style="width:100%;padding:10px 0;background:#ff9900;color:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:800;font-size:0.78rem;">📷 Escanear Etiqueta</button>
+    </div>
+
     <div class="entrega-body">
 
-      <!-- LEFT: Summary panel — datos llegan de Almacén de Pedidos automáticamente -->
+      <!-- LEFT: Resumen + mapa chico -->
       <div class="entrega-left">
-
         <div class="entrega-section-title">📊 RESUMEN DE ENTREGAS</div>
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px;">
@@ -27560,26 +28015,18 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         </div>
 
-        <div class="entrega-section-title" style="margin-top:10px;">📷 ESCÁNER QR (opcional)</div>
-        <div class="qr-scanner-box">
-          <div class="qr-scanner-controls">
-            <button id="entBtnEscanear" class="qr-btn">📷 Escanear</button>
-            <button id="entBtnDetenerQR" class="qr-btn stop" style="display:none">⏹ Detener</button>
-            <span id="entQrStatus" class="qr-status">Listo</span>
+        <!-- Mapa chico cuadrado -->
+        <div style="margin-top:10px;">
+          <div class="entrega-section-title" style="margin:0 0 6px;">🗺 MAPA DE ENTREGAS</div>
+          <div id="entMapWrapper" style="width:100%;height:0;padding-bottom:100%;position:relative;border-radius:10px;overflow:hidden;border:2px solid #e5e7eb;cursor:pointer;" title="Toca para ver en pantalla completa">
+            <div id="entregaMapContainer" style="position:absolute;inset:0;"></div>
           </div>
-          <div id="entQrReader" style="width:100%;display:none;"></div>
-          <div id="entQrResult" class="qr-result"></div>
+          <div class="entrega-map-tip" style="margin-top:4px;font-size:0.55rem;">📍 Toca el mapa para verlo en pantalla completa</div>
         </div>
       </div>
 
-      <!-- RIGHT: Map + list -->
+      <!-- RIGHT: Tabs + lista de órdenes -->
       <div class="entrega-right">
-        <div class="entrega-section-title">🗺 MAPA GENERAL DE ENTREGAS</div>
-        <div id="entregaMapContainer"></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;">
-          <div class="entrega-map-tip" style="margin:0;">📍 Pines de todos los clientes activos — ordenados por distancia desde sucursal</div>
-        </div>
-
         <div class="entrega-tabs" id="entTabs">
           <button class="entrega-tab active" data-status="pendiente">📬 Pendientes</button>
           <button class="entrega-tab" data-status="en_camino">🚚 En Camino</button>
@@ -27590,7 +28037,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <input type="text" id="entBuscador" placeholder="🔍 Buscar por folio, cliente o dirección...">
           <button id="btnRecargarEntregas" title="Recargar">🔄</button>
         </div>
-        <div id="entregaList" class="entrega-list">
+        <div id="entregaList" class="entrega-list" style="flex:1;overflow-y:auto;">
           <div class="entrega-loading">Selecciona una pestaña para ver las entregas.</div>
         </div>
       </div>
@@ -27702,39 +28149,44 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // QR Scanner
+    // QR Scanner (legacy - inline elements removed, now uses popup scanner)
     function iniciarEscanerQR() {
         if (!window.Html5Qrcode) { alert('Escáner QR no disponible.'); return; }
-        document.getElementById('entQrReader').style.display = 'block';
-        document.getElementById('entBtnEscanear').style.display = 'none';
-        document.getElementById('entBtnDetenerQR').style.display = 'inline-block';
-        document.getElementById('entQrStatus').textContent = 'Buscando cámara...';
+        var readerEl = document.getElementById('entQrReader');
+        if (!readerEl) return;
+        readerEl.style.display = 'block';
+        var btnEsc = document.getElementById('entBtnEscanear'); if (btnEsc) btnEsc.style.display = 'none';
+        var btnDet = document.getElementById('entBtnDetenerQR'); if (btnDet) btnDet.style.display = 'inline-block';
+        var qrSt = document.getElementById('entQrStatus'); if (qrSt) qrSt.textContent = 'Buscando cámara...';
         qrScannerInstance = new Html5Qrcode('entQrReader');
         qrScannerInstance.start(
             { facingMode: 'environment' },
             { fps: 10, qrbox: { width: 250, height: 250 } },
             function(texto) {
-                document.getElementById('entQrResult').style.display = 'block';
-                document.getElementById('entQrResult').textContent = '✅ Leído: ' + texto;
-                document.getElementById('entQrStatus').textContent = 'Código detectado';
+                var resEl = document.getElementById('entQrResult');
+                if (resEl) { resEl.style.display = 'block'; resEl.textContent = '✅ Leído: ' + texto; }
+                var stEl = document.getElementById('entQrStatus');
+                if (stEl) stEl.textContent = 'Código detectado';
                 aplicarDatosQR(parsearPayloadQR(texto));
                 detenerEscanerQR();
             },
             function() { /* scanning frame */ }
         ).then(function() {
-            document.getElementById('entQrStatus').textContent = 'Escaneando... apunta al código';
+            var stEl = document.getElementById('entQrStatus');
+            if (stEl) stEl.textContent = 'Escaneando... apunta al código';
         }).catch(function(err) {
-            document.getElementById('entQrStatus').textContent = 'Error cámara: ' + String(err).slice(0,60);
+            var stEl = document.getElementById('entQrStatus');
+            if (stEl) stEl.textContent = 'Error cámara: ' + String(err).slice(0,60);
             detenerEscanerQR();
         });
     }
 
     function detenerEscanerQR() {
         if (qrScannerInstance) { qrScannerInstance.stop().catch(function(){}); qrScannerInstance = null; }
-        document.getElementById('entQrReader').style.display = 'none';
-        document.getElementById('entBtnEscanear').style.display = 'inline-block';
-        document.getElementById('entBtnDetenerQR').style.display = 'none';
-        document.getElementById('entQrStatus').textContent = 'Listo para escanear';
+        var readerEl = document.getElementById('entQrReader'); if (readerEl) readerEl.style.display = 'none';
+        var btnEsc = document.getElementById('entBtnEscanear'); if (btnEsc) btnEsc.style.display = 'inline-block';
+        var btnDet = document.getElementById('entBtnDetenerQR'); if (btnDet) btnDet.style.display = 'none';
+        var qrSt = document.getElementById('entQrStatus'); if (qrSt) qrSt.textContent = 'Listo para escanear';
     }
 
     // Leaflet map
@@ -27986,8 +28438,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   '<button class="entrega-btn nav" data-action="navegar" data-id="'+escEnt(e.id)+'" data-url="'+escEnt(mapsUrl)+'">🗺 Navegar</button>' +
                   (whatsappUrl?'<button class="entrega-btn" data-action="whatsapp" data-id="'+escEnt(e.id)+'" data-url="'+escEnt(whatsappUrl)+'" style="background:rgba(37,211,102,0.15);border-color:rgba(37,211,102,0.3);color:#25d366;">💬 WhatsApp</button>':'')+
                   (telUrl?'<button class="entrega-btn" data-action="llamar" data-id="'+escEnt(e.id)+'" data-url="'+escEnt(telUrl)+'" style="background:rgba(66,165,245,0.12);border-color:rgba(66,165,245,0.3);color:#42a5f5;">📞 Llamar</button>':'')+
-                  '<button class="entrega-btn" data-action="etiqueta-ent" data-id="'+escEnt(e.id)+'" style="background:rgba(255,153,0,0.12);border-color:rgba(255,153,0,0.3);color:#ffb300;">🏷 Etiqueta</button>' +
-                  '<button class="entrega-btn del" data-action="eliminar" data-id="'+escEnt(e.id)+'">🗑</button>' +
+
                 '</div></div>';
         }).join('');
 
@@ -28050,11 +28501,10 @@ document.addEventListener('DOMContentLoaded', function() {
             '</div>'+
             mapImg+
             imgSection+
-            '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">'+
+            '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px;">'+
               (telUrl ? '<a href="'+escEnt(telUrl)+'" style="text-align:center;background:#42a5f5;color:#fff;text-decoration:none;padding:10px;border-radius:8px;font-weight:700;font-size:0.72rem;">📞 Llamar</a>' : '<span></span>') +
               (whatsappUrl ? '<a href="'+escEnt(whatsappUrl)+'" target="_blank" style="text-align:center;background:#25d366;color:#fff;text-decoration:none;padding:10px;border-radius:8px;font-weight:700;font-size:0.72rem;">💬 WhatsApp</a>' : '<span></span>') +
               '<a href="'+escEnt(mapsUrl)+'" target="_blank" style="text-align:center;background:#ff9900;color:#fff;text-decoration:none;padding:10px;border-radius:8px;font-weight:700;font-size:0.72rem;">🗺 Ver en Maps</a>'+
-              '<button id="btnImprimirEtiquetaEnt" style="background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;font-weight:700;font-size:0.72rem;cursor:pointer;padding:10px;">🖨 Imprimir</button>'+
             '</div>'+
         '</div>';
         document.body.appendChild(popup);
@@ -28074,22 +28524,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100);
         }
 
-        // Print button
-        popup.querySelector('#btnImprimirEtiquetaEnt').addEventListener('click', function() {
-            var w = window.open('','_blank','width=520,height=600');
-            w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Entrega '+escEnt(e.folioProduccion||'')+'</title>'+
-                '<style>body{font-family:Segoe UI,sans-serif;padding:14px;} .lbl{width:380px;border:2px solid #ff9900;padding:16px;margin:0 auto;border-radius:10px;}'+
-                '.title{font-size:15px;font-weight:800;color:#ff9900;margin-bottom:10px;} .r{font-size:12px;line-height:1.6;}</style></head><body>'+
-                '<div class="lbl"><div class="title">🚚 ETIQUETA DE ENTREGA</div>'+
-                '<div class="r"><strong>Folio:</strong> '+escEnt(e.folioProduccion||'—')+'</div>'+
-                '<div class="r"><strong>Cliente:</strong> '+escEnt(e.cliente||'—')+'</div>'+
-                '<div class="r"><strong>Teléfono:</strong> '+escEnt(e.telefono||'—')+'</div>'+
-                '<div class="r"><strong>Dirección:</strong> '+escEnt(e.direccion||'—')+'</div>'+
-                '<div class="r"><strong>Producto:</strong> '+escEnt(e.producto||'—')+' x'+escEnt(e.cantidad||'')+'</div>'+
-                '<div class="r"><strong>Entrega:</strong> '+escEnt(e.fechaEntrega||'—')+'</div>'+
-                '</div><scr'+'ipt>window.onload=function(){window.print();}<\/scr'+'ipt></body></html>');
-            w.document.close();
-        });
     }
 
     function cargarEntregaEnForm(e) {
@@ -28262,8 +28696,107 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('entBuscador').addEventListener('input', function(){ renderEntregas(); });
     document.getElementById('btnRecargarEntregas').addEventListener('click', cargarEntregas);
-    document.getElementById('entBtnEscanear').addEventListener('click', iniciarEscanerQR);
-    document.getElementById('entBtnDetenerQR').addEventListener('click', detenerEscanerQR);
+
+    // ── Etiqueta popup con cámara ──
+    (function() {
+        var btnAbrir = document.getElementById('entBtnAbrirPopupEtiqueta');
+        if (!btnAbrir) return;
+
+        btnAbrir.addEventListener('click', function() {
+            var existing = document.getElementById('popupEtiquetaScan');
+            if (existing) existing.remove();
+            var overlay = document.createElement('div');
+            overlay.id = 'popupEtiquetaScan';
+            overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:center;';
+            overlay.innerHTML = '<div style="background:#fff;border-radius:14px;padding:24px;width:min(94vw,440px);max-height:85vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,0.3);">'+
+                '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">'+
+                    '<h3 style="margin:0;font-size:1rem;color:#1f2937;">🏷 Escanear Etiqueta de Entrega</h3>'+
+                    '<button id="etqPopupCerrar" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:#6b7280;">✕</button>'+
+                '</div>'+
+                '<div id="etqPopupQrReader" style="width:100%;max-width:320px;margin:0 auto 10px;border-radius:8px;overflow:hidden;"></div>'+
+                '<div id="etqPopupStatus" style="font-size:0.72rem;color:#ff9900;font-weight:700;text-align:center;margin-bottom:10px;">Iniciando cámara...</div>'+
+                '<div style="display:flex;gap:6px;margin-bottom:10px;">'+
+                    '<input type="text" id="etqPopupManualInput" placeholder="Código de barras o folio..." style="flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:8px 10px;font-size:0.72rem;">'+
+                    '<button id="etqPopupBtnManual" style="padding:8px 14px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.72rem;">→</button>'+
+                '</div>'+
+            '</div>';
+            document.body.appendChild(overlay);
+
+            var qrInst = null;
+            var statusEl = document.getElementById('etqPopupStatus');
+
+            function buscarYMostrarEtiqueta(codigo) {
+                var entrega = allEntregas.find(function(e) {
+                    return e.folioProduccion === codigo || e.codigoBarras === codigo || e.id === codigo;
+                });
+                if (entrega) {
+                    cerrarPopup();
+                    mostrarEtiquetaEntrega(entrega);
+                } else {
+                    statusEl.textContent = '❌ No se encontró entrega con código: ' + codigo;
+                    statusEl.style.color = '#dc2626';
+                    setTimeout(function() { statusEl.textContent = 'Listo para escanear'; statusEl.style.color = '#ff9900'; }, 2500);
+                }
+            }
+
+            function cerrarPopup() {
+                if (qrInst) { qrInst.stop().then(function(){ qrInst.clear(); }).catch(function(){}); }
+                overlay.remove();
+            }
+
+            // Start camera
+            if (window.Html5Qrcode) {
+                qrInst = new Html5Qrcode('etqPopupQrReader');
+                qrInst.start({ facingMode: 'environment' }, { fps: 10, qrbox: { width: 250, height: 250 } },
+                    function(texto) { buscarYMostrarEtiqueta(texto.trim()); },
+                    function() {}
+                ).then(function() {
+                    statusEl.textContent = 'Listo para escanear';
+                    statusEl.style.color = '#ff9900';
+                }).catch(function(err) {
+                    statusEl.textContent = 'Error cámara: ' + err;
+                    statusEl.style.color = '#dc2626';
+                });
+            } else {
+                statusEl.textContent = 'Cámara no disponible. Usa entrada manual.';
+                statusEl.style.color = '#dc2626';
+            }
+
+            document.getElementById('etqPopupCerrar').addEventListener('click', cerrarPopup);
+            document.getElementById('etqPopupBtnManual').addEventListener('click', function() {
+                var code = document.getElementById('etqPopupManualInput').value.trim();
+                if (code) { buscarYMostrarEtiqueta(code); document.getElementById('etqPopupManualInput').value = ''; }
+            });
+            document.getElementById('etqPopupManualInput').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') { var code = this.value.trim(); if (code) { buscarYMostrarEtiqueta(code); this.value = ''; } }
+            });
+        });
+    })();
+
+    // ── Mapa fullscreen al tocar ──
+    (function() {
+        var mapWrapper = document.getElementById('entMapWrapper');
+        if (!mapWrapper) return;
+        mapWrapper.addEventListener('click', function() {
+            var existing = document.getElementById('entMapFullscreen');
+            if (existing) { existing.remove(); return; }
+            var overlay = document.createElement('div');
+            overlay.id = 'entMapFullscreen';
+            overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.8);display:flex;flex-direction:column;';
+            overlay.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:#1f2937;">'+
+                '<span style="font-size:0.85rem;font-weight:800;color:#fff;">🗺 Mapa de Entregas</span>'+
+                '<button id="entMapFullscreenClose" style="background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;">✕</button>'+
+            '</div>'+
+            '<div id="entMapFullscreenContainer" style="flex:1;"></div>';
+            document.body.appendChild(overlay);
+            document.getElementById('entMapFullscreenClose').addEventListener('click', function() { overlay.remove(); });
+            // Copy map content or init new map
+            var mapContainer = document.getElementById('entMapFullscreenContainer');
+            if (mapContainer) {
+                mapContainer.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100%;color:#9ca3af;font-size:0.85rem;">Mapa cargando... (requiere Google Maps API)</div>';
+            }
+        });
+    })();
 
     var btnEntregas   = document.getElementById('btnEntregas');
     var panelEntregas = document.getElementById('panelEntregas');
@@ -28482,7 +29015,6 @@ document.addEventListener('DOMContentLoaded', function() {
               '</div>' +
               '<div style="display:flex;gap:8px;">' +
                 (mapsUrl ? '<a href="' + escT(mapsUrl) + '" target="_blank" style="flex:1;text-align:center;background:#ff9900;color:#fff;text-decoration:none;padding:10px;border-radius:8px;font-weight:700;font-size:0.72rem;">🗺 Abrir Mapa</a>' : '') +
-                '<button id="btnImprimirEtTemp" style="flex:1;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;font-weight:700;font-size:0.72rem;cursor:pointer;padding:10px;">🖨 Imprimir</button>' +
               '</div>' +
             '</div>';
         document.body.appendChild(popup);
@@ -28502,24 +29034,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }, 100);
         }
-
-        // Imprimir
-        popup.querySelector('#btnImprimirEtTemp').addEventListener('click', function() {
-            var w = window.open('', '_blank', 'width=520,height=700');
-            w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Entrega ' + escT(order.orden) + '</title>' +
-                '<style>body{font-family:Segoe UI,sans-serif;padding:14px;} .lbl{width:380px;border:2px solid #ff9900;padding:16px;margin:0 auto;border-radius:10px;}' +
-                '.title{font-size:15px;font-weight:800;color:#ff9900;margin-bottom:10px;} .r{font-size:12px;line-height:1.6;}' +
-                '.qr{text-align:center;margin:12px 0;} .qr img{width:200px;height:200px;}</style></head><body>' +
-                '<div class="lbl"><div class="title">🚚 ETIQUETA DE ENTREGA TEMPORAL</div>' +
-                '<div class="r"><strong>Cliente:</strong> ' + escT(order.cliente || '—') + '</div>' +
-                '<div class="r"><strong>Orden:</strong> ' + escT(order.orden || '—') + '</div>' +
-                '<div class="r"><strong>Adeudo:</strong> $' + escT(order.adeudo || '0') + '</div>' +
-                '<div class="r"><strong>Fecha:</strong> ' + escT(order.fecha || '—') + '</div>' +
-                (order.notas ? '<div class="r"><strong>Notas:</strong> ' + escT(order.notas) + '</div>' : '') +
-                '<div class="qr"><img src="' + escT(qrUrl) + '" alt="QR"><div style="font-size:10px;color:#999;margin-top:4px;">Escanear para ver detalle</div></div>' +
-                '</div><scr' + 'ipt>window.onload=function(){window.print();}<\/scr' + 'ipt></body></html>');
-            w.document.close();
-        });
     }
 
     // Expose shared functions globally for Reparto Temporal module
@@ -28577,16 +29091,11 @@ document.addEventListener('DOMContentLoaded', function() {
      MÓDULO REPARTO TEMPORAL — Panel separado
 ════════════════════════════════════════════════════════════════ -->
 <div id="panelRepartoTemporal" class="entrega-overlay" style="display:none;">
-  <div class="entrega-container" style="background:#0d1a13;">
-    <div class="entrega-header" style="background:#ff9900;">
-      <button id="repartoTempBack" class="entrega-back" type="button" title="Volver" aria-label="Volver" style="background:rgba(255,255,255,0.25);color:#fff;">←</button>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.6rem;line-height:1;">📋</span>
-        <div>
-          <div style="font-size:1rem;font-weight:800;color:#fff;letter-spacing:0.5px;">REPARTO TEMPORAL</div>
-          <div style="font-size:0.6rem;color:rgba(255,255,255,0.8);">Entregas temporales manuales — independientes del flujo de producción</div>
-        </div>
-      </div>
+  <div class="entrega-container">
+    <div class="entrega-header">
+      <button id="repartoTempBack" class="entrega-back" type="button" title="Volver" aria-label="Volver">←</button>
+      <h2 style="margin:0;font-size:0.84rem;letter-spacing:0.25px;font-weight:900;text-transform:uppercase;color:#1f2937;">REPARTO TEMPORAL</h2>
+      <span style="margin-left:auto;font-size:0.62rem;color:#64748b;font-weight:600;">Entregas temporales manuales — independientes del flujo de producción</span>
     </div>
     <div class="entrega-body">
       <div class="entrega-left" style="background:#fff;">
@@ -28609,7 +29118,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       <div class="entrega-right">
         <div class="entrega-section-title" style="color:#ff9900;border-color:#fde8c8;">🗺 MAPA DE ENTREGAS TEMPORALES</div>
-        <div id="rtMapContainer" style="height:240px;border-radius:10px;overflow:hidden;border:1px solid #1a3020;flex-shrink:0;background:#0d1a13;"></div>
+        <div id="rtMapContainer" style="height:240px;border-radius:10px;overflow:hidden;border:1px solid #e4e8ef;flex-shrink:0;background:#f8f9fb;"></div>
         <div class="entrega-tabs" id="rtTabs">
           <button class="entrega-tab active" data-rt-status="pendiente" style="">📬 Pendientes</button>
           <button class="entrega-tab" data-rt-status="en_camino">🚚 En Camino</button>
