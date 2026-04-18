@@ -1054,14 +1054,35 @@
         }
 
         .orden-row-selected {
-            background: rgba(255, 140, 0, 0.12);
+            background: rgba(255, 153, 0, 0.3) !important;
+            outline: 2px solid #ff9900;
+            outline-offset: -2px;
+        }
+        .orden-row-selected td {
+            color: #ff9900 !important;
+            font-weight: 900;
         }
 
         .orden-qty-cell {
             cursor: pointer;
             font-weight: 900;
-            text-decoration: underline;
+            text-decoration: none;
             text-underline-offset: 2px;
+        }
+        .orden-qty-cell .qty-wrapper {
+            display: flex; align-items: center; justify-content: center; gap: 4px;
+        }
+        .orden-qty-cell .qty-btn {
+            width: 20px; height: 20px; border: 1px solid #ff9900; border-radius: 4px;
+            background: rgba(255,153,0,0.15); color: #ff9900; font-size: 0.7rem;
+            font-weight: 900; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; line-height: 1; padding: 0;
+        }
+        .orden-qty-cell .qty-btn:hover { background: #ff9900; color: #fff; }
+        .orden-qty-cell .qty-value {
+            background: #ffffff; color: #111; border-radius: 4px; padding: 2px 8px;
+            min-width: 32px; text-align: center; font-weight: 900; font-size: 0.55rem;
+            border: 1px solid #ddd;
         }
 
         .orden-resumen {
@@ -7051,11 +7072,13 @@
 
         /* ===== SHORTCUT HINTS ===== */
         .shortcut-hint {
-            display: block; font-size: 0.4rem; color: rgba(255,255,255,0.4);
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 3px; padding: 0px 4px; margin: 2px auto 0;
-            font-weight: 600; text-align: center; line-height: 1.2;
+            display: inline; font-size: 0.38rem; color: #ffffff;
+            background: none; border: none;
+            border-radius: 0; padding: 0; margin: 0 0 0 3px;
+            font-weight: 700; text-align: center; line-height: 1.2;
         }
+        .shortcut-hint::before { content: '('; }
+        .shortcut-hint::after { content: ')'; }
 
         /* ===== ENVIO E INSTALACION CHECKS ===== */
         .orden-extras-checks {
@@ -7481,33 +7504,29 @@
             </label>
 
             <div style="grid-column:1/-1;border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;margin-top:4px;">
-                <div style="font-size:0.65rem;font-weight:800;color:#ff9900;margin-bottom:8px;">📍 UBICACIONES GUARDADAS</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                    <label class="clientesform-field">
-                        🏠 Domicilio (casa)
-                        <input id="cliFormUbiDomicilio" type="text" placeholder="Dirección de casa o link de Maps" autocomplete="off">
-                    </label>
-                    <label class="clientesform-field">
-                        🏢 Negocio (trabajo)
-                        <input id="cliFormUbiNegocio" type="text" placeholder="Dirección del negocio o link de Maps" autocomplete="off">
-                    </label>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                    <div style="font-size:0.65rem;font-weight:800;color:#ff9900;">📍 UBICACIONES DEL CLIENTE</div>
+                    <button type="button" id="btnAbrirUbicaciones" style="background:#ff9900;color:#fff;border:none;border-radius:8px;padding:6px 16px;font-size:0.6rem;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:4px;">📍 GESTIONAR UBICACIONES</button>
                 </div>
-                <div style="margin-top:8px;">
-                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                        <span style="font-size:0.6rem;font-weight:800;color:#ff9900;">📌 PUNTOS MEDIOS</span>
-                        <button type="button" id="btnAddPuntoMedio" style="background:#ff9900;color:#fff;border:none;border-radius:6px;padding:3px 10px;font-size:0.6rem;font-weight:700;cursor:pointer;">＋ Agregar punto medio</button>
+                <div id="cliUbicacionesResumen" style="display:flex;gap:8px;flex-wrap:wrap;">
+                    <div style="background:rgba(255,153,0,0.08);border:1px solid rgba(255,153,0,0.25);border-radius:6px;padding:5px 10px;font-size:0.52rem;color:#c8d9f2;">
+                        <strong style="color:#ff9900;">🏠 Domicilio:</strong> <span id="cliResUbiDomicilio">Sin registrar</span>
                     </div>
-                    <div id="puntosMediosContainer" style="display:flex;flex-direction:column;gap:6px;">
-                        <label class="clientesform-field">
-                            📌 Punto Medio principal
-                            <input id="cliFormUbiPuntoMedio" type="text" placeholder="Dirección, coordenadas o link de Google Maps" autocomplete="off">
-                        </label>
+                    <div style="background:rgba(255,153,0,0.08);border:1px solid rgba(255,153,0,0.25);border-radius:6px;padding:5px 10px;font-size:0.52rem;color:#c8d9f2;">
+                        <strong style="color:#ff9900;">🏢 Negocio:</strong> <span id="cliResUbiNegocio">Sin registrar</span>
                     </div>
-                    <div id="puntosMediosBuscador" style="margin-top:6px;position:relative;">
-                        <input id="buscarPuntoMedioInput" type="text" placeholder="🔍 Buscar entre puntos medios registrados..." style="width:100%;padding:5px 8px;border:1px solid rgba(255,255,255,0.12);border-radius:6px;background:rgba(255,255,255,0.04);color:#e5eaf1;font-size:0.65rem;" autocomplete="off">
-                        <div id="buscarPuntoMedioResults" style="display:none;position:absolute;top:100%;left:0;right:0;background:#0f1726;border:1px solid rgba(255,255,255,0.12);border-radius:6px;max-height:150px;overflow-y:auto;z-index:10;"></div>
+                    <div style="background:rgba(255,153,0,0.08);border:1px solid rgba(255,153,0,0.25);border-radius:6px;padding:5px 10px;font-size:0.52rem;color:#c8d9f2;">
+                        <strong style="color:#ff9900;">📌 Punto medio:</strong> <span id="cliResUbiPuntoMedio">Sin registrar</span>
+                    </div>
+                    <div style="background:rgba(255,153,0,0.08);border:1px solid rgba(255,153,0,0.25);border-radius:6px;padding:5px 10px;font-size:0.52rem;color:#c8d9f2;">
+                        <strong style="color:#ff9900;">📍 Última usada:</strong> <span id="cliResUbiUltima">Ninguna</span>
                     </div>
                 </div>
+                <!-- Campos ocultos para guardar datos -->
+                <input type="hidden" id="cliFormUbiDomicilio" value="">
+                <input type="hidden" id="cliFormUbiNegocio" value="">
+                <input type="hidden" id="cliFormUbiPuntoMedio" value="">
+                <input type="hidden" id="cliFormUbiCoords" value="">
             </div>
             <label class="clientesform-field">
                 Razon social
@@ -10942,8 +10961,9 @@ const imgBolsaDeliveryBase = new Image();
                             <th>PRODUCTO</th>
                             <th>MEDIDA</th>
                             <th>MATERIAL</th>
-                            <th>PRECIO</th>
+                            <th>P. UNITARIO</th>
                             <th>CANTIDAD</th>
+                            <th>SUBTOTAL</th>
                             <th>IMPORTE</th>
                         </tr>
                     </thead>
@@ -10963,7 +10983,7 @@ const imgBolsaDeliveryBase = new Image();
                 </div>
                 <div class="orden-field" style="cursor:pointer;" id="notasDisenadorWrap" title="Clic para abrir editor de notas">
                     <label>🎨 NOTAS PARA DISEÑADOR</label>
-                    <textarea id="ordenNotasDisenador" rows="2" placeholder="Clic aquí para agregar notas e imágenes..." style="border-color:#e0e7ff;background:#f5f7ff;cursor:pointer;" readonly></textarea>
+                    <textarea id="ordenNotasDisenador" rows="2" placeholder="Clic aquí para agregar notas e imágenes..." style="border-color:#fde8c8;background:#fffbf5;cursor:pointer;" readonly></textarea>
                     <input type="hidden" id="ordenNotasDisenadorData" value="[]">
                 </div>
             </div>
@@ -10998,9 +11018,9 @@ const imgBolsaDeliveryBase = new Image();
             <div class="orden-kpi"><label>Ganancia</label><span id="ordenGanancia">$0.00</span></div>
 
             <div class="orden-resumen-actions">
-                <button id="ordenBtnImpuestos" class="orden-btn orden-action-square">IMPUESTOS <span class="shortcut-hint">CTRL+I</span></button>
-                <button id="ordenBtnDescuento" class="orden-btn orden-action-square">DESCUENTO <span class="shortcut-hint">CTRL+D</span></button>
-                <button id="ordenBtnCotizacion" class="orden-btn primary orden-action-square">COTIZACIÓN <span class="shortcut-hint">CTRL+C</span></button>
+                <button id="ordenBtnImpuestos" class="orden-btn orden-action-square">IMPUESTOS <span class="shortcut-hint">ALT+I</span></button>
+                <button id="ordenBtnDescuento" class="orden-btn orden-action-square">DESCUENTO <span class="shortcut-hint">ALT+D</span></button>
+                <button id="ordenBtnCotizacion" class="orden-btn primary orden-action-square">COTIZACIÓN <span class="shortcut-hint">ALT+C</span></button>
             </div>
 
             <div class="orden-ticket-tools">
@@ -11406,28 +11426,216 @@ const imgBolsaDeliveryBase = new Image();
     </div>
 </div>
 
+<!-- ═══ POPUP GESTIONAR UBICACIONES DEL CLIENTE ═══ -->
+<div id="popupUbicaciones" class="popup-overlay" aria-hidden="true" style="z-index:100025;display:none;">
+    <div style="background:#ffffff;border-radius:14px;max-width:1100px;width:96vw;max-height:94vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.35);padding:0;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px 10px;border-bottom:2px solid #ff9900;">
+            <div>
+                <div style="font-size:0.78rem;font-weight:900;color:#ff9900;">📍 GESTIONAR UBICACIONES</div>
+                <div style="font-size:0.46rem;color:#6b7280;margin-top:2px;">Selecciona tipo de ubicación y agrega la dirección</div>
+            </div>
+            <button id="ubicacionesCerrar" type="button" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:#6b7280;">✕</button>
+        </div>
+
+        <!-- Selector de tipo -->
+        <div style="padding:14px 22px 0;">
+            <div style="font-size:0.56rem;font-weight:800;color:#1f2937;margin-bottom:8px;">TIPO DE UBICACIÓN</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+                <button class="ubi-tipo-btn active" data-ubi-tipo="domicilio" type="button" style="padding:8px 18px;border-radius:8px;border:2px solid #ff9900;background:#fff7ed;color:#ff9900;font-weight:800;font-size:0.55rem;cursor:pointer;">🏠 DOMICILIO (CASA)</button>
+                <button class="ubi-tipo-btn" data-ubi-tipo="negocio" type="button" style="padding:8px 18px;border-radius:8px;border:2px solid #d1d5db;background:#fff;color:#374151;font-weight:800;font-size:0.55rem;cursor:pointer;">🏢 NEGOCIO</button>
+                <button class="ubi-tipo-btn" data-ubi-tipo="puntoMedio" type="button" style="padding:8px 18px;border-radius:8px;border:2px solid #d1d5db;background:#fff;color:#374151;font-weight:800;font-size:0.55rem;cursor:pointer;">📌 PUNTO MEDIO</button>
+            </div>
+
+            <!-- Buscador inteligente unificado -->
+            <div style="font-size:0.56rem;font-weight:800;color:#1f2937;margin-bottom:6px;">BUSCAR DIRECCIÓN <span style="font-size:0.44rem;color:#9ca3af;font-weight:600;">(dirección, coordenadas o link de Google Maps)</span></div>
+            <div style="position:relative;margin-bottom:10px;">
+                <input id="ubiBuscadorInput" type="text" placeholder="🔍 Ej: Av. Juárez 100, Oaxaca / 17.0654,-96.7236 / https://maps.google.com/..." style="width:100%;padding:10px 14px;border:2px solid #ff9900;border-radius:10px;font-size:0.58rem;background:#fffbf5;color:#1f2937;font-weight:600;" autocomplete="off">
+                <div id="ubiBuscadorResults" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;max-height:180px;overflow-y:auto;z-index:20;box-shadow:0 8px 20px rgba(0,0,0,0.15);"></div>
+                <div id="ubiBuscadorDetected" style="font-size:0.44rem;color:#9ca3af;margin-top:3px;min-height:14px;"></div>
+            </div>
+
+            <!-- Campos de dirección auto-rellenados -->
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">
+                <div class="login-field"><label style="color:#374151;font-weight:700;">Calle</label><input id="ubiCalle" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
+                <div class="login-field"><label style="color:#374151;font-weight:700;">Colonia</label><input id="ubiColonia" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
+                <div class="login-field"><label style="color:#374151;font-weight:700;">Ciudad</label><input id="ubiCiudad" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
+                <div class="login-field"><label style="color:#374151;font-weight:700;">Estado</label><input id="ubiEstado" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
+                <div class="login-field"><label style="color:#374151;font-weight:700;">CP</label><input id="ubiCp" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
+                <div class="login-field"><label style="color:#374151;font-weight:700;">Coordenadas</label><input id="ubiCoords" type="text" readonly style="background:#f3f4f6;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#6b7280;"></div>
+            </div>
+
+            <!-- Mini mapa -->
+            <div style="border:2px solid #e5e7eb;border-radius:10px;overflow:hidden;height:200px;background:#f0f0f0;margin-bottom:12px;position:relative;">
+                <div id="ubiMapaContainer" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+                    <div style="text-align:center;color:#9ca3af;">
+                        <div style="font-size:2rem;">🗺️</div>
+                        <div style="font-size:0.48rem;font-weight:700;">Ingresa una dirección para ver el mapa</div>
+                    </div>
+                </div>
+                <div id="ubiMapaInfo" style="display:none;position:absolute;bottom:8px;left:8px;right:8px;background:rgba(255,255,255,0.95);border-radius:6px;padding:6px 10px;font-size:0.46rem;color:#374151;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                    <div id="ubiMapaInfoNombre" style="color:#ff9900;font-weight:800;"></div>
+                    <div id="ubiMapaInfoDir"></div>
+                </div>
+            </div>
+
+            <!-- Puntos medios generales -->
+            <div style="border-top:1px solid #e5e7eb;padding-top:10px;margin-bottom:10px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                    <span style="font-size:0.56rem;font-weight:800;color:#ff9900;">📌 PUNTOS MEDIOS REGISTRADOS (GENERALES)</span>
+                    <button type="button" id="ubiAddPuntoMedio" style="background:#ff9900;color:#fff;border:none;border-radius:6px;padding:4px 12px;font-size:0.5rem;font-weight:700;cursor:pointer;">+ NUEVO PUNTO MEDIO</button>
+                </div>
+                <div id="ubiPuntosMediosLista" style="max-height:120px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;">
+                    <div style="font-size:0.48rem;color:#9ca3af;padding:8px;text-align:center;">No hay puntos medios registrados</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex;gap:8px;justify-content:flex-end;padding:12px 22px 16px;border-top:1px solid #e5e7eb;">
+            <button id="ubicacionesCancelar" type="button" style="padding:8px 20px;background:#6b7280;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:0.56rem;cursor:pointer;">CANCELAR</button>
+            <button id="ubicacionesGuardar" type="button" style="padding:8px 24px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-weight:800;font-size:0.56rem;cursor:pointer;">💾 GUARDAR UBICACIÓN</button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ POPUP PAQUETERÍA INDEPENDIENTE ═══ -->
+<div id="popupPaqIndep" style="display:none;position:fixed;inset:0;z-index:100030;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;">
+    <div style="background:#0a0f1a;border:2px solid #ff9900;border-radius:14px;max-width:900px;width:94vw;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.5);padding:0;">
+        <!-- Header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 22px;border-bottom:2px solid #ff9900;background:rgba(255,153,0,0.08);">
+            <div>
+                <div style="font-size:0.78rem;font-weight:900;color:#ff9900;">🚐 PAQUETERÍAS INDEPENDIENTES</div>
+                <div style="font-size:0.44rem;color:rgba(255,255,255,0.6);margin-top:2px;">Selecciona o crea una paquetería para enviar</div>
+            </div>
+            <button id="paqIndepCerrar" type="button" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:rgba(255,255,255,0.6);">✕</button>
+        </div>
+
+        <div style="padding:16px 22px;">
+            <!-- Lista de paqueterías guardadas -->
+            <div style="font-size:0.56rem;font-weight:800;color:#fff;margin-bottom:8px;">PAQUETERÍAS REGISTRADAS</div>
+            <div id="paqIndepLista" style="max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+                <div style="text-align:center;color:rgba(255,255,255,0.4);font-size:0.5rem;padding:16px;">No hay paqueterías registradas aún</div>
+            </div>
+
+            <!-- Botón agregar -->
+            <button id="paqIndepAgregar" type="button" style="width:100%;padding:8px;background:transparent;border:2px dashed #ff9900;border-radius:8px;color:#ff9900;font-weight:800;font-size:0.54rem;cursor:pointer;margin-bottom:10px;">+ AGREGAR NUEVA PAQUETERÍA</button>
+
+            <!-- Formulario nueva paquetería -->
+            <div id="paqIndepFormNueva" style="display:none;background:rgba(255,153,0,0.05);border:1px solid rgba(255,153,0,0.3);border-radius:10px;padding:14px;margin-bottom:12px;">
+                <div style="font-size:0.56rem;font-weight:800;color:#ff9900;margin-bottom:10px;">NUEVA PAQUETERÍA</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Nombre *</label><input id="paqNombre" type="text" placeholder="Ej: Suburban Express" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Teléfono</label><input id="paqTelefono" type="tel" placeholder="10 dígitos" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Destinos</label><input id="paqDestinos" type="text" placeholder="Juchitán, Bahías de Huatulco" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Dir. sucursal</label><input id="paqDireccion" type="text" placeholder="Ubicación de la sucursal" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Dir. destino</label><input id="paqDirDestino" type="text" placeholder="Dirección exacta destino" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Servicio por cobrar</label>
+                        <select id="paqPorCobrar" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;">
+                            <option value="si">✅ Sí tiene</option>
+                            <option value="no">❌ No tiene</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Historial de costos -->
+                <div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;">
+                    <div style="font-size:0.5rem;font-weight:800;color:#fff;margin-bottom:6px;">📊 HISTORIAL DE COSTOS (estimación inteligente)</div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px;">
+                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Largo cm</label><input id="paqHistLargo" type="number" min="1" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Ancho cm</label><input id="paqHistAncho" type="number" min="1" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Alto cm</label><input id="paqHistAlto" type="number" min="1" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Peso kg</label><input id="paqHistPeso" type="number" min="0.1" step="0.1" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Costo $</label><input id="paqHistCosto" type="number" min="0" step="0.01" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
+                    </div>
+                    <button id="paqHistAgregar" type="button" style="margin-top:6px;background:#ff9900;color:#fff;border:none;border-radius:4px;padding:4px 14px;font-size:0.46rem;font-weight:700;cursor:pointer;">+ AGREGAR AL HISTORIAL</button>
+                </div>
+
+                <!-- Estimación -->
+                <div id="paqEstimacion" style="margin-top:8px;background:rgba(255,153,0,0.1);border:1px dashed #ff9900;border-radius:6px;padding:6px 10px;display:none;">
+                    <div style="font-size:0.48rem;font-weight:800;color:#ff9900;">💡 COSTO ESTIMADO</div>
+                    <div id="paqEstimacionMonto" style="font-size:0.7rem;font-weight:900;color:#fff;"></div>
+                    <div id="paqEstimacionInfo" style="font-size:0.42rem;color:rgba(255,255,255,0.5);"></div>
+                </div>
+
+                <div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end;">
+                    <button id="paqNuevaCancelar" type="button" style="padding:6px 16px;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:6px;font-size:0.5rem;font-weight:700;cursor:pointer;">CANCELAR</button>
+                    <button id="paqNuevaGuardar" type="button" style="padding:6px 16px;background:#ff9900;color:#fff;border:none;border-radius:6px;font-size:0.5rem;font-weight:800;cursor:pointer;">💾 GUARDAR PAQUETERÍA</button>
+                </div>
+            </div>
+
+            <!-- Sección repartidor -->
+            <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:12px;margin-top:4px;">
+                <div style="font-size:0.56rem;font-weight:800;color:#fff;margin-bottom:8px;">🚗 ENTREGA EN PAQUETERÍA (REPARTIDOR)</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Paquetería destino</label>
+                        <select id="paqRepartidorDestino" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;">
+                            <option value="">— Seleccionar —</option>
+                        </select>
+                    </div>
+                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Cant. paquetes</label><input id="paqRepartidorCant" type="number" min="1" value="1" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;text-align:center;"></div>
+                </div>
+
+                <!-- Evidencia -->
+                <div style="margin-top:10px;">
+                    <div style="font-size:0.48rem;font-weight:700;color:rgba(255,255,255,0.6);margin-bottom:4px;">📸 EVIDENCIA DE ENTREGA</div>
+                    <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.48rem;color:#ff9900;font-weight:700;padding:6px 12px;border:1px dashed #ff9900;border-radius:6px;background:rgba(255,153,0,0.05);width:fit-content;">
+                        📷 SUBIR FOTO
+                        <input id="paqEvidenciaFoto" type="file" accept="image/*" style="display:none;">
+                    </label>
+                    <div id="paqEvidenciaPreview" style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;"></div>
+                </div>
+
+                <!-- Botones servicio -->
+                <div style="display:flex;gap:8px;margin-top:12px;">
+                    <button id="paqServicioPagado" type="button" style="flex:1;padding:12px;background:#4caf50;color:#fff;border:none;border-radius:8px;font-weight:900;font-size:0.56rem;cursor:pointer;">✅ SERVICIO PAGADO</button>
+                    <button id="paqServicioPorCobrar" type="button" style="flex:1;padding:12px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-weight:900;font-size:0.56rem;cursor:pointer;">⚠️ SERVICIO POR COBRAR</button>
+                </div>
+
+                <!-- Monto del viaje -->
+                <div id="paqMontoViaje" style="display:none;margin-top:10px;">
+                    <label style="color:#fff;font-weight:800;font-size:0.52rem;display:block;margin-bottom:4px;">💰 Monto pagado en paquetería</label>
+                    <div style="display:flex;gap:6px;align-items:center;">
+                        <span style="font-size:0.6rem;color:rgba(255,255,255,0.5);">$</span>
+                        <input id="paqMontoPagado" type="number" min="0" step="0.01" placeholder="0.00" style="flex:1;font-size:0.6rem;font-weight:900;padding:6px 10px;border:2px solid #ff9900;border-radius:8px;background:rgba(255,255,255,0.05);color:#fff;">
+                        <button id="paqMontoAplicar" type="button" style="padding:6px 16px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-weight:800;font-size:0.52rem;cursor:pointer;">APLICAR ADEUDO</button>
+                    </div>
+                    <div style="font-size:0.42rem;color:#ef4444;margin-top:3px;font-weight:600;">* Este monto se reflejará como adeudo del cliente</div>
+                </div>
+            </div>
+
+            <!-- Aplicar costo -->
+            <div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:12px;padding-top:12px;">
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <span style="color:#fff;font-size:0.56rem;font-weight:800;">$ COSTO DE ENVÍO:</span>
+                    <input id="paqIndepCosto" type="number" min="0" step="0.01" placeholder="0.00" style="flex:1;padding:8px 10px;border-radius:8px;border:2px solid #ff9900;background:rgba(255,255,255,0.05);color:#fff;font-size:0.6rem;font-weight:900;">
+                    <button id="paqIndepAplicar" type="button" style="padding:8px 20px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-size:0.56rem;font-weight:900;cursor:pointer;">✅ APLICAR ENVÍO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- ═══ POPUP NOTAS PROFESIONALES (Producción / Diseñador) ═══ -->
 <div id="popupNotasProfesionales" class="popup-overlay" aria-hidden="true" style="z-index:100020;">
-    <div class="popup-card wide" role="dialog" aria-modal="true" style="max-width:680px;max-height:92vh;overflow-y:auto;padding:0;">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 22px 10px;">
+    <div role="dialog" aria-modal="true" style="background:#ffffff;max-width:720px;width:94vw;max-height:92vh;overflow-y:auto;padding:0;border-radius:14px;border:2px solid #ff9900;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 22px 10px;border-bottom:2px solid #ff9900;background:#fff7ed;border-radius:14px 14px 0 0;">
             <div>
-                <div id="notasPopupTitulo" style="font-size:0.75rem;font-weight:900;color:#1e3a5f;">📝 NOTAS PARA PRODUCCIÓN</div>
-                <div id="notasPopupSubtitulo" style="font-size:0.48rem;color:#6b7280;margin-top:2px;">Agrega notas e imágenes de referencia</div>
+                <div id="notasPopupTitulo" style="font-size:0.75rem;font-weight:900;color:#ff9900;">📝 NOTAS PARA PRODUCCIÓN</div>
+                <div id="notasPopupSubtitulo" style="font-size:0.48rem;color:#92400e;margin-top:2px;">Agrega notas e imágenes de referencia</div>
             </div>
-            <button id="notasPopupCerrar" type="button" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#6b7280;padding:4px 8px;">✕</button>
+            <button id="notasPopupCerrar" type="button" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#92400e;padding:4px 8px;">✕</button>
         </div>
-        <div style="padding:0 22px 16px;border-top:1px solid #e5e7eb;">
+        <div style="padding:0 22px 16px;">
             <!-- Nueva nota -->
             <div style="margin-top:14px;">
-                <textarea id="notasPopupTexto" rows="3" placeholder="Escribe una nota o instrucción..." style="width:100%;padding:10px;font-size:0.55rem;border:1px solid #d1d5db;border-radius:8px;resize:vertical;font-family:inherit;"></textarea>
+                <textarea id="notasPopupTexto" rows="3" placeholder="Escribe una nota o instrucción..." style="width:100%;padding:10px;font-size:0.55rem;border:2px solid #ffb84d;border-radius:8px;resize:vertical;font-family:inherit;color:#1f2937;background:#fffbf5;"></textarea>
                 <div style="display:flex;gap:8px;margin-top:8px;align-items:center;">
-                    <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.5rem;color:#3b82f6;font-weight:700;padding:6px 12px;border:1px dashed #93c5fd;border-radius:6px;background:#eff6ff;">
+                    <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.5rem;color:#ff9900;font-weight:700;padding:6px 12px;border:1px dashed #ffb84d;border-radius:6px;background:#fff7ed;">
                         📎 ADJUNTAR IMAGEN
                         <input id="notasPopupImagen" type="file" accept="image/*" multiple style="display:none;">
                     </label>
                     <div id="notasPopupPreview" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
                     <div style="flex:1;"></div>
-                    <button id="notasPopupAgregar" class="productos-btn primary" type="button" style="font-size:0.52rem;padding:8px 18px;">+ AGREGAR NOTA</button>
+                    <button id="notasPopupAgregar" type="button" style="font-size:0.52rem;padding:8px 18px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-weight:800;cursor:pointer;">+ AGREGAR NOTA</button>
                 </div>
             </div>
             <!-- Lista de notas existentes -->
@@ -13128,6 +13336,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let ordenLineas = [];
     let ordenLineaActiva = -1;
+    // Exponer para atajos globales
+    window._ordenLineas = () => ordenLineas;
+    window._ordenLineaActiva = () => ordenLineaActiva;
+    window._setOrdenLineaActiva = (v) => { ordenLineaActiva = v; };
+    window._ordenRenderTabla = null; // se asigna después
+    window._ordenSaveTicketActivo = null; // se asigna después
     let ordenTaxRate = 0;
     let ordenDiscount = 0;
     let ordenDiscountAmount = 0;
@@ -13708,9 +13922,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ordenTicketTabs) return;
         const tabsHtml = ordenTickets.map((_, idx) => {
             const active = idx === ordenTicketActivo ? ' active' : '';
-            return `<button class="orden-ticket-tab${active}" type="button" data-ticket-index="${idx}">TICKET ${idx + 1}</button>`;
+            return `<button class="orden-ticket-tab${active}" type="button" data-ticket-index="${idx}">TICKET ${idx + 1} <span class="shortcut-hint">SUPR</span></button>`;
         }).join('');
-        ordenTicketTabs.innerHTML = `${tabsHtml}<button id="ordenTicketAdd" class="orden-ticket-add" type="button" title="Agregar ticket" aria-label="Agregar ticket">+</button>`;
+        ordenTicketTabs.innerHTML = `${tabsHtml}<button id="ordenTicketAdd" class="orden-ticket-add" type="button" title="Agregar ticket" aria-label="Agregar ticket">+ <span class="shortcut-hint">F9</span></button>`;
     };
 
     const switchTicket = (idx) => {
@@ -19722,7 +19936,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderTabla = () => {
         if (!refs.tablaBody) return;
         if (!ordenLineas.length) {
-            refs.tablaBody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#7f7f7f;padding:12px;">No hay productos agregados.</td></tr>';
+            refs.tablaBody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#7f7f7f;padding:12px;">No hay productos agregados.</td></tr>';
             recalcResumen();
             return;
         }
@@ -19735,13 +19949,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${row.medida}</td>
                 <td>${row.material}</td>
                 <td>${formatMoney(row.precio)}</td>
-                <td data-orden-qty="${idx}" class="orden-qty-cell">${row.cantidad}</td>
+                <td data-orden-qty="${idx}" class="orden-qty-cell"><div class="qty-wrapper"><button class="qty-btn qty-minus" data-qty-idx="${idx}" type="button">−</button><span class="qty-value">${row.cantidad}</span><button class="qty-btn qty-plus" data-qty-idx="${idx}" type="button">+</button></div></td>
+                <td>${formatMoney(importe)}</td>
                 <td>${formatMoney(importe)}</td>
             </tr>`;
         }).join('');
 
         recalcResumen();
     };
+    window._ordenRenderTabla = renderTabla;
+    window._ordenSaveTicketActivo = saveTicketActivo;
 
     const getProductosStockOrden = () => {
         const term = String(ordenStockSearchTerm || '').trim().toLowerCase();
@@ -20146,8 +20363,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (refs.tablaBody) {
         refs.tablaBody.addEventListener('click', (ev) => {
+            // Handle +/- buttons
+            const plusBtn = ev.target.closest('.qty-plus');
+            const minusBtn = ev.target.closest('.qty-minus');
+            if (plusBtn || minusBtn) {
+                const idxQty = Number((plusBtn || minusBtn).getAttribute('data-qty-idx'));
+                if (!Number.isFinite(idxQty) || idxQty < 0 || idxQty >= ordenLineas.length) return;
+                let cant = Math.max(1, Number(ordenLineas[idxQty].cantidad || 1));
+                if (plusBtn) cant++;
+                if (minusBtn && cant > 1) cant--;
+                ordenLineas[idxQty].cantidad = cant;
+                ordenLineaActiva = idxQty;
+                renderTabla();
+                saveTicketActivo();
+                return;
+            }
+            // Handle click on qty value to edit inline
+            const qtyVal = ev.target.closest('.qty-value');
             const qtyCell = ev.target.closest('[data-orden-qty]');
-            if (qtyCell && !qtyCell.querySelector('input')) {
+            if (qtyVal && qtyCell && !qtyCell.querySelector('input')) {
                 const idxQty = Number(qtyCell.getAttribute('data-orden-qty'));
                 if (!Number.isFinite(idxQty) || idxQty < 0 || idxQty >= ordenLineas.length) return;
                 const actual = Math.max(1, Number(ordenLineas[idxQty].cantidad || 1));
@@ -20155,9 +20389,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.type = 'number';
                 input.min = '1';
                 input.value = String(actual);
-                input.style.cssText = 'width:60px;text-align:center;font-size:inherit;font-weight:900;border:2px solid #ccc;border-radius:4px;outline:none;padding:2px 4px;background:#ffffff;';
-                qtyCell.textContent = '';
-                qtyCell.appendChild(input);
+                input.style.cssText = 'width:50px;text-align:center;font-size:inherit;font-weight:900;border:2px solid #ff9900;border-radius:4px;outline:none;padding:2px 4px;background:#ffffff;color:#111;';
+                qtyVal.replaceWith(input);
                 input.focus();
                 input.select();
                 const applyQty = () => {
@@ -30094,7 +30327,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <div style="display:flex;gap:6px;margin-top:8px;">
                         <button id="envioCotizar" class="orden-btn primary" type="button" style="background:#ff9900;border-color:#e68a00;color:#fff;font-size:0.56rem;flex:1;padding:6px 0;">🔍 COTIZAR</button>
-                        <button id="envioManualBtn" class="orden-btn" type="button" style="border-color:#ff9900;color:#ff9900;font-size:0.52rem;padding:6px 12px;">✏️ MANUAL</button>
+                        <button id="envioPaqIndependiente" class="orden-btn" type="button" style="border-color:#ff9900;color:#ff9900;font-size:0.48rem;padding:6px 10px;">🚐 PAQUETERÍA INDEPENDIENTE</button>
                         <button id="envioCancelar" class="orden-btn" type="button" style="color:#6b7280;border-color:#d1d5db;font-size:0.52rem;padding:6px 12px;">✖ CERRAR</button>
                     </div>
                     <div id="envioManualFallback" style="display:none;border-top:1px solid #e5e7eb;margin-top:6px;padding-top:6px;">
@@ -30528,7 +30761,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.getElementById('envioCotizar').addEventListener('click', doCotizar);
         document.getElementById('envioCancelar').addEventListener('click', () => { overlay.remove(); cb(null); });
-        document.getElementById('envioManualBtn').addEventListener('click', () => {
+        const envioManualBtnLegacy = document.getElementById('envioManualBtn');
+        if (envioManualBtnLegacy) envioManualBtnLegacy.addEventListener('click', () => {
             document.getElementById('envioManualFallback').style.display = '';
         });
         document.getElementById('envioManualAplicar').addEventListener('click', () => {
@@ -30725,12 +30959,39 @@ document.addEventListener('DOMContentLoaded', function() {
         // Backspace handler moved to cotizador scope (see DOMContentLoaded block)
         if (ev.key === 'Delete' && !isInput) { ev.preventDefault(); document.getElementById('ordenBtnLimpiar')?.click(); return; }
 
-        // Ctrl shortcuts (cotizador)
-        if (ev.ctrlKey && isInCotizador) {
+        // Alt shortcuts (cotizador) - antes era Ctrl
+        if (ev.altKey && isInCotizador) {
             const k = ev.key.toLowerCase();
             if (k === 'i') { ev.preventDefault(); document.getElementById('ordenBtnImpuestos')?.click(); return; }
             if (k === 'd') { ev.preventDefault(); document.getElementById('ordenBtnDescuento')?.click(); return; }
             if (k === 'c') { ev.preventDefault(); document.getElementById('ordenBtnCotizacion')?.click(); return; }
+        }
+
+        // + y - para cantidad del producto seleccionado
+        if ((ev.key === '+' || ev.key === '=') && !isInput && isInCotizador) {
+            ev.preventDefault();
+            const lineas = window._ordenLineas ? window._ordenLineas() : [];
+            const activa = window._ordenLineaActiva ? window._ordenLineaActiva() : -1;
+            if (activa >= 0 && activa < lineas.length) {
+                lineas[activa].cantidad = Math.max(1, Number(lineas[activa].cantidad || 1)) + 1;
+                if (window._ordenRenderTabla) window._ordenRenderTabla();
+                if (window._ordenSaveTicketActivo) window._ordenSaveTicketActivo();
+            }
+            return;
+        }
+        if ((ev.key === '-' || ev.key === '_') && !isInput && isInCotizador) {
+            ev.preventDefault();
+            const lineas = window._ordenLineas ? window._ordenLineas() : [];
+            const activa = window._ordenLineaActiva ? window._ordenLineaActiva() : -1;
+            if (activa >= 0 && activa < lineas.length) {
+                const c = Math.max(1, Number(lineas[activa].cantidad || 1));
+                if (c > 1) {
+                    lineas[activa].cantidad = c - 1;
+                    if (window._ordenRenderTabla) window._ordenRenderTabla();
+                    if (window._ordenSaveTicketActivo) window._ordenSaveTicketActivo();
+                }
+            }
+            return;
         }
 
         if (ev.key === 'Enter' && !isInput) {
@@ -30781,6 +31042,455 @@ document.addEventListener('DOMContentLoaded', function() {
         if (app) { try { window.firebase.auth(app).signOut(); } catch (_) {} }
         if (loginOverlay) loginOverlay.style.display = 'flex';
     };
+
+})();
+</script>
+
+<!-- ═══ JS: POPUP UBICACIONES + PAQUETERÍA INDEPENDIENTE ═══ -->
+<script>
+(function() {
+    'use strict';
+
+    // ===== POPUP UBICACIONES =====
+    const PUNTOS_MEDIOS_KEY = 'puntos_medios_generales_v1';
+    const PAQ_INDEP_KEY = 'paqueterias_independientes_v1';
+    const PAQ_HISTORIAL_KEY = 'paq_historial_costos_v1';
+
+    const getPuntosMedios = () => { try { return JSON.parse(localStorage.getItem(PUNTOS_MEDIOS_KEY) || '[]'); } catch(_) { return []; } };
+    const savePuntosMedios = (arr) => localStorage.setItem(PUNTOS_MEDIOS_KEY, JSON.stringify(arr));
+    const getPaqIndep = () => { try { return JSON.parse(localStorage.getItem(PAQ_INDEP_KEY) || '[]'); } catch(_) { return []; } };
+    const savePaqIndep = (arr) => localStorage.setItem(PAQ_INDEP_KEY, JSON.stringify(arr));
+    const getPaqHistorial = () => { try { return JSON.parse(localStorage.getItem(PAQ_HISTORIAL_KEY) || '[]'); } catch(_) { return []; } };
+    const savePaqHistorial = (arr) => localStorage.setItem(PAQ_HISTORIAL_KEY, JSON.stringify(arr));
+
+    // Detección inteligente de tipo de entrada (dirección, coordenadas, link de Google Maps)
+    const detectInputType = (val) => {
+        val = (val || '').trim();
+        if (!val) return { type: null };
+        // Link de Google Maps
+        if (/google\.\w+\/maps|maps\.google|maps\.app\.goo\.gl|goo\.gl\/maps/i.test(val)) {
+            return { type: 'googleMaps', value: val };
+        }
+        // Coordenadas: lat,lng o lat lng
+        const coordMatch = val.match(/^(-?\d{1,3}\.\d+)[,\s]+(-?\d{1,3}\.\d+)$/);
+        if (coordMatch) {
+            return { type: 'coords', lat: parseFloat(coordMatch[1]), lng: parseFloat(coordMatch[2]) };
+        }
+        // Dirección de texto
+        return { type: 'address', value: val };
+    };
+
+    // Abrir popup ubicaciones
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'btnAbrirUbicaciones' || e.target.closest('#btnAbrirUbicaciones')) {
+            const popup = document.getElementById('popupUbicaciones');
+            if (popup) { popup.style.display = 'flex'; renderPuntosMediosPopup(); }
+        }
+    });
+
+    // Cerrar popup ubicaciones
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'ubicacionesCerrar' || e.target.id === 'ubicacionesCancelar') {
+            const popup = document.getElementById('popupUbicaciones');
+            if (popup) popup.style.display = 'none';
+        }
+    });
+
+    // Tipo de ubicación switch
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.ubi-tipo-btn');
+        if (btn) {
+            document.querySelectorAll('.ubi-tipo-btn').forEach(b => {
+                b.style.borderColor = '#d1d5db'; b.style.background = '#fff'; b.style.color = '#374151';
+                b.classList.remove('active');
+            });
+            btn.style.borderColor = '#ff9900'; btn.style.background = '#fff7ed'; btn.style.color = '#ff9900';
+            btn.classList.add('active');
+        }
+    });
+
+    // Buscador inteligente - detección automática
+    const ubiBuscadorInput = document.getElementById('ubiBuscadorInput');
+    if (ubiBuscadorInput) {
+        ubiBuscadorInput.addEventListener('input', () => {
+            const val = ubiBuscadorInput.value;
+            const det = detectInputType(val);
+            const detEl = document.getElementById('ubiBuscadorDetected');
+            if (detEl) {
+                if (det.type === 'googleMaps') detEl.textContent = '🔗 Detectado: Link de Google Maps';
+                else if (det.type === 'coords') detEl.textContent = '📍 Detectado: Coordenadas (' + det.lat + ', ' + det.lng + ')';
+                else if (det.type === 'address' && val.length > 3) detEl.textContent = '🏠 Detectado: Búsqueda por dirección';
+                else detEl.textContent = '';
+            }
+            // Autocomplete sugerencias
+            const resultsEl = document.getElementById('ubiBuscadorResults');
+            if (resultsEl) {
+                if (det.type === 'address' && val.length > 2) {
+                    const q = val.toLowerCase();
+                    const sugs = [];
+                    // Buscar en puntos medios
+                    getPuntosMedios().forEach((pm, i) => {
+                        const haystack = ((pm.nombre || '') + ' ' + (pm.direccion || '') + ' ' + (pm.ciudad || '')).toLowerCase();
+                        if (haystack.includes(q)) sugs.push({ label: '📌 ' + (pm.nombre || pm.direccion), sub: pm.direccion + (pm.ciudad ? ' (' + pm.ciudad + ')' : ''), value: pm.direccion, coords: pm.coords, src: 'pm' });
+                    });
+                    // Buscar en clientes guardados
+                    try {
+                        const cliRaw = localStorage.getItem('mock_clientes_quick_v1');
+                        if (cliRaw) {
+                            JSON.parse(cliRaw).forEach(c => {
+                                const fields = [c.direccion, c.domicilio, c.negocio, c.puntoMedio].filter(Boolean);
+                                fields.forEach(f => {
+                                    if (f.toLowerCase().includes(q)) sugs.push({ label: '👤 ' + (c.nombre || 'Cliente'), sub: f, value: f, coords: '', src: 'cli' });
+                                });
+                            });
+                        }
+                    } catch(_){}
+                    if (sugs.length) {
+                        resultsEl.innerHTML = sugs.slice(0, 8).map((s, i) => `<div data-sug-idx="${i}" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid #f3f4f6;transition:background 0.15s;" onmouseenter="this.style.background='#fff7ed'" onmouseleave="this.style.background='#fff'">
+                            <div style="font-weight:600;color:#374151;font-size:0.48rem;">${s.label}</div>
+                            <div style="font-size:0.42rem;color:#9ca3af;">${s.sub}</div>
+                        </div>`).join('');
+                        resultsEl.style.display = 'block';
+                        resultsEl.querySelectorAll('[data-sug-idx]').forEach((el, idx) => {
+                            el.addEventListener('click', () => {
+                                const s = sugs[idx];
+                                ubiBuscadorInput.value = s.value;
+                                resultsEl.style.display = 'none';
+                                if (s.coords) {
+                                    const coordsField = document.getElementById('ubiCoords');
+                                    if (coordsField) coordsField.value = s.coords;
+                                    const parts = s.coords.split(',').map(Number);
+                                    if (parts.length === 2 && !isNaN(parts[0])) updateMapPreview(parts[0], parts[1]);
+                                }
+                                ubiBuscadorInput.dispatchEvent(new Event('input'));
+                            });
+                        });
+                    } else {
+                        resultsEl.innerHTML = '<div style="padding:10px;color:#9ca3af;font-size:0.44rem;text-align:center;">Sin coincidencias</div>';
+                        resultsEl.style.display = 'block';
+                    }
+                } else {
+                    resultsEl.style.display = 'none';
+                }
+            }
+            // Si son coordenadas, rellenar el campo
+            if (det.type === 'coords') {
+                const coordsField = document.getElementById('ubiCoords');
+                if (coordsField) coordsField.value = det.lat + ', ' + det.lng;
+                updateMapPreview(det.lat, det.lng);
+            }
+            // Si es link de google maps, extraer coords si es posible
+            if (det.type === 'googleMaps') {
+                const m = val.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+                if (m) {
+                    const coordsField = document.getElementById('ubiCoords');
+                    if (coordsField) coordsField.value = m[1] + ', ' + m[2];
+                    updateMapPreview(parseFloat(m[1]), parseFloat(m[2]));
+                }
+            }
+        });
+        // Ocultar sugerencias al hacer clic fuera
+        document.addEventListener('click', (ev) => {
+            const resultsEl = document.getElementById('ubiBuscadorResults');
+            if (resultsEl && !ubiBuscadorInput.contains(ev.target) && !resultsEl.contains(ev.target)) {
+                resultsEl.style.display = 'none';
+            }
+        });
+    }
+
+    const updateMapPreview = (lat, lng) => {
+        const container = document.getElementById('ubiMapaContainer');
+        if (!container) return;
+        container.innerHTML = '<iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=16&output=embed" allowfullscreen></iframe>';
+        const info = document.getElementById('ubiMapaInfo');
+        if (info) {
+            info.style.display = 'block';
+            const nombre = document.getElementById('ubiMapaInfoNombre');
+            const dir = document.getElementById('ubiMapaInfoDir');
+            if (nombre) nombre.textContent = document.getElementById('cliFormNombre')?.value || 'Cliente';
+            if (dir) dir.textContent = 'Lat: ' + lat.toFixed(6) + ' | Lng: ' + lng.toFixed(6);
+        }
+    };
+
+    // Guardar ubicación
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'ubicacionesGuardar') {
+            const tipoBtn = document.querySelector('.ubi-tipo-btn.active');
+            const tipo = tipoBtn ? tipoBtn.getAttribute('data-ubi-tipo') : 'domicilio';
+            const raw = document.getElementById('ubiBuscadorInput')?.value || '';
+            const coords = document.getElementById('ubiCoords')?.value || '';
+            const calle = document.getElementById('ubiCalle')?.value || '';
+            const colonia = document.getElementById('ubiColonia')?.value || '';
+            const ciudad = document.getElementById('ubiCiudad')?.value || '';
+
+            if (tipo === 'domicilio') {
+                const field = document.getElementById('cliFormUbiDomicilio');
+                if (field) field.value = raw || coords || calle;
+                const res = document.getElementById('cliResUbiDomicilio');
+                if (res) res.textContent = raw || coords || calle || 'Sin registrar';
+            } else if (tipo === 'puntoMedio') {
+                const field = document.getElementById('cliFormUbiPuntoMedio');
+                if (field) field.value = raw || coords || calle;
+                const res = document.getElementById('cliResUbiPuntoMedio');
+                if (res) res.textContent = raw || coords || calle || 'Sin registrar';
+                // Guardar en puntos medios generales
+                if (raw || coords) {
+                    const pms = getPuntosMedios();
+                    pms.push({ nombre: calle || raw, direccion: raw, coords: coords, ciudad: ciudad, fecha: new Date().toISOString() });
+                    savePuntosMedios(pms);
+                }
+            } else if (tipo === 'negocio') {
+                const field = document.getElementById('cliFormUbiNegocio');
+                if (field) field.value = raw || coords || calle;
+                const res = document.getElementById('cliResUbiNegocio');
+                if (res) res.textContent = raw || coords || calle || 'Sin registrar';
+            }
+            const field2 = document.getElementById('cliFormUbiCoords');
+            if (field2) field2.value = coords;
+            const popup = document.getElementById('popupUbicaciones');
+            if (popup) popup.style.display = 'none';
+        }
+    });
+
+    const renderPuntosMediosPopup = () => {
+        const lista = document.getElementById('ubiPuntosMediosLista');
+        if (!lista) return;
+        const pms = getPuntosMedios();
+        if (!pms.length) {
+            lista.innerHTML = '<div style="font-size:0.48rem;color:#9ca3af;padding:8px;text-align:center;">No hay puntos medios registrados</div>';
+            return;
+        }
+        lista.innerHTML = pms.map((pm, i) => `<div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:#fff7ed;border:1px solid #ffe4b5;border-radius:6px;font-size:0.48rem;cursor:pointer;" data-pm-idx="${i}">
+            <span style="color:#ff9900;font-weight:800;">📌</span>
+            <span style="flex:1;color:#374151;font-weight:600;">${pm.nombre || pm.direccion} ${pm.ciudad ? '(' + pm.ciudad + ')' : ''}</span>
+            <button type="button" data-pm-del="${i}" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.6rem;">✕</button>
+        </div>`).join('');
+    };
+
+    // Nuevo punto medio
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'ubiAddPuntoMedio') {
+            const nombre = prompt('Nombre del punto medio:');
+            const dir = prompt('Dirección, coordenadas o link de Google Maps:');
+            if (nombre && dir) {
+                const pms = getPuntosMedios();
+                const det = detectInputType(dir);
+                pms.push({ nombre, direccion: dir, coords: det.type === 'coords' ? det.lat + ',' + det.lng : '', fecha: new Date().toISOString() });
+                savePuntosMedios(pms);
+                renderPuntosMediosPopup();
+            }
+        }
+    });
+
+    // ===== PAQUETERÍA INDEPENDIENTE =====
+    document.addEventListener('click', (e) => {
+        // Abrir popup paquetería independiente
+        if (e.target.id === 'envioPaqIndependiente' || e.target.closest('#envioPaqIndependiente')) {
+            const popup = document.getElementById('popupPaqIndep');
+            if (popup) {
+                popup.style.display = 'flex';
+                renderPaqIndepLista();
+            }
+        }
+        // Cerrar popup paquetería
+        if (e.target.id === 'paqIndepCerrar') {
+            const popup = document.getElementById('popupPaqIndep');
+            if (popup) popup.style.display = 'none';
+        }
+        // Agregar nueva paquetería form
+        if (e.target.id === 'paqIndepAgregar') {
+            const form = document.getElementById('paqIndepFormNueva');
+            if (form) form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+        // Cancelar nueva paquetería
+        if (e.target.id === 'paqNuevaCancelar') {
+            const form = document.getElementById('paqIndepFormNueva');
+            if (form) form.style.display = 'none';
+        }
+        // Guardar nueva paquetería
+        if (e.target.id === 'paqNuevaGuardar') {
+            const nombre = document.getElementById('paqNombre')?.value?.trim();
+            if (!nombre) { alert('Ingresa el nombre de la paquetería'); return; }
+            const paqs = getPaqIndep();
+            paqs.push({
+                id: Date.now(),
+                nombre,
+                telefono: document.getElementById('paqTelefono')?.value || '',
+                destinos: document.getElementById('paqDestinos')?.value || '',
+                direccion: document.getElementById('paqDireccion')?.value || '',
+                dirDestino: document.getElementById('paqDirDestino')?.value || '',
+                porCobrar: document.getElementById('paqPorCobrar')?.value || 'no',
+                fecha: new Date().toISOString()
+            });
+            savePaqIndep(paqs);
+            ['paqNombre','paqTelefono','paqDestinos','paqDireccion','paqDirDestino'].forEach(id => {
+                const el = document.getElementById(id); if (el) el.value = '';
+            });
+            document.getElementById('paqIndepFormNueva').style.display = 'none';
+            renderPaqIndepLista();
+        }
+        // Agregar historial de costos
+        if (e.target.id === 'paqHistAgregar') {
+            const costo = parseFloat(document.getElementById('paqHistCosto')?.value || 0);
+            const largo = parseFloat(document.getElementById('paqHistLargo')?.value || 0);
+            const ancho = parseFloat(document.getElementById('paqHistAncho')?.value || 0);
+            const alto = parseFloat(document.getElementById('paqHistAlto')?.value || 0);
+            const peso = parseFloat(document.getElementById('paqHistPeso')?.value || 0);
+            if (!costo) { alert('Ingresa al menos el costo'); return; }
+            const hist = getPaqHistorial();
+            hist.push({ largo, ancho, alto, peso, costo, fecha: new Date().toISOString() });
+            savePaqHistorial(hist);
+            // Estimar costo basado en historial
+            estimarCosto(largo, ancho, alto, peso);
+            alert('Registro de costo agregado al historial');
+        }
+        // Servicio pagado / por cobrar
+        if (e.target.id === 'paqServicioPagado' || e.target.id === 'paqServicioPorCobrar') {
+            const montoDiv = document.getElementById('paqMontoViaje');
+            if (montoDiv) montoDiv.style.display = 'block';
+            if (e.target.id === 'paqServicioPagado') {
+                e.target.style.outline = '3px solid #1f2937';
+                const otro = document.getElementById('paqServicioPorCobrar');
+                if (otro) otro.style.outline = 'none';
+            } else {
+                e.target.style.outline = '3px solid #1f2937';
+                const otro = document.getElementById('paqServicioPagado');
+                if (otro) otro.style.outline = 'none';
+            }
+        }
+        // Aplicar monto adeudo
+        if (e.target.id === 'paqMontoAplicar') {
+            const monto = parseFloat(document.getElementById('paqMontoPagado')?.value || 0);
+            if (monto > 0) {
+                alert('Adeudo de $' + monto.toFixed(2) + ' registrado para el cliente. Se reflejará en su cuenta.');
+            }
+        }
+        // Aplicar costo de paquetería independiente
+        if (e.target.id === 'paqIndepAplicar') {
+            const costo = parseFloat(document.getElementById('paqIndepCosto')?.value || 0);
+            if (costo > 0) {
+                const costoInput = document.getElementById('envioManualCosto');
+                if (costoInput) costoInput.value = costo;
+                const aplicarBtn = document.getElementById('envioManualAplicar');
+                if (aplicarBtn) aplicarBtn.click();
+            }
+        }
+        // Seleccionar paquetería de la lista
+        if (e.target.closest('[data-paq-select]')) {
+            const idx = parseInt(e.target.closest('[data-paq-select]').getAttribute('data-paq-select'));
+            const paqs = getPaqIndep();
+            if (paqs[idx]) {
+                document.querySelectorAll('[data-paq-select]').forEach(el => el.style.borderColor = '#e5e7eb');
+                e.target.closest('[data-paq-select]').style.borderColor = '#ff9900';
+                // Actualizar select del repartidor
+                const select = document.getElementById('paqRepartidorDestino');
+                if (select) {
+                    const opt = select.querySelector('option[value="' + paqs[idx].id + '"]');
+                    if (opt) opt.selected = true;
+                }
+                // Estimar costo con historial
+                const pkgLargo = parseFloat(document.getElementById('envioPkgLargo')?.value || 0);
+                const pkgAncho = parseFloat(document.getElementById('envioPkgAncho')?.value || 0);
+                const pkgAlto = parseFloat(document.getElementById('envioPkgAlto')?.value || 0);
+                const pkgPeso = parseFloat(document.getElementById('envioPkgPeso')?.value || 0);
+                estimarCosto(pkgLargo, pkgAncho, pkgAlto, pkgPeso);
+            }
+        }
+    });
+
+    const estimarCosto = (largo, ancho, alto, peso) => {
+        const hist = getPaqHistorial();
+        if (!hist.length) return;
+        // Buscar el registro más cercano por dimensiones y peso
+        let mejor = null, mejorDist = Infinity;
+        hist.forEach(h => {
+            const dist = Math.abs(h.largo - largo) + Math.abs(h.ancho - ancho) + Math.abs(h.alto - alto) + Math.abs(h.peso - peso) * 2;
+            if (dist < mejorDist) { mejorDist = dist; mejor = h; }
+        });
+        // Calcular promedio general
+        const promedio = hist.reduce((s, h) => s + h.costo, 0) / hist.length;
+        const estDiv = document.getElementById('paqEstimacion');
+        const estMonto = document.getElementById('paqEstimacionMonto');
+        const estInfo = document.getElementById('paqEstimacionInfo');
+        if (estDiv && estMonto && estInfo) {
+            estDiv.style.display = 'block';
+            if (mejor && mejorDist < 20) {
+                estMonto.textContent = '$' + mejor.costo.toFixed(2);
+                estInfo.textContent = 'Basado en envío similar: ' + mejor.largo + 'x' + mejor.ancho + 'x' + mejor.alto + 'cm, ' + mejor.peso + 'kg. Promedio general: $' + promedio.toFixed(2);
+            } else {
+                estMonto.textContent = '$' + promedio.toFixed(2);
+                estInfo.textContent = 'Promedio general de ' + hist.length + ' envíos registrados';
+            }
+            // Auto-fill cost field
+            const costoField = document.getElementById('paqIndepCosto');
+            if (costoField && !costoField.value) {
+                costoField.value = (mejor && mejorDist < 20) ? mejor.costo.toFixed(2) : promedio.toFixed(2);
+            }
+        }
+    };
+
+    const renderPaqIndepLista = () => {
+        const lista = document.getElementById('paqIndepLista');
+        if (!lista) return;
+        const paqs = getPaqIndep();
+        const select = document.getElementById('paqRepartidorDestino');
+        if (select) {
+            select.innerHTML = '<option value="">— Seleccionar paquetería —</option>' + paqs.map(p => `<option value="${p.id}">${p.nombre} — ${p.destinos}</option>`).join('');
+        }
+        if (!paqs.length) {
+            lista.innerHTML = '<div style="text-align:center;color:#9ca3af;font-size:0.48rem;padding:12px;">No hay paqueterías registradas aún</div>';
+            return;
+        }
+        lista.innerHTML = paqs.map((p, i) => `<div data-paq-select="${i}" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:2px solid #e5e7eb;border-radius:8px;cursor:pointer;transition:border-color 0.15s;">
+            <div style="flex:1;">
+                <div style="font-size:0.54rem;font-weight:800;color:#1f2937;">🚐 ${p.nombre}</div>
+                <div style="font-size:0.44rem;color:#6b7280;">📍 ${p.destinos || 'Sin destinos'} | 📞 ${p.telefono || 'Sin tel.'}</div>
+                <div style="font-size:0.42rem;color:#9ca3af;">🏢 ${p.direccion || 'Sin dirección'}</div>
+                <div style="font-size:0.42rem;color:#9ca3af;">📍 Destino: ${p.dirDestino || 'Sin especificar'}</div>
+                <div style="font-size:0.42rem;margin-top:2px;color:${p.porCobrar === 'si' ? '#4caf50' : '#ef4444'};font-weight:700;">${p.porCobrar === 'si' ? '✅ Tiene servicio por cobrar' : '❌ Sin servicio por cobrar'}</div>
+            </div>
+            <button type="button" data-paq-del="${i}" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.7rem;padding:4px;">✕</button>
+        </div>`).join('');
+    };
+
+    // Eliminar paquetería
+    document.addEventListener('click', (e) => {
+        const del = e.target.closest('[data-paq-del]');
+        if (del) {
+            const idx = parseInt(del.getAttribute('data-paq-del'));
+            const paqs = getPaqIndep();
+            paqs.splice(idx, 1);
+            savePaqIndep(paqs);
+            renderPaqIndepLista();
+        }
+        const pmDel = e.target.closest('[data-pm-del]');
+        if (pmDel) {
+            const idx = parseInt(pmDel.getAttribute('data-pm-del'));
+            const pms = getPuntosMedios();
+            pms.splice(idx, 1);
+            savePuntosMedios(pms);
+            renderPuntosMediosPopup();
+        }
+    });
+
+    // Foto evidencia preview
+    document.addEventListener('change', (e) => {
+        if (e.target.id === 'paqEvidenciaFoto') {
+            const preview = document.getElementById('paqEvidenciaPreview');
+            if (!preview) return;
+            preview.innerHTML = '';
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const img = document.createElement('img');
+                    img.src = ev.target.result;
+                    img.style.cssText = 'width:60px;height:60px;object-fit:cover;border-radius:6px;border:2px solid #ff9900;';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    });
 
 })();
 </script>
