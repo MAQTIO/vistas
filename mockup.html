@@ -1005,6 +1005,26 @@
             border-color: #d8dde6;
         }
 
+        /* Notas wrappers: highlight interactivo */
+        #notasProduccionWrap,
+        #notasDisenadorWrap {
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 6px;
+            transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+        }
+        #notasProduccionWrap:hover,
+        #notasDisenadorWrap:hover {
+            border-color: #ff9900;
+            background: #fff7ed;
+            box-shadow: 0 0 0 3px rgba(255,153,0,0.12);
+        }
+        #notasProduccionWrap.has-notas,
+        #notasDisenadorWrap.has-notas {
+            border-color: #ff9900;
+            background: #fff7ed;
+        }
+
         .orden-field textarea {
             resize: vertical;
             min-height: 44px;
@@ -1166,14 +1186,14 @@
             gap: 0 !important;
         }
         .orden-action-square .shortcut-hint {
-            color: rgba(0,0,0,0.35);
-            background: rgba(0,0,0,0.06);
-            border-color: rgba(0,0,0,0.1);
+            color: #ffffff;
+            background: none;
+            border-color: transparent;
         }
         .orden-action-square.primary .shortcut-hint {
-            color: rgba(255,255,255,0.4);
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.15);
+            color: #ffffff;
+            background: none;
+            border-color: transparent;
         }
 
         .orden-action-square:hover {
@@ -1260,9 +1280,9 @@
             padding: 4px 2px !important;
         }
         .orden-pay-btn .shortcut-hint {
-            color: rgba(0,0,0,0.3);
-            background: rgba(0,0,0,0.05);
-            border-color: rgba(0,0,0,0.1);
+            color: #ffffff;
+            background: none;
+            border-color: transparent;
         }
         .orden-btn.warn .shortcut-hint {
             color: rgba(255,255,255,0.5);
@@ -3379,9 +3399,10 @@
 
         .clientesmod-main {
             display: grid;
-            grid-template-rows: auto 1fr;
+            grid-template-rows: auto 1fr auto;
             gap: 6px;
             min-height: 0;
+            overflow: hidden;
         }
 
         .clientesmod-toolbar {
@@ -4153,7 +4174,8 @@
             flex: 1 1 0;
             align-content: start;
             min-height: 0;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .productos-modal-grid .orden-field {
@@ -7108,18 +7130,18 @@
         /* ===== ENVIO COTIZAR POPUP ===== */
         .envio-cotizar-card {
             background: #ffffff; border: 1px solid #e5e7eb;
-            border-radius: 14px; padding: 0; width: 94vw; max-width: 1100px;
-            height: 82vh; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            border-radius: 14px; padding: 0; width: 96vw; max-width: 1200px;
+            height: 90vh; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25);
             display: flex; flex-direction: row;
         }
         .envio-col-left {
-            flex: 1; padding: 16px 18px; overflow-y: auto; border-right: 1px solid #e5e7eb;
-            display: flex; flex-direction: column;
+            flex: 1; padding: 18px 22px; overflow-y: auto; border-right: 1px solid #e5e7eb;
+            display: flex; flex-direction: column; gap: 2px;
         }
         .envio-col-left::-webkit-scrollbar, .envio-col-right::-webkit-scrollbar { width: 4px; }
         .envio-col-left::-webkit-scrollbar-thumb, .envio-col-right::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
         .envio-col-right {
-            width: 340px; min-width: 300px; padding: 16px; overflow-y: auto;
+            width: 380px; min-width: 340px; padding: 18px; overflow-y: auto;
             display: flex; flex-direction: column; background: #fafafa;
         }
         @media (max-width: 768px) {
@@ -7127,41 +7149,41 @@
             .envio-col-left { border-right: none; border-bottom: 1px solid #e5e7eb; flex: 1; }
             .envio-col-right { width: 100%; min-width: unset; flex: 1; }
         }
-        .envio-cotizar-card h3 { color: #1f2937; font-size: 0.78rem; margin: 0; }
-        .envio-cotizar-card .login-field { margin-bottom: 4px; }
-        .envio-cotizar-card .login-field label { font-size: 0.48rem; color: #6b7280; font-weight: 700; margin-bottom: 1px; display: block; }
+        .envio-cotizar-card h3 { color: #1f2937; font-size: 0.92rem; margin: 0; }
+        .envio-cotizar-card .login-field { margin-bottom: 5px; }
+        .envio-cotizar-card .login-field label { font-size: 0.56rem; color: #6b7280; font-weight: 700; margin-bottom: 2px; display: block; }
         .envio-cotizar-card .login-field input, .envio-cotizar-card .login-field select {
-            width: 100%; padding: 4px 7px; border-radius: 5px; border: 1px solid #d1d5db;
-            background: #f9fafb; color: #1f2937; font-size: 0.56rem; box-sizing: border-box;
+            width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #d1d5db;
+            background: #f9fafb; color: #1f2937; font-size: 0.66rem; box-sizing: border-box;
         }
         .envio-cotizar-card .login-field input:focus, .envio-cotizar-card .login-field select:focus { border-color: #ff9900; outline: none; box-shadow: 0 0 0 2px rgba(255,153,0,0.15); }
         .envio-dir-btn {
-            padding: 3px 8px; border-radius: 6px; border: 1px solid #d1d5db;
-            background: #f9fafb; color: #6b7280; font-size: 0.48rem; font-weight: 700;
+            padding: 5px 12px; border-radius: 8px; border: 1px solid #d1d5db;
+            background: #f9fafb; color: #6b7280; font-size: 0.58rem; font-weight: 700;
             cursor: pointer; transition: all 0.15s;
         }
         .envio-dir-btn:hover { border-color: #ff9900; color: #ff9900; }
         .envio-dir-btn.active { background: #ff9900; color: #fff; border-color: #ff9900; font-weight: 900; }
-        .envio-section-title { font-size: 0.5rem; font-weight: 800; color: #ff9900; margin: 6px 0 4px; display: flex; align-items: center; gap: 4px; text-transform: uppercase; }
+        .envio-section-title { font-size: 0.62rem; font-weight: 800; color: #ff9900; margin: 8px 0 6px; display: flex; align-items: center; gap: 6px; text-transform: uppercase; }
         .envio-pkg-preset {
-            padding: 4px 10px; border-radius: 6px; border: 1px solid #d1d5db; background: #fff;
-            color: #374151; font-size: 0.48rem; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap;
+            padding: 6px 14px; border-radius: 8px; border: 1px solid #d1d5db; background: #fff;
+            color: #374151; font-size: 0.56rem; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap;
         }
         .envio-pkg-preset:hover { border-color: #ff9900; color: #ff9900; }
         .envio-pkg-preset.active { background: #ff9900; color: #fff; border-color: #ff9900; }
         .envio-rate-card {
-            display: flex; align-items: center; gap: 8px; padding: 8px 10px;
-            border: 1px solid #e5e7eb; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+            border: 1px solid #e5e7eb; border-radius: 10px; cursor: pointer;
             transition: all 0.15s; background: #ffffff;
         }
         .envio-rate-card:hover { border-color: #ff9900; background: #fff7ed; }
         .envio-rate-card.selected { border-color: #ff9900; background: #fff7ed; box-shadow: 0 0 0 2px rgba(255,153,0,0.3); }
-        .envio-rate-card .carrier-logo { width: 36px; height: 24px; object-fit: contain; border-radius: 3px; flex-shrink: 0; }
-        .envio-rate-card .carrier-logo-placeholder { width: 36px; height: 24px; border-radius: 3px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; font-weight: 800; color: #9ca3af; flex-shrink: 0; }
+        .envio-rate-card .carrier-logo { width: 42px; height: 28px; object-fit: contain; border-radius: 4px; flex-shrink: 0; }
+        .envio-rate-card .carrier-logo-placeholder { width: 42px; height: 28px; border-radius: 4px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; font-size: 0.56rem; font-weight: 800; color: #9ca3af; flex-shrink: 0; }
         @keyframes envioFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
         .envio-rate-card { animation: envioFadeIn 0.2s ease; }
-        .envio-right-empty { flex:1; display:flex; align-items:center; justify-content:center; color:#d1d5db; font-size:0.55rem; text-align:center; padding:20px; }
-        .envio-vol-weight { font-size:0.46rem; color:#6b7280; margin-top:2px; font-style:italic; }
+        .envio-right-empty { flex:1; display:flex; align-items:center; justify-content:center; color:#d1d5db; font-size:0.65rem; text-align:center; padding:20px; }
+        .envio-vol-weight { font-size:0.54rem; color:#6b7280; margin-top:2px; font-style:italic; }
 
         /* ===== CONFIG USERS TABLE (light theme) ===== */
         #tabUsuarios .popup-panel { display: block !important; grid-template-columns: unset !important; background: transparent !important; padding: 0 !important; border: none !important; }
@@ -9564,10 +9586,7 @@ const imgBolsaDeliveryBase = new Image();
         if (!pctx) return;
 
         pctx.clearRect(0, 0, canvas.width, canvas.height);
-        const bg = pctx.createLinearGradient(0, 0, 0, canvas.height);
-        bg.addColorStop(0, '#f4ead7');
-        bg.addColorStop(1, '#e7d2ad');
-        pctx.fillStyle = bg;
+        pctx.fillStyle = '#efe1cc';
         pctx.fillRect(0, 0, canvas.width, canvas.height);
 
         const bag = getBolsaImageForIndex(indexColorAct);
@@ -9766,10 +9785,7 @@ const imgBolsaDeliveryBase = new Image();
         cv.height = Math.max(1, h);
         const c = cv.getContext('2d');
 
-        const base = c.createLinearGradient(0, 0, cv.width, cv.height);
-        base.addColorStop(0, 'rgba(246,238,224,0.95)');
-        base.addColorStop(1, 'rgba(220,205,180,0.95)');
-        c.fillStyle = base;
+        c.fillStyle = 'rgba(233,222,202,0.95)';
         c.fillRect(0, 0, cv.width, cv.height);
 
         const img = c.getImageData(0, 0, cv.width, cv.height);
@@ -9980,13 +9996,11 @@ const imgBolsaDeliveryBase = new Image();
             }
             tCtx.globalCompositeOperation = 'source-atop';
             if (tinta.meta) {
-                const grad = tCtx.createLinearGradient(0, 0, renderW, renderH);
                 if (String(tinta.n || '').toLowerCase().includes('dorad')) {
-                    grad.addColorStop(0, "#C0A21F"); grad.addColorStop(0.25, "#f6d88a"); grad.addColorStop(0.6, "#ffd77a"); grad.addColorStop(1, "#8f5f16");
+                    tCtx.fillStyle = '#d4a930';
                 } else {
-                    grad.addColorStop(0, "#a0a0a0"); grad.addColorStop(0.5, "#e0e0e0"); grad.addColorStop(1, "#808080");
+                    tCtx.fillStyle = '#b0b0b0';
                 }
-                tCtx.fillStyle = grad;
             } else { tCtx.fillStyle = tinta.hex; }
             tCtx.fillRect(0,0,renderW,renderH);
             aplicarTexturaTintaPapel(tCtx, renderW, renderH);
@@ -10275,13 +10289,11 @@ const imgBolsaDeliveryBase = new Image();
                 tCtx.drawImage(logoImg, 0, 0, renderW, renderH);
                 tCtx.globalCompositeOperation = 'source-atop';
                 if (tinta.meta) {
-                    const grad = tCtx.createLinearGradient(0, 0, renderW, renderH);
                     if (String(tinta.n || '').toLowerCase().includes('dorad')) {
-                            grad.addColorStop(0, "#C0A21F"); grad.addColorStop(0.25, "#f6d88a"); grad.addColorStop(0.6, "#ffd77a"); grad.addColorStop(1, "#8f5f16");
-                        } else {
-                            grad.addColorStop(0, "#a0a0a0"); grad.addColorStop(0.5, "#e0e0e0"); grad.addColorStop(1, "#808080");
-                        }
-                    tCtx.fillStyle = grad;
+                        tCtx.fillStyle = '#d4a930';
+                    } else {
+                        tCtx.fillStyle = '#b0b0b0';
+                    }
                 } else { tCtx.fillStyle = tinta.hex; }
                 tCtx.fillRect(0,0,renderW,renderH);
                 aplicarTexturaTintaPapel(tCtx, renderW, renderH);
@@ -10332,10 +10344,7 @@ const imgBolsaDeliveryBase = new Image();
             const limitBottom = cY + (maxH / 2) - (boxH + 20);
             const minOffset = cY + visHalfH + (rotar90 ? 40 : 70); // asegurar despeje respecto al lienzo
             const boxY = Math.max(minOffset, Math.min(desiredY, limitBottom));
-            const grad = ctx.createLinearGradient(boxX, boxY, boxX + boxW, boxY);
-            grad.addColorStop(0, "#f4f4f4");
-            grad.addColorStop(1, "#d9d9d9");
-            ctx.fillStyle = grad;
+            ctx.fillStyle = '#e8e8e8';
             ctx.strokeStyle = "rgba(0,0,0,0.35)";
             ctx.lineWidth = 4;
             drawRoundedRect(ctx, boxX, boxY, boxW, boxH, radius);
@@ -11428,186 +11437,228 @@ const imgBolsaDeliveryBase = new Image();
 
 <!-- ═══ POPUP GESTIONAR UBICACIONES DEL CLIENTE ═══ -->
 <div id="popupUbicaciones" class="popup-overlay" aria-hidden="true" style="z-index:100025;display:none;">
-    <div style="background:#ffffff;border-radius:14px;max-width:1100px;width:96vw;max-height:94vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.35);padding:0;">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px 10px;border-bottom:2px solid #ff9900;">
-            <div>
-                <div style="font-size:0.78rem;font-weight:900;color:#ff9900;">📍 GESTIONAR UBICACIONES</div>
-                <div style="font-size:0.46rem;color:#6b7280;margin-top:2px;">Selecciona tipo de ubicación y agrega la dirección</div>
+    <div id="ubiPopupInner" style="background:#fff;border-radius:16px;width:97vw;max-width:1300px;height:97vh;
+        box-shadow:0 24px 80px rgba(0,0,0,0.4),0 0 0 1px rgba(255,153,0,0.15);display:flex;flex-direction:column;overflow:hidden;">
+
+        <!-- ── Header (compact) ── -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 22px;
+            background:linear-gradient(135deg,#ff9900 0%,#e68a00 100%);flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:36px;height:36px;background:rgba(255,255,255,0.2);border-radius:10px;display:flex;
+                    align-items:center;justify-content:center;font-size:1.1rem;">📍</div>
+                <div>
+                    <div style="font-size:0.75rem;font-weight:900;color:#fff;letter-spacing:0.03em;">UBICACIONES DEL CLIENTE</div>
+                    <div style="font-size:0.42rem;color:rgba(255,255,255,0.8);" id="ubiHeaderClientName">Gestiona domicilio, negocio y puntos de entrega</div>
+                </div>
             </div>
-            <button id="ubicacionesCerrar" type="button" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:#6b7280;">✕</button>
+            <button id="ubicacionesCerrar" type="button" style="background:rgba(255,255,255,0.2);border:none;width:32px;height:32px;
+                border-radius:8px;font-size:1rem;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;">✕</button>
         </div>
 
-        <!-- Selector de tipo -->
-        <div style="padding:14px 22px 0;">
-            <div style="font-size:0.56rem;font-weight:800;color:#1f2937;margin-bottom:8px;">TIPO DE UBICACIÓN</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
-                <button class="ubi-tipo-btn active" data-ubi-tipo="domicilio" type="button" style="padding:8px 18px;border-radius:8px;border:2px solid #ff9900;background:#fff7ed;color:#ff9900;font-weight:800;font-size:0.55rem;cursor:pointer;">🏠 DOMICILIO (CASA)</button>
-                <button class="ubi-tipo-btn" data-ubi-tipo="negocio" type="button" style="padding:8px 18px;border-radius:8px;border:2px solid #d1d5db;background:#fff;color:#374151;font-weight:800;font-size:0.55rem;cursor:pointer;">🏢 NEGOCIO</button>
-                <button class="ubi-tipo-btn" data-ubi-tipo="puntoMedio" type="button" style="padding:8px 18px;border-radius:8px;border:2px solid #d1d5db;background:#fff;color:#374151;font-weight:800;font-size:0.55rem;cursor:pointer;">📌 PUNTO MEDIO</button>
-            </div>
+        <!-- ── Body: Split layout (fills remaining space) ── -->
+        <div style="display:flex;flex:1;overflow:hidden;min-height:0;">
 
-            <!-- Buscador inteligente unificado -->
-            <div style="font-size:0.56rem;font-weight:800;color:#1f2937;margin-bottom:6px;">BUSCAR DIRECCIÓN <span style="font-size:0.44rem;color:#9ca3af;font-weight:600;">(dirección, coordenadas o link de Google Maps)</span></div>
-            <div style="position:relative;margin-bottom:10px;">
-                <input id="ubiBuscadorInput" type="text" placeholder="🔍 Ej: Av. Juárez 100, Oaxaca / 17.0654,-96.7236 / https://maps.google.com/..." style="width:100%;padding:10px 14px;border:2px solid #ff9900;border-radius:10px;font-size:0.58rem;background:#fffbf5;color:#1f2937;font-weight:600;" autocomplete="off">
-                <div id="ubiBuscadorResults" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #e5e7eb;border-radius:8px;max-height:180px;overflow-y:auto;z-index:20;box-shadow:0 8px 20px rgba(0,0,0,0.15);"></div>
-                <div id="ubiBuscadorDetected" style="font-size:0.44rem;color:#9ca3af;margin-top:3px;min-height:14px;"></div>
-            </div>
+            <!-- LEFT PANEL -->
+            <div id="ubiLeftPanel" style="width:400px;min-width:340px;display:flex;flex-direction:column;
+                border-right:1px solid #e5e7eb;background:#fafbfc;overflow:hidden;">
 
-            <!-- Campos de dirección auto-rellenados -->
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">
-                <div class="login-field"><label style="color:#374151;font-weight:700;">Calle</label><input id="ubiCalle" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
-                <div class="login-field"><label style="color:#374151;font-weight:700;">Colonia</label><input id="ubiColonia" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
-                <div class="login-field"><label style="color:#374151;font-weight:700;">Ciudad</label><input id="ubiCiudad" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
-                <div class="login-field"><label style="color:#374151;font-weight:700;">Estado</label><input id="ubiEstado" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
-                <div class="login-field"><label style="color:#374151;font-weight:700;">CP</label><input id="ubiCp" type="text" style="background:#f9fafb;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#1f2937;"></div>
-                <div class="login-field"><label style="color:#374151;font-weight:700;">Coordenadas</label><input id="ubiCoords" type="text" readonly style="background:#f3f4f6;border:1px solid #d1d5db;border-radius:6px;padding:6px 8px;font-size:0.52rem;color:#6b7280;"></div>
-            </div>
+                <!-- 3 Location cards — always visible, compact row -->
+                <div style="padding:10px 14px 6px;flex-shrink:0;">
+                    <div style="font-size:0.44rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">
+                        Ubicaciones registradas</div>
+                    <div style="display:flex;gap:6px;">
 
-            <!-- Mini mapa -->
-            <div style="border:2px solid #e5e7eb;border-radius:10px;overflow:hidden;height:200px;background:#f0f0f0;margin-bottom:12px;position:relative;">
-                <div id="ubiMapaContainer" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-                    <div style="text-align:center;color:#9ca3af;">
-                        <div style="font-size:2rem;">🗺️</div>
-                        <div style="font-size:0.48rem;font-weight:700;">Ingresa una dirección para ver el mapa</div>
+                        <!-- Card: Domicilio -->
+                        <div class="ubi-card" data-ubi-tipo="domicilio" style="flex:1;display:flex;flex-direction:column;align-items:center;
+                            gap:4px;padding:8px 6px;background:#fff;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;
+                            transition:all 0.2s;min-width:0;">
+                            <div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#fef3c7,#fde68a);
+                                display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🏠</div>
+                            <div style="font-size:0.44rem;font-weight:800;color:#1f2937;text-align:center;">Domicilio</div>
+                            <div class="ubi-card-addr" style="font-size:0.36rem;color:#6b7280;text-align:center;white-space:nowrap;
+                                overflow:hidden;text-overflow:ellipsis;width:100%;">Sin registrar</div>
+                            <div class="ubi-card-status" style="width:8px;height:8px;border-radius:50%;background:#d1d5db;"></div>
+                        </div>
+
+                        <!-- Card: Negocio -->
+                        <div class="ubi-card" data-ubi-tipo="negocio" style="flex:1;display:flex;flex-direction:column;align-items:center;
+                            gap:4px;padding:8px 6px;background:#fff;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;
+                            transition:all 0.2s;min-width:0;">
+                            <div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#dbeafe,#93c5fd);
+                                display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🏢</div>
+                            <div style="font-size:0.44rem;font-weight:800;color:#1f2937;text-align:center;">Negocio</div>
+                            <div class="ubi-card-addr" style="font-size:0.36rem;color:#6b7280;text-align:center;white-space:nowrap;
+                                overflow:hidden;text-overflow:ellipsis;width:100%;">Sin registrar</div>
+                            <div class="ubi-card-status" style="width:8px;height:8px;border-radius:50%;background:#d1d5db;"></div>
+                        </div>
+
+                        <!-- Card: Punto medio -->
+                        <div class="ubi-card" data-ubi-tipo="puntoMedio" style="flex:1;display:flex;flex-direction:column;align-items:center;
+                            gap:4px;padding:8px 6px;background:#fff;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;
+                            transition:all 0.2s;min-width:0;">
+                            <div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#fce7f3,#f9a8d4);
+                                display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">📌</div>
+                            <div style="font-size:0.44rem;font-weight:800;color:#1f2937;text-align:center;">Punto medio</div>
+                            <div class="ubi-card-addr" style="font-size:0.36rem;color:#6b7280;text-align:center;white-space:nowrap;
+                                overflow:hidden;text-overflow:ellipsis;width:100%;">Sin registrar</div>
+                            <div class="ubi-card-status" style="width:8px;height:8px;border-radius:50%;background:#d1d5db;"></div>
+                        </div>
                     </div>
                 </div>
-                <div id="ubiMapaInfo" style="display:none;position:absolute;bottom:8px;left:8px;right:8px;background:rgba(255,255,255,0.95);border-radius:6px;padding:6px 10px;font-size:0.46rem;color:#374151;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-                    <div id="ubiMapaInfoNombre" style="color:#ff9900;font-weight:800;"></div>
-                    <div id="ubiMapaInfoDir"></div>
+
+                <!-- Editor form — fills remaining left panel space -->
+                <div id="ubiEditorPanel" style="display:none;padding:6px 14px 10px;flex:1;overflow-y:auto;min-height:0;">
+                    <div style="background:#fff;border:2px solid #ff9900;border-radius:10px;padding:12px;
+                        box-shadow:0 4px 16px rgba(255,153,0,0.1);">
+                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                            <span id="ubiEditorIcon" style="font-size:0.9rem;">🏠</span>
+                            <span id="ubiEditorTitle" style="font-size:0.54rem;font-weight:900;color:#ff9900;">EDITAR DOMICILIO</span>
+                        </div>
+
+                        <!-- Smart search -->
+                        <div style="margin-bottom:8px;">
+                            <div style="font-size:0.4rem;font-weight:700;color:#374151;margin-bottom:3px;">
+                                Buscar dirección <span style="color:#9ca3af;font-weight:500;">(dirección, coordenadas o link)</span></div>
+                            <div style="position:relative;">
+                                <input id="ubiBuscadorInput" type="text"
+                                    placeholder="🔍 Av. Juárez 100 / 17.065,-96.72 / maps.google.com/..."
+                                    style="width:100%;padding:8px 10px;border:2px solid #e5e7eb;border-radius:8px;font-size:0.46rem;
+                                    background:#fff;color:#1f2937;font-weight:600;transition:border-color 0.2s;box-sizing:border-box;"
+                                    autocomplete="off">
+                                <div id="ubiBuscadorResults" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;
+                                    border:1px solid #e5e7eb;border-radius:8px;max-height:140px;overflow-y:auto;z-index:20;
+                                    box-shadow:0 8px 20px rgba(0,0,0,0.15);"></div>
+                                <div id="ubiBuscadorDetected" style="font-size:0.36rem;color:#9ca3af;margin-top:1px;min-height:10px;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Address fields (3-col grid, compact) -->
+                        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:8px;">
+                            <div><label style="font-size:0.36rem;font-weight:700;color:#374151;">Calle</label>
+                                <input id="ubiCalle" type="text" style="width:100%;padding:5px 6px;border:1px solid #d1d5db;border-radius:6px;
+                                    font-size:0.42rem;color:#1f2937;box-sizing:border-box;background:#fafbfc;"></div>
+                            <div><label style="font-size:0.36rem;font-weight:700;color:#374151;">Colonia</label>
+                                <input id="ubiColonia" type="text" style="width:100%;padding:5px 6px;border:1px solid #d1d5db;border-radius:6px;
+                                    font-size:0.42rem;color:#1f2937;box-sizing:border-box;background:#fafbfc;"></div>
+                            <div><label style="font-size:0.36rem;font-weight:700;color:#374151;">Ciudad</label>
+                                <input id="ubiCiudad" type="text" style="width:100%;padding:5px 6px;border:1px solid #d1d5db;border-radius:6px;
+                                    font-size:0.42rem;color:#1f2937;box-sizing:border-box;background:#fafbfc;"></div>
+                            <div><label style="font-size:0.36rem;font-weight:700;color:#374151;">Estado</label>
+                                <input id="ubiEstado" type="text" style="width:100%;padding:5px 6px;border:1px solid #d1d5db;border-radius:6px;
+                                    font-size:0.42rem;color:#1f2937;box-sizing:border-box;background:#fafbfc;"></div>
+                            <div><label style="font-size:0.36rem;font-weight:700;color:#374151;">CP</label>
+                                <input id="ubiCp" type="text" style="width:100%;padding:5px 6px;border:1px solid #d1d5db;border-radius:6px;
+                                    font-size:0.42rem;color:#1f2937;box-sizing:border-box;background:#fafbfc;"></div>
+                            <div><label style="font-size:0.36rem;font-weight:700;color:#374151;">Coordenadas</label>
+                                <input id="ubiCoords" type="text" readonly style="width:100%;padding:5px 6px;border:1px solid #d1d5db;
+                                    border-radius:6px;font-size:0.42rem;color:#6b7280;box-sizing:border-box;background:#f3f4f6;"></div>
+                        </div>
+
+                        <!-- Editor actions -->
+                        <div style="display:flex;gap:6px;justify-content:flex-end;">
+                            <button id="ubiEditorCancel" type="button" style="padding:6px 14px;background:#f3f4f6;color:#6b7280;
+                                border:1px solid #d1d5db;border-radius:7px;font-weight:700;font-size:0.42rem;cursor:pointer;">Cancelar</button>
+                            <button id="ubiEditorSave" type="button" style="padding:6px 16px;background:linear-gradient(135deg,#ff9900,#e68a00);
+                                color:#fff;border:none;border-radius:7px;font-weight:800;font-size:0.42rem;cursor:pointer;
+                                box-shadow:0 2px 8px rgba(255,153,0,0.3);">💾 Guardar</button>
+                            <button id="ubiEditorDelete" type="button" style="padding:6px 12px;background:#fef2f2;color:#ef4444;
+                                border:1px solid #fecaca;border-radius:7px;font-weight:700;font-size:0.42rem;cursor:pointer;">🗑️</button>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Instruction placeholder (visible when editor is hidden) -->
+                <div id="ubiInstructionPlaceholder" style="flex:1;display:flex;flex-direction:column;align-items:center;
+                    justify-content:center;padding:20px;text-align:center;">
+                    <div style="font-size:2rem;opacity:0.2;">👆</div>
+                    <div style="font-size:0.46rem;font-weight:700;color:#9ca3af;margin-top:4px;">Selecciona una ubicación para editarla</div>
+                </div>
+
+
             </div>
 
-            <!-- Puntos medios generales -->
-            <div style="border-top:1px solid #e5e7eb;padding-top:10px;margin-bottom:10px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                    <span style="font-size:0.56rem;font-weight:800;color:#ff9900;">📌 PUNTOS MEDIOS REGISTRADOS (GENERALES)</span>
-                    <button type="button" id="ubiAddPuntoMedio" style="background:#ff9900;color:#fff;border:none;border-radius:6px;padding:4px 12px;font-size:0.5rem;font-weight:700;cursor:pointer;">+ NUEVO PUNTO MEDIO</button>
+            <!-- RIGHT PANEL: Leaflet Map (fills all remaining space) -->
+            <div style="flex:1;display:flex;flex-direction:column;background:#f0f4f8;min-width:0;overflow:hidden;">
+                <div style="padding:8px 14px 4px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+                    <div style="font-size:0.46rem;font-weight:800;color:#374151;">🗺️ Vista del mapa</div>
+                    <div style="display:flex;gap:8px;">
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:0.34rem;color:#6b7280;">
+                            <span style="width:7px;height:7px;border-radius:50%;background:#f59e0b;display:inline-block;"></span> Domicilio</span>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:0.34rem;color:#6b7280;">
+                            <span style="width:7px;height:7px;border-radius:50%;background:#3b82f6;display:inline-block;"></span> Negocio</span>
+                        <span style="display:inline-flex;align-items:center;gap:3px;font-size:0.34rem;color:#6b7280;">
+                            <span style="width:7px;height:7px;border-radius:50%;background:#ec4899;display:inline-block;"></span> Punto medio</span>
+                    </div>
                 </div>
-                <div id="ubiPuntosMediosLista" style="max-height:120px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;">
-                    <div style="font-size:0.48rem;color:#9ca3af;padding:8px;text-align:center;">No hay puntos medios registrados</div>
+                <div id="ubiMapaContainer" style="flex:1;margin:0 14px 14px;border-radius:12px;overflow:hidden;
+                    border:2px solid #e5e7eb;position:relative;background:#e5e7eb;">
+                    <div id="ubiLeafletMap" style="width:100%;height:100%;"></div>
+                    <div id="ubiMapPlaceholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+                        justify-content:center;background:#f8fafc;pointer-events:none;">
+                        <div style="font-size:3rem;opacity:0.3;">🗺️</div>
+                        <div style="font-size:0.48rem;font-weight:700;color:#9ca3af;margin-top:4px;">Agrega una ubicación para ver el mapa</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div style="display:flex;gap:8px;justify-content:flex-end;padding:12px 22px 16px;border-top:1px solid #e5e7eb;">
-            <button id="ubicacionesCancelar" type="button" style="padding:8px 20px;background:#6b7280;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:0.56rem;cursor:pointer;">CANCELAR</button>
-            <button id="ubicacionesGuardar" type="button" style="padding:8px 24px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-weight:800;font-size:0.56rem;cursor:pointer;">💾 GUARDAR UBICACIÓN</button>
+        <!-- ── Footer (compact) ── -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 22px;
+            border-top:1px solid #e5e7eb;background:#fafbfc;flex-shrink:0;">
+            <div style="font-size:0.38rem;color:#9ca3af;" id="ubiFooterInfo">Haz clic en una ubicación para editarla</div>
+            <button id="ubicacionesCancelar" type="button" style="padding:6px 20px;background:#6b7280;color:#fff;border:none;
+                border-radius:7px;font-weight:700;font-size:0.44rem;cursor:pointer;">CERRAR</button>
         </div>
     </div>
 </div>
 
+
 <!-- ═══ POPUP PAQUETERÍA INDEPENDIENTE ═══ -->
-<div id="popupPaqIndep" style="display:none;position:fixed;inset:0;z-index:100030;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;">
-    <div style="background:#0a0f1a;border:2px solid #ff9900;border-radius:14px;max-width:900px;width:94vw;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.5);padding:0;">
+<div id="popupPaqIndep" style="display:none;position:fixed;inset:0;z-index:100030;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;">
+    <div style="background:#ffffff;border:2px solid #ff9900;border-radius:16px;max-width:960px;width:96vw;box-shadow:0 12px 40px rgba(0,0,0,0.2);padding:0;display:flex;flex-direction:column;">
         <!-- Header -->
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 22px;border-bottom:2px solid #ff9900;background:rgba(255,153,0,0.08);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:2px solid #ff9900;background:#fff7ed;border-radius:16px 16px 0 0;flex-shrink:0;">
             <div>
-                <div style="font-size:0.78rem;font-weight:900;color:#ff9900;">🚐 PAQUETERÍAS INDEPENDIENTES</div>
-                <div style="font-size:0.44rem;color:rgba(255,255,255,0.6);margin-top:2px;">Selecciona o crea una paquetería para enviar</div>
+                <div style="font-size:1.1rem;font-weight:900;color:#ff9900;">🚐 PAQUETERÍAS INDEPENDIENTES</div>
+                <div style="font-size:0.58rem;color:#92400e;margin-top:2px;">Selecciona una paquetería o registra una nueva</div>
             </div>
-            <button id="paqIndepCerrar" type="button" style="background:none;border:none;font-size:1.3rem;cursor:pointer;color:rgba(255,255,255,0.6);">✕</button>
+            <button id="paqIndepCerrar" type="button" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#9ca3af;padding:4px 8px;">✕</button>
         </div>
 
-        <div style="padding:16px 22px;">
-            <!-- Lista de paqueterías guardadas -->
-            <div style="font-size:0.56rem;font-weight:800;color:#fff;margin-bottom:8px;">PAQUETERÍAS REGISTRADAS</div>
-            <div id="paqIndepLista" style="max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
-                <div style="text-align:center;color:rgba(255,255,255,0.4);font-size:0.5rem;padding:16px;">No hay paqueterías registradas aún</div>
+        <div style="padding:20px 28px;">
+            <!-- Tabs: Seleccionar / Nueva -->
+            <div style="display:flex;gap:0;margin-bottom:16px;border-radius:10px;overflow:hidden;border:2px solid #ff9900;">
+                <button id="paqTabSeleccionar" type="button" style="flex:1;padding:12px;background:#ff9900;color:#fff;border:none;font-weight:900;font-size:0.62rem;cursor:pointer;transition:all 0.15s;">📋 SELECCIONAR EXISTENTE</button>
+                <button id="paqTabNueva" type="button" style="flex:1;padding:12px;background:#fff;color:#ff9900;border:none;font-weight:900;font-size:0.62rem;cursor:pointer;transition:all 0.15s;">+ NUEVA PAQUETERÍA</button>
             </div>
 
-            <!-- Botón agregar -->
-            <button id="paqIndepAgregar" type="button" style="width:100%;padding:8px;background:transparent;border:2px dashed #ff9900;border-radius:8px;color:#ff9900;font-weight:800;font-size:0.54rem;cursor:pointer;margin-bottom:10px;">+ AGREGAR NUEVA PAQUETERÍA</button>
+            <!-- Panel: Lista de paqueterías guardadas -->
+            <div id="paqPanelSeleccionar">
+                <div id="paqIndepLista" style="display:flex;flex-direction:column;gap:8px;">
+                    <div style="text-align:center;color:#9ca3af;font-size:0.58rem;padding:30px;">No hay paqueterías registradas aún</div>
+                </div>
+            </div>
 
-            <!-- Formulario nueva paquetería -->
-            <div id="paqIndepFormNueva" style="display:none;background:rgba(255,153,0,0.05);border:1px solid rgba(255,153,0,0.3);border-radius:10px;padding:14px;margin-bottom:12px;">
-                <div style="font-size:0.56rem;font-weight:800;color:#ff9900;margin-bottom:10px;">NUEVA PAQUETERÍA</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Nombre *</label><input id="paqNombre" type="text" placeholder="Ej: Suburban Express" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Teléfono</label><input id="paqTelefono" type="tel" placeholder="10 dígitos" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Destinos</label><input id="paqDestinos" type="text" placeholder="Juchitán, Bahías de Huatulco" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Dir. sucursal</label><input id="paqDireccion" type="text" placeholder="Ubicación de la sucursal" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Dir. destino</label><input id="paqDirDestino" type="text" placeholder="Dirección exacta destino" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Servicio por cobrar</label>
-                        <select id="paqPorCobrar" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;">
-                            <option value="si">✅ Sí tiene</option>
-                            <option value="no">❌ No tiene</option>
+            <!-- Panel: Formulario nueva paquetería -->
+            <div id="paqPanelNueva" style="display:none;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div><label style="color:#374151;font-size:0.54rem;font-weight:700;display:block;margin-bottom:4px;">Nombre *</label><input id="paqNombre" type="text" placeholder="Ej: Suburban Express" style="width:100%;padding:10px 12px;font-size:0.6rem;border:2px solid #d1d5db;border-radius:8px;background:#f9fafb;color:#1f2937;"></div>
+                    <div><label style="color:#374151;font-size:0.54rem;font-weight:700;display:block;margin-bottom:4px;">Teléfono</label><input id="paqTelefono" type="tel" placeholder="10 dígitos" style="width:100%;padding:10px 12px;font-size:0.6rem;border:2px solid #d1d5db;border-radius:8px;background:#f9fafb;color:#1f2937;"></div>
+                    <div><label style="color:#374151;font-size:0.54rem;font-weight:700;display:block;margin-bottom:4px;">Destinos</label><input id="paqDestinos" type="text" placeholder="Juchitán, Bahías de Huatulco" style="width:100%;padding:10px 12px;font-size:0.6rem;border:2px solid #d1d5db;border-radius:8px;background:#f9fafb;color:#1f2937;"></div>
+                    <div><label style="color:#374151;font-size:0.54rem;font-weight:700;display:block;margin-bottom:4px;">¿Servicio por cobrar en destino?</label>
+                        <select id="paqPorCobrar" style="width:100%;padding:10px 12px;font-size:0.6rem;border:2px solid #d1d5db;border-radius:8px;background:#f9fafb;color:#1f2937;">
+                            <option value="si">SÍ — Se paga al recoger</option>
+                            <option value="no">NO — Se paga al enviar</option>
+                            <option value="ambos">AMBOS — Por cobrar y pago al enviar</option>
                         </select>
                     </div>
+                    <div><label style="color:#374151;font-size:0.54rem;font-weight:700;display:block;margin-bottom:4px;">Dir. sucursal</label><input id="paqDireccion" type="text" placeholder="Ubicación de la sucursal" style="width:100%;padding:10px 12px;font-size:0.6rem;border:2px solid #d1d5db;border-radius:8px;background:#f9fafb;color:#1f2937;"></div>
+                    <div><label style="color:#374151;font-size:0.54rem;font-weight:700;display:block;margin-bottom:4px;">Dir. destino</label><input id="paqDirDestino" type="text" placeholder="Dirección exacta destino" style="width:100%;padding:10px 12px;font-size:0.6rem;border:2px solid #d1d5db;border-radius:8px;background:#f9fafb;color:#1f2937;"></div>
                 </div>
 
-                <!-- Historial de costos -->
-                <div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;">
-                    <div style="font-size:0.5rem;font-weight:800;color:#fff;margin-bottom:6px;">📊 HISTORIAL DE COSTOS (estimación inteligente)</div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px;">
-                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Largo cm</label><input id="paqHistLargo" type="number" min="1" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Ancho cm</label><input id="paqHistAncho" type="number" min="1" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Alto cm</label><input id="paqHistAlto" type="number" min="1" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Peso kg</label><input id="paqHistPeso" type="number" min="0.1" step="0.1" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                        <div><label style="color:rgba(255,255,255,0.5);font-size:0.4rem;">Costo $</label><input id="paqHistCosto" type="number" min="0" step="0.01" style="width:100%;padding:4px;font-size:0.48rem;border:1px solid rgba(255,255,255,0.15);border-radius:4px;background:rgba(255,255,255,0.05);color:#fff;"></div>
-                    </div>
-                    <button id="paqHistAgregar" type="button" style="margin-top:6px;background:#ff9900;color:#fff;border:none;border-radius:4px;padding:4px 14px;font-size:0.46rem;font-weight:700;cursor:pointer;">+ AGREGAR AL HISTORIAL</button>
-                </div>
-
-                <!-- Estimación -->
-                <div id="paqEstimacion" style="margin-top:8px;background:rgba(255,153,0,0.1);border:1px dashed #ff9900;border-radius:6px;padding:6px 10px;display:none;">
-                    <div style="font-size:0.48rem;font-weight:800;color:#ff9900;">💡 COSTO ESTIMADO</div>
-                    <div id="paqEstimacionMonto" style="font-size:0.7rem;font-weight:900;color:#fff;"></div>
-                    <div id="paqEstimacionInfo" style="font-size:0.42rem;color:rgba(255,255,255,0.5);"></div>
-                </div>
-
-                <div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end;">
-                    <button id="paqNuevaCancelar" type="button" style="padding:6px 16px;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:6px;font-size:0.5rem;font-weight:700;cursor:pointer;">CANCELAR</button>
-                    <button id="paqNuevaGuardar" type="button" style="padding:6px 16px;background:#ff9900;color:#fff;border:none;border-radius:6px;font-size:0.5rem;font-weight:800;cursor:pointer;">💾 GUARDAR PAQUETERÍA</button>
-                </div>
-            </div>
-
-            <!-- Sección repartidor -->
-            <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:12px;margin-top:4px;">
-                <div style="font-size:0.56rem;font-weight:800;color:#fff;margin-bottom:8px;">🚗 ENTREGA EN PAQUETERÍA (REPARTIDOR)</div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Paquetería destino</label>
-                        <select id="paqRepartidorDestino" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;">
-                            <option value="">— Seleccionar —</option>
-                        </select>
-                    </div>
-                    <div><label style="color:rgba(255,255,255,0.7);font-size:0.44rem;font-weight:700;display:block;margin-bottom:3px;">Cant. paquetes</label><input id="paqRepartidorCant" type="number" min="1" value="1" style="width:100%;padding:6px 8px;font-size:0.52rem;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.05);color:#fff;text-align:center;"></div>
-                </div>
-
-                <!-- Evidencia -->
-                <div style="margin-top:10px;">
-                    <div style="font-size:0.48rem;font-weight:700;color:rgba(255,255,255,0.6);margin-bottom:4px;">📸 EVIDENCIA DE ENTREGA</div>
-                    <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.48rem;color:#ff9900;font-weight:700;padding:6px 12px;border:1px dashed #ff9900;border-radius:6px;background:rgba(255,153,0,0.05);width:fit-content;">
-                        📷 SUBIR FOTO
-                        <input id="paqEvidenciaFoto" type="file" accept="image/*" style="display:none;">
-                    </label>
-                    <div id="paqEvidenciaPreview" style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;"></div>
-                </div>
-
-                <!-- Botones servicio -->
-                <div style="display:flex;gap:8px;margin-top:12px;">
-                    <button id="paqServicioPagado" type="button" style="flex:1;padding:12px;background:#4caf50;color:#fff;border:none;border-radius:8px;font-weight:900;font-size:0.56rem;cursor:pointer;">✅ SERVICIO PAGADO</button>
-                    <button id="paqServicioPorCobrar" type="button" style="flex:1;padding:12px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-weight:900;font-size:0.56rem;cursor:pointer;">⚠️ SERVICIO POR COBRAR</button>
-                </div>
-
-                <!-- Monto del viaje -->
-                <div id="paqMontoViaje" style="display:none;margin-top:10px;">
-                    <label style="color:#fff;font-weight:800;font-size:0.52rem;display:block;margin-bottom:4px;">💰 Monto pagado en paquetería</label>
-                    <div style="display:flex;gap:6px;align-items:center;">
-                        <span style="font-size:0.6rem;color:rgba(255,255,255,0.5);">$</span>
-                        <input id="paqMontoPagado" type="number" min="0" step="0.01" placeholder="0.00" style="flex:1;font-size:0.6rem;font-weight:900;padding:6px 10px;border:2px solid #ff9900;border-radius:8px;background:rgba(255,255,255,0.05);color:#fff;">
-                        <button id="paqMontoAplicar" type="button" style="padding:6px 16px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-weight:800;font-size:0.52rem;cursor:pointer;">APLICAR ADEUDO</button>
-                    </div>
-                    <div style="font-size:0.42rem;color:#ef4444;margin-top:3px;font-weight:600;">* Este monto se reflejará como adeudo del cliente</div>
-                </div>
-            </div>
-
-            <!-- Aplicar costo -->
-            <div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:12px;padding-top:12px;">
-                <div style="display:flex;gap:8px;align-items:center;">
-                    <span style="color:#fff;font-size:0.56rem;font-weight:800;">$ COSTO DE ENVÍO:</span>
-                    <input id="paqIndepCosto" type="number" min="0" step="0.01" placeholder="0.00" style="flex:1;padding:8px 10px;border-radius:8px;border:2px solid #ff9900;background:rgba(255,255,255,0.05);color:#fff;font-size:0.6rem;font-weight:900;">
-                    <button id="paqIndepAplicar" type="button" style="padding:8px 20px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-size:0.56rem;font-weight:900;cursor:pointer;">✅ APLICAR ENVÍO</button>
+                <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end;">
+                    <button id="paqNuevaCancelar" type="button" style="padding:10px 24px;background:#fff;color:#ff9900;border:2px solid #ff9900;border-radius:10px;font-size:0.58rem;font-weight:800;cursor:pointer;">CANCELAR</button>
+                    <button id="paqNuevaGuardar" type="button" style="padding:10px 24px;background:#ff9900;color:#fff;border:none;border-radius:10px;font-size:0.58rem;font-weight:900;cursor:pointer;">GUARDAR PAQUETERÍA</button>
                 </div>
             </div>
         </div>
@@ -11616,30 +11667,41 @@ const imgBolsaDeliveryBase = new Image();
 
 <!-- ═══ POPUP NOTAS PROFESIONALES (Producción / Diseñador) ═══ -->
 <div id="popupNotasProfesionales" class="popup-overlay" aria-hidden="true" style="z-index:100020;">
-    <div role="dialog" aria-modal="true" style="background:#ffffff;max-width:720px;width:94vw;max-height:92vh;overflow-y:auto;padding:0;border-radius:14px;border:2px solid #ff9900;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 22px 10px;border-bottom:2px solid #ff9900;background:#fff7ed;border-radius:14px 14px 0 0;">
+    <div role="dialog" aria-modal="true" style="background:#ffffff;width:960px;max-width:96vw;height:680px;max-height:94vh;padding:0;border-radius:14px;border:2px solid #ff9900;box-shadow:0 20px 60px rgba(0,0,0,0.3);display:flex;flex-direction:column;overflow:hidden;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 26px 14px;border-bottom:2px solid #ff9900;background:#fff7ed;border-radius:14px 14px 0 0;flex-shrink:0;">
             <div>
-                <div id="notasPopupTitulo" style="font-size:0.75rem;font-weight:900;color:#ff9900;">📝 NOTAS PARA PRODUCCIÓN</div>
-                <div id="notasPopupSubtitulo" style="font-size:0.48rem;color:#92400e;margin-top:2px;">Agrega notas e imágenes de referencia</div>
+                <div id="notasPopupTitulo" style="font-size:0.85rem;font-weight:900;color:#ff9900;">📝 NOTAS PARA PRODUCCIÓN</div>
+                <div id="notasPopupSubtitulo" style="font-size:0.52rem;color:#92400e;margin-top:2px;">Agrega notas e imágenes de referencia</div>
             </div>
-            <button id="notasPopupCerrar" type="button" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#92400e;padding:4px 8px;">✕</button>
+            <button id="notasPopupCerrar" type="button" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:#92400e;padding:4px 8px;">✕</button>
         </div>
-        <div style="padding:0 22px 16px;">
-            <!-- Nueva nota -->
-            <div style="margin-top:14px;">
-                <textarea id="notasPopupTexto" rows="3" placeholder="Escribe una nota o instrucción..." style="width:100%;padding:10px;font-size:0.55rem;border:2px solid #ffb84d;border-radius:8px;resize:vertical;font-family:inherit;color:#1f2937;background:#fffbf5;"></textarea>
-                <div style="display:flex;gap:8px;margin-top:8px;align-items:center;">
-                    <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.5rem;color:#ff9900;font-weight:700;padding:6px 12px;border:1px dashed #ffb84d;border-radius:6px;background:#fff7ed;">
-                        📎 ADJUNTAR IMAGEN
-                        <input id="notasPopupImagen" type="file" accept="image/*" multiple style="display:none;">
-                    </label>
-                    <div id="notasPopupPreview" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
-                    <div style="flex:1;"></div>
-                    <button id="notasPopupAgregar" type="button" style="font-size:0.52rem;padding:8px 18px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-weight:800;cursor:pointer;">+ AGREGAR NOTA</button>
+        <div style="display:flex;flex:1;min-height:0;overflow:hidden;">
+            <!-- Columna izquierda: notas -->
+            <div style="flex:1;display:flex;flex-direction:column;padding:18px 22px 16px;overflow:hidden;min-width:0;">
+                <!-- Nueva nota -->
+                <div style="flex-shrink:0;">
+                    <textarea id="notasPopupTexto" rows="3" placeholder="Escribe una nota o instrucción..." style="width:100%;padding:12px;font-size:0.6rem;border:2px solid #ffb84d;border-radius:8px;resize:vertical;font-family:inherit;color:#1f2937;background:#fffbf5;box-sizing:border-box;"></textarea>
+                    <div style="display:flex;gap:10px;margin-top:10px;align-items:center;">
+                        <label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:0.55rem;color:#ff9900;font-weight:700;padding:8px 16px;border:1px dashed #ffb84d;border-radius:6px;background:#fff7ed;">
+                            📎 ADJUNTAR IMAGEN
+                            <input id="notasPopupImagen" type="file" accept="image/*" multiple style="display:none;">
+                        </label>
+                        <div id="notasPopupPreview" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
+                        <div style="flex:1;"></div>
+                        <button id="notasPopupAgregar" type="button" style="font-size:0.58rem;padding:10px 22px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-weight:800;cursor:pointer;">+ AGREGAR NOTA</button>
+                    </div>
                 </div>
+                <!-- Lista de notas existentes -->
+                <div id="notasPopupLista" style="margin-top:18px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1;min-height:0;"></div>
             </div>
-            <!-- Lista de notas existentes -->
-            <div id="notasPopupLista" style="margin-top:16px;display:flex;flex-direction:column;gap:10px;"></div>
+            <!-- Columna derecha: galería de imágenes -->
+            <div id="notasPopupGaleria" style="width:280px;min-width:280px;border-left:2px solid #ffe0b2;background:#fffbf5;display:flex;flex-direction:column;overflow:hidden;">
+                <div style="padding:14px 16px 10px;border-bottom:1px solid #ffe0b2;flex-shrink:0;">
+                    <div style="font-size:0.62rem;font-weight:900;color:#ff9900;">🖼️ GALERÍA DE IMÁGENES</div>
+                    <div id="notasPopupImgCount" style="font-size:0.48rem;color:#92400e;margin-top:2px;">0 imágenes adjuntas</div>
+                </div>
+                <div id="notasPopupGaleriaGrid" style="flex:1;overflow-y:auto;padding:12px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -12052,7 +12114,6 @@ const imgBolsaDeliveryBase = new Image();
                         </div>
                     </div>
                     <div class="orden-field"><label for="prodFormTipo">TIPO DE PRODUCTO</label><select id="prodFormTipo"><option value="stock">PRODUCTO</option><option value="gran-formato">GRAN FORMATO</option><option value="fabricado">FABRICADO</option><option value="insumo">INSUMO</option><option value="proceso">PROCESO</option><option value="servicio">SERVICIO</option></select></div>
-                    <div class="orden-field"><label for="prodFormNaturaleza">Tipo comercial</label><select id="prodFormNaturaleza"><option value="producto">Producto</option><option value="fabricado">Producto fabricado</option><option value="insumo">Insumo</option><option value="proceso">Proceso</option><option value="servicio">Servicio</option></select></div>
                     <div class="orden-field" id="prodFormNombreWrap" data-nat="producto,fabricado,insumo,proceso,servicio"><label for="prodFormProducto">Nombre</label><input id="prodFormProducto" type="text" placeholder="Nombre del artículo"></div>
                     <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo">
                         <label for="prodFormUMCompra">U. medida compra</label>
@@ -12078,6 +12139,19 @@ const imgBolsaDeliveryBase = new Image();
                     <div class="orden-field" data-nat="insumo"><label for="prodFormDesgastePorUso">Desgaste por unidad usada</label><input id="prodFormDesgastePorUso" type="number" min="0" step="0.001" value="1" placeholder="Cantidad que se consume por uso"></div>
                     <div class="orden-field productos-field-span3" data-nat="proceso"><label style="margin-bottom:2px;">🧰 Insumos del proceso</label><div style="display:flex;align-items:center;gap:6px;"><button type="button" id="prodFormProcesoInsumosBtn" class="productos-btn" style="padding:6px 14px;font-size:0.62rem;background:#f07a00;color:#fff;border:none;border-radius:6px;">🧰 Enlazar insumos</button><span id="prodFormProcesoInsumosResumen" style="font-size:0.55rem;color:#9ca3af;flex:1;">Sin insumos enlazados</span></div><div id="prodFormProcesoInsumosPreview" style="margin-top:4px;font-size:0.6rem;"></div></div>
                     <div class="orden-field prod-stock-only productos-field-span3" data-nat="producto,fabricado,insumo,proceso,servicio"><label for="prodFormDescripcion">Descripción</label><textarea id="prodFormDescripcion" rows="1" placeholder="Descripción del producto" style="resize:none;"></textarea></div>
+
+                    <!-- MEDIDAS Y PESO DEL PAQUETE PARA ENVÍO -->
+                    <div class="orden-field productos-field-span3" data-nat="producto,fabricado,insumo" style="margin-top:4px;">
+                        <label style="font-size:0.62rem;font-weight:900;color:#ff9900;letter-spacing:0.5px;margin-bottom:4px;display:block;">📦 MEDIDAS Y PESO DEL PAQUETE (para cotizar envíos)</label>
+                        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:8px;">
+                            <div class="orden-field"><label for="prodFormPkgLargo">Largo (cm)</label><input id="prodFormPkgLargo" type="number" min="0" step="0.1" value="0" placeholder="cm"></div>
+                            <div class="orden-field"><label for="prodFormPkgAncho">Ancho (cm)</label><input id="prodFormPkgAncho" type="number" min="0" step="0.1" value="0" placeholder="cm"></div>
+                            <div class="orden-field"><label for="prodFormPkgAlto">Alto (cm)</label><input id="prodFormPkgAlto" type="number" min="0" step="0.1" value="0" placeholder="cm"></div>
+                            <div class="orden-field"><label for="prodFormPkgPeso">Peso (kg)</label><input id="prodFormPkgPeso" type="number" min="0" step="0.01" value="0" placeholder="kg"></div>
+                            <div class="orden-field"><label>Vol. (cm³)</label><input id="prodFormPkgVol" type="text" readonly style="background:#f3f4f6;opacity:0.8;" value="0"></div>
+                        </div>
+                        <div id="prodFormPkgVolInfo" style="font-size:0.5rem;color:#9ca3af;margin-top:2px;font-style:italic;">Peso volumétrico: 0 kg (÷5000)</div>
+                    </div>
 
                     <div class="orden-field productos-field-span3" data-nat="producto,fabricado"><label for="prodFormMuestrarioAsociado">📁 Muestrario asociado</label><select id="prodFormMuestrarioAsociado"><option value="">Sin muestrario</option><option value="BOLSA BOUTIQUE TROQUELADA">BOLSA BOUTIQUE TROQUELADA</option><option value="BOLSAS KRAFT">BOLSAS KRAFT</option><option value="BOLSAS KRAFT BLANCAS">BOLSAS KRAFT BLANCAS</option><option value="TARJETAS DE PRESENTACIÓN">TARJETAS DE PRESENTACIÓN</option><option value="VOLANTES">VOLANTES</option></select></div>
                     <div class="orden-field" data-nat="producto,fabricado"><label for="prodFormRevisionesGratis">🔄 Revisiones gratis</label><input id="prodFormRevisionesGratis" type="number" min="0" max="20" value="2" step="1" placeholder="Ej: 2"></div>
@@ -13640,7 +13714,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const prodFormCodigo = document.getElementById('prodFormCodigo');
     const prodFormGenerarCodigo = document.getElementById('prodFormGenerarCodigo');
     const prodFormTipo = document.getElementById('prodFormTipo');
-    const prodFormNaturaleza = document.getElementById('prodFormNaturaleza');
     const prodFormProducto = document.getElementById('prodFormProducto');
     const prodFormCategoria = document.getElementById('prodFormCategoria');
     // prodFormMedida removed - now using UoM selects
@@ -16021,24 +16094,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (clientesmodConteo) clientesmodConteo.textContent = `Total de clientes: ${clientesModuloData.filter(c => !c.deshabilitado).length}`;
 
-        clientesmodTableBody.querySelectorAll('[data-cli-id]').forEach((row) => {
-            row.addEventListener('click', () => {
-                const id = String(row.getAttribute('data-cli-id') || '');
-                if (!id) return;
-                clientesModuloSelectedId = id;
-                renderClientesModulo();
-            });
-            row.addEventListener('dblclick', () => {
-                const id = String(row.getAttribute('data-cli-id') || '');
-                if (!id) return;
-                clientesModuloSelectedId = id;
-                const target = clientesModuloData.find((c) => c.id === id);
-                if (target) openClientesFormPopup('edit', target);
-            });
-        });
-
         updateClientesModuloButtons();
     };
+
+    // Event delegation for client row selection (attached once, works after re-renders)
+    if (clientesmodTableBody) {
+        clientesmodTableBody.addEventListener('click', (e) => {
+            const row = e.target.closest('[data-cli-id]');
+            if (!row) return;
+            const id = String(row.getAttribute('data-cli-id') || '');
+            if (!id) return;
+            clientesModuloSelectedId = id;
+            renderClientesModulo();
+        });
+        clientesmodTableBody.addEventListener('dblclick', (e) => {
+            const row = e.target.closest('[data-cli-id]');
+            if (!row) return;
+            const id = String(row.getAttribute('data-cli-id') || '');
+            if (!id) return;
+            clientesModuloSelectedId = id;
+            const target = clientesModuloData.find((c) => c.id === id);
+            if (target) openClientesFormPopup('edit', target);
+        });
+    }
 
     const syncClienteQuickStore = (cliente = {}) => {
         try {
@@ -18662,11 +18740,58 @@ document.addEventListener('DOMContentLoaded', () => {
         const dataInput = document.getElementById(campo === 'produccion' ? 'ordenNotasProduccionData' : 'ordenNotasDisenadorData');
         try { notasPopupDatos = JSON.parse(dataInput?.value || '[]'); } catch (_) { notasPopupDatos = []; }
         if (!Array.isArray(notasPopupDatos)) notasPopupDatos = [];
+        // Tag each nota with its campo for gallery display
+        notasPopupDatos.forEach(n => { if (!n.campo) n.campo = campo; });
         document.getElementById('notasPopupTexto').value = '';
         document.getElementById('notasPopupPreview').innerHTML = '';
         renderNotasPopupLista();
+        // Render combined gallery from BOTH campos
+        renderNotasGaleriaCombinada(campo);
         popupNotasProfesionales.style.display = 'flex';
         popupNotasProfesionales.setAttribute('aria-hidden', 'false');
+    };
+
+    // Render combined gallery showing images from BOTH producción and diseñador
+    const renderNotasGaleriaCombinada = (campoActivo) => {
+        const galeria = document.getElementById('notasPopupGaleriaGrid');
+        const imgCount = document.getElementById('notasPopupImgCount');
+        if (!galeria) return;
+        let allImgs = [];
+        // Current campo images
+        notasPopupDatos.forEach((nota, i) => {
+            (nota.imagenes || []).forEach((src, j) => {
+                allImgs.push({ src, notaIdx: i, imgIdx: j, campo: campoActivo, fecha: nota.fecha || '', canDelete: true });
+            });
+        });
+        // Other campo images (read-only view)
+        const otroCampo = campoActivo === 'produccion' ? 'disenador' : 'produccion';
+        const otroDataInput = document.getElementById(otroCampo === 'produccion' ? 'ordenNotasProduccionData' : 'ordenNotasDisenadorData');
+        let otrosDatos = [];
+        try { otrosDatos = JSON.parse(otroDataInput?.value || '[]'); } catch (_) {}
+        if (Array.isArray(otrosDatos)) {
+            otrosDatos.forEach((nota) => {
+                (nota.imagenes || []).forEach((src) => {
+                    allImgs.push({ src, notaIdx: -1, imgIdx: -1, campo: otroCampo, fecha: nota.fecha || '', canDelete: false });
+                });
+            });
+        }
+        if (!allImgs.length) {
+            galeria.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:20px;font-size:0.48rem;width:100%;">Sin imágenes</div>';
+        } else {
+            galeria.innerHTML = allImgs.map((img, globalIdx) => {
+                const labelColor = img.campo === 'produccion' ? '#ff9900' : '#8b5cf6';
+                const labelText = img.campo === 'produccion' ? 'PROD' : 'DISEÑO';
+                const num = globalIdx + 1;
+                const delBtn = img.canDelete ? `<button type="button" onclick="event.stopPropagation();window._notaEliminarImagen(${img.notaIdx},${img.imgIdx})" style="position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;line-height:1;">×</button>` : '';
+                return `<div class="nota-img-item" data-nota-idx="${img.notaIdx}" data-global-num="${num}" style="position:relative;width:110px;flex-shrink:0;cursor:pointer;border-radius:10px;padding:3px;transition:background 0.2s,box-shadow 0.2s;" onclick="window._notaHighlight(${img.notaIdx},${num})">
+                    <div style="position:absolute;top:-2px;left:-2px;background:${labelColor};color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;font-weight:900;z-index:2;box-shadow:0 2px 6px rgba(0,0,0,0.2);">${num}</div>
+                    <img src="${img.src}" style="width:110px;height:110px;object-fit:cover;border-radius:8px;border:2px solid ${labelColor};cursor:pointer;" onclick="event.stopPropagation();window._notaVerImagen('${img.src.replace(/'/g, "\\'")}')" title="Clic para ampliar">
+                    ${delBtn}
+                    <div style="text-align:center;margin-top:3px;font-size:0.42rem;font-weight:900;color:${labelColor};background:${img.campo === 'produccion' ? '#fff7ed' : '#f5f3ff'};border-radius:4px;padding:1px 4px;">#${num} ${labelText}</div>
+                </div>`;
+            }).join('');
+        }
+        if (imgCount) imgCount.textContent = `${allImgs.length} imagen${allImgs.length === 1 ? '' : 'es'} (ambos campos)`;
     };
 
     const closeNotasPopup = () => {
@@ -18690,6 +18815,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }).join(' | ');
             textarea.value = resumen || '';
         }
+        // Actualizar highlight visual en los wrappers
+        const wrapId = campo === 'produccion' ? 'notasProduccionWrap' : 'notasDisenadorWrap';
+        const wrap = document.getElementById(wrapId);
+        if (wrap) {
+            if (notasPopupDatos.length > 0) wrap.classList.add('has-notas');
+            else wrap.classList.remove('has-notas');
+        }
     };
 
     const renderNotasPopupLista = () => {
@@ -18697,23 +18829,66 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
         if (!notasPopupDatos.length) {
             container.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:20px;font-size:0.52rem;">Sin notas aún — agrega la primera nota arriba</div>';
+            renderNotasGaleriaCombinada(notasPopupCampoActual || 'produccion');
             return;
         }
         const esc = (v) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const campoLabel = notasPopupCampoActual === 'produccion' ? 'PRODUCCIÓN' : 'DISEÑADOR';
+        const campoColor = notasPopupCampoActual === 'produccion' ? '#ff9900' : '#8b5cf6';
+        // Build global image numbering map: notaIdx -> starting number
+        let _imgGlobalNum = 1;
+        const notaStartNum = {};
+        notasPopupDatos.forEach((nota, i) => {
+            notaStartNum[i] = _imgGlobalNum;
+            _imgGlobalNum += (nota.imagenes || []).length;
+        });
         container.innerHTML = notasPopupDatos.map((nota, i) => {
-            const imgs = (nota.imagenes || []).map((src, j) =>
-                `<div style="position:relative;display:inline-block;">
-                    <img src="${src}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #d1d5db;cursor:pointer;" onclick="window._notaVerImagen('${src.replace(/'/g, "\\'")}')" title="Clic para ampliar">
-                    <button type="button" onclick="window._notaEliminarImagen(${i},${j})" style="position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:16px;height:16px;font-size:10px;cursor:pointer;line-height:1;">×</button>
-                </div>`
-            ).join('');
-            return `<div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:12px;position:relative;">
-                <div style="font-size:0.48rem;color:#9ca3af;margin-bottom:4px;">${esc(nota.fecha || '')}</div>
-                <div style="font-size:0.54rem;color:#1e293b;white-space:pre-wrap;">${esc(nota.texto)}</div>
-                ${imgs ? `<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">${imgs}</div>` : ''}
-                <button type="button" onclick="window._notaEliminar(${i})" style="position:absolute;top:8px;right:8px;background:#fee2e2;color:#dc2626;border:none;border-radius:4px;padding:2px 8px;font-size:0.45rem;cursor:pointer;font-weight:700;">ELIMINAR</button>
+            const imgCount = (nota.imagenes || []).length;
+            const startNum = notaStartNum[i] || 1;
+            const imgNums = imgCount ? Array.from({length: imgCount}, (_, k) => '#' + (startNum + k)).join(', ') : '';
+            const imgBadge = imgCount ? `<span style="background:#fff3e6;color:#ff9900;padding:1px 6px;border-radius:4px;font-size:0.42rem;font-weight:700;margin-left:6px;">📎 ${imgCount} img (${imgNums})</span>` : '';
+            return `<div class="nota-comment-item" data-nota-idx="${i}" style="background:#fff;border:1px solid #e5e7eb;border-left:4px solid ${campoColor};border-radius:8px;padding:12px;position:relative;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;" onclick="window._notaHighlight(${i},-1)">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                    <div style="display:flex;align-items:center;gap:6px;">
+                        <span style="font-size:0.5rem;font-weight:900;color:#fff;background:${campoColor};padding:2px 8px;border-radius:4px;min-width:20px;text-align:center;">${imgCount ? imgNums : '#' + (i+1)}</span>
+                        <span style="font-size:0.42rem;font-weight:900;color:#fff;background:${campoColor};padding:2px 6px;border-radius:4px;">${campoLabel}</span>
+                        <span style="font-size:0.48rem;color:#9ca3af;">${esc(nota.fecha || '')}</span>
+                        ${imgBadge}
+                    </div>
+                    <button type="button" onclick="event.stopPropagation();window._notaEliminar(${i})" style="background:#fee2e2;color:#dc2626;border:none;border-radius:4px;padding:2px 8px;font-size:0.45rem;cursor:pointer;font-weight:700;">ELIMINAR</button>
+                </div>
+                <div style="font-size:0.56rem;color:#1e293b;white-space:pre-wrap;">${esc(nota.texto)}</div>
             </div>`;
         }).join('');
+        renderNotasGaleriaCombinada(notasPopupCampoActual || 'produccion');
+    };
+
+    // ===== HIGHLIGHT: iluminar imagen y comentario al tocar =====
+    window._notaHighlight = (notaIdx, globalNum) => {
+        // Clear all highlights
+        document.querySelectorAll('.nota-comment-item, .nota-img-item').forEach(el => {
+            el.style.background = '';
+            el.style.boxShadow = '';
+        });
+        // Highlight matching comment
+        document.querySelectorAll(`.nota-comment-item[data-nota-idx="${notaIdx}"]`).forEach(el => {
+            el.style.background = '#fff7ed';
+            el.style.boxShadow = '0 0 0 3px rgba(255,153,0,0.35)';
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+        // Highlight matching images
+        document.querySelectorAll(`.nota-img-item[data-nota-idx="${notaIdx}"]`).forEach(el => {
+            el.style.background = '#fff7ed';
+            el.style.boxShadow = '0 0 0 3px rgba(255,153,0,0.35)';
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+        // If clicked specific image number, also highlight that one specifically
+        if (globalNum > 0) {
+            document.querySelectorAll(`.nota-img-item[data-global-num="${globalNum}"]`).forEach(el => {
+                el.style.background = '#ffedd5';
+                el.style.boxShadow = '0 0 0 4px rgba(255,153,0,0.5)';
+            });
+        }
     };
 
     window._notaEliminar = (idx) => {
@@ -19107,7 +19282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderProductosHead = () => {
         if (!productosTablaHead) return;
         productosTablaHead.innerHTML = `<tr>
-            <th>Tipo</th>
+            <th>Tipo de producto</th>
             <th>Producto</th>
             <th>Medida</th>
             <th>Material</th>
@@ -19122,8 +19297,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const syncProdFormModeByTipo = () => {
-        const isGF = (prodFormTipo?.value === 'gran-formato');
-        const nat = prodFormNaturaleza?.value || 'producto';
+        const tipoVal = prodFormTipo?.value || 'stock';
+        const isGF = (tipoVal === 'gran-formato');
+        const natMap = {'stock':'producto','gran-formato':'producto','fabricado':'fabricado','insumo':'insumo','proceso':'proceso','servicio':'servicio'};
+        const nat = natMap[tipoVal] || 'producto';
 
         // First pass: handle data-nat visibility
         document.querySelectorAll('[data-nat]').forEach(el => {
@@ -19268,7 +19445,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ].filter(Boolean).join(' ');
             const isGF = row.tipo === 'gran-formato';
             const tipoLabels = {'stock':'PRODUCTO','gran-formato':'GRAN FORMATO','fabricado':'FABRICADO','insumo':'INSUMO','proceso':'PROCESO','servicio':'SERVICIO'};
-            const tipoLabel = tipoLabels[row.tipo] || 'PRODUCTO';
+            const effectiveTipo = (row.naturaleza && row.naturaleza !== 'producto') ? row.naturaleza : (row.tipo || 'stock');
+            const tipoLabel = tipoLabels[effectiveTipo] || 'PRODUCTO';
             const precioRev = isGF ? Number(row.gfPrecioRevM2 || 0) : Number(row.precioRevendedor || 0);
             const precioVta = isGF ? Number(row.gfPrecioGeneralM2 || 0) : Number(row.precioVenta || 0);
             const existencias = Number(row.existencias || 0);
@@ -19562,7 +19740,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodFormTitulo) prodFormTitulo.textContent = 'Agregar producto';
         if (prodFormCodigo) prodFormCodigo.value = '';
         if (prodFormTipo) prodFormTipo.value = 'stock';
-        if (prodFormNaturaleza) prodFormNaturaleza.value = 'producto';
         if (prodFormProducto) prodFormProducto.value = '';
         if (prodFormCategoria) prodFormCategoria.value = '';
         var umC = document.getElementById('prodFormUMCompra'); if (umC) umC.value = 'Unidad';
@@ -19624,8 +19801,7 @@ document.addEventListener('DOMContentLoaded', () => {
         productoEditandoId = row.id;
         if (prodFormTitulo) prodFormTitulo.textContent = 'Editar producto';
         if (prodFormCodigo) prodFormCodigo.value = row.codigo || '';
-        if (prodFormTipo) prodFormTipo.value = row.tipo || 'stock';
-        if (prodFormNaturaleza) prodFormNaturaleza.value = row.naturaleza || 'producto';
+        if (prodFormTipo) prodFormTipo.value = (row.naturaleza && row.naturaleza !== 'producto') ? row.naturaleza : (row.tipo || 'stock');
         { const dp = document.getElementById('prodFormDesgastePorUso'); if (dp) dp.value = String(Number(row.desgastePorUso || 1)); }
         if (prodFormProducto) prodFormProducto.value = row.producto || '';
         if (prodFormCategoria) prodFormCategoria.value = row.categoria || '';
@@ -19705,8 +19881,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const collectProductFormPayload = () => {
         const payload = {
             codigo: String(prodFormCodigo?.value || '').trim(),
-            naturaleza: prodFormNaturaleza?.value || 'producto',
-            tipo: prodFormTipo?.value === 'gran-formato' ? 'gran-formato' : 'stock',
+            naturaleza: ({'stock':'producto','gran-formato':'producto'})[prodFormTipo?.value] || (prodFormTipo?.value || 'producto'),
+            tipo: prodFormTipo?.value || 'stock',
             producto: String(prodFormProducto?.value || '').trim(),
             categoria: String(prodFormCategoria?.value || '').trim() || 'General',
             umCompra: String(document.getElementById('prodFormUMCompra')?.value || '').trim() || 'Unidad',
@@ -19718,11 +19894,11 @@ document.addEventListener('DOMContentLoaded', () => {
             procesos: procesosDraft.map(p => p.procesoId).filter(Boolean),
             procesosDetalle: [...procesosDraft],
             desgastePorUso: Math.max(0, Number(document.getElementById('prodFormDesgastePorUso')?.value || 0)),
-            insumosEnlazados: (prodFormNaturaleza?.value === 'proceso') ? [...procesoInsumosDraft] : [],
+            insumosEnlazados: (prodFormTipo?.value === 'proceso') ? [...procesoInsumosDraft] : [],
             proveedor: String(prodFormProveedor?.value || '').trim(),
             descripcion: String(prodFormDescripcion?.value || '').trim(),
-            necesitaFabricacion: (prodFormNaturaleza?.value === 'fabricado'),
-            recetaInsumos: (prodFormNaturaleza?.value === 'fabricado') ? [...recetaDraft] : [],
+            necesitaFabricacion: (prodFormTipo?.value === 'fabricado'),
+            recetaInsumos: (prodFormTipo?.value === 'fabricado') ? [...recetaDraft] : [],
             fotoPrincipal: prodMainPhotoData,
             coloresSubproductos: prodColorDraftList.map((c) => ({
                 color: String(c.color || '').trim(),
@@ -20231,7 +20407,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     linkedInsumoId: producto.linkedInsumoId || '',
                     insumosProcesoSeleccionados: selecciones
                 });
-                ordenLineaActiva = ordenLineas.length - 1;
                 renderTabla();
                 closeOrdenStockPopup();
             });
@@ -20248,7 +20423,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sourceType: producto.sourceType || 'producto',
             linkedInsumoId: producto.linkedInsumoId || ''
         });
-        ordenLineaActiva = ordenLineas.length - 1;
         renderTabla();
         closeOrdenStockPopup();
     };
@@ -20266,7 +20440,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         ordenLineas.push({ producto, medida, material, precio, cantidad });
-        ordenLineaActiva = ordenLineas.length - 1;
         renderTabla();
     };
 
@@ -20644,7 +20817,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 precio: monto,
                 cantidad: 1
             });
-            ordenLineaActiva = ordenLineas.length - 1;
             renderTabla();
             saveTicketActivo();
             closeOrdenPopup(ordenVentaRapidaPopup);
@@ -20933,10 +21105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (popupClientesModulo) {
         popupClientesModulo.addEventListener('click', (ev) => {
             if (ev.target === popupClientesModulo) closeClientesModuloPopup();
-            if (!clientesModuloSelectedId) return;
-            if (ev.target.closest('.clientesmod-table')) return;
-            clientesModuloSelectedId = '';
-            renderClientesModulo();
         });
     }
 
@@ -22023,11 +22191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         prodFormTipo.addEventListener('change', () => { syncProdFormModeByTipo(); });
     }
 
-    if (prodFormNaturaleza) {
-        prodFormNaturaleza.addEventListener('change', () => {
-            syncProdFormModeByTipo();
-        });
-    }
+
 
     if (prodFormTipo) {
         prodFormTipo.addEventListener('change', () => {
@@ -26735,15 +26899,28 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.id = '_disenoUploadOverlay';
         overlay.style.cssText = 'position:fixed;inset:0;z-index:200001;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:20px;';
 
+        window._disenoHighlight = function(idx) {
+            overlay.querySelectorAll('.diseno-foto-item').forEach(function(el) {
+                el.style.background = '';
+                el.style.boxShadow = '';
+            });
+            overlay.querySelectorAll('.diseno-foto-item[data-diseno-idx="'+idx+'"]').forEach(function(el) {
+                el.style.background = '#fff7ed';
+                el.style.boxShadow = '0 0 0 3px rgba(255,153,0,0.4)';
+            });
+        };
+
         function renderPopup() {
             var fotosHtml = '';
             if (fotosExistentes.length) {
                 fotosHtml = '<div style="margin-bottom:12px;"><div style="font-size:0.65rem;font-weight:700;color:#374151;margin-bottom:6px;">📷 Fotos subidas ('+fotosExistentes.length+'):</div>';
                 fotosHtml += '<div style="display:flex;flex-wrap:wrap;gap:8px;max-height:180px;overflow-y:auto;">';
                 fotosExistentes.forEach(function(f, i) {
-                    fotosHtml += '<div style="width:90px;text-align:center;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:6px;position:relative;">'+
-                        '<img src="'+esc(f.url)+'" style="width:80px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;" onclick="window.open(\''+esc(f.url)+'\',\'_blank\')">'+
-                        '<div style="font-size:0.5rem;color:#6b7280;margin-top:3px;word-break:break-all;">'+esc(f.comentario||'Sin comentario')+'</div>'+
+                    var num = i + 1;
+                    fotosHtml += '<div class="diseno-foto-item" data-diseno-idx="'+i+'" style="width:90px;text-align:center;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:6px;position:relative;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;" onclick="window._disenoHighlight('+i+')">'+
+                        '<div style="position:absolute;top:-4px;left:-4px;background:#ff9900;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;font-weight:900;z-index:2;box-shadow:0 2px 6px rgba(0,0,0,0.2);">'+num+'</div>'+
+                        '<img src="'+esc(f.url)+'" style="width:80px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;" onclick="event.stopPropagation();window.open(\''+esc(f.url)+'\',\'_blank\')">'+
+                        '<div style="font-size:0.5rem;color:#6b7280;margin-top:3px;word-break:break-all;"><strong style="color:#ff9900;">#'+num+'</strong> '+esc(f.comentario||'Sin comentario')+'</div>'+
                         '<button data-rm-foto="'+i+'" style="position:absolute;top:2px;right:2px;background:#dc2626;color:#fff;border:none;border-radius:50%;width:16px;height:16px;font-size:0.5rem;cursor:pointer;line-height:1;">✕</button>'+
                     '</div>';
                 });
@@ -30220,6 +30397,109 @@ document.addEventListener('DOMContentLoaded', function() {
         phone: '9519415828'
     };
 
+    // ═══ STEP 1: Location type selector before cotizador ═══
+    const showEnvioDirSelector = (cb) => {
+        const existing = document.getElementById('envioDirSelectorOverlay');
+        if (existing) existing.remove();
+
+        // Get client data
+        const clienteIdEl = document.getElementById('ordenClienteId');
+        const clienteId = clienteIdEl ? clienteIdEl.value : '';
+        let allClientes = [];
+        try { allClientes = JSON.parse(localStorage.getItem('mock_clientes_modulo_v1') || '[]'); } catch(_) {}
+        const cliente = allClientes.find(c => String(c.id || '').trim() === clienteId) || {};
+        const clienteNombre = document.getElementById('ordenClienteNombre')?.value || cliente.nombre || 'Cliente';
+
+        const tieneUbiDomicilio = !!(cliente.ubiDomicilio || '').trim();
+        const tieneUbiNegocio = !!(cliente.ubiNegocio || '').trim();
+        const tieneUbiPuntoMedio = !!(cliente.ubiPuntoMedio || '').trim();
+
+        const overlay = document.createElement('div');
+        overlay.id = 'envioDirSelectorOverlay';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:200010;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn 0.15s ease;';
+
+        const buildCard = (tipo, icon, label, sublabel, color, hasData) => {
+            const addr = hasData ? (tipo === 'domicilio' ? cliente.ubiDomicilio : tipo === 'negocio' ? cliente.ubiNegocio : cliente.ubiPuntoMedio) : '';
+            const statusDot = hasData
+                ? '<span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;"></span>'
+                : '<span style="width:8px;height:8px;border-radius:50%;background:#d1d5db;display:inline-block;"></span>';
+            const addrText = hasData && addr
+                ? '<div style="font-size:0.52rem;color:#6b7280;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;">' + addr.replace(/</g,'&lt;') + '</div>'
+                : '<div style="font-size:0.48rem;color:#d1d5db;margin-top:4px;font-style:italic;">Sin dirección registrada</div>';
+            return `<button class="envio-dir-step1-btn" data-dir-tipo="${tipo}" style="display:flex;align-items:center;gap:14px;
+                padding:16px 18px;background:#fff;border:2px solid ${hasData ? color : '#e5e7eb'};border-radius:14px;cursor:pointer;
+                text-align:left;width:100%;transition:all 0.2s;${!hasData ? 'opacity:0.5;' : ''}"
+                ${!hasData ? 'disabled' : ''}>
+                <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,${color}22,${color}44);
+                    display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">${icon}</div>
+                <div style="flex:1;min-width:0;">
+                    <div style="display:flex;align-items:center;gap:6px;">
+                        <span style="font-size:0.65rem;font-weight:800;color:#1f2937;">${label}</span>
+                        ${statusDot}
+                    </div>
+                    <div style="font-size:0.44rem;color:#9ca3af;">${sublabel}</div>
+                    ${addrText}
+                </div>
+                <div style="color:${hasData ? color : '#d1d5db'};font-size:1rem;">&rsaquo;</div>
+            </button>`;
+        };
+
+        overlay.innerHTML = `<div style="background:#fff;border-radius:18px;max-width:480px;width:94%;
+            box-shadow:0 24px 80px rgba(0,0,0,0.35);overflow:hidden;">
+            <div style="background:linear-gradient(135deg,#ff9900,#e68a00);padding:18px 24px 14px;">
+                <div style="font-size:0.82rem;font-weight:900;color:#fff;">📦 ¿A DÓNDE SE ENVÍA?</div>
+                <div style="font-size:0.46rem;color:rgba(255,255,255,0.85);margin-top:2px;">
+                    Cliente: <strong>${clienteNombre.replace(/</g,'&lt;')}</strong> — Selecciona el tipo de dirección</div>
+            </div>
+            <div style="padding:16px 20px;display:flex;flex-direction:column;gap:8px;">
+                ${buildCard('domicilio', '🏠', 'DOMICILIO', 'Dirección de casa del cliente', '#f59e0b', tieneUbiDomicilio)}
+                ${buildCard('negocio', '🏢', 'NEGOCIO', 'Dirección del negocio o trabajo', '#3b82f6', tieneUbiNegocio)}
+                ${buildCard('puntoMedio', '📌', 'PUNTO MEDIO', 'Punto de entrega acordado', '#ec4899', tieneUbiPuntoMedio)}
+                <button class="envio-dir-step1-btn" data-dir-tipo="nueva" style="display:flex;align-items:center;gap:14px;
+                    padding:14px 18px;background:#f9fafb;border:2px dashed #d1d5db;border-radius:14px;cursor:pointer;
+                    text-align:left;width:100%;transition:all 0.2s;">
+                    <div style="width:52px;height:52px;border-radius:14px;background:#f3f4f6;
+                        display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">➕</div>
+                    <div style="flex:1;">
+                        <div style="font-size:0.65rem;font-weight:800;color:#374151;">NUEVA DIRECCIÓN</div>
+                        <div style="font-size:0.44rem;color:#9ca3af;">Ingresar dirección manualmente</div>
+                    </div>
+                    <div style="color:#9ca3af;font-size:1rem;">&rsaquo;</div>
+                </button>
+            </div>
+            <div style="padding:8px 20px 16px;display:flex;justify-content:flex-end;">
+                <button id="envioDirSelectorCancel" type="button" style="padding:8px 20px;background:#6b7280;color:#fff;
+                    border:none;border-radius:8px;font-weight:700;font-size:0.5rem;cursor:pointer;">CANCELAR</button>
+            </div>
+        </div>`;
+
+        document.body.appendChild(overlay);
+
+        // Hover effects
+        overlay.querySelectorAll('.envio-dir-step1-btn:not([disabled])').forEach(btn => {
+            btn.addEventListener('mouseenter', () => { btn.style.transform = 'scale(1.01)'; btn.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)'; });
+            btn.addEventListener('mouseleave', () => { btn.style.transform = ''; btn.style.boxShadow = ''; });
+        });
+
+        // Click handlers
+        overlay.querySelectorAll('.envio-dir-step1-btn:not([disabled])').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tipo = btn.dataset.dirTipo;
+                overlay.remove();
+                cb(tipo);
+            });
+        });
+
+        document.getElementById('envioDirSelectorCancel').addEventListener('click', () => {
+            overlay.remove();
+            cb(null);
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) { overlay.remove(); cb(null); }
+        });
+    };
+
     const showEnvioPopup = (cb) => {
         const escapeHtml = window._escHtml || function(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
         const existing = document.getElementById('envioPopupOverlay');
@@ -30257,10 +30537,10 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.innerHTML = `<div class="envio-cotizar-card">
             <!-- ===== COLUMNA IZQUIERDA: FORMULARIO ===== -->
             <div class="envio-col-left">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;border-bottom:2px solid #ff9900;padding-bottom:6px;">
-                    <span style="font-size:1rem;">📦</span>
-                    <div style="flex:1"><h3 style="margin:0;font-size:0.74rem;color:#1f2937;">COTIZAR ENVÍO</h3></div>
-                    <span style="font-size:0.42rem;color:#9ca3af;font-weight:600;">ENVIA.COM</span>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;border-bottom:2px solid #ff9900;padding-bottom:8px;">
+                    <span style="font-size:1.3rem;">📦</span>
+                    <div style="flex:1"><h3 style="margin:0;font-size:0.92rem;color:#1f2937;">COTIZAR ENVÍO</h3></div>
+                    <span style="font-size:0.52rem;color:#9ca3af;font-weight:600;">ENVIA.COM</span>
                 </div>
                 ${opcionesDirHtml}
                 <div id="envioFormDireccion" style="display:flex;flex-direction:column;gap:2px;">
@@ -30270,7 +30550,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="login-field"><label>Empresa</label><input id="envioEmpresa" type="text" value="${escapeHtml(cliente.empresa || '')}" placeholder="Opcional"></div>
                         <div class="login-field"><label>Email</label><input id="envioEmail" type="email" value="${escapeHtml(cliente.email || '')}" placeholder="correo@ej.com"></div>
                     </div>
-                    <div style="display:grid;grid-template-columns:60px 1fr 1fr 1fr;gap:6px;">
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
                         <div class="login-field"><label>Tel *</label>
                             <div style="display:flex;gap:2px;align-items:center;">
                                 <span style="font-size:0.46rem;color:#9ca3af;">+52</span>
@@ -30278,8 +30558,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                         <div class="login-field"><label>CP *</label><input id="envioCp" type="text" value="${escapeHtml(cliente.cp || '')}" placeholder="06600" maxlength="5" style="font-weight:800;letter-spacing:1px;text-align:center;"></div>
-                        <div class="login-field"><label>Calle *</label><input id="envioCalle" type="text" value="${escapeHtml(cliente.calle || '')}" placeholder="Calle"></div>
-                        <div class="login-field"><label>Número</label><input id="envioNumero" type="text" value="${escapeHtml(cliente.numero || '')}" placeholder="#"></div>
+                        <div class="login-field"><label>Calle y Número *</label>
+                            <div style="display:flex;gap:4px;">
+                                <input id="envioCalle" type="text" value="${escapeHtml(cliente.calle || '')}" placeholder="Calle" style="flex:3;min-width:0;">
+                                <input id="envioNumero" type="text" value="${escapeHtml(cliente.numero || '')}" placeholder="#" style="flex:1;min-width:0;max-width:60px;text-align:center;">
+                            </div>
+                        </div>
                     </div>
                     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
                         <div class="login-field"><label>Colonia</label>
@@ -30295,11 +30579,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             <select id="envioPais"><option value="MX" selected>🇲🇽 MX — Mexico</option></select>
                         </div>
                     </div>
-                    <div id="envioCpStatus" style="font-size:0.44rem;color:#6b7280;min-height:10px;"></div>
+                    <div id="envioCpStatus" style="font-size:0.52rem;color:#6b7280;min-height:12px;"></div>
 
-                    <span class="envio-section-title">📐 Paquete
-                        <button id="envioSavePkg" type="button" style="margin-left:auto;padding:2px 8px;border-radius:5px;border:1px solid #d1d5db;background:#fff;color:#ff9900;font-size:0.44rem;font-weight:700;cursor:pointer;">💾 Guardar</button>
-                    </span>
+                    <span class="envio-section-title">📐 Paquete</span>
                     <div id="envioPkgPresets" style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px;"></div>
                     <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;gap:6px;align-items:end;">
                         <div class="login-field"><label>Contenido *</label><input id="envioPkgContenido" type="text" value="Bolsas" placeholder="Contenido"></div>
@@ -30317,18 +30599,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="login-field"><label>Cant.</label><input id="envioPkgCantidad" type="number" min="1" value="1" style="text-align:center;"></div>
                     </div>
-                    <div style="display:flex;align-items:center;gap:10px;margin-top:2px;">
+                    <div style="display:flex;align-items:center;gap:12px;margin-top:4px;">
                         <span id="envioVolWeight" class="envio-vol-weight">Peso vol: 4.8 kg</span>
-                        <select id="envioUnidad" style="padding:2px 6px;border-radius:4px;border:1px solid #d1d5db;font-size:0.44rem;color:#374151;background:#f9fafb;">
+                        <select id="envioUnidad" style="padding:4px 8px;border-radius:6px;border:1px solid #d1d5db;font-size:0.54rem;color:#374151;background:#f9fafb;">
                             <option value="KG_CM" selected>KG / CM</option>
                             <option value="LB_IN">LB / IN</option>
                         </select>
                     </div>
 
-                    <div style="display:flex;gap:6px;margin-top:8px;">
-                        <button id="envioCotizar" class="orden-btn primary" type="button" style="background:#ff9900;border-color:#e68a00;color:#fff;font-size:0.56rem;flex:1;padding:6px 0;">🔍 COTIZAR</button>
-                        <button id="envioPaqIndependiente" class="orden-btn" type="button" style="border-color:#ff9900;color:#ff9900;font-size:0.48rem;padding:6px 10px;">🚐 PAQUETERÍA INDEPENDIENTE</button>
-                        <button id="envioCancelar" class="orden-btn" type="button" style="color:#6b7280;border-color:#d1d5db;font-size:0.52rem;padding:6px 12px;">✖ CERRAR</button>
+                    <div style="display:flex;gap:8px;margin-top:10px;">
+                        <button id="envioCotizar" class="orden-btn primary" type="button" style="background:#ff9900;border-color:#e68a00;color:#fff;font-size:0.68rem;flex:1;padding:10px 0;border-radius:10px;font-weight:900;letter-spacing:0.5px;">🔍 COTIZAR</button>
+                        <button id="envioPaqIndependiente" class="orden-btn" type="button" style="border-color:#ff9900;background:#ff9900;color:#fff;font-size:0.62rem;padding:10px 18px;font-weight:900;border-radius:10px;">🚐 PAQUETERÍA INDEPENDIENTE</button>
+                        <button id="envioCancelar" class="orden-btn" type="button" style="color:#6b7280;border-color:#d1d5db;font-size:0.6rem;padding:10px 16px;border-radius:10px;">✖ CERRAR</button>
                     </div>
                     <div id="envioManualFallback" style="display:none;border-top:1px solid #e5e7eb;margin-top:6px;padding-top:6px;">
                         <div style="display:flex;gap:6px;align-items:center;">
@@ -30341,19 +30623,19 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <!-- ===== COLUMNA DERECHA: RESULTADOS ===== -->
             <div class="envio-col-right">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-                    <span style="font-size:0.56rem;font-weight:800;color:#1f2937;">🚚 PAQUETERÍAS</span>
-                    <span id="envioRateCount" style="font-size:0.44rem;color:#9ca3af;font-weight:600;"></span>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                    <span style="font-size:0.72rem;font-weight:800;color:#1f2937;">🚚 PAQUETERÍAS</span>
+                    <span id="envioRateCount" style="font-size:0.52rem;color:#9ca3af;font-weight:600;"></span>
                 </div>
-                <div id="envioStatus" style="font-size:0.48rem;color:#6b7280;text-align:center;min-height:14px;margin-bottom:4px;"></div>
-                <div id="envioListaCotizaciones" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:5px;"></div>
+                <div id="envioStatus" style="font-size:0.56rem;color:#6b7280;text-align:center;min-height:14px;margin-bottom:4px;"></div>
+                <div id="envioListaCotizaciones" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
                 <div id="envioRightEmpty" class="envio-right-empty">
                     <div>
-                        <div style="font-size:1.3rem;margin-bottom:6px;">🔍</div>
-                        <div>Llena los datos y presiona<br><strong style="color:#ff9900;">COTIZAR</strong></div>
+                        <div style="font-size:1.6rem;margin-bottom:8px;">🔍</div>
+                        <div style="font-size:0.7rem;">Llena los datos y presiona<br><strong style="color:#ff9900;">COTIZAR</strong></div>
                     </div>
                 </div>
-                <button id="envioAceptar" class="orden-btn primary" type="button" style="display:none;background:#ff9900;border-color:#e68a00;color:#fff;width:100%;font-size:0.56rem;margin-top:8px;padding:8px 0;">✅ APLICAR ENVÍO SELECCIONADO</button>
+                <button id="envioAceptar" class="orden-btn primary" type="button" style="display:none;background:#ff9900;border-color:#e68a00;color:#fff;width:100%;font-size:0.68rem;margin-top:10px;padding:12px 0;border-radius:10px;font-weight:900;">✅ APLICAR ENVÍO SELECCIONADO</button>
             </div>
         </div>`;
         document.body.appendChild(overlay);
@@ -30396,7 +30678,21 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         renderPresets();
 
-        document.getElementById('envioSavePkg')?.addEventListener('click', () => {
+        // Auto-select direction type if pre-chosen from step 1
+        if (window._envioTipoDirSeleccionado) {
+            const preDir = window._envioTipoDirSeleccionado;
+            setTimeout(() => {
+                const targetBtn = overlay.querySelector('.envio-dir-btn[data-dir="' + preDir + '"]');
+                if (targetBtn) { targetBtn.click(); }
+                else if (preDir === 'nueva') {
+                    const nuevaBtn = overlay.querySelector('.envio-dir-btn[data-dir="nueva"]');
+                    if (nuevaBtn) nuevaBtn.click();
+                }
+            }, 50);
+        }
+
+        // ===== AUTOGUARDADO: detecta paquete nuevo al cotizar =====
+        const autoSavePkgIfNew = () => {
             const g = (id) => document.getElementById(id)?.value || '';
             const pkg = {
                 nombre: g('envioPkgContenido') || 'Paquete',
@@ -30406,10 +30702,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 alto: Number(g('envioPkgAlto')) || 15,
                 peso: Number(g('envioPkgPeso')) || 2
             };
-            savedPkgs.push(pkg);
-            localStorage.setItem(PKG_STORAGE_KEY, JSON.stringify(savedPkgs));
-            renderPresets();
-        });
+            const exists = savedPkgs.some(p =>
+                p.contenido === pkg.contenido && p.largo === pkg.largo && p.ancho === pkg.ancho && p.alto === pkg.alto && p.peso === pkg.peso
+            );
+            if (!exists) {
+                savedPkgs.push(pkg);
+                localStorage.setItem(PKG_STORAGE_KEY, JSON.stringify(savedPkgs));
+                renderPresets();
+            } else {
+                // Auto-select the matching preset
+                const idx = savedPkgs.findIndex(p =>
+                    p.contenido === pkg.contenido && p.largo === pkg.largo && p.ancho === pkg.ancho && p.alto === pkg.alto && p.peso === pkg.peso
+                );
+                if (idx >= 0 && presetsContainer) {
+                    presetsContainer.querySelectorAll('.envio-pkg-preset').forEach(b => b.classList.remove('active'));
+                    const match = presetsContainer.querySelector(`[data-pkg-idx="${idx}"]`);
+                    if (match) match.classList.add('active');
+                }
+            }
+        };
 
         // ===== PESO VOLUMÉTRICO =====
         const volWeightEl = document.getElementById('envioVolWeight');
@@ -30759,7 +31070,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        document.getElementById('envioCotizar').addEventListener('click', doCotizar);
+        document.getElementById('envioCotizar').addEventListener('click', () => { autoSavePkgIfNew(); doCotizar(); });
         document.getElementById('envioCancelar').addEventListener('click', () => { overlay.remove(); cb(null); });
         const envioManualBtnLegacy = document.getElementById('envioManualBtn');
         if (envioManualBtnLegacy) envioManualBtnLegacy.addEventListener('click', () => {
@@ -30840,14 +31151,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (chkEnvio) {
             chkEnvio.addEventListener('change', () => {
                 if (chkEnvio.checked) {
-                    showEnvioPopup((val) => {
-                        if (val === null || val === 0) { chkEnvio.checked = false; window.costoEnvio = 0; removeEnvioFromOrdenLineas(); }
-                        // costoEnvio stays 0 because addEnvioToOrdenLineas handles the cost via the table row
-                        updateExtraCosts();
+                    showEnvioDirSelector((tipoDir) => {
+                        if (!tipoDir) { chkEnvio.checked = false; return; }
+                        window._envioTipoDirSeleccionado = tipoDir;
+                        showEnvioPopup((val) => {
+                            if (val === null || val === 0) { chkEnvio.checked = false; window.costoEnvio = 0; removeEnvioFromOrdenLineas(); }
+                            updateExtraCosts();
+                        });
                     });
                 } else {
                     window.costoEnvio = 0;
                     window._envioSeleccionado = null;
+                    window._envioTipoDirSeleccionado = null;
                     removeEnvioFromOrdenLineas();
                     updateExtraCosts();
                 }
@@ -31063,55 +31378,286 @@ document.addEventListener('DOMContentLoaded', function() {
     const getPaqHistorial = () => { try { return JSON.parse(localStorage.getItem(PAQ_HISTORIAL_KEY) || '[]'); } catch(_) { return []; } };
     const savePaqHistorial = (arr) => localStorage.setItem(PAQ_HISTORIAL_KEY, JSON.stringify(arr));
 
-    // Detección inteligente de tipo de entrada (dirección, coordenadas, link de Google Maps)
+    // ═══ UBICACIONES DEL CLIENTE — REDESIGNED ═══
+    // State
+    let _ubiLeafletMap = null;
+    let _ubiMarkers = {};   // { domicilio: L.marker, negocio: L.marker, puntoMedio: L.marker }
+    let _ubiData = {};      // { domicilio: {addr,coords}, negocio: {...}, puntoMedio: {...} }
+    let _ubiEditingTipo = null;
+
+    const UBI_COLORS = { domicilio: '#f59e0b', negocio: '#3b82f6', puntoMedio: '#ec4899' };
+    const UBI_ICONS  = { domicilio: '🏠', negocio: '🏢', puntoMedio: '📌' };
+    const UBI_LABELS = { domicilio: 'Domicilio', negocio: 'Negocio', puntoMedio: 'Punto medio' };
+
     const detectInputType = (val) => {
         val = (val || '').trim();
         if (!val) return { type: null };
-        // Link de Google Maps
-        if (/google\.\w+\/maps|maps\.google|maps\.app\.goo\.gl|goo\.gl\/maps/i.test(val)) {
+        if (/google\.\w+\/maps|maps\.google|maps\.app\.goo\.gl|goo\.gl\/maps/i.test(val))
             return { type: 'googleMaps', value: val };
-        }
-        // Coordenadas: lat,lng o lat lng
         const coordMatch = val.match(/^(-?\d{1,3}\.\d+)[,\s]+(-?\d{1,3}\.\d+)$/);
-        if (coordMatch) {
-            return { type: 'coords', lat: parseFloat(coordMatch[1]), lng: parseFloat(coordMatch[2]) };
-        }
-        // Dirección de texto
+        if (coordMatch) return { type: 'coords', lat: parseFloat(coordMatch[1]), lng: parseFloat(coordMatch[2]) };
         return { type: 'address', value: val };
     };
 
-    // Abrir popup ubicaciones
+    // Create Leaflet colored marker
+    const ubiCreateIcon = (color) => {
+        return L.divIcon({
+            className: '',
+            html: `<div style="width:28px;height:28px;border-radius:50%;background:${color};border:3px solid #fff;
+                box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;"></div>`,
+            iconSize: [28, 28], iconAnchor: [14, 14]
+        });
+    };
+
+    // Initialize Leaflet map
+    const ubiInitMap = () => {
+        const el = document.getElementById('ubiLeafletMap');
+        if (!el || _ubiLeafletMap) return;
+        _ubiLeafletMap = L.map(el, { zoomControl: true, attributionControl: false }).setView([17.0654, -96.7236], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19, attribution: '© OpenStreetMap'
+        }).addTo(_ubiLeafletMap);
+        setTimeout(() => _ubiLeafletMap.invalidateSize(), 200);
+    };
+
+    // Update markers on map
+    const ubiRefreshMarkers = () => {
+        if (!_ubiLeafletMap) return;
+        const placeholder = document.getElementById('ubiMapPlaceholder');
+        let hasAny = false;
+        const bounds = [];
+        ['domicilio','negocio','puntoMedio'].forEach(tipo => {
+            if (_ubiMarkers[tipo]) { _ubiLeafletMap.removeLayer(_ubiMarkers[tipo]); delete _ubiMarkers[tipo]; }
+            const d = _ubiData[tipo];
+            if (d && d.coords) {
+                const parts = d.coords.split(',').map(Number);
+                if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                    const latlng = [parts[0], parts[1]];
+                    _ubiMarkers[tipo] = L.marker(latlng, { icon: ubiCreateIcon(UBI_COLORS[tipo]) })
+                        .addTo(_ubiLeafletMap)
+                        .bindPopup(`<strong>${UBI_ICONS[tipo]} ${UBI_LABELS[tipo]}</strong><br>${d.addr || d.coords}`);
+                    bounds.push(latlng);
+                    hasAny = true;
+                }
+            }
+        });
+        if (placeholder) placeholder.style.display = hasAny ? 'none' : 'flex';
+        if (bounds.length > 1) _ubiLeafletMap.fitBounds(bounds, { padding: [40, 40], maxZoom: 16 });
+        else if (bounds.length === 1) _ubiLeafletMap.setView(bounds[0], 16);
+    };
+
+    // Refresh cards UI
+    const ubiRefreshCards = () => {
+        document.querySelectorAll('.ubi-card').forEach(card => {
+            const tipo = card.dataset.ubiTipo;
+            const d = _ubiData[tipo];
+            const addrEl = card.querySelector('.ubi-card-addr');
+            const statusEl = card.querySelector('.ubi-card-status');
+            if (addrEl) addrEl.textContent = (d && d.addr) ? d.addr : 'Sin registrar';
+            if (statusEl) statusEl.style.background = (d && d.addr) ? '#22c55e' : '#d1d5db';
+            // Highlight if editing
+            card.style.borderColor = (_ubiEditingTipo === tipo) ? '#ff9900' : '#e5e7eb';
+            card.style.background = (_ubiEditingTipo === tipo) ? '#fff7ed' : '#fff';
+        });
+        // Update summary in client form
+        ['domicilio','negocio','puntoMedio'].forEach(tipo => {
+            const d = _ubiData[tipo];
+            const resId = tipo === 'domicilio' ? 'cliResUbiDomicilio' : tipo === 'negocio' ? 'cliResUbiNegocio' : 'cliResUbiPuntoMedio';
+            const res = document.getElementById(resId);
+            if (res) res.textContent = (d && d.addr) ? d.addr : 'Sin registrar';
+            const hidId = tipo === 'domicilio' ? 'cliFormUbiDomicilio' : tipo === 'negocio' ? 'cliFormUbiNegocio' : 'cliFormUbiPuntoMedio';
+            const hid = document.getElementById(hidId);
+            if (hid) hid.value = (d && d.addr) || '';
+        });
+        const coordsHid = document.getElementById('cliFormUbiCoords');
+        if (coordsHid) {
+            const allCoords = ['domicilio','negocio','puntoMedio'].map(t => (_ubiData[t]||{}).coords).filter(Boolean).join(';');
+            coordsHid.value = allCoords;
+        }
+    };
+
+    // Load _ubiData from hidden fields
+    const ubiLoadFromFields = () => {
+        _ubiData = {};
+        const dom = document.getElementById('cliFormUbiDomicilio')?.value;
+        if (dom) _ubiData.domicilio = { addr: dom, coords: '' };
+        const neg = document.getElementById('cliFormUbiNegocio')?.value;
+        if (neg) _ubiData.negocio = { addr: neg, coords: '' };
+        const pm = document.getElementById('cliFormUbiPuntoMedio')?.value;
+        if (pm) _ubiData.puntoMedio = { addr: pm, coords: '' };
+        // Try to extract coords from addr or from coords field
+        const allCoords = (document.getElementById('cliFormUbiCoords')?.value || '').split(';');
+        allCoords.forEach(c => {
+            const parts = c.split(',').map(Number);
+            if (parts.length === 2 && !isNaN(parts[0])) {
+                // assign to first empty coords
+                ['domicilio','negocio','puntoMedio'].forEach(t => {
+                    if (_ubiData[t] && !_ubiData[t].coords) _ubiData[t].coords = c;
+                });
+            }
+        });
+    };
+
+    // Open editor for a location type
+    const ubiOpenEditor = (tipo) => {
+        _ubiEditingTipo = tipo;
+        const panel = document.getElementById('ubiEditorPanel');
+        if (!panel) return;
+        panel.style.display = 'block';
+        const _ph = document.getElementById('ubiInstructionPlaceholder'); if(_ph) _ph.style.display='none';
+        document.getElementById('ubiEditorIcon').textContent = UBI_ICONS[tipo];
+        document.getElementById('ubiEditorTitle').textContent = 'EDITAR ' + UBI_LABELS[tipo].toUpperCase();
+        // Populate fields
+        const d = _ubiData[tipo] || {};
+        document.getElementById('ubiBuscadorInput').value = d.addr || '';
+        document.getElementById('ubiCalle').value = d.calle || '';
+        document.getElementById('ubiColonia').value = d.colonia || '';
+        document.getElementById('ubiCiudad').value = d.ciudad || '';
+        document.getElementById('ubiEstado').value = d.estado || '';
+        document.getElementById('ubiCp').value = d.cp || '';
+        document.getElementById('ubiCoords').value = d.coords || '';
+        document.getElementById('ubiBuscadorDetected').textContent = '';
+        const resultsEl = document.getElementById('ubiBuscadorResults');
+        if (resultsEl) resultsEl.style.display = 'none';
+        // Focus on search
+        document.getElementById('ubiBuscadorInput').focus();
+        ubiRefreshCards();
+        // Show delete only if has data
+        const delBtn = document.getElementById('ubiEditorDelete');
+        if (delBtn) delBtn.style.display = (d.addr) ? 'inline-block' : 'none';
+    };
+
+    const ubiCloseEditor = () => {
+        _ubiEditingTipo = null;
+        const panel = document.getElementById('ubiEditorPanel');
+        if (panel) panel.style.display = 'none';
+        const _ph2 = document.getElementById('ubiInstructionPlaceholder'); if(_ph2) _ph2.style.display='flex';
+        ubiRefreshCards();
+    };
+
+    // Fly map to coords
+    const ubiMapFlyTo = (lat, lng) => {
+        if (!_ubiLeafletMap) return;
+        _ubiLeafletMap.flyTo([lat, lng], 17, { duration: 0.8 });
+        const placeholder = document.getElementById('ubiMapPlaceholder');
+        if (placeholder) placeholder.style.display = 'none';
+    };
+
+    const updateMapPreview = (lat, lng) => {
+        if (!_ubiLeafletMap) ubiInitMap();
+        ubiMapFlyTo(lat, lng);
+        // Update current editing marker preview
+        if (_ubiEditingTipo) {
+            if (_ubiMarkers['_preview']) { _ubiLeafletMap.removeLayer(_ubiMarkers['_preview']); }
+            _ubiMarkers['_preview'] = L.marker([lat, lng], { icon: ubiCreateIcon(UBI_COLORS[_ubiEditingTipo]) })
+                .addTo(_ubiLeafletMap)
+                .bindPopup('📍 Posición seleccionada').openPopup();
+        }
+    };
+
+    // ── Event handlers ──
+
+    // Open popup
     document.addEventListener('click', (e) => {
         if (e.target.id === 'btnAbrirUbicaciones' || e.target.closest('#btnAbrirUbicaciones')) {
             const popup = document.getElementById('popupUbicaciones');
-            if (popup) { popup.style.display = 'flex'; renderPuntosMediosPopup(); }
+            if (popup) {
+                popup.style.display = 'flex';
+                ubiLoadFromFields();
+                ubiRefreshCards();
+                ubiCloseEditor();
+                // Show client name in header
+                const nombre = document.getElementById('cliFormNombre')?.value;
+                const headerName = document.getElementById('ubiHeaderClientName');
+                if (headerName && nombre) headerName.textContent = nombre;
+                // Init map
+                setTimeout(() => {
+                    ubiInitMap();
+                    ubiRefreshMarkers();
+                }, 100);
+            }
         }
     });
 
-    // Cerrar popup ubicaciones
+    // Close popup 
     document.addEventListener('click', (e) => {
         if (e.target.id === 'ubicacionesCerrar' || e.target.id === 'ubicacionesCancelar') {
             const popup = document.getElementById('popupUbicaciones');
             if (popup) popup.style.display = 'none';
+            if (_ubiMarkers['_preview'] && _ubiLeafletMap) {
+                _ubiLeafletMap.removeLayer(_ubiMarkers['_preview']);
+                delete _ubiMarkers['_preview'];
+            }
         }
     });
 
-    // Tipo de ubicación switch
+    // Card click — open editor
     document.addEventListener('click', (e) => {
-        const btn = e.target.closest('.ubi-tipo-btn');
-        if (btn) {
-            document.querySelectorAll('.ubi-tipo-btn').forEach(b => {
-                b.style.borderColor = '#d1d5db'; b.style.background = '#fff'; b.style.color = '#374151';
-                b.classList.remove('active');
-            });
-            btn.style.borderColor = '#ff9900'; btn.style.background = '#fff7ed'; btn.style.color = '#ff9900';
-            btn.classList.add('active');
+        const card = e.target.closest('.ubi-card');
+        if (card && card.dataset.ubiTipo) {
+            ubiOpenEditor(card.dataset.ubiTipo);
+            // Fly to marker if exists
+            const d = _ubiData[card.dataset.ubiTipo];
+            if (d && d.coords) {
+                const parts = d.coords.split(',').map(Number);
+                if (parts.length === 2 && !isNaN(parts[0])) ubiMapFlyTo(parts[0], parts[1]);
+            }
         }
     });
 
-    // Buscador inteligente - detección automática
+    // Editor cancel
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'ubiEditorCancel') ubiCloseEditor();
+    });
+
+    // Editor save
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'ubiEditorSave' && _ubiEditingTipo) {
+            const raw = document.getElementById('ubiBuscadorInput')?.value || '';
+            const coords = document.getElementById('ubiCoords')?.value || '';
+            const calle = document.getElementById('ubiCalle')?.value || '';
+            const colonia = document.getElementById('ubiColonia')?.value || '';
+            const ciudad = document.getElementById('ubiCiudad')?.value || '';
+            const estado = document.getElementById('ubiEstado')?.value || '';
+            const cp = document.getElementById('ubiCp')?.value || '';
+            const addrText = raw || [calle, colonia, ciudad, estado, cp].filter(Boolean).join(', ') || coords;
+            _ubiData[_ubiEditingTipo] = { addr: addrText, coords, calle, colonia, ciudad, estado, cp };
+            // Remove preview marker
+            if (_ubiMarkers['_preview'] && _ubiLeafletMap) {
+                _ubiLeafletMap.removeLayer(_ubiMarkers['_preview']);
+                delete _ubiMarkers['_preview'];
+            }
+            // If punto medio, also save to collection
+            if (_ubiEditingTipo === 'puntoMedio' && (raw || coords)) {
+                const pms = getPuntosMedios();
+                pms.push({ nombre: calle || raw, direccion: raw, coords: coords, ciudad: ciudad, fecha: new Date().toISOString() });
+                savePuntosMedios(pms);
+            }
+            ubiRefreshCards();
+            ubiRefreshMarkers();
+            ubiCloseEditor();
+        }
+    });
+
+    // Editor delete
+    document.addEventListener('click', (e) => {
+        if (e.target.id === 'ubiEditorDelete' && _ubiEditingTipo) {
+            delete _ubiData[_ubiEditingTipo];
+            if (_ubiMarkers['_preview'] && _ubiLeafletMap) {
+                _ubiLeafletMap.removeLayer(_ubiMarkers['_preview']);
+                delete _ubiMarkers['_preview'];
+            }
+            ubiRefreshCards();
+            ubiRefreshMarkers();
+            ubiCloseEditor();
+        }
+    });
+
+    // Smart search input
     const ubiBuscadorInput = document.getElementById('ubiBuscadorInput');
     if (ubiBuscadorInput) {
+        ubiBuscadorInput.addEventListener('focus', function() { this.style.borderColor = '#ff9900'; });
+        ubiBuscadorInput.addEventListener('blur', function() { this.style.borderColor = '#e5e7eb'; });
         ubiBuscadorInput.addEventListener('input', () => {
             const val = ubiBuscadorInput.value;
             const det = detectInputType(val);
@@ -31122,24 +31668,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 else if (det.type === 'address' && val.length > 3) detEl.textContent = '🏠 Detectado: Búsqueda por dirección';
                 else detEl.textContent = '';
             }
-            // Autocomplete sugerencias
+            // Autocomplete suggestions
             const resultsEl = document.getElementById('ubiBuscadorResults');
             if (resultsEl) {
                 if (det.type === 'address' && val.length > 2) {
                     const q = val.toLowerCase();
                     const sugs = [];
-                    // Buscar en puntos medios
-                    getPuntosMedios().forEach((pm, i) => {
+                    getPuntosMedios().forEach((pm) => {
                         const haystack = ((pm.nombre || '') + ' ' + (pm.direccion || '') + ' ' + (pm.ciudad || '')).toLowerCase();
                         if (haystack.includes(q)) sugs.push({ label: '📌 ' + (pm.nombre || pm.direccion), sub: pm.direccion + (pm.ciudad ? ' (' + pm.ciudad + ')' : ''), value: pm.direccion, coords: pm.coords, src: 'pm' });
                     });
-                    // Buscar en clientes guardados
                     try {
                         const cliRaw = localStorage.getItem('mock_clientes_quick_v1');
                         if (cliRaw) {
                             JSON.parse(cliRaw).forEach(c => {
-                                const fields = [c.direccion, c.domicilio, c.negocio, c.puntoMedio].filter(Boolean);
-                                fields.forEach(f => {
+                                [c.direccion, c.domicilio, c.negocio, c.puntoMedio].filter(Boolean).forEach(f => {
                                     if (f.toLowerCase().includes(q)) sugs.push({ label: '👤 ' + (c.nombre || 'Cliente'), sub: f, value: f, coords: '', src: 'cli' });
                                 });
                             });
@@ -31173,13 +31716,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     resultsEl.style.display = 'none';
                 }
             }
-            // Si son coordenadas, rellenar el campo
             if (det.type === 'coords') {
                 const coordsField = document.getElementById('ubiCoords');
                 if (coordsField) coordsField.value = det.lat + ', ' + det.lng;
                 updateMapPreview(det.lat, det.lng);
             }
-            // Si es link de google maps, extraer coords si es posible
             if (det.type === 'googleMaps') {
                 const m = val.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
                 if (m) {
@@ -31189,98 +31730,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-        // Ocultar sugerencias al hacer clic fuera
         document.addEventListener('click', (ev) => {
             const resultsEl = document.getElementById('ubiBuscadorResults');
-            if (resultsEl && !ubiBuscadorInput.contains(ev.target) && !resultsEl.contains(ev.target)) {
+            if (resultsEl && !ubiBuscadorInput.contains(ev.target) && !resultsEl.contains(ev.target))
                 resultsEl.style.display = 'none';
-            }
         });
     }
 
-    const updateMapPreview = (lat, lng) => {
-        const container = document.getElementById('ubiMapaContainer');
-        if (!container) return;
-        container.innerHTML = '<iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=16&output=embed" allowfullscreen></iframe>';
-        const info = document.getElementById('ubiMapaInfo');
-        if (info) {
-            info.style.display = 'block';
-            const nombre = document.getElementById('ubiMapaInfoNombre');
-            const dir = document.getElementById('ubiMapaInfoDir');
-            if (nombre) nombre.textContent = document.getElementById('cliFormNombre')?.value || 'Cliente';
-            if (dir) dir.textContent = 'Lat: ' + lat.toFixed(6) + ' | Lng: ' + lng.toFixed(6);
-        }
-    };
-
-    // Guardar ubicación
-    document.addEventListener('click', (e) => {
-        if (e.target.id === 'ubicacionesGuardar') {
-            const tipoBtn = document.querySelector('.ubi-tipo-btn.active');
-            const tipo = tipoBtn ? tipoBtn.getAttribute('data-ubi-tipo') : 'domicilio';
-            const raw = document.getElementById('ubiBuscadorInput')?.value || '';
-            const coords = document.getElementById('ubiCoords')?.value || '';
-            const calle = document.getElementById('ubiCalle')?.value || '';
-            const colonia = document.getElementById('ubiColonia')?.value || '';
-            const ciudad = document.getElementById('ubiCiudad')?.value || '';
-
-            if (tipo === 'domicilio') {
-                const field = document.getElementById('cliFormUbiDomicilio');
-                if (field) field.value = raw || coords || calle;
-                const res = document.getElementById('cliResUbiDomicilio');
-                if (res) res.textContent = raw || coords || calle || 'Sin registrar';
-            } else if (tipo === 'puntoMedio') {
-                const field = document.getElementById('cliFormUbiPuntoMedio');
-                if (field) field.value = raw || coords || calle;
-                const res = document.getElementById('cliResUbiPuntoMedio');
-                if (res) res.textContent = raw || coords || calle || 'Sin registrar';
-                // Guardar en puntos medios generales
-                if (raw || coords) {
-                    const pms = getPuntosMedios();
-                    pms.push({ nombre: calle || raw, direccion: raw, coords: coords, ciudad: ciudad, fecha: new Date().toISOString() });
-                    savePuntosMedios(pms);
-                }
-            } else if (tipo === 'negocio') {
-                const field = document.getElementById('cliFormUbiNegocio');
-                if (field) field.value = raw || coords || calle;
-                const res = document.getElementById('cliResUbiNegocio');
-                if (res) res.textContent = raw || coords || calle || 'Sin registrar';
-            }
-            const field2 = document.getElementById('cliFormUbiCoords');
-            if (field2) field2.value = coords;
-            const popup = document.getElementById('popupUbicaciones');
-            if (popup) popup.style.display = 'none';
-        }
-    });
-
-    const renderPuntosMediosPopup = () => {
-        const lista = document.getElementById('ubiPuntosMediosLista');
-        if (!lista) return;
-        const pms = getPuntosMedios();
-        if (!pms.length) {
-            lista.innerHTML = '<div style="font-size:0.48rem;color:#9ca3af;padding:8px;text-align:center;">No hay puntos medios registrados</div>';
-            return;
-        }
-        lista.innerHTML = pms.map((pm, i) => `<div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:#fff7ed;border:1px solid #ffe4b5;border-radius:6px;font-size:0.48rem;cursor:pointer;" data-pm-idx="${i}">
-            <span style="color:#ff9900;font-weight:800;">📌</span>
-            <span style="flex:1;color:#374151;font-weight:600;">${pm.nombre || pm.direccion} ${pm.ciudad ? '(' + pm.ciudad + ')' : ''}</span>
-            <button type="button" data-pm-del="${i}" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.6rem;">✕</button>
-        </div>`).join('');
-    };
-
-    // Nuevo punto medio
-    document.addEventListener('click', (e) => {
-        if (e.target.id === 'ubiAddPuntoMedio') {
-            const nombre = prompt('Nombre del punto medio:');
-            const dir = prompt('Dirección, coordenadas o link de Google Maps:');
-            if (nombre && dir) {
-                const pms = getPuntosMedios();
-                const det = detectInputType(dir);
-                pms.push({ nombre, direccion: dir, coords: det.type === 'coords' ? det.lat + ',' + det.lng : '', fecha: new Date().toISOString() });
-                savePuntosMedios(pms);
-                renderPuntosMediosPopup();
-            }
-        }
-    });
 
     // ===== PAQUETERÍA INDEPENDIENTE =====
     document.addEventListener('click', (e) => {
@@ -31290,6 +31746,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (popup) {
                 popup.style.display = 'flex';
                 renderPaqIndepLista();
+                // Reset tabs a "seleccionar"
+                document.getElementById('paqPanelSeleccionar').style.display = 'block';
+                document.getElementById('paqPanelNueva').style.display = 'none';
+                const tabSel = document.getElementById('paqTabSeleccionar');
+                const tabNew = document.getElementById('paqTabNueva');
+                if (tabSel) { tabSel.style.background = '#ff9900'; tabSel.style.color = '#fff'; }
+                if (tabNew) { tabNew.style.background = '#fff'; tabNew.style.color = '#ff9900'; }
             }
         }
         // Cerrar popup paquetería
@@ -31297,15 +31760,29 @@ document.addEventListener('DOMContentLoaded', function() {
             const popup = document.getElementById('popupPaqIndep');
             if (popup) popup.style.display = 'none';
         }
-        // Agregar nueva paquetería form
-        if (e.target.id === 'paqIndepAgregar') {
-            const form = document.getElementById('paqIndepFormNueva');
-            if (form) form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        // Agregar nueva paquetería form (tabs)
+        if (e.target.id === 'paqTabNueva') {
+            document.getElementById('paqPanelSeleccionar').style.display = 'none';
+            document.getElementById('paqPanelNueva').style.display = 'block';
+            e.target.style.background = '#ff9900'; e.target.style.color = '#fff';
+            const otroTab = document.getElementById('paqTabSeleccionar');
+            if (otroTab) { otroTab.style.background = '#fff'; otroTab.style.color = '#ff9900'; }
+        }
+        if (e.target.id === 'paqTabSeleccionar') {
+            document.getElementById('paqPanelSeleccionar').style.display = 'block';
+            document.getElementById('paqPanelNueva').style.display = 'none';
+            e.target.style.background = '#ff9900'; e.target.style.color = '#fff';
+            const otroTab = document.getElementById('paqTabNueva');
+            if (otroTab) { otroTab.style.background = '#fff'; otroTab.style.color = '#ff9900'; }
         }
         // Cancelar nueva paquetería
         if (e.target.id === 'paqNuevaCancelar') {
-            const form = document.getElementById('paqIndepFormNueva');
-            if (form) form.style.display = 'none';
+            document.getElementById('paqPanelSeleccionar').style.display = 'block';
+            document.getElementById('paqPanelNueva').style.display = 'none';
+            const tabSel = document.getElementById('paqTabSeleccionar');
+            const tabNew = document.getElementById('paqTabNueva');
+            if (tabSel) { tabSel.style.background = '#ff9900'; tabSel.style.color = '#fff'; }
+            if (tabNew) { tabNew.style.background = '#fff'; tabNew.style.color = '#ff9900'; }
         }
         // Guardar nueva paquetería
         if (e.target.id === 'paqNuevaGuardar') {
@@ -31326,130 +31803,133 @@ document.addEventListener('DOMContentLoaded', function() {
             ['paqNombre','paqTelefono','paqDestinos','paqDireccion','paqDirDestino'].forEach(id => {
                 const el = document.getElementById(id); if (el) el.value = '';
             });
-            document.getElementById('paqIndepFormNueva').style.display = 'none';
+            document.getElementById('paqPanelSeleccionar').style.display = 'block';
+            document.getElementById('paqPanelNueva').style.display = 'none';
+            const tabSel2 = document.getElementById('paqTabSeleccionar');
+            const tabNew2 = document.getElementById('paqTabNueva');
+            if (tabSel2) { tabSel2.style.background = '#ff9900'; tabSel2.style.color = '#fff'; }
+            if (tabNew2) { tabNew2.style.background = '#fff'; tabNew2.style.color = '#ff9900'; }
             renderPaqIndepLista();
         }
-        // Agregar historial de costos
-        if (e.target.id === 'paqHistAgregar') {
-            const costo = parseFloat(document.getElementById('paqHistCosto')?.value || 0);
-            const largo = parseFloat(document.getElementById('paqHistLargo')?.value || 0);
-            const ancho = parseFloat(document.getElementById('paqHistAncho')?.value || 0);
-            const alto = parseFloat(document.getElementById('paqHistAlto')?.value || 0);
-            const peso = parseFloat(document.getElementById('paqHistPeso')?.value || 0);
-            if (!costo) { alert('Ingresa al menos el costo'); return; }
-            const hist = getPaqHistorial();
-            hist.push({ largo, ancho, alto, peso, costo, fecha: new Date().toISOString() });
-            savePaqHistorial(hist);
-            // Estimar costo basado en historial
-            estimarCosto(largo, ancho, alto, peso);
-            alert('Registro de costo agregado al historial');
-        }
-        // Servicio pagado / por cobrar
-        if (e.target.id === 'paqServicioPagado' || e.target.id === 'paqServicioPorCobrar') {
-            const montoDiv = document.getElementById('paqMontoViaje');
-            if (montoDiv) montoDiv.style.display = 'block';
-            if (e.target.id === 'paqServicioPagado') {
-                e.target.style.outline = '3px solid #1f2937';
-                const otro = document.getElementById('paqServicioPorCobrar');
-                if (otro) otro.style.outline = 'none';
-            } else {
-                e.target.style.outline = '3px solid #1f2937';
-                const otro = document.getElementById('paqServicioPagado');
-                if (otro) otro.style.outline = 'none';
-            }
-        }
-        // Aplicar monto adeudo
-        if (e.target.id === 'paqMontoAplicar') {
-            const monto = parseFloat(document.getElementById('paqMontoPagado')?.value || 0);
-            if (monto > 0) {
-                alert('Adeudo de $' + monto.toFixed(2) + ' registrado para el cliente. Se reflejará en su cuenta.');
-            }
-        }
-        // Aplicar costo de paquetería independiente
-        if (e.target.id === 'paqIndepAplicar') {
-            const costo = parseFloat(document.getElementById('paqIndepCosto')?.value || 0);
-            if (costo > 0) {
-                const costoInput = document.getElementById('envioManualCosto');
-                if (costoInput) costoInput.value = costo;
-                const aplicarBtn = document.getElementById('envioManualAplicar');
-                if (aplicarBtn) aplicarBtn.click();
-            }
-        }
         // Seleccionar paquetería de la lista
-        if (e.target.closest('[data-paq-select]')) {
-            const idx = parseInt(e.target.closest('[data-paq-select]').getAttribute('data-paq-select'));
+        if (e.target.closest('[data-paq-select]') && !e.target.closest('[data-paq-del]') && !e.target.closest('[data-paq-monto-aplicar]')) {
+            const card = e.target.closest('[data-paq-select]');
+            const idx = parseInt(card.getAttribute('data-paq-select'));
             const paqs = getPaqIndep();
             if (paqs[idx]) {
-                document.querySelectorAll('[data-paq-select]').forEach(el => el.style.borderColor = '#e5e7eb');
-                e.target.closest('[data-paq-select]').style.borderColor = '#ff9900';
-                // Actualizar select del repartidor
-                const select = document.getElementById('paqRepartidorDestino');
-                if (select) {
-                    const opt = select.querySelector('option[value="' + paqs[idx].id + '"]');
-                    if (opt) opt.selected = true;
+                const paq = paqs[idx];
+                document.querySelectorAll('[data-paq-select]').forEach(el => { el.style.borderColor = '#e5e7eb'; el.style.background = '#fff'; });
+                card.style.borderColor = '#ff9900';
+                card.style.background = '#fff7ed';
+
+                if (paq.porCobrar === 'si') {
+                    // POR COBRAR: costo $0, cerrar popup, aplicar al cotizador
+                    const costoInput = document.getElementById('envioManualCosto');
+                    if (costoInput) costoInput.value = '0';
+                    const fallback = document.getElementById('envioManualFallback');
+                    if (fallback) fallback.style.display = '';
+                    addEnvioToOrdenLineas(paq.nombre, 'POR COBRAR en destino', 0);
+                    document.getElementById('popupPaqIndep').style.display = 'none';
+                    autoSavePaqHistorialFromOrder(paq.nombre);
+                } else if (paq.porCobrar === 'ambos') {
+                    // AMBOS: preguntar al usuario qué modalidad usar
+                    const opcion = confirm('¿Desea enviar POR COBRAR ($0)?\n\nAceptar = Por cobrar ($0)\nCancelar = Ingresar monto de envío');
+                    if (opcion) {
+                        const costoInput = document.getElementById('envioManualCosto');
+                        if (costoInput) costoInput.value = '0';
+                        const fallback = document.getElementById('envioManualFallback');
+                        if (fallback) fallback.style.display = '';
+                        addEnvioToOrdenLineas(paq.nombre, 'POR COBRAR en destino', 0);
+                        document.getElementById('popupPaqIndep').style.display = 'none';
+                        autoSavePaqHistorialFromOrder(paq.nombre);
+                    } else {
+                        const montoDiv = card.querySelector('.paq-monto-inline');
+                        if (montoDiv) montoDiv.style.display = 'flex';
+                    }
+                } else {
+                    // NO por cobrar: mostrar campo monto inline
+                    const montoDiv = card.querySelector('.paq-monto-inline');
+                    if (montoDiv) montoDiv.style.display = 'flex';
                 }
-                // Estimar costo con historial
-                const pkgLargo = parseFloat(document.getElementById('envioPkgLargo')?.value || 0);
-                const pkgAncho = parseFloat(document.getElementById('envioPkgAncho')?.value || 0);
-                const pkgAlto = parseFloat(document.getElementById('envioPkgAlto')?.value || 0);
-                const pkgPeso = parseFloat(document.getElementById('envioPkgPeso')?.value || 0);
-                estimarCosto(pkgLargo, pkgAncho, pkgAlto, pkgPeso);
+            }
+        }
+        // Aplicar monto desde la lista
+        if (e.target.closest('[data-paq-monto-aplicar]')) {
+            const card = e.target.closest('[data-paq-select]');
+            const idx = parseInt(card.getAttribute('data-paq-select'));
+            const paqs = getPaqIndep();
+            if (paqs[idx]) {
+                const paq = paqs[idx];
+                const montoInput = card.querySelector('.paq-monto-input');
+                const monto = parseFloat(montoInput?.value || 0);
+                if (monto <= 0) { alert('Ingresa el monto del envío'); return; }
+                const costoInput = document.getElementById('envioManualCosto');
+                if (costoInput) costoInput.value = monto;
+                const fallback = document.getElementById('envioManualFallback');
+                if (fallback) fallback.style.display = '';
+                addEnvioToOrdenLineas(paq.nombre, 'Envío pagado', monto);
+                document.getElementById('popupPaqIndep').style.display = 'none';
+                autoSavePaqHistorialFromOrder(paq.nombre);
             }
         }
     });
 
-    const estimarCosto = (largo, ancho, alto, peso) => {
-        const hist = getPaqHistorial();
-        if (!hist.length) return;
-        // Buscar el registro más cercano por dimensiones y peso
-        let mejor = null, mejorDist = Infinity;
-        hist.forEach(h => {
-            const dist = Math.abs(h.largo - largo) + Math.abs(h.ancho - ancho) + Math.abs(h.alto - alto) + Math.abs(h.peso - peso) * 2;
-            if (dist < mejorDist) { mejorDist = dist; mejor = h; }
+    // Auto-guardar historial desde la orden (nombre del producto + medidas)
+    const autoSavePaqHistorialFromOrder = (paqNombre) => {
+        // Obtener productos de la tabla de orden
+        const tbody = document.getElementById('ordenTablaBody');
+        if (!tbody) return;
+        const rows = tbody.querySelectorAll('tr');
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length >= 2) {
+                const producto = cells[0]?.textContent?.trim() || '';
+                const medida = cells[1]?.textContent?.trim() || '';
+                if (producto) {
+                    const key = producto + (medida ? ' ' + medida : '');
+                    const hist = getPaqHistorial();
+                    if (!hist.find(h => h.producto === key && h.paqueteria === paqNombre)) {
+                        hist.push({
+                            producto: key,
+                            paqueteria: paqNombre,
+                            fecha: new Date().toISOString(),
+                            largo: parseFloat(document.getElementById('envioPkgLargo')?.value || 0),
+                            ancho: parseFloat(document.getElementById('envioPkgAncho')?.value || 0),
+                            alto: parseFloat(document.getElementById('envioPkgAlto')?.value || 0),
+                            peso: parseFloat(document.getElementById('envioPkgPeso')?.value || 0),
+                            costo: 0
+                        });
+                        savePaqHistorial(hist);
+                    }
+                }
+            }
         });
-        // Calcular promedio general
-        const promedio = hist.reduce((s, h) => s + h.costo, 0) / hist.length;
-        const estDiv = document.getElementById('paqEstimacion');
-        const estMonto = document.getElementById('paqEstimacionMonto');
-        const estInfo = document.getElementById('paqEstimacionInfo');
-        if (estDiv && estMonto && estInfo) {
-            estDiv.style.display = 'block';
-            if (mejor && mejorDist < 20) {
-                estMonto.textContent = '$' + mejor.costo.toFixed(2);
-                estInfo.textContent = 'Basado en envío similar: ' + mejor.largo + 'x' + mejor.ancho + 'x' + mejor.alto + 'cm, ' + mejor.peso + 'kg. Promedio general: $' + promedio.toFixed(2);
-            } else {
-                estMonto.textContent = '$' + promedio.toFixed(2);
-                estInfo.textContent = 'Promedio general de ' + hist.length + ' envíos registrados';
-            }
-            // Auto-fill cost field
-            const costoField = document.getElementById('paqIndepCosto');
-            if (costoField && !costoField.value) {
-                costoField.value = (mejor && mejorDist < 20) ? mejor.costo.toFixed(2) : promedio.toFixed(2);
-            }
-        }
     };
+
+    const estimarCosto = () => {};
 
     const renderPaqIndepLista = () => {
         const lista = document.getElementById('paqIndepLista');
         if (!lista) return;
         const paqs = getPaqIndep();
-        const select = document.getElementById('paqRepartidorDestino');
-        if (select) {
-            select.innerHTML = '<option value="">— Seleccionar paquetería —</option>' + paqs.map(p => `<option value="${p.id}">${p.nombre} — ${p.destinos}</option>`).join('');
-        }
         if (!paqs.length) {
-            lista.innerHTML = '<div style="text-align:center;color:#9ca3af;font-size:0.48rem;padding:12px;">No hay paqueterías registradas aún</div>';
+            lista.innerHTML = '<div style="text-align:center;color:#9ca3af;font-size:0.58rem;padding:30px;">No hay paqueterías registradas aún</div>';
             return;
         }
-        lista.innerHTML = paqs.map((p, i) => `<div data-paq-select="${i}" style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:2px solid #e5e7eb;border-radius:8px;cursor:pointer;transition:border-color 0.15s;">
+        lista.innerHTML = paqs.map((p, i) => `<div data-paq-select="${i}" style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#fff;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;transition:all 0.15s;">
             <div style="flex:1;">
-                <div style="font-size:0.54rem;font-weight:800;color:#1f2937;">🚐 ${p.nombre}</div>
-                <div style="font-size:0.44rem;color:#6b7280;">📍 ${p.destinos || 'Sin destinos'} | 📞 ${p.telefono || 'Sin tel.'}</div>
-                <div style="font-size:0.42rem;color:#9ca3af;">🏢 ${p.direccion || 'Sin dirección'}</div>
-                <div style="font-size:0.42rem;color:#9ca3af;">📍 Destino: ${p.dirDestino || 'Sin especificar'}</div>
-                <div style="font-size:0.42rem;margin-top:2px;color:${p.porCobrar === 'si' ? '#4caf50' : '#ef4444'};font-weight:700;">${p.porCobrar === 'si' ? '✅ Tiene servicio por cobrar' : '❌ Sin servicio por cobrar'}</div>
+                <div style="font-size:0.66rem;font-weight:900;color:#1f2937;">🚐 ${p.nombre}</div>
+                <div style="font-size:0.52rem;color:#6b7280;margin-top:2px;">📍 ${p.destinos || 'Sin destinos'} &nbsp;|&nbsp; 📞 ${p.telefono || 'Sin tel.'}</div>
+                <div style="display:flex;gap:8px;margin-top:4px;align-items:center;">
+                    <span style="font-size:0.5rem;padding:3px 10px;border-radius:6px;font-weight:800;${p.porCobrar === 'si' ? 'background:#fff7ed;color:#ff9900;border:1px solid #ff9900;' : p.porCobrar === 'ambos' ? 'background:#eff6ff;color:#2563eb;border:1px solid #2563eb;' : 'background:#fef2f2;color:#dc2626;border:1px solid #dc2626;'}">${p.porCobrar === 'si' ? 'POR COBRAR' : p.porCobrar === 'ambos' ? 'AMBOS' : 'PAGO AL ENVIAR'}</span>
+                </div>
+                <div class="paq-monto-inline" style="display:none;margin-top:8px;align-items:center;gap:8px;">
+                    <span style="font-size:0.56rem;color:#374151;font-weight:700;">$ Monto:</span>
+                    <input class="paq-monto-input" type="number" min="0" step="0.01" placeholder="0.00" style="flex:1;max-width:140px;padding:8px 10px;border:2px solid #ff9900;border-radius:8px;background:#fff;color:#1f2937;font-size:0.6rem;font-weight:900;" onclick="event.stopPropagation()">
+                    <button type="button" data-paq-monto-aplicar="1" style="padding:8px 18px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-weight:900;font-size:0.54rem;cursor:pointer;" onclick="event.stopPropagation()">APLICAR</button>
+                </div>
             </div>
-            <button type="button" data-paq-del="${i}" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.7rem;padding:4px;">✕</button>
+            <button type="button" data-paq-del="${i}" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.8rem;padding:6px;" onclick="event.stopPropagation()">✕</button>
         </div>`).join('');
     };
 
@@ -31463,33 +31943,7 @@ document.addEventListener('DOMContentLoaded', function() {
             savePaqIndep(paqs);
             renderPaqIndepLista();
         }
-        const pmDel = e.target.closest('[data-pm-del]');
-        if (pmDel) {
-            const idx = parseInt(pmDel.getAttribute('data-pm-del'));
-            const pms = getPuntosMedios();
-            pms.splice(idx, 1);
-            savePuntosMedios(pms);
-            renderPuntosMediosPopup();
-        }
-    });
 
-    // Foto evidencia preview
-    document.addEventListener('change', (e) => {
-        if (e.target.id === 'paqEvidenciaFoto') {
-            const preview = document.getElementById('paqEvidenciaPreview');
-            if (!preview) return;
-            preview.innerHTML = '';
-            Array.from(e.target.files).forEach(file => {
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    const img = document.createElement('img');
-                    img.src = ev.target.result;
-                    img.style.cssText = 'width:60px;height:60px;object-fit:cover;border-radius:6px;border:2px solid #ff9900;';
-                    preview.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            });
-        }
     });
 
 })();
