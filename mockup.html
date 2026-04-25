@@ -2423,6 +2423,68 @@
             isolation: isolate;
         }
 
+        /* ── Popup de acción de caja (ingresar / gasto) ── */
+        .caja-accion-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 3100;
+            background: rgba(0,0,0,0.48);
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .caja-accion-modal[aria-hidden="false"] {
+            display: flex;
+        }
+        .caja-accion-modal-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            overflow: hidden;
+        }
+        .caja-accion-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px 12px;
+            border-bottom: 1px solid #e8edf4;
+            background: #f5f7fb;
+        }
+        .caja-accion-modal-header h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin: 0;
+            letter-spacing: 0.03em;
+        }
+        .caja-accion-modal-close {
+            background: none;
+            border: 1px solid #d4dae4;
+            border-radius: 999px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #6b7280;
+            display: grid;
+            place-items: center;
+        }
+        .caja-accion-modal-close:hover { background:#f3f4f6; color:#111; }
+        .caja-accion-modal-body {
+            padding: 20px;
+        }
+        .caja-accion-modal-footer {
+            padding: 14px 20px 18px;
+            border-top: 1px solid #e8edf4;
+            background: #f5f7fb;
+        }
+
         .caja-card {
             width: 100vw;
             height: 100vh;
@@ -2628,6 +2690,15 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 8px;
         }
+
+        /* Dashboard KPI cards */
+        .dash-kpi { background:#fff; border:1px solid #e3e8f0; border-radius:8px; padding:14px 16px; display:flex; flex-direction:column; gap:5px; }
+        .dash-kpi__label { font-size:0.5rem; font-weight:700; color:#9ca3af; text-transform:uppercase; letter-spacing:0.4px; }
+        .dash-kpi__value { font-size:1.1rem; font-weight:800; color:#111827; }
+        .dash-kpi--green .dash-kpi__value { color:#16a34a; }
+        .dash-kpi--red .dash-kpi__value   { color:#dc2626; }
+        .dash-kpi--orange .dash-kpi__value { color:#d97706; }
+        .dash-kpi--blue .dash-kpi__value  { color:#2563eb; }
 
         .caja-kpi {
             border: 1px solid #e3e8f0;
@@ -4141,10 +4212,10 @@
             inset: 0;
             z-index: 2180;
             display: none;
-            align-items: center;
+            align-items: stretch;
             justify-content: center;
             background: rgba(9, 13, 22, 0.4);
-            padding: 12px;
+            padding: 0;
         }
 
         .productos-modal-card {
@@ -4160,22 +4231,25 @@
 
         .productos-modal-title {
             margin: 0;
-            font-size: 0.74rem;
+            font-size: 0.67rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.22px;
+            letter-spacing: 0.2px;
             color: #1f2937;
+            line-height: 1.1;
         }
 
         .productos-modal-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1px 3px;
+            gap: 6px 8px;
             flex: 1 1 0;
             align-content: start;
             min-height: 0;
             overflow-y: auto;
             overflow-x: hidden;
+            scrollbar-gutter: stable;
+            padding-right: 2px;
         }
 
         .productos-modal-grid .orden-field {
@@ -4191,31 +4265,30 @@
             display: none !important;
         }
 
-        /* Compact fields inside wide product form */
+        /* Fields inside wide product form */
         .productos-modal-card.wide .orden-field {
-            gap: 3px;
-            font-size: 0.72rem;
+            gap: 2px;
+            font-size: 0.75rem;
         }
         .productos-modal-card.wide .orden-field label {
-            font-size: 0.7rem;
+            font-size: 0.67rem;
             margin-bottom: 1px;
-            line-height: 1.3;
-            padding: 0;
+            line-height: 1.2;
         }
         .productos-modal-card.wide .orden-field input,
         .productos-modal-card.wide .orden-field select,
         .productos-modal-card.wide .orden-field textarea {
-            font-size: 0.78rem;
-            padding: 6px 8px;
-            border-radius: 6px;
-            line-height: 1.35;
+            font-size: 0.8rem;
+            padding: 5px 7px;
+            border-radius: 5px;
+            line-height: 1.3;
         }
         .productos-modal-card.wide .orden-field textarea {
             resize: none;
         }
         .productos-modal-card.wide .productos-btn {
             font-size: 0.72rem;
-            padding: 5px 12px;
+            padding: 5px 10px;
         }
 
         .productos-modal-list {
@@ -4251,14 +4324,15 @@
         .productos-modal-card.wide .productos-modal-title {
             flex-shrink: 0;
             padding: 0 0 2px 0;
+            font-size: 0.8rem;
         }
 
         .productos-modal-actions {
             display: flex;
             justify-content: flex-end;
-            gap: 6px;
+            gap: 4px;
             flex-shrink: 0;
-            padding-top: 2px;
+            padding-top: 0;
         }
 
         .ajustes-main-btn {
@@ -4285,48 +4359,41 @@
 
         .productos-modal-card.wide {
             width: min(98vw, 1120px) !important;
-            height: min(96vh, 780px) !important;
-            height: min(96dvh, 780px) !important;
-            min-height: min(96vh, 780px) !important;
-            min-height: min(96dvh, 780px) !important;
-            max-height: min(96vh, 780px) !important;
-            max-height: min(96dvh, 780px) !important;
+            height: min(100vh, 100%) !important;
+            max-height: 100vh !important;
+            min-height: 0 !important;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            flex-shrink: 0;
+            flex-shrink: 1;
             box-sizing: border-box;
-            gap: 4px;
-            padding: 8px 10px;
+            gap: 6px;
+            padding: 10px 14px;
         }
 
         /* ID selectors — máxima especificidad CSS para fijar tamaño */
         #prodTabCard {
             width: min(98vw, 1120px) !important;
-            height: min(96vh, 780px) !important;
-            height: min(96dvh, 780px) !important;
-            min-height: min(96vh, 780px) !important;
-            min-height: min(96dvh, 780px) !important;
-            max-height: min(96vh, 780px) !important;
-            max-height: min(96dvh, 780px) !important;
+            height: min(100vh, 100%) !important;
+            max-height: 100vh !important;
+            min-height: 0 !important;
             overflow: hidden !important;
             box-sizing: border-box !important;
             display: flex !important;
             flex-direction: column !important;
+            flex-shrink: 1 !important;
         }
 
         #prodFormCard {
             width: min(98vw, 1120px) !important;
-            height: min(96vh, 780px) !important;
-            height: min(96dvh, 780px) !important;
-            min-height: min(96vh, 780px) !important;
-            min-height: min(96dvh, 780px) !important;
-            max-height: min(96vh, 780px) !important;
-            max-height: min(96dvh, 780px) !important;
+            height: min(100vh, 100%) !important;
+            max-height: 100vh !important;
+            min-height: 0 !important;
             overflow: hidden !important;
             box-sizing: border-box !important;
             display: flex !important;
             flex-direction: column !important;
+            flex-shrink: 1 !important;
         }
 
         .productos-modal-card.wide.gf-compact {
@@ -4347,9 +4414,9 @@
         .prod-foto-principal-box {
             border: 1px dashed #c5d0e0;
             border-radius: 8px;
-            padding: 8px;
+            padding: 3px;
             display: grid;
-            gap: 6px;
+            gap: 2px;
         }
 
         .prod-foto-preview {
@@ -4374,51 +4441,54 @@
 
         .prod-form-wizard {
             display: grid;
-            grid-template-columns: 180px minmax(0, 1fr);
+            grid-template-columns: 190px minmax(0, 1fr);
             grid-template-rows: minmax(0, 1fr);
-            gap: 6px;
+            gap: 8px;
             flex: 1 1 0;
             min-height: 0;
+            min-width: 0;
             overflow: hidden;
         }
 
         .prod-photo-pane {
             background: #ff9900;
             border-radius: 10px;
+            overflow-x: hidden;
             overflow-y: auto;
+            min-width: 0;
             padding: 8px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
             color: #fff;
-            overflow-y: auto;
             min-height: 0;
         }
 
         .prod-photo-pane-extras {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            margin-top: 2px;
+            gap: 2px;
+            margin-top: 0;
         }
 
         .prod-photo-pane-extras label {
-            font-size: 0.52rem;
+            font-size: 0.64rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.2px;
             color: rgba(255,255,255,0.85);
-            margin-bottom: 1px;
+            margin-bottom: 2px;
         }
 
         .prod-photo-pane-extras input,
         .prod-photo-pane-extras select,
         .prod-photo-pane-extras textarea {
             width: 100%;
-            padding: 4px 6px;
+            box-sizing: border-box;
+            padding: 5px 6px;
             border: 1px solid rgba(255,255,255,0.35);
-            border-radius: 5px;
-            font-size: 0.58rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
             background: rgba(255,255,255,0.15);
             color: #fff;
             outline: none;
@@ -4556,7 +4626,7 @@
 
         .prod-photo-pane h4 {
             margin: 0;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             text-transform: uppercase;
             letter-spacing: 0.22px;
             font-weight: 900;
@@ -4572,7 +4642,7 @@
             border-color: rgba(255,255,255,0.5);
             background: rgba(255,255,255,0.16);
             color: #fff;
-            height: 120px;
+            height: 110px;
         }
 
         .prod-photo-pane input[type="file"] {
@@ -4592,7 +4662,7 @@
             min-height: 0;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 1px;
             overflow: hidden;
             flex: 1 1 0;
         }
@@ -4762,12 +4832,9 @@
             /* Mantener tamaño fijo del card incluso en mobile */
             #prodFormCard {
                 width: min(98vw, 1120px) !important;
-                height: min(96vh, 780px) !important;
-                height: min(96dvh, 780px) !important;
-                min-height: min(96vh, 780px) !important;
-                min-height: min(96dvh, 780px) !important;
-                max-height: min(96vh, 780px) !important;
-                max-height: min(96dvh, 780px) !important;
+                height: 100% !important;
+                max-height: 100% !important;
+                min-height: 0 !important;
             }
 
             .productos-crud {
@@ -6140,7 +6207,7 @@
                     padding: 8px;
                     font-size: 0.6rem;
                     color: #7a9ab4;
-                    max-height: 120px;
+                    max-height: 70px;
                     overflow-y: auto;
                     white-space: pre-wrap;
                     word-break: break-word;
@@ -7813,8 +7880,6 @@ function abrirPopupProveedorDesdeProductos() {
         <div class="clientesmod-head">
             <h2 id="reportesmodTitulo" class="clientesmod-title">REPORTES</h2>
             <div class="clientesmod-head-right" id="repHeadRight">
-                <button id="repTabDash" class="clientesmod-btn primary" type="button" style="font-size:0.55rem;padding:5px 12px;">📈 DASHBOARD</button>
-                <button id="repTabRep" class="clientesmod-btn" type="button" style="font-size:0.55rem;padding:5px 12px;">📊 REPORTES</button>
             </div>
         </div>
         <div class="clientesmod-main">
@@ -7835,80 +7900,26 @@ function abrirPopupProveedorDesdeProductos() {
                     </div>
                 </div>
 
-                <!-- KPIs principales -->
-                <div style="display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:8px;">
-                    <div class="caja-kpi" style="border-left:3px solid #16a34a;"><b>💰 VENTAS TOTALES</b><span id="repKpiVentas" style="color:#16a34a;">$0.00</span></div>
-                    <div class="caja-kpi" style="border-left:3px solid #dc2626;"><b>📉 INVERSIÓN</b><span id="repKpiInversion" style="color:#dc2626;">$0.00</span></div>
-                    <div class="caja-kpi" style="border-left:3px solid #ff9900;"><b>📈 GANANCIA</b><span id="repKpiGanancia" style="color:#ff9900;">$0.00</span></div>
-                    <div class="caja-kpi" style="border-left:3px solid #f59e0b;"><b>🧾 ORDENES</b><span id="repKpiOrdenes" style="color:#f59e0b;">0</span></div>
+                <!-- FILA 1: Financiero -->
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px;">
+                    <div class="dash-kpi dash-kpi--green"><span class="dash-kpi__label">VENTAS TOTALES</span><span class="dash-kpi__value" id="repKpiVentas">$0.00</span></div>
+                    <div class="dash-kpi dash-kpi--red"><span class="dash-kpi__label">INVERSIÓN</span><span class="dash-kpi__value" id="repKpiInversion">$0.00</span></div>
+                    <div class="dash-kpi dash-kpi--orange"><span class="dash-kpi__label">GANANCIA NETA</span><span class="dash-kpi__value" id="repKpiGanancia">$0.00</span></div>
+                    <div class="dash-kpi dash-kpi--blue"><span class="dash-kpi__label">MARGEN DE GANANCIA</span><span class="dash-kpi__value" id="repKpiPctGanancia">0%</span></div>
                 </div>
-
-                <!-- KPIs secundarios -->
-                <div style="display:grid;grid-template-columns:repeat(5,minmax(120px,1fr));gap:8px;margin-top:8px;">
-                    <div class="caja-kpi"><b>🎫 TICKET PROMEDIO</b><span id="repKpiTicket">$0.00</span></div>
-                    <div class="caja-kpi"><b>⚠️ ADEUDO PENDIENTE</b><span id="repKpiAdeudo" style="color:#dc2626;">$0.00</span></div>
-                    <div class="caja-kpi"><b>📊 % GANANCIA</b><span id="repKpiPctGanancia">0%</span></div>
-                    <div class="caja-kpi"><b>👥 CLIENTES ACTIVOS</b><span id="repKpiClientesActivos">0</span></div>
-                    <div class="caja-kpi"><b>📋 PEDIDOS PENDIENTES</b><span id="repKpiPedidosPend">0</span></div>
+                <!-- FILA 2: Operativo -->
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px;">
+                    <div class="dash-kpi"><span class="dash-kpi__label">ÓRDENES EN PERIODO</span><span class="dash-kpi__value" id="repKpiOrdenes">0</span></div>
+                    <div class="dash-kpi"><span class="dash-kpi__label">TICKET PROMEDIO</span><span class="dash-kpi__value" id="repKpiTicket">$0.00</span></div>
+                    <div class="dash-kpi"><span class="dash-kpi__label">PEDIDOS PENDIENTES</span><span class="dash-kpi__value" id="repKpiPedidosPend">0</span></div>
+                    <div class="dash-kpi"><span class="dash-kpi__label">CLIENTES ACTIVOS</span><span class="dash-kpi__value" id="repKpiClientesActivos">0</span></div>
                 </div>
-
-                <!-- KPIs de inventario -->
-                <div style="display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px;margin-top:8px;">
-                    <div class="caja-kpi"><b>⬆️ ENTRADAS HOY</b><span id="repKpiEntradasHoy" style="color:#16a34a;">0</span></div>
-                    <div class="caja-kpi"><b>⬇️ SALIDAS HOY</b><span id="repKpiSalidasHoy" style="color:#dc2626;">0</span></div>
-                    <div class="caja-kpi"><b>🔄 MOVS. PERIODO</b><span id="repKpiMovsPeriodo">0</span></div>
-                    <div class="caja-kpi"><b>💳 MÉTODO TOP</b><span id="repKpiMetodoTop" style="font-size:0.65rem;">--</span></div>
-                </div>
-
-
-                <!-- Gráficas -->
-                <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-top:10px;">
-                    <div style="background:#fff;border:1px solid #e3e8f0;border-radius:9px;padding:10px;">
-                        <b style="font-size:0.54rem;color:#6b7280;text-transform:uppercase;letter-spacing:0.18px;">📊 VENTAS POR DÍA</b>
-                        <canvas id="repChartVentas" style="width:100%;height:180px;margin-top:6px;"></canvas>
-                    </div>
-                    <div style="background:#fff;border:1px solid #e3e8f0;border-radius:9px;padding:10px;">
-                        <b style="font-size:0.54rem;color:#6b7280;text-transform:uppercase;letter-spacing:0.18px;">🥧 DISTRIBUCIÓN DE PRODUCTOS</b>
-                        <canvas id="repChartProductos" style="width:100%;height:180px;margin-top:6px;"></canvas>
-                    </div>
-                </div>
-
-                <!-- Tablas -->
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;min-height:0;margin-top:8px;">
-                    <div class="clientesmod-table-wrap">
-                        <table class="clientesmod-table">
-                            <thead>
-                                <tr><th>TOP PRODUCTO</th><th>CANTIDAD</th><th>TOTAL VENDIDO</th></tr>
-                            </thead>
-                            <tbody id="repTopProductosBody">
-                                <tr><td colspan="3" class="clientesmod-empty">SIN DATOS</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="clientesmod-table-wrap">
-                        <table class="clientesmod-table">
-                            <thead>
-                                <tr><th>ULTIMAS ENTRADAS/SALIDAS</th><th>CANTIDAD</th><th>TIPO</th></tr>
-                            </thead>
-                            <tbody id="repMovimientosBody">
-                                <tr><td colspan="3" class="clientesmod-empty">SIN DATOS</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Tabla de últimas órdenes -->
-                <div style="margin-top:8px;">
-                    <div class="clientesmod-table-wrap">
-                        <table class="clientesmod-table">
-                            <thead>
-                                <tr><th>FOLIO</th><th>CLIENTE</th><th>PRODUCTO</th><th>TOTAL</th><th>ESTADO</th><th>FECHA</th></tr>
-                            </thead>
-                            <tbody id="repUltimasOrdenesBody">
-                                <tr><td colspan="6" class="clientesmod-empty">SIN DATOS</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <!-- FILA 3: Cartera y Caja -->
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px;">
+                    <div class="dash-kpi dash-kpi--red"><span class="dash-kpi__label">ADEUDO POR COBRAR</span><span class="dash-kpi__value" id="repKpiAdeudo">$0.00</span></div>
+                    <div class="dash-kpi"><span class="dash-kpi__label">MÉTODO DE PAGO TOP</span><span class="dash-kpi__value" id="repKpiMetodoTop" style="font-size:0.72rem;">--</span></div>
+                    <div class="dash-kpi"><span class="dash-kpi__label">ENTRADAS HOY</span><span class="dash-kpi__value" id="repKpiEntradasHoy">0</span></div>
+                    <div class="dash-kpi"><span class="dash-kpi__label">SALIDAS HOY</span><span class="dash-kpi__value" id="repKpiSalidasHoy">0</span></div>
                 </div>
 
                 <div class="clientesmod-foot">
@@ -11998,41 +12009,127 @@ const imgBolsaDeliveryBase = new Image();
             </section>
 
             <section id="cajaPanelGasto" class="caja-panel" style="display:none;">
-                <h3 class="caja-legend">Realizar gastos</h3>
+                <h3 class="caja-legend">Acciones de caja</h3>
                 <div class="caja-zone caja-zone-readonly">
                     <div class="caja-zone-head">
-                        <h4>Datos del turno</h4>
+                        <h4>Información del turno</h4>
                     </div>
                     <div class="caja-meta">
                         <div class="caja-meta-box"><b>Caja</b><span id="cajaNombreLabelGasto">Caja principal</span></div>
                         <div class="caja-meta-box"><b>ID de caja</b><span id="cajaIdLabelGasto">CAJA-01</span></div>
-                        <div class="caja-meta-box"><b>Usuario en turno</b><span id="cajaUsuarioLabelGasto">Usuario en turno</span></div>
+                        <div class="caja-meta-box"><b>Usuario logeado</b><span id="cajaUsuarioLabelGasto">Usuario en turno</span></div>
                     </div>
+                </div>
+                <div class="caja-zone caja-zone-readonly">
+                    <div class="caja-zone-head"><h4>Dinero disponible (efectivo del día)</h4></div>
+                    <div id="cajaDisponibleMonto" class="caja-disponible" style="padding:8px 0;font-size:1rem;">$0.00</div>
                 </div>
                 <div class="caja-zone caja-zone-editable">
                     <div class="caja-zone-head">
-                        <h4>Captura de gasto</h4>
+                        <h4>Operaciones</h4>
                     </div>
-                    <div class="caja-gasto-grid">
-                        <div class="orden-field">
-                            <label for="cajaGastoFuente">Usar los fondos desde</label>
-                            <select id="cajaGastoFuente">
-                                <option value="EFECTIVO">Efectivo</option>
-                                <option value="TARJETA">Tarjeta</option>
-                                <option value="TRANSFERENCIA">Transferencia</option>
-                                <option value="DEPOSITO">Depósito</option>
-                            </select>
-                        </div>
-                        <div id="cajaDisponibleMonto" class="caja-disponible">Dinero disponible: $0.00</div>
-                        <div class="orden-field productos-field-span2"><label for="cajaGastoMotivo">Motivo</label><input id="cajaGastoMotivo" type="text" placeholder="Describe el motivo del gasto"></div>
-                        <div class="orden-field"><label for="cajaGastoMonto">Cantidad a sacar</label><input id="cajaGastoMonto" type="number" min="0" step="0.01" placeholder="0.00"></div>
-                    </div>
-                    <div class="caja-actions">
-                        <button id="cajaBtnIngresarDinero" class="caja-btn primary" type="button">Ingresar dinero</button>
-                        <button id="cajaBtnRealizarGasto" class="caja-btn warn" type="button">Realizar gasto</button>
+                    <div class="caja-actions" style="flex-direction:row;gap:18px;justify-content:center;padding:22px 0;">
+                        <button id="cajaBtnIngresarDinero" class="caja-btn primary" type="button" style="min-width:180px;font-size:0.75rem;">💰 Ingresar dinero</button>
+                        <button id="cajaBtnRealizarGasto" class="caja-btn warn" type="button" style="min-width:180px;font-size:0.75rem;">💸 Realizar gasto</button>
                     </div>
                 </div>
             </section>
+        </div>
+    </div>
+</div>
+
+<!-- ===== POPUP INGRESAR DINERO ===== -->
+<!-- Nota: clase caja-accion-modal (no caja-overlay), id no empieza con "popup" → no afectado por reset global -->
+<div id="cajaPanelIngreso" class="caja-accion-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cajaIngresoTitulo">
+    <div class="caja-accion-modal-card">
+        <div class="caja-accion-modal-header">
+            <h3 id="cajaIngresoTitulo">💰 INGRESAR DINERO</h3>
+            <button class="caja-accion-modal-close" type="button" id="cajaIngresoBack" aria-label="Cerrar">✕</button>
+        </div>
+        <div class="caja-accion-modal-body">
+            <div class="caja-gasto-grid">
+                <div class="orden-field productos-field-span2">
+                    <label for="cajaIngresoMotivoSel">MOTIVO DE INGRESO</label>
+                    <select id="cajaIngresoMotivoSel">
+                        <option value="FONDO INICIAL">FONDO INICIAL</option>
+                        <option value="REPOSICIÓN DE FONDO">REPOSICIÓN DE FONDO</option>
+                        <option value="ANTICIPO DE CLIENTE">ANTICIPO DE CLIENTE</option>
+                        <option value="DEVOLUCIÓN">DEVOLUCIÓN</option>
+                        <option value="VENTA ADICIONAL">VENTA ADICIONAL</option>
+                        <option value="PRÉSTAMO">PRÉSTAMO</option>
+                        <option value="OTRO">OTRO...</option>
+                    </select>
+                </div>
+                <div class="orden-field productos-field-span2" id="cajaIngresoOtroWrap" style="display:none;">
+                    <label for="cajaIngresoOtroInput">ESPECIFICAR MOTIVO</label>
+                    <input id="cajaIngresoOtroInput" type="text" placeholder="ESCRIBE EL MOTIVO...">
+                </div>
+                <div class="orden-field">
+                    <label for="cajaIngresoFuente">MÉTODO DE INGRESO</label>
+                    <select id="cajaIngresoFuente">
+                        <option value="EFECTIVO">EFECTIVO</option>
+                        <option value="TARJETA">TARJETA</option>
+                        <option value="TRANSFERENCIA">TRANSFERENCIA</option>
+                        <option value="DEPOSITO">DEPÓSITO</option>
+                    </select>
+                </div>
+                <div class="orden-field">
+                    <label for="cajaIngresoMonto">CANTIDAD A INGRESAR</label>
+                    <input id="cajaIngresoMonto" type="number" min="0" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+        </div>
+        <div class="caja-accion-modal-footer">
+            <button id="cajaBtnConfirmarIngreso" class="caja-btn primary" type="button" style="width:100%;">✔ CONFIRMAR INGRESO</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== POPUP REALIZAR GASTO ===== -->
+<div id="cajaPanelGastoAcc" class="caja-accion-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cajaGastoAccTitulo">
+    <div class="caja-accion-modal-card">
+        <div class="caja-accion-modal-header">
+            <h3 id="cajaGastoAccTitulo">💸 REALIZAR GASTO</h3>
+            <button class="caja-accion-modal-close" type="button" id="cajaGastoAccBack" aria-label="Cerrar">✕</button>
+        </div>
+        <div class="caja-accion-modal-body">
+            <div class="caja-gasto-grid">
+                <div class="orden-field productos-field-span2">
+                    <label for="cajaGastoAccMotivoSel">MOTIVO DEL GASTO</label>
+                    <select id="cajaGastoAccMotivoSel">
+                        <option value="COMPRA DE INSUMOS">COMPRA DE INSUMOS</option>
+                        <option value="SERVICIO / MANTENIMIENTO">SERVICIO / MANTENIMIENTO</option>
+                        <option value="PAGO A PROVEEDOR">PAGO A PROVEEDOR</option>
+                        <option value="GASTOS OPERATIVOS">GASTOS OPERATIVOS</option>
+                        <option value="PAPELERÍA">PAPELERÍA</option>
+                        <option value="TRANSPORTE">TRANSPORTE</option>
+                        <option value="SALARIO / NÓMINA">SALARIO / NÓMINA</option>
+                        <option value="IMPUESTOS">IMPUESTOS</option>
+                        <option value="OTRO">OTRO...</option>
+                    </select>
+                </div>
+                <div class="orden-field productos-field-span2" id="cajaGastoAccOtroWrap" style="display:none;">
+                    <label for="cajaGastoAccOtroInput">ESPECIFICAR MOTIVO</label>
+                    <input id="cajaGastoAccOtroInput" type="text" placeholder="ESCRIBE EL MOTIVO...">
+                </div>
+                <div class="orden-field">
+                    <label for="cajaGastoAccFuente">FONDOS DESDE</label>
+                    <select id="cajaGastoAccFuente">
+                        <option value="EFECTIVO">EFECTIVO</option>
+                        <option value="TARJETA">TARJETA</option>
+                        <option value="TRANSFERENCIA">TRANSFERENCIA</option>
+                        <option value="DEPOSITO">DEPÓSITO</option>
+                    </select>
+                </div>
+                <div id="cajaDisponibleMontoAcc" class="caja-disponible" style="grid-column:1/-1;">Dinero disponible: $0.00</div>
+                <div class="orden-field">
+                    <label for="cajaGastoAccMonto">CANTIDAD A RETIRAR</label>
+                    <input id="cajaGastoAccMonto" type="number" min="0" step="0.01" placeholder="0.00">
+                </div>
+            </div>
+        </div>
+        <div class="caja-accion-modal-footer">
+            <button id="cajaBtnConfirmarGasto" class="caja-btn warn" type="button" style="width:100%;">✔ CONFIRMAR GASTO</button>
         </div>
     </div>
 </div>
@@ -12319,9 +12416,9 @@ const imgBolsaDeliveryBase = new Image();
                     <div class="orden-field prod-stock-only productos-field-span3" data-nat="producto,fabricado,insumo,proceso,servicio"><label for="prodFormDescripcion">Descripción</label><textarea id="prodFormDescripcion" rows="1" placeholder="Descripción del producto" style="resize:none;"></textarea></div>
 
                     <!-- MEDIDAS Y PESO DEL PAQUETE PARA ENVÍO -->
-                    <div class="orden-field productos-field-span3" data-nat="producto,fabricado,insumo" style="margin-top:4px;">
+                    <div class="orden-field productos-field-span3" data-nat="producto,fabricado,insumo">
                         <label style="font-size:0.62rem;font-weight:900;color:#ff9900;letter-spacing:0.5px;margin-bottom:4px;display:block;">📦 MEDIDAS Y PESO DEL PAQUETE (para cotizar envíos)</label>
-                        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:8px;">
+                        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;">
                             <div class="orden-field"><label for="prodFormPkgLargo">Largo (cm)</label><input id="prodFormPkgLargo" type="number" min="0" step="0.1" value="0" placeholder="cm"></div>
                             <div class="orden-field"><label for="prodFormPkgAncho">Ancho (cm)</label><input id="prodFormPkgAncho" type="number" min="0" step="0.1" value="0" placeholder="cm"></div>
                             <div class="orden-field"><label for="prodFormPkgAlto">Alto (cm)</label><input id="prodFormPkgAlto" type="number" min="0" step="0.1" value="0" placeholder="cm"></div>
@@ -15605,16 +15702,25 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const syncCajaFuenteOptions = () => {
-        if (!cajaGastoFuente) return;
         const active = getCajaMetodosActivos();
-        const selected = String(cajaGastoFuente.value || '').toUpperCase();
-        cajaGastoFuente.innerHTML = active.map((metodo) => {
+        const fallback = String(getConfigValue('caja', 'fuentePredeterminada') || 'EFECTIVO').toUpperCase();
+        const optsHtml = active.map((metodo) => {
             const label = metodo === 'DEPOSITO' ? 'Depósito' : `${metodo.charAt(0)}${metodo.slice(1).toLowerCase()}`;
             return `<option value="${metodo}">${label}</option>`;
         }).join('');
-        const fallback = String(getConfigValue('caja', 'fuentePredeterminada') || 'EFECTIVO').toUpperCase();
-        if (active.includes(selected)) cajaGastoFuente.value = selected;
-        else cajaGastoFuente.value = active.includes(fallback) ? fallback : active[0];
+        // Select viejo (por si aún existe)
+        if (cajaGastoFuente) {
+            const sel = String(cajaGastoFuente.value || '').toUpperCase();
+            cajaGastoFuente.innerHTML = optsHtml;
+            cajaGastoFuente.value = active.includes(sel) ? sel : (active.includes(fallback) ? fallback : active[0]);
+        }
+        // Select del popup de gasto
+        const accFuente = document.getElementById('cajaGastoAccFuente');
+        if (accFuente) {
+            const sel2 = String(accFuente.value || '').toUpperCase();
+            accFuente.innerHTML = optsHtml;
+            accFuente.value = active.includes(sel2) ? sel2 : (active.includes(fallback) ? fallback : active[0]);
+        }
     };
 
     const ensureCajaFondoDelDia = () => {
@@ -15701,11 +15807,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cajaPanelCorte) cajaPanelCorte.style.display = cajaTabActiva === 'corte' ? '' : 'none';
         if (cajaPanelGasto) cajaPanelGasto.style.display = cajaTabActiva === 'gasto' ? '' : 'none';
 
-        const fuente = String(cajaGastoFuente?.value || 'EFECTIVO').toUpperCase();
-        const disponible = getDisponiblePorFuente(fuente);
+        const _fuenteVal = String(cajaGastoFuente?.value || document.getElementById('cajaGastoAccFuente')?.value || 'EFECTIVO').toUpperCase();
+        const disponible = getDisponiblePorFuente(_fuenteVal);
         if (cajaDisponibleMonto) {
             cajaDisponibleMonto.textContent = `Dinero disponible: ${formatMoney(disponible)}`;
             cajaDisponibleMonto.classList.toggle('blocked', disponible <= 0);
+        }
+        const _dispAcc = document.getElementById('cajaDisponibleMontoAcc');
+        if (_dispAcc) {
+            const _fAcc = String(document.getElementById('cajaGastoAccFuente')?.value || 'EFECTIVO').toUpperCase();
+            const _dispVal = getDisponiblePorFuente(_fAcc);
+            _dispAcc.textContent = `Dinero disponible: ${formatMoney(_dispVal)}`;
+            _dispAcc.classList.toggle('blocked', _dispVal <= 0);
         }
 
         const permitirIngreso = getConfigValue('caja', 'permitirIngresoManual') !== false;
@@ -15771,6 +15884,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!popupCaja) return;
         popupCaja.style.display = 'none';
         popupCaja.setAttribute('aria-hidden', 'true');
+        // Cerrar también los sub-popups de caja
+        ['cajaPanelIngreso','cajaPanelGastoAcc'].forEach(id => {
+            const sp = document.getElementById(id);
+            if (sp) { sp.style.display = 'none'; sp.setAttribute('aria-hidden','true'); }
+        });
         if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupDesignTracking?.style.display !== 'flex' && popupMisPedidos?.style.display !== 'flex' && popupAjustesTabuladores?.style.display !== 'flex' && popupProdTabulador?.style.display !== 'flex' && popupProductos?.style.display !== 'flex' && popupCalendario?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex') {
             document.body.classList.remove('popup-open');
             document.documentElement.classList.remove('popup-open');
@@ -18012,20 +18130,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const secDash = document.getElementById('repSeccionDashboard');
         const secRep = document.getElementById('repSeccionReportes');
         const titulo = document.getElementById('reportesmodTitulo');
-        const tabDash = document.getElementById('repTabDash');
-        const tabRep = document.getElementById('repTabRep');
         if (tab === 'dashboard') {
             if (secDash) secDash.style.display = '';
             if (secRep) secRep.style.display = 'none';
             if (titulo) titulo.textContent = 'DASHBOARD';
-            if (tabDash) tabDash.classList.add('primary');
-            if (tabRep) tabRep.classList.remove('primary');
         } else {
             if (secDash) secDash.style.display = 'none';
             if (secRep) secRep.style.display = '';
             if (titulo) titulo.textContent = 'REPORTES';
-            if (tabRep) tabRep.classList.add('primary');
-            if (tabDash) tabDash.classList.remove('primary');
             // Mostrar cuadrícula de módulos
             const grid = document.getElementById('repModulosGrid');
             const vista = document.getElementById('repVistaReporte');
@@ -20019,7 +20131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.setAttribute('aria-hidden', 'false');
         // Forzar tamaño fijo del card
         if (modal === popupProdForm && prodFormCard) {
-            prodFormCard.style.cssText = 'width:min(98vw,1120px)!important;height:min(96vh,780px)!important;height:min(96dvh,780px)!important;min-height:min(96vh,780px)!important;min-height:min(96dvh,780px)!important;max-height:min(96vh,780px)!important;max-height:min(96dvh,780px)!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;gap:4px;padding:8px 10px;box-sizing:border-box!important;';
+            prodFormCard.style.cssText = 'width:min(98vw,1120px)!important;height:min(100vh,100%)!important;max-height:100vh!important;min-height:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;gap:6px;padding:10px 14px;box-sizing:border-box!important;';
         }
     };
 
@@ -22334,19 +22446,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (ev.target === popupReportesModulo) closeReportesPopup();
         });
     }
-    // Tab buttons Dashboard / Reportes
-    const repTabDash = document.getElementById('repTabDash');
-    const repTabRep = document.getElementById('repTabRep');
-    if (repTabDash) repTabDash.addEventListener('click', () => {
-        switchRepTab('dashboard');
-        if (repTabDash) { repTabDash.classList.add('primary'); }
-        if (repTabRep) { repTabRep.classList.remove('primary'); }
-    });
-    if (repTabRep) repTabRep.addEventListener('click', () => {
-        switchRepTab('reports');
-        if (repTabRep) { repTabRep.classList.add('primary'); }
-        if (repTabDash) { repTabDash.classList.remove('primary'); }
-    });
+    // Tabs Dashboard / Reportes are separate modules (accessed from main menu)
 
 
     if (reportesRango) {
@@ -22540,6 +22640,17 @@ document.addEventListener('DOMContentLoaded', () => {
             renderCajaUI();
         });
     }
+    const _accFuenteEl = document.getElementById('cajaGastoAccFuente');
+    if (_accFuenteEl) {
+        _accFuenteEl.addEventListener('change', () => {
+            const _dispAcc2 = document.getElementById('cajaDisponibleMontoAcc');
+            if (_dispAcc2) {
+                const v = getDisponiblePorFuente(String(_accFuenteEl.value || 'EFECTIVO').toUpperCase());
+                _dispAcc2.textContent = `Dinero disponible: ${formatMoney(v)}`;
+                _dispAcc2.classList.toggle('blocked', v <= 0);
+            }
+        });
+    }
 
     if (cajaBtnRealizarCorte) {
         cajaBtnRealizarCorte.addEventListener('click', () => {
@@ -22551,72 +22662,113 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cajaBtnIngresarDinero) {
         cajaBtnIngresarDinero.addEventListener('click', () => {
             if (getConfigValue('caja', 'permitirIngresoManual') === false) {
-                notifyError('El ingreso manual está desactivado en Configuración de caja.', 'Caja');
-                return;
+                notifyError('El ingreso manual está desactivado en Configuración de caja.', 'Caja'); return;
             }
-            const fuente = String(cajaGastoFuente?.value || 'EFECTIVO').toUpperCase();
-            const raw = prompt(`Cantidad a ingresar en ${fuente}:`, '0');
-            if (raw === null) return;
-            const monto = Number(raw);
-            if (!Number.isFinite(monto) || monto <= 0) {
-                notifyError('Cantidad inválida.', 'Caja');
-                return;
-            }
-            cajaMovimientos.unshift({
-                id: `CJ-${Date.now().toString(36).toUpperCase()}`,
-                fecha: new Date().toISOString(),
-                tipo: 'ingreso',
-                fuente,
-                monto,
-                motivo: 'Ingreso manual'
-            });
-            saveCajaMovimientos();
-            renderCajaUI();
-            notifyInfo('Dinero ingresado correctamente.', 'Caja');
+            cajaCargarMotivosEnSelect('ingreso');
+            const p = document.getElementById('cajaPanelIngreso');
+            if (p) { p.style.display = 'flex'; p.setAttribute('aria-hidden', 'false'); }
         });
     }
 
     if (cajaBtnRealizarGasto) {
         cajaBtnRealizarGasto.addEventListener('click', () => {
             if (getConfigValue('caja', 'permitirGastos') === false) {
-                notifyError('Registrar gastos está desactivado en Configuración de caja.', 'Caja');
-                return;
+                notifyError('Registrar gastos está desactivado en Configuración de caja.', 'Caja'); return;
             }
-            const fuente = String(cajaGastoFuente?.value || 'EFECTIVO').toUpperCase();
-            const motivo = String(cajaGastoMotivo?.value || '').trim();
-            const monto = Math.max(0, Number(cajaGastoMonto?.value || 0));
-            const disponible = getDisponiblePorFuente(fuente);
-            if (disponible <= 0) {
-                notifyError('No hay dinero disponible en esa fuente hoy.', 'Caja');
-                return;
+            cajaCargarMotivosEnSelect('gasto');
+            syncCajaFuenteOptions();
+            const p = document.getElementById('cajaPanelGastoAcc');
+            if (p) { p.style.display = 'flex'; p.setAttribute('aria-hidden', 'false'); }
+            // Actualizar disponible al abrir
+            const _dAcc = document.getElementById('cajaDisponibleMontoAcc');
+            const _fAcc = document.getElementById('cajaGastoAccFuente');
+            if (_dAcc && _fAcc) {
+                const v = getDisponiblePorFuente(String(_fAcc.value || 'EFECTIVO').toUpperCase());
+                _dAcc.textContent = `Dinero disponible: ${formatMoney(v)}`;
+                _dAcc.classList.toggle('blocked', v <= 0);
             }
-            if (!motivo) {
-                notifyError('Escribe el motivo del gasto.', 'Caja');
-                return;
-            }
-            if (!Number.isFinite(monto) || monto <= 0) {
-                notifyError('La cantidad a sacar debe ser mayor a cero.', 'Caja');
-                return;
-            }
-            if (monto > disponible) {
-                notifyError(`No puedes sacar más de lo disponible (${formatMoney(disponible)}).`, 'Caja');
-                return;
-            }
-            cajaMovimientos.unshift({
-                id: `CJ-${Date.now().toString(36).toUpperCase()}`,
-                fecha: new Date().toISOString(),
-                tipo: 'gasto',
-                fuente,
-                monto,
-                motivo
-            });
-            saveCajaMovimientos();
-            if (cajaGastoMotivo) cajaGastoMotivo.value = '';
-            if (cajaGastoMonto) cajaGastoMonto.value = '';
-            renderCajaUI();
-            notifyInfo('Gasto registrado.', 'Caja');
         });
     }
+
+    // ── Helpers motivos caja ──
+    const MOTIVOS_INGRESO_KEY = 'caja_motivos_ingreso';
+    const MOTIVOS_GASTO_KEY   = 'caja_motivos_gasto';
+    const MOTIVOS_INGRESO_DEFAULT = ['FONDO INICIAL','REPOSICIÓN DE FONDO','ANTICIPO DE CLIENTE','DEVOLUCIÓN','VENTA ADICIONAL','PRÉSTAMO'];
+    const MOTIVOS_GASTO_DEFAULT  = ['COMPRA DE INSUMOS','SERVICIO / MANTENIMIENTO','PAGO A PROVEEDOR','GASTOS OPERATIVOS','PAPELERÍA','TRANSPORTE','SALARIO / NÓMINA','IMPUESTOS'];
+    function cajaGetMotivos(tipo) {
+        const key = tipo==='ingreso' ? MOTIVOS_INGRESO_KEY : MOTIVOS_GASTO_KEY;
+        const def = tipo==='ingreso' ? MOTIVOS_INGRESO_DEFAULT : MOTIVOS_GASTO_DEFAULT;
+        try { const s = localStorage.getItem(key); if (s) return JSON.parse(s); } catch(_){}
+        return [...def];
+    }
+    function cajaGuardarMotivo(tipo, motivo) {
+        const m = String(motivo||'').trim().toUpperCase(); if(!m) return;
+        const arr = cajaGetMotivos(tipo);
+        if (!arr.includes(m)) { arr.push(m); try { localStorage.setItem(tipo==='ingreso'?MOTIVOS_INGRESO_KEY:MOTIVOS_GASTO_KEY, JSON.stringify(arr)); } catch(_){} }
+    }
+    function cajaCargarMotivosEnSelect(tipo) {
+        const selId = tipo==='ingreso' ? 'cajaIngresoMotivoSel' : 'cajaGastoAccMotivoSel';
+        const sel = document.getElementById(selId); if (!sel) return;
+        const motivos = cajaGetMotivos(tipo);
+        sel.innerHTML = motivos.map(m=>`<option value="${m}">${m}</option>`).join('') + '<option value="OTRO">OTRO...</option>';
+        sel.value = motivos[0] || 'OTRO';
+        const oWrap = document.getElementById(tipo==='ingreso'?'cajaIngresoOtroWrap':'cajaGastoAccOtroWrap');
+        if (oWrap) oWrap.style.display = 'none';
+    }
+    // Toggle "otro"
+    const cajaIngresoMotivoSel = document.getElementById('cajaIngresoMotivoSel');
+    if (cajaIngresoMotivoSel) cajaIngresoMotivoSel.addEventListener('change', () => {
+        const w = document.getElementById('cajaIngresoOtroWrap'); if(w) w.style.display = cajaIngresoMotivoSel.value==='OTRO'?'':'none';
+    });
+    const cajaGastoAccMotivoSel = document.getElementById('cajaGastoAccMotivoSel');
+    if (cajaGastoAccMotivoSel) cajaGastoAccMotivoSel.addEventListener('change', () => {
+        const w = document.getElementById('cajaGastoAccOtroWrap'); if(w) w.style.display = cajaGastoAccMotivoSel.value==='OTRO'?'':'none';
+    });
+    // Forzar mayúsculas en campos "otro"
+    const _ciOtro = document.getElementById('cajaIngresoOtroInput');
+    if (_ciOtro) _ciOtro.addEventListener('input', ()=>{ _ciOtro.value = _ciOtro.value.toUpperCase(); });
+    const _cgOtro = document.getElementById('cajaGastoAccOtroInput');
+    if (_cgOtro) _cgOtro.addEventListener('input', ()=>{ _cgOtro.value = _cgOtro.value.toUpperCase(); });
+    // Cerrar popups
+    const _ciBack = document.getElementById('cajaIngresoBack');
+    if (_ciBack) _ciBack.addEventListener('click', ()=>{ const p=document.getElementById('cajaPanelIngreso'); if(p){p.style.display='none';p.setAttribute('aria-hidden','true');} });
+    const _cgBack = document.getElementById('cajaGastoAccBack');
+    if (_cgBack) _cgBack.addEventListener('click', ()=>{ const p=document.getElementById('cajaPanelGastoAcc'); if(p){p.style.display='none';p.setAttribute('aria-hidden','true');} });
+    // Confirmar ingreso
+    const _cajaBtnConfirmarIngreso = document.getElementById('cajaBtnConfirmarIngreso');
+    if (_cajaBtnConfirmarIngreso) _cajaBtnConfirmarIngreso.addEventListener('click', () => {
+        const selVal = document.getElementById('cajaIngresoMotivoSel')?.value;
+        let motivo = selVal==='OTRO' ? String(document.getElementById('cajaIngresoOtroInput')?.value||'').trim().toUpperCase() : selVal;
+        if (!motivo) { notifyError('Indica el motivo del ingreso.','Caja'); return; }
+        if (selVal==='OTRO') cajaGuardarMotivo('ingreso', motivo);
+        const fuente = String(document.getElementById('cajaIngresoFuente')?.value||'EFECTIVO').toUpperCase();
+        const monto = Math.max(0, Number(document.getElementById('cajaIngresoMonto')?.value||0));
+        if (!Number.isFinite(monto)||monto<=0) { notifyError('La cantidad debe ser mayor a cero.','Caja'); return; }
+        cajaMovimientos.unshift({ id:`CJ-${Date.now().toString(36).toUpperCase()}`, fecha:new Date().toISOString(), tipo:'ingreso', fuente, monto, motivo });
+        saveCajaMovimientos(); renderCajaUI();
+        const p=document.getElementById('cajaPanelIngreso'); if(p){p.style.display='none';p.setAttribute('aria-hidden','true');}
+        const inp=document.getElementById('cajaIngresoMonto'); if(inp) inp.value='';
+        notifyInfo('Dinero ingresado correctamente.','Caja');
+    });
+    // Confirmar gasto
+    const _cajaBtnConfirmarGasto = document.getElementById('cajaBtnConfirmarGasto');
+    if (_cajaBtnConfirmarGasto) _cajaBtnConfirmarGasto.addEventListener('click', () => {
+        const selVal = document.getElementById('cajaGastoAccMotivoSel')?.value;
+        let motivo = selVal==='OTRO' ? String(document.getElementById('cajaGastoAccOtroInput')?.value||'').trim().toUpperCase() : selVal;
+        if (!motivo) { notifyError('Indica el motivo del gasto.','Caja'); return; }
+        if (selVal==='OTRO') cajaGuardarMotivo('gasto', motivo);
+        const fuente = String(document.getElementById('cajaGastoAccFuente')?.value||'EFECTIVO').toUpperCase();
+        const monto = Math.max(0, Number(document.getElementById('cajaGastoAccMonto')?.value||0));
+        const disponible = getDisponiblePorFuente(fuente);
+        if (disponible<=0) { notifyError('No hay dinero disponible en esa fuente hoy.','Caja'); return; }
+        if (!Number.isFinite(monto)||monto<=0) { notifyError('La cantidad debe ser mayor a cero.','Caja'); return; }
+        if (monto>disponible) { notifyError(`No puedes sacar más de lo disponible (${formatMoney(disponible)}).`,'Caja'); return; }
+        cajaMovimientos.unshift({ id:`CJ-${Date.now().toString(36).toUpperCase()}`, fecha:new Date().toISOString(), tipo:'gasto', fuente, monto, motivo });
+        saveCajaMovimientos(); renderCajaUI();
+        const p=document.getElementById('cajaPanelGastoAcc'); if(p){p.style.display='none';p.setAttribute('aria-hidden','true');}
+        const inp=document.getElementById('cajaGastoAccMonto'); if(inp) inp.value='';
+        notifyInfo('Gasto registrado.','Caja');
+    });
 
     if (mpTablaBody) {
         let _mpClickTimer = null;
