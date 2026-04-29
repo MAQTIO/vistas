@@ -17211,10 +17211,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const sp = document.getElementById(id);
             if (sp) { sp.style.display = 'none'; sp.setAttribute('aria-hidden','true'); }
         });
-        if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupDesignTracking?.style.display !== 'flex' && popupMisPedidos?.style.display !== 'flex' && popupAjustesTabuladores?.style.display !== 'flex' && popupProdTabulador?.style.display !== 'flex' && popupProductos?.style.display !== 'flex' && popupCalendario?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex') {
-            document.body.classList.remove('popup-open');
-            document.documentElement.classList.remove('popup-open');
-        }
+        document.body.classList.remove('popup-open');
+        document.documentElement.classList.remove('popup-open');
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     };
 
     window.openCajaPopupGlobal = openCajaPopup;
@@ -17623,10 +17622,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!popupCalendario) return;
         popupCalendario.style.display = 'none';
         popupCalendario.setAttribute('aria-hidden', 'true');
-        if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupDesignTracking?.style.display !== 'flex' && popupMisPedidos?.style.display !== 'flex' && popupAjustesTabuladores?.style.display !== 'flex' && popupProdTabulador?.style.display !== 'flex' && popupProductos?.style.display !== 'flex' && popupCaja?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex' && popupCalProductos?.style.display !== 'flex' && popupCalProgreso?.style.display !== 'flex') {
-            document.body.classList.remove('popup-open');
-            document.documentElement.classList.remove('popup-open');
-        }
+        document.body.classList.remove('popup-open');
+        document.documentElement.classList.remove('popup-open');
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     };
 
     window.openCalendarioPopupGlobal = openCalendarioPopup;
@@ -18069,10 +18067,9 @@ document.addEventListener('DOMContentLoaded', () => {
         closeClientesFormPopup();
         popupClientesModulo.style.display = 'none';
         popupClientesModulo.setAttribute('aria-hidden', 'true');
-        if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupDesignTracking?.style.display !== 'flex' && popupMisPedidos?.style.display !== 'flex' && popupAjustesTabuladores?.style.display !== 'flex' && popupProdTabulador?.style.display !== 'flex' && popupProductos?.style.display !== 'flex' && popupCaja?.style.display !== 'flex' && popupCalendario?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex') {
-            document.body.classList.remove('popup-open');
-            document.documentElement.classList.remove('popup-open');
-        }
+        document.body.classList.remove('popup-open');
+        document.documentElement.classList.remove('popup-open');
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     };
 
     window.openClientesPopupGlobal = openClientesModuloPopup;
@@ -19193,10 +19190,9 @@ document.addEventListener('DOMContentLoaded', () => {
         closeProveedorFormPopup();
         popupProveedoresModulo.style.display = 'none';
         popupProveedoresModulo.setAttribute('aria-hidden', 'true');
-        if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupDesignTracking?.style.display !== 'flex' && popupMisPedidos?.style.display !== 'flex' && popupAjustesTabuladores?.style.display !== 'flex' && popupProdTabulador?.style.display !== 'flex' && popupProductos?.style.display !== 'flex' && popupCaja?.style.display !== 'flex' && popupCalendario?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex' && popupInsumosModulo?.style.display !== 'flex' && popupAlmacenModulo?.style.display !== 'flex' && popupReportesModulo?.style.display !== 'flex') {
-            document.body.classList.remove('popup-open');
-            document.documentElement.classList.remove('popup-open');
-        }
+        document.body.classList.remove('popup-open');
+        document.documentElement.classList.remove('popup-open');
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     };
 
     const openInsumosPopup = () => {
@@ -19216,10 +19212,9 @@ document.addEventListener('DOMContentLoaded', () => {
         closeInsumoFormPopup();
         popupInsumosModulo.style.display = 'none';
         popupInsumosModulo.setAttribute('aria-hidden', 'true');
-        if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupDesignTracking?.style.display !== 'flex' && popupMisPedidos?.style.display !== 'flex' && popupAjustesTabuladores?.style.display !== 'flex' && popupProdTabulador?.style.display !== 'flex' && popupProductos?.style.display !== 'flex' && popupCaja?.style.display !== 'flex' && popupCalendario?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex' && popupProveedoresModulo?.style.display !== 'flex' && popupAlmacenModulo?.style.display !== 'flex' && popupReportesModulo?.style.display !== 'flex') {
-            document.body.classList.remove('popup-open');
-            document.documentElement.classList.remove('popup-open');
-        }
+        document.body.classList.remove('popup-open');
+        document.documentElement.classList.remove('popup-open');
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     };
 
     const openAlmacenPopup = () => {
@@ -19238,10 +19233,9 @@ document.addEventListener('DOMContentLoaded', () => {
         closeAlmacenFormPopup();
         popupAlmacenModulo.style.display = 'none';
         popupAlmacenModulo.setAttribute('aria-hidden', 'true');
-        if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupDesignTracking?.style.display !== 'flex' && popupMisPedidos?.style.display !== 'flex' && popupAjustesTabuladores?.style.display !== 'flex' && popupProdTabulador?.style.display !== 'flex' && popupProductos?.style.display !== 'flex' && popupCaja?.style.display !== 'flex' && popupCalendario?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex' && popupProveedoresModulo?.style.display !== 'flex' && popupInsumosModulo?.style.display !== 'flex' && popupReportesModulo?.style.display !== 'flex') {
-            document.body.classList.remove('popup-open');
-            document.documentElement.classList.remove('popup-open');
-        }
+        document.body.classList.remove('popup-open');
+        document.documentElement.classList.remove('popup-open');
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     };
 
     const getDateDaysAgo = (days) => {
@@ -20355,10 +20349,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!popupMisPedidos) return;
         popupMisPedidos.style.display = 'none';
         popupMisPedidos.setAttribute('aria-hidden', 'true');
-        if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupDesignTracking?.style.display !== 'flex' && popupProductos?.style.display !== 'flex' && popupCaja?.style.display !== 'flex' && popupCalendario?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex') {
-            document.body.classList.remove('popup-open');
-            document.documentElement.classList.remove('popup-open');
-        }
+        document.body.classList.remove('popup-open');
+        document.documentElement.classList.remove('popup-open');
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     };
 
     window.openMisPedidosPopupGlobal = openMisPedidosPopup;
@@ -21708,10 +21701,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!popupProductos) return;
         popupProductos.style.display = 'none';
         popupProductos.setAttribute('aria-hidden', 'true');
-        if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupDesignTracking?.style.display !== 'flex' && popupMisPedidos?.style.display !== 'flex' && popupAjustesTabuladores?.style.display !== 'flex' && popupProdTabulador?.style.display !== 'flex' && popupCaja?.style.display !== 'flex' && popupCalendario?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex') {
-            document.body.classList.remove('popup-open');
-            document.documentElement.classList.remove('popup-open');
-        }
+        document.body.classList.remove('popup-open');
+        document.documentElement.classList.remove('popup-open');
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     };
 
     const openProdModal = (modal) => {
@@ -26917,10 +26909,9 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
         if (!popupDesignTracking) return;
         popupDesignTracking.style.display = 'none';
         popupDesignTracking.setAttribute('aria-hidden', 'true');
-        if (popupListado?.style.display !== 'flex' && popupAccess?.style.display !== 'flex' && popupMisPedidos?.style.display !== 'flex' && popupProductos?.style.display !== 'flex' && popupCaja?.style.display !== 'flex' && popupCalendario?.style.display !== 'flex' && popupClientesModulo?.style.display !== 'flex') {
-            document.body.classList.remove('popup-open');
-            document.documentElement.classList.remove('popup-open');
-        }
+        document.body.classList.remove('popup-open');
+        document.documentElement.classList.remove('popup-open');
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     };
 
     const renderDesignTab = (tabId) => {
@@ -29661,6 +29652,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function closeProduccionPanel() {
         if (panelProduccion) panelProduccion.style.display = 'none';
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     }
 
     window.openProduccionPopupGlobal = openProduccionPanel;
@@ -31454,6 +31446,7 @@ document.addEventListener('DOMContentLoaded', function() {
         panel.style.display = 'none';
         var popupScanner = document.getElementById('popupScannerRecepcion');
         if (popupScanner) popupScanner.remove();
+        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
     }
     window.openRecepcionSucursalGlobal = openRecepcionPanel;
     window.closeRecepcionSucursalGlobal = closeRecepcionPanel;
