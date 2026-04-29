@@ -26908,6 +26908,8 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
         renderDesignTab(designCurrentTab);
         checkDesignSaturation();
     };
+    // Exponerla globalmente para que otros scopes (DOMContentLoaded distintos) puedan llamarla
+    window.openDesignPopup = openDesignPopup;
 
     const closeDesignPopup = () => {
         if (!popupDesignTracking) return;
@@ -30523,8 +30525,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // El módulo V2 (popupDesignTracking) es el principal.
     // openDisenoPanel se mantiene como fallback pero el menú usa V2.
     window.openDisenoPopupGlobal = function() {
-        if (typeof openDesignPopup === 'function') {
-            openDesignPopup();
+        if (typeof window.openDesignPopup === 'function') {
+            window.openDesignPopup();
         } else {
             openDisenoPanel();
         }
