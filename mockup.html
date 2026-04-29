@@ -26910,6 +26910,8 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
     };
     // Exponerla globalmente para que otros scopes (DOMContentLoaded distintos) puedan llamarla
     window.openDesignPopup = openDesignPopup;
+    // Alias requerido por abrirModuloPrincipal('DISENO')
+    window.openDisenoPopupGlobal = openDesignPopup;
 
     const closeDesignPopup = () => {
         if (!popupDesignTracking) return;
@@ -27800,6 +27802,38 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
     ['mousemove','keydown','click','touchstart'].forEach(ev => {
         document.addEventListener(ev, () => { if (designCurrentOrder) resetDesignActivity(); }, { passive: true });
     });
+
+    // Global para que el cotizador auto-envíe órdenes al módulo de diseño (localStorage)
+    window.enviarAutoADiseno = function(venta) {
+        try {
+            const orders = getDesignOrders();
+            const linea0 = (venta.lineas && venta.lineas[0]) || {};
+            const cantTotal = (venta.lineas || []).reduce((s, l) => s + Number(l.cantidad || 1), 0);
+            const newOrder = {
+                id: 'dis_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+                folio: venta.folio || '',
+                clienteNombre: venta.clienteNombre || venta.cliente || '',
+                cliente: venta.clienteNombre || venta.cliente || '',
+                telefono: venta.telefono || '',
+                clienteId: venta.clienteId || '',
+                producto: linea0.producto || venta.producto || '',
+                cantidad: String(cantTotal),
+                fechaEntrega: venta.fechaEntrega || '',
+                disenador: venta.disenador || '',
+                notasDisenador: venta.notasDisenador || '',
+                notasProduccion: venta.notasProduccion || '',
+                comentarios: venta.comentarios || '',
+                lineas: venta.lineas || [],
+                estado: 'pendiente_diseno',
+                creadoEn: new Date().toISOString(),
+                origenCotizador: true
+            };
+            orders.push(newOrder);
+            saveDesignOrders(orders);
+            if (typeof notifyInfo === 'function') notifyInfo(`Orden ${newOrder.folio} enviada automáticamente a Diseño.`, 'Diseño');
+        } catch(e) { console.error('enviarAutoADiseno:', e); }
+    };
+    window.closeDisenoPopupGlobal = () => { if (typeof closeDesignPopup === 'function') closeDesignPopup(); };
 
     if (notifyOk) {
         notifyOk.addEventListener('click', closeNotifyPopup);
@@ -30473,432 +30507,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- ═══════════════════════════════════════════════════════════════
      MÓDULO DE DISEÑO — Panel HTML
 ════════════════════════════════════════════════════════════════ -->
-<div id="panelDiseno" class="diseno-overlay">
-  <div style="display:flex;flex-direction:column;height:100%;padding:8px;gap:6px;">
-    <div class="diseno-header">
-      <button id="disenoBack" class="diseno-back" type="button" title="Volver" aria-label="Volver">←</button>
-      <h2 style="margin:0;font-size:0.84rem;letter-spacing:0.25px;font-weight:900;text-transform:uppercase;color:#1f2937;">MÓDULO DE DISEÑO</h2>
-      <span style="margin-left:auto;font-size:0.62rem;color:#64748b;font-weight:600;">Todas las órdenes llegan aquí primero — diseña y envía a producción</span>
-    </div>
-    <div class="diseno-body">
-      <div class="diseno-list-panel">
-        <div style="display:flex;gap:6px;flex-shrink:0;">
-          <button class="prod-tab active" data-dis-status="pendiente" style="background:#ff9900;border-color:#ff9900;color:#fff;">⏳ Pendientes</button>
-          <button class="prod-tab" data-dis-status="en_proceso" style="">🎨 En Proceso</button>
-          <button class="prod-tab" data-dis-status="terminado" style="">✅ Terminados</button>
-        </div>
-        <div style="display:flex;gap:6px;flex-shrink:0;">
-          <input type="text" id="disenoBuscador" placeholder="🔍 Buscar por folio, cliente o producto..." style="flex:1;background:#fff;border:1px solid #e5e7eb;color:#1f2937;border-radius:8px;padding:7px 10px;font-size:0.7rem;">
-          <button id="disenoRecargar" style="background:#fff7ed;border:1px solid #e5e7eb;color:#ff9900;border-radius:8px;padding:0 12px;cursor:pointer;font-size:0.9rem;">🔄</button>
-        </div>
-        <div id="disenoOrdenList" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;">
-          <div style="text-align:center;color:#9ca3af;font-size:0.72rem;padding:30px;">Cargando órdenes de diseño...</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-/* Módulo de Diseño */
-document.addEventListener('DOMContentLoaded', function() {
-    var DIS_COLLECTION = 'design_orders';
-    function getDisDB() {
-        if (!window.firebase) return null;
-        return window.firebase.firestore();
-    }
-    var allDisOrders = [];
-    var currentDisTab = 'pendiente';
-    var esc = window._escHtml;
-    var panelDiseno = document.getElementById('panelDiseno');
-    var disenoBack = document.getElementById('disenoBack');
-    var disenoList = document.getElementById('disenoOrdenList');
-    var disenoBuscador = document.getElementById('disenoBuscador');
-
-    function openDisenoPanel() {
-        panelDiseno.style.display = 'flex';
-        cargarDisOrdenes();
-    }
-    function closeDisenoPanel() {
-        panelDiseno.style.display = 'none';
-    }
-    // El módulo V2 (popupDesignTracking) es el principal.
-    // openDisenoPanel se mantiene como fallback pero el menú usa V2.
-    window.openDisenoPopupGlobal = function() {
-        if (typeof window.openDesignPopup === 'function') {
-            window.openDesignPopup();
-        } else {
-            openDisenoPanel();
-        }
-    };
-    window.closeDisenoPopupGlobal = function() {
-        if (typeof closeDesignPopup === 'function') closeDesignPopup();
-        closeDisenoPanel();
-    };
-
-    if (disenoBack) disenoBack.addEventListener('click', function() {
-        closeDisenoPanel();
-        if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
-    });
-
-    // Tab clicks  
-    panelDiseno.querySelectorAll('[data-dis-status]').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            panelDiseno.querySelectorAll('[data-dis-status]').forEach(function(b) {
-                b.classList.remove('active');
-                b.style.background = ''; b.style.borderColor = ''; b.style.color = '';
-            });
-            btn.classList.add('active');
-            btn.style.background = '#ff9900'; btn.style.borderColor = '#ff9900'; btn.style.color = '#fff';
-            currentDisTab = btn.dataset.disStatus;
-            renderDisOrdenes();
-        });
-    });
-
-    if (disenoBuscador) disenoBuscador.addEventListener('input', renderDisOrdenes);
-    var disenoRecargar = document.getElementById('disenoRecargar');
-    if (disenoRecargar) disenoRecargar.addEventListener('click', cargarDisOrdenes);
-
-    function cargarDisOrdenes() {
-        MU.load(DIS_COLLECTION, disenoList, '<div style="text-align:center;color:#9ca3af;padding:30px;">Cargando...</div>', function(err, orders) {
-            if (err) { disenoList.innerHTML = '<div style="text-align:center;color:#dc2626;padding:30px;">Error: '+esc(err.message)+'</div>'; return; }
-            allDisOrders = orders; renderDisOrdenes();
-        });
-    }
-
-    function renderDisOrdenes() {
-        var lista = MU.sortUrgent(MU.filter(allDisOrders, currentDisTab, disenoBuscador.value, ['folio','cliente','producto']));
-        if (!lista.length) { disenoList.innerHTML = '<div style="text-align:center;color:#9ca3af;padding:30px;">Sin órdenes en esta categoría.</div>'; return; }
-        disenoList.innerHTML = lista.map(function(o) {
-            var estadoLabel = {pendiente:'⏳ Pendiente',en_proceso:'🎨 En Proceso',terminado:'✅ Terminado'};
-            var muestrarioAsignado = o.muestrarioAsignado || '';
-            var muestrarioLegend = muestrarioAsignado ? '<span style="color:#ff9900;font-weight:700;">📁 Muestrario: '+esc(muestrarioAsignado)+'</span>' : '<span style="color:#f59e0b;font-weight:700;">⚠️ Sin muestrario asignado</span>';
-            var revisionCount = Number(o.revisionCount||0);
-            var revisionInfo = revisionCount > 0 ? '<span style="color:#dc2626;font-weight:700;">🔄 Revisiones: '+revisionCount+'</span>' : '';
-            var btns = '';
-            if (o.estado==='pendiente') {
-                btns = '<button class="prod-btn-action" style="background:#ff9900;border-color:#ff9900;color:#fff;font-weight:800;font-size:0.7rem;padding:8px 18px;" data-action="dis-comenzar" data-id="'+esc(o.id)+'">▶ COMENZAR</button>';
-            } else if (o.estado==='en_proceso') {
-                var fotosCount = (o.disenoFotos||[]).length;
-                btns = '<button class="prod-btn-action" style="background:#fff7ed;border-color:#fde8c8;color:#92400e;" data-action="dis-upload" data-id="'+esc(o.id)+'">📁 Subir Diseño'+(fotosCount?' ('+fotosCount+')':'')+'</button>';
-                btns += ' <button class="prod-btn-action" style="background:#f0fdf4;border-color:#bbf7d0;color:#166534;font-weight:800;" data-action="dis-terminar" data-id="'+esc(o.id)+'">✅ Terminar Diseño</button>';
-                if (o.disenoUrl) btns += ' <a href="'+esc(o.disenoUrl)+'" target="_blank" style="font-size:0.55rem;color:#ff9900;font-weight:700;">🎨 Ver diseño</a>';
-            }
-            return '<div class="diseno-card" data-id="'+esc(o.id)+'">'+
-                '<div style="display:flex;justify-content:space-between;align-items:flex-start;">'+
-                  '<div><div style="font-size:0.8rem;font-weight:800;color:#ff9900;">'+esc(o.folio||'Sin folio')+'</div>'+
-                  '<div style="font-size:0.55rem;color:#9ca3af;">Entrega: '+esc(o.fechaEntrega||'—')+' · '+esc(o.producto||'—')+'</div></div>'+
-                  '<span style="font-size:0.6rem;font-weight:700;padding:3px 8px;border-radius:6px;background:#fff7ed;color:#ff9900;border:1px solid #fde8c8;">'+esc(estadoLabel[o.estado]||o.estado)+'</span>'+
-                '</div>'+
-                '<div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:0.63rem;color:#6b7280;">'+
-                  '<span><strong style="color:#374151;">Cliente:</strong> '+esc(o.cliente||'—')+'</span>'+
-                  '<span><strong style="color:#374151;">Cantidad:</strong> '+esc(o.cantidad||'—')+'</span>'+
-                  '<span><strong style="color:#374151;">Diseñador:</strong> '+esc(o.disenador||'Sin asignar')+'</span>'+
-                  '<span><strong style="color:#374151;">Color:</strong> '+esc(o.color||'—')+'</span>'+
-                  '<span style="grid-column:1/-1">'+muestrarioLegend+'</span>'+
-                  (revisionInfo?'<span style="grid-column:1/-1">'+revisionInfo+'</span>':'')+
-                  (o.notasDisenador?'<span style="grid-column:1/-1;color:#ff9900;"><strong>Notas diseñador:</strong> '+esc(o.notasDisenador)+'</span>':'')+
-                  (o.disenoUrl&&o.estado!=='en_proceso'?'<span style="grid-column:1/-1"><a href="'+esc(o.disenoUrl)+'" target="_blank" style="color:#ff9900;font-weight:700;">🎨 Ver diseño actual</a></span>':'')+
-                '</div>'+
-                '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">'+btns+'</div>'+
-              '</div>';
-        }).join('');
-
-        // COMENZAR button — move to en_proceso and open upload popup
-        disenoList.querySelectorAll('[data-action="dis-comenzar"]').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var docId = btn.dataset.id;
-                var orden = allDisOrders.find(function(x){ return x.id===docId; }); if (!orden) return;
-                var db = getDisDB(); if (!db) return;
-                db.collection(DIS_COLLECTION).doc(docId).update({
-                    estado: 'en_proceso', actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-                }).then(function(){
-                    orden.estado = 'en_proceso';
-                    renderDisOrdenes();
-                    _showDisenoUploadPopup(docId);
-                }).catch(function(err){ alert('Error: '+err.message); });
-            });
-        });
-
-        // Upload button (en_proceso)
-        disenoList.querySelectorAll('[data-action="dis-upload"]').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                _showDisenoUploadPopup(btn.dataset.id);
-            });
-        });
-
-        // Terminar Diseño button — mark terminado and send to production
-        disenoList.querySelectorAll('[data-action="dis-terminar"]').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var docId = btn.dataset.id;
-                var orden = allDisOrders.find(function(x){ return x.id===docId; }); if (!orden) return;
-                if (!(orden.disenoFotos && orden.disenoFotos.length)) {
-                    alert('Sube al menos una foto del diseño antes de terminar.');
-                    return;
-                }
-                if (!confirm('¿Terminar diseño y enviar a producción?')) return;
-                var db = getDisDB(); if (!db) return;
-                db.collection(DIS_COLLECTION).doc(docId).update({
-                    estado: 'terminado', actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-                }).then(function(){
-                    orden.estado = 'terminado';
-                    enviarDisenoAProduccion(orden);
-                    renderDisOrdenes();
-                }).catch(function(err){ alert('Error: '+err.message); });
-            });
-        });
-    }
-    function _showDisenoUploadPopup(docId) {
-        var existing = document.getElementById('_disenoUploadOverlay');
-        if (existing) existing.remove();
-        var orden = allDisOrders.find(function(x){ return x.id===docId; });
-        var fotosExistentes = (orden && orden.disenoFotos) || [];
-
-        var overlay = document.createElement('div');
-        overlay.id = '_disenoUploadOverlay';
-        overlay.style.cssText = 'position:fixed;inset:0;z-index:200001;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:20px;';
-
-        window._disenoHighlight = function(idx) {
-            overlay.querySelectorAll('.diseno-foto-item').forEach(function(el) {
-                el.style.background = '';
-                el.style.boxShadow = '';
-            });
-            overlay.querySelectorAll('.diseno-foto-item[data-diseno-idx="'+idx+'"]').forEach(function(el) {
-                el.style.background = '#fff7ed';
-                el.style.boxShadow = '0 0 0 3px rgba(255,153,0,0.4)';
-            });
-        };
-
-        function renderPopup() {
-            var fotosHtml = '';
-            if (fotosExistentes.length) {
-                fotosHtml = '<div style="margin-bottom:12px;"><div style="font-size:0.65rem;font-weight:700;color:#374151;margin-bottom:6px;">📷 Fotos subidas ('+fotosExistentes.length+'):</div>';
-                fotosHtml += '<div style="display:flex;flex-wrap:wrap;gap:8px;max-height:180px;overflow-y:auto;">';
-                fotosExistentes.forEach(function(f, i) {
-                    var num = i + 1;
-                    fotosHtml += '<div class="diseno-foto-item" data-diseno-idx="'+i+'" style="width:90px;text-align:center;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:6px;position:relative;cursor:pointer;transition:background 0.2s,box-shadow 0.2s;" onclick="window._disenoHighlight('+i+')">'+
-                        '<div style="position:absolute;top:-4px;left:-4px;background:#ff9900;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:0.5rem;font-weight:900;z-index:2;box-shadow:0 2px 6px rgba(0,0,0,0.2);">'+num+'</div>'+
-                        '<img src="'+esc(f.url)+'" style="width:80px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;" onclick="event.stopPropagation();window.open(\''+esc(f.url)+'\',\'_blank\')">'+
-                        '<div style="font-size:0.5rem;color:#6b7280;margin-top:3px;word-break:break-all;"><strong style="color:#ff9900;">#'+num+'</strong> '+esc(f.comentario||'Sin comentario')+'</div>'+
-                        '<button data-rm-foto="'+i+'" style="position:absolute;top:2px;right:2px;background:#dc2626;color:#fff;border:none;border-radius:50%;width:16px;height:16px;font-size:0.5rem;cursor:pointer;line-height:1;">✕</button>'+
-                    '</div>';
-                });
-                fotosHtml += '</div></div>';
-            }
-
-            overlay.innerHTML = '<div style="background:#fff;border-radius:14px;width:min(480px,95vw);max-height:90vh;overflow-y:auto;box-shadow:0 18px 40px rgba(0,0,0,0.25);">'+
-                '<div style="background:#ff9900;padding:16px 20px;"><div style="font-size:0.9rem;font-weight:800;color:#fff;">📁 SUBIR DISEÑOS</div><div style="font-size:0.55rem;color:rgba(255,255,255,0.8);">Sube varias fotos del diseño. Agrega un comentario a cada imagen.</div></div>'+
-                '<div style="padding:20px;">'+
-                fotosHtml+
-                '<label style="display:block;text-align:center;cursor:pointer;padding:24px;border:2px dashed #fde8c8;border-radius:10px;background:#fff7ed;color:#92400e;font-weight:700;font-size:0.7rem;">📎 Seleccionar imagen(es)<input type="file" id="_disenoUploadFile" accept="image/*,.pdf,.ai,.psd,.cdr" multiple style="display:none;"></label>'+
-                '<div id="_disenoUploadPreview" style="margin-top:8px;"></div>'+
-                '<textarea id="_disenoUploadComment" placeholder="Comentario para esta(s) imagen(es)..." rows="2" style="width:100%;margin-top:8px;border:1px solid #e5e7eb;border-radius:8px;padding:8px;font-size:0.72rem;resize:none;box-sizing:border-box;"></textarea>'+
-                '<div id="_disenoUploadStatus" style="text-align:center;margin-top:8px;font-size:0.55rem;color:#9ca3af;"></div>'+
-                '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">'+
-                    '<button id="_disenoUploadSubmit" style="padding:8px 18px;background:#ff9900;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.65rem;" disabled>📤 Subir</button>'+
-                    '<button id="_disenoUploadCancel" style="padding:8px 18px;background:#6b7280;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.65rem;">CERRAR</button>'+
-                '</div></div></div>';
-
-            // Wire events
-            document.getElementById('_disenoUploadCancel').addEventListener('click', function(){ overlay.remove(); });
-
-            // Remove photo buttons
-            overlay.querySelectorAll('[data-rm-foto]').forEach(function(btn) {
-                btn.addEventListener('click', async function() {
-                    var idx = parseInt(btn.dataset.rmFoto);
-                    fotosExistentes.splice(idx, 1);
-                    var db = getDisDB();
-                    await db.collection(DIS_COLLECTION).doc(docId).update({
-                        disenoFotos: fotosExistentes,
-                        disenoUrl: fotosExistentes.length ? fotosExistentes[0].url : '',
-                        actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                    if (orden) { orden.disenoFotos = fotosExistentes; orden.disenoUrl = fotosExistentes.length ? fotosExistentes[0].url : ''; }
-                    renderDisOrdenes();
-                    renderPopup();
-                });
-            });
-
-            var selectedFiles = [];
-            document.getElementById('_disenoUploadFile').addEventListener('change', function() {
-                selectedFiles = Array.from(this.files || []);
-                var previewEl = document.getElementById('_disenoUploadPreview');
-                var submitBtn = document.getElementById('_disenoUploadSubmit');
-                if (selectedFiles.length) {
-                    previewEl.innerHTML = '<div style="font-size:0.6rem;color:#92400e;font-weight:600;">'+selectedFiles.length+' archivo(s) seleccionados: '+selectedFiles.map(function(f){return esc(f.name);}).join(', ')+'</div>';
-                    submitBtn.disabled = false;
-                } else {
-                    previewEl.innerHTML = '';
-                    submitBtn.disabled = true;
-                }
-            });
-
-            document.getElementById('_disenoUploadSubmit').addEventListener('click', async function() {
-                if (!selectedFiles.length) return;
-                var status = document.getElementById('_disenoUploadStatus');
-                var submitBtn = document.getElementById('_disenoUploadSubmit');
-                var comentario = (document.getElementById('_disenoUploadComment')?.value || '').trim();
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Subiendo...';
-                status.textContent = 'Subiendo '+selectedFiles.length+' archivo(s)...';
-                status.style.color = '#ff9900';
-
-                function fileToBase64(f) {
-                    return new Promise(function(resolve, reject) {
-                        var reader = new FileReader();
-                        reader.onload = function() { resolve(reader.result); };
-                        reader.onerror = reject;
-                        reader.readAsDataURL(f);
-                    });
-                }
-
-                try {
-                    for (var i = 0; i < selectedFiles.length; i++) {
-                        var file = selectedFiles[i];
-                        status.textContent = 'Subiendo '+(i+1)+'/'+selectedFiles.length+': '+file.name;
-                        var url = '';
-                        try {
-                            var storage = window.firebase.storage();
-                            var path = 'design_files/' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
-                            var ref = storage.ref(path);
-                            await ref.put(file);
-                            url = await ref.getDownloadURL();
-                        } catch(storageErr) {
-                            // Fallback: convert to base64 data URL
-                            status.textContent = 'Storage no disponible, guardando localmente '+(i+1)+'/'+selectedFiles.length+'...';
-                            url = await fileToBase64(file);
-                        }
-                        fotosExistentes.push({ url: url, nombre: file.name, comentario: comentario, fecha: new Date().toISOString() });
-                    }
-                    var db = getDisDB();
-                    await db.collection(DIS_COLLECTION).doc(docId).update({
-                        disenoFotos: fotosExistentes,
-                        disenoUrl: fotosExistentes[0].url,
-                        disenoNombre: fotosExistentes[0].nombre,
-                        actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-                    });
-                    if (orden) { orden.disenoFotos = fotosExistentes; orden.disenoUrl = fotosExistentes[0].url; }
-                    status.textContent = '✅ '+selectedFiles.length+' archivo(s) subido(s) correctamente.';
-                    status.style.color = '#166534';
-                    selectedFiles = [];
-                    renderDisOrdenes();
-                    renderPopup();
-                } catch(err) {
-                    status.textContent = 'Error: '+err.message;
-                    status.style.color = '#dc2626';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = '📤 Subir';
-                }
-            });
-        }
-
-        document.body.appendChild(overlay);
-        overlay.addEventListener('click', function(e){ if (e.target === overlay) overlay.remove(); });
-        renderPopup();
-    }
-
-    // Transition from muestrario approval → terminado → auto send to production
-    window._completarDisenoDesdeeMuestrario = function(docId) {
-        var db = getDisDB(); if (!db) return;
-        db.collection(DIS_COLLECTION).doc(docId).update({
-            estado: 'terminado', actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-        }).then(function(){
-            var o = allDisOrders.find(function(x){ return x.id===docId; });
-            if (o) {
-                o.estado = 'terminado';
-                enviarDisenoAProduccion(o);
-            }
-            renderDisOrdenes();
-        }).catch(function(err){ console.error('Error completar diseño:', err); });
-    };
-
-    // Increment revision count (called when muestrario sends back for revision)
-    window._incrementarRevisionDiseno = function(docId) {
-        var db = getDisDB(); if (!db) return;
-        var o = allDisOrders.find(function(x){ return x.id===docId; });
-        var count = Number(o && o.revisionCount || 0) + 1;
-        db.collection(DIS_COLLECTION).doc(docId).update({
-            revisionCount: count, actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-        }).then(function(){
-            if (o) o.revisionCount = count;
-            renderDisOrdenes();
-        });
-    };
-
-    async function enviarDisenoAProduccion(orden) {
-        var db = getDisDB(); if (!db) return;
-        try {
-            // Create production order
-            await db.collection('production_orders').add({
-                folio: orden.folio || '',
-                cliente: orden.cliente || '',
-                clienteId: orden.clienteId || '',
-                telefono: orden.telefono || '',
-                fechaCreacion: new Date().toISOString().slice(0,10),
-                fechaEntrega: orden.fechaEntrega || '',
-                producto: orden.producto || '',
-                color: orden.color || '',
-                cantidad: orden.cantidad || '',
-                detalleProducto: orden.detalleProducto || '',
-                notas: orden.notasProduccion || '',
-                disenoUrl: orden.disenoUrl || '',
-                disenoNombre: orden.disenoNombre || '',
-                disenoFotos: orden.disenoFotos || [],
-                disenoTipo: '',
-                estado: 'pendiente',
-                origenDiseno: true,
-                disenoDocId: orden.id,
-                inicioTrabajoEn: null,
-                creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
-                actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-            });
-            // Update design order status
-            await db.collection(DIS_COLLECTION).doc(orden.id).update({
-                estado: 'terminado', actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-            });
-            orden.estado = 'terminado';
-            renderDisOrdenes();
-            if (typeof notifyInfo === 'function') notifyInfo('Diseño enviado a producción.', 'Diseño');
-        } catch(err) { alert('Error: '+err.message); }
-    }
-
-    function eliminarDisOrden(docId) {
-        MU.remove(DIS_COLLECTION, docId, allDisOrders, renderDisOrdenes, null, '¿Eliminar esta orden de diseño?');
-    }
-
-    // Auto-send from cotizador → diseño
-    window.enviarAutoADiseno = function(venta) {
-        var db = getDisDB(); if (!db) return;
-        var linea0 = (venta.lineas && venta.lineas[0]) || {};
-        var cantTotal = (venta.lineas || []).reduce(function(s,l){ return s + Number(l.cantidad || 1); }, 0);
-        db.collection(DIS_COLLECTION).add({
-            folio: venta.folio || '',
-            cliente: venta.clienteNombre || '',
-            telefono: venta.telefono || '',
-            clienteId: '',
-            producto: typeof window.mapProductoParaProduccion === 'function' ? window.mapProductoParaProduccion(linea0.producto||'') : (linea0.producto||''),
-            color: '',
-            cantidad: String(cantTotal),
-            detalleProducto: linea0.medida || '',
-            fechaEntrega: venta.fechaEntrega || '',
-            disenador: venta.disenador || '',
-            notasProduccion: venta.notasProduccion || '',
-            notasDisenador: venta.notasDisenador || '',
-            comentarios: venta.comentarios || '',
-            disenoUrl: '',
-            disenoNombre: '',
-            estado: 'pendiente',
-            total: venta.total || 0,
-            muestrarioAsignado: (function(){ try { var mc = JSON.parse(localStorage.getItem('muestrario_product_config')||'{}'); var prod = typeof window.mapProductoParaProduccion === 'function' ? window.mapProductoParaProduccion(linea0.producto||'') : (linea0.producto||''); return mc[prod]||''; } catch(e){ return ''; } })(),
-            creadoEn: window.firebase.firestore.FieldValue.serverTimestamp(),
-            actualizadoEn: window.firebase.firestore.FieldValue.serverTimestamp()
-        }).then(function() {
-            if (typeof notifyInfo === 'function') notifyInfo('Orden enviada automáticamente a Diseño.', 'Diseño');
-        }).catch(function(err) { console.error('Error auto-diseño:', err); });
-    };
-});
-</script>
-
 <!-- ═══════════════════════════════════════════════════════════════
      RECEPCIÓN SUCURSAL — Panel HTML
 ════════════════════════════════════════════════════════════════ -->
