@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="data:,">
     <title>Maquileros VP - Pedido Dinámico</title>
     <style>
         /* GLOBAL UPPERCASE */
@@ -692,9 +693,7 @@
         .popup-btn.primary { background: #FF8C00; color: #ffffff; box-shadow: 0 8px 20px rgba(255,140,0,0.28); }
         .popup-btn.primary:hover { box-shadow: 0 10px 24px rgba(255,140,0,0.36); }
         .popup-btn.whatsapp { background: #25d366; color: #04160d; box-shadow: 0 10px 22px rgba(37,211,102,0.28); }
-        .popup-btn.whatsapp:hover { }
         .popup-btn.chat { background: #ff9800; color: #2a1700; box-shadow: 0 10px 22px rgba(255,152,0,0.24); }
-        .popup-btn.chat:hover { }
         .popup-btn.cancel { background: #525252; color: #ffffff; border: 1px solid #3f3f3f; }
         .popup-btn.cancel:hover { background: #616161; }
 
@@ -2624,6 +2623,7 @@
             color: #374151;
         }
 
+        .productos-table-foot strong {
             font-weight: 900;
             color: #111827;
         }
@@ -14943,6 +14943,11 @@ const imgBolsaDeliveryBase = new Image();
                         <div class="orden-field">
                             <label for="configCheckpointRadio">Radio máximo permitido (metros)</label>
                             <input id="configCheckpointRadio" type="number" value="10" min="1" max="100" style="width:80px;">
+                                <div class="orden-field" style="margin-top:8px;">
+                                    <label for="configParadaMinutos">Tiempo mínimo de parada (min)</label>
+                                    <input id="configParadaMinutos" type="number" value="5" min="1" max="60" style="width:80px;" title="Minutos sin movimiento para detectar una parada en el mapa">
+                                    <div style="font-size:0.45rem;color:#6b7280;margin-top:2px;">Minutos sin movimiento para marcar una parada en el mapa</div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -16866,6 +16871,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (chkSQR) chkSQR.value = getConfigValue('checkpoints', 'sucursalQR') || 'CHECKPOINT-SUCURSAL-001';
         if (chkSMaps) chkSMaps.value = getConfigValue('checkpoints', 'sucursalMaps') || '';
         if (chkRadio) chkRadio.value = getConfigValue('checkpoints', 'radio') || 10;
+        var chkParada = document.getElementById('configParadaMinutos');
+        if (chkParada) chkParada.value = getConfigValue('checkpoints', 'paradaMinutos') || 5;
     };
 
     const saveConfiguracionesFromPopup = () => {
@@ -16951,6 +16958,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setConfigValue('checkpoints', 'sucursalQR', document.getElementById('configCheckpointSucursalQR')?.value?.trim() || 'CHECKPOINT-SUCURSAL-001');
         setConfigValue('checkpoints', 'sucursalMaps', document.getElementById('configCheckpointSucursalMaps')?.value?.trim() || '');
         setConfigValue('checkpoints', 'radio', Number(document.getElementById('configCheckpointRadio')?.value) || 10);
+    setConfigValue('checkpoints', 'paradaMinutos', Number(document.getElementById('configParadaMinutos')?.value) || 5);
 
         const promoLines = String(configPromocionesLista?.value || '')
             .split(/\r?\n/)
@@ -32497,21 +32505,31 @@ document.addEventListener('DOMContentLoaded', function() {
 ════════════════════════════════════════════════════════════════ -->
 <style>
   #panelControlRepartidores { display:none; }
-  #panelControlRepartidores .cr-body { display:flex; height:calc(100vh - 56px); overflow:hidden; }
-  #panelControlRepartidores .cr-sidebar { width:220px; min-width:200px; background:#0f172a; display:flex; flex-direction:column; overflow-y:auto; }
-  #panelControlRepartidores .cr-sidebar-btn { display:flex; align-items:center; gap:8px; padding:10px 14px; border:none; background:transparent; color:#94a3b8; font-size:0.58rem; font-weight:700; cursor:pointer; text-align:left; border-left:3px solid transparent; transition:all 0.15s; }
+    #panelControlRepartidores .cr-body { display:flex; height:calc(100vh - 56px); min-height:0; overflow:hidden; }
+    #panelControlRepartidores .cr-sidebar { width:240px; min-width:240px; background:#0f172a; display:flex; flex-direction:column; overflow:hidden; transition:width 0.25s ease,min-width 0.25s ease; position:relative; padding-top:36px; }
+    #panelControlRepartidores .cr-sidebar.collapsed { width:62px; min-width:62px; }
+  #panelControlRepartidores .cr-sidebar-toggle { position:absolute; top:8px; right:8px; width:28px; height:28px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:#94a3b8; border-radius:5px; cursor:pointer; font-size:0.7rem; display:flex;align-items:center;justify-content:center; transition:all 0.15s; }
+  #panelControlRepartidores .cr-sidebar.collapsed .cr-sidebar-toggle { right:12px; }
+  #panelControlRepartidores .cr-sidebar-toggle:hover { background:rgba(255,255,255,0.1); color:#cbd5e1; }
+    #panelControlRepartidores .cr-sidebar-label { font-size:0.42rem; font-weight:800; color:#475569; text-transform:uppercase; letter-spacing:1px; padding:6px 14px 8px; white-space:nowrap; overflow:hidden; }
+  #panelControlRepartidores .cr-sidebar.collapsed .cr-sidebar-label { display:none; }
+    #panelControlRepartidores .cr-sidebar-btn { display:flex; align-items:center; gap:10px; padding:11px 14px; border:none; background:transparent; color:#94a3b8; font-size:0.60rem; font-weight:700; cursor:pointer; text-align:left; border-left:3px solid transparent; transition:all 0.15s; white-space:nowrap; min-height:44px; }
+    #panelControlRepartidores .cr-sidebar.collapsed .cr-sidebar-btn { justify-content:center; gap:0; padding:8px 6px; }
+  #panelControlRepartidores .cr-sidebar.collapsed .cr-sidebar-btn span:not(.cr-ico) { display:none; }
   #panelControlRepartidores .cr-sidebar-btn:hover { background:rgba(255,255,255,0.05); color:#e2e8f0; }
   #panelControlRepartidores .cr-sidebar-btn.active { background:rgba(30,64,175,0.2); color:#60a5fa; border-left-color:#3b82f6; }
-  #panelControlRepartidores .cr-sidebar-btn .cr-ico { font-size:0.9rem; width:22px; text-align:center; }
-  #panelControlRepartidores .cr-main { flex:1; overflow-y:auto; background:#f1f5f9; padding:16px; }
-  #panelControlRepartidores .cr-section { display:none; }
-  #panelControlRepartidores .cr-section.active { display:block; }
-  #panelControlRepartidores .cr-card { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:14px; margin-bottom:12px; }
-  #panelControlRepartidores .cr-card h3 { margin:0 0 10px 0; font-size:0.72rem; font-weight:900; color:#1e293b; }
-  #panelControlRepartidores .cr-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin-bottom:14px; }
-  #panelControlRepartidores .cr-stat { background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:12px; text-align:center; }
-  #panelControlRepartidores .cr-stat .val { font-size:1.4rem; font-weight:900; }
-  #panelControlRepartidores .cr-stat .lbl { font-size:0.48rem; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:0.5px; }
+  #panelControlRepartidores .cr-sidebar.collapsed .cr-sidebar-btn.active { border-left:none; background:rgba(59,130,246,0.3); }
+    #panelControlRepartidores .cr-sidebar-btn .cr-ico { font-size:1.25rem; width:30px; text-align:center; flex-shrink:0; }
+    #panelControlRepartidores .cr-main { flex:1; min-width:0; min-height:0; display:flex; flex-direction:column; background:#f1f5f9; padding:10px; overflow:hidden; }
+    #panelControlRepartidores .cr-main > div:first-child { flex:1; min-height:0; overflow:hidden; display:flex; flex-direction:column; }
+    #panelControlRepartidores .cr-section { display:none; flex:1; min-height:0; overflow:hidden; }
+  #panelControlRepartidores .cr-section.active { display:flex; flex-direction:column; }
+    #panelControlRepartidores .cr-card { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:10px; margin-bottom:8px; flex-shrink:0; }
+  #panelControlRepartidores .cr-card h3 { margin:0 0 8px 0; font-size:0.65rem; font-weight:900; color:#1e293b; }
+    #panelControlRepartidores .cr-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(96px,1fr)); gap:6px; margin-bottom:8px; flex-shrink:0; }
+    #panelControlRepartidores .cr-stat { background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:8px 6px; text-align:center; }
+    #panelControlRepartidores .cr-stat .val { font-size:1rem; font-weight:900; line-height:1.1; }
+  #panelControlRepartidores .cr-stat .lbl { font-size:0.43rem; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:0.5px; }
   #panelControlRepartidores .cr-table { width:100%; border-collapse:collapse; font-size:0.55rem; }
   #panelControlRepartidores .cr-table th { background:#f8fafc; padding:8px 10px; text-align:left; font-weight:800; color:#475569; border-bottom:2px solid #e2e8f0; font-size:0.5rem; text-transform:uppercase; }
   #panelControlRepartidores .cr-table td { padding:8px 10px; border-bottom:1px solid #f1f5f9; color:#334155; }
@@ -32522,12 +32540,12 @@ document.addEventListener('DOMContentLoaded', function() {
   #panelControlRepartidores .cr-btn.primary:hover { background:#1e3a8a; }
   #panelControlRepartidores .cr-btn.danger { background:#fef2f2; color:#dc2626; border:1px solid #fecaca; }
   #panelControlRepartidores .cr-btn.success { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; }
-  #panelControlRepartidores .cr-map-placeholder { width:100%; height:350px; border-radius:10px; background:#e2e8f0; display:flex; align-items:center; justify-content:center; color:#64748b; font-size:0.65rem; font-weight:700; position:relative; overflow:hidden; }
+    #panelControlRepartidores .cr-map-placeholder { width:100%; height:min(58vh,520px); border-radius:10px; background:#e2e8f0; display:flex; align-items:center; justify-content:center; color:#64748b; font-size:0.65rem; font-weight:700; position:relative; overflow:hidden; }
   #panelControlRepartidores .cr-input { padding:6px 10px; border:1px solid #d1d5db; border-radius:6px; font-size:0.55rem; width:100%; box-sizing:border-box; }
   #panelControlRepartidores .cr-select { padding:6px 10px; border:1px solid #d1d5db; border-radius:6px; font-size:0.55rem; }
   #panelControlRepartidores .cr-header-bar { display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
   /* Sub-tabs & toggle for merged sections */
-  #panelControlRepartidores .cr-subtabs { display:flex; gap:2px; background:#e2e8f0; border-radius:8px; padding:3px; margin-bottom:14px; overflow-x:auto; flex-shrink:0; }
+  #panelControlRepartidores .cr-subtabs { display:flex; gap:2px; background:#e2e8f0; border-radius:8px; padding:2px; margin-bottom:10px; overflow-x:auto; flex-shrink:0; }
   #panelControlRepartidores .cr-subtab { flex:none; padding:7px 14px; border:none; background:transparent; border-radius:6px; font-size:0.50rem; font-weight:700; color:#64748b; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
   #panelControlRepartidores .cr-subtab:hover { background:rgba(255,255,255,0.6); color:#334155; }
   #panelControlRepartidores .cr-subtab.active { background:#fff; color:#1e40af; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
@@ -32554,35 +32572,41 @@ document.addEventListener('DOMContentLoaded', function() {
   .cr-fs-header .cr-fs-title { flex:1;font-size:0.75rem;font-weight:900;color:#fff; }
   .cr-fs-header .cr-fs-subtitle { font-size:0.48rem;color:#93c5fd; }
   .cr-fs-body { flex:1;overflow-y:auto;padding:16px; }
+    @media (max-width: 1100px) {
+        #panelControlRepartidores .cr-sidebar { width:62px; min-width:62px; }
+        #panelControlRepartidores .cr-sidebar .cr-sidebar-label,
+        #panelControlRepartidores .cr-sidebar .cr-sidebar-btn span:not(.cr-ico),
+        #panelControlRepartidores .cr-sidebar #crSidebarResumen { display:none; }
+        #panelControlRepartidores .cr-sidebar .cr-sidebar-btn { justify-content:center; padding:8px 6px; }
+        #panelControlRepartidores .cr-sidebar .cr-sidebar-toggle { right:12px; }
+        #panelControlRepartidores .cr-main { padding:8px; }
+    }
 </style>
 <div id="panelControlRepartidores" class="entrega-overlay">
   <div style="display:flex;flex-direction:column;width:100%;height:100vh;">
     <!-- Header -->
-    <div style="background:linear-gradient(135deg,#0f172a 0%,#1e40af 100%);padding:10px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0;">
-      <button id="ctrlRepBack" type="button" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;" title="Volver">←</button>
-      <div style="flex:1;">
-        <h2 style="margin:0;font-size:0.82rem;font-weight:900;color:#fff;letter-spacing:0.5px;">🚚 CONTROL DE REPARTO</h2>
-        <span style="font-size:0.5rem;color:#93c5fd;">Panel de gestión de repartidores, rutas y entregas</span>
-      </div>
-      <button id="ctrlRepBtnRefresh" type="button" class="cr-btn primary" style="font-size:0.5rem;">🔄 Actualizar</button>
-    </div>
-    <!-- Body: Sidebar + Main -->
-    <div class="cr-body">
-      <!-- Sidebar -->
-      <div class="cr-sidebar">
-        <div style="padding:12px 14px 8px;font-size:0.42rem;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:1px;">Módulos</div>
-        <button class="cr-sidebar-btn active" data-cr-section="dashboard"><span class="cr-ico">📊</span> Dashboard</button>
-        <button class="cr-sidebar-btn" data-cr-section="pedidos"><span class="cr-ico">📦</span> Pedidos</button>
-        <button class="cr-sidebar-btn" data-cr-section="mapa"><span class="cr-ico">🗺</span> Mapa & Rutas</button>
-        <button class="cr-sidebar-btn" data-cr-section="repartidores"><span class="cr-ico">👥</span> Repartidores</button>
-        <button class="cr-sidebar-btn" data-cr-section="recoleccion"><span class="cr-ico">🏭</span> Recolección</button>
-        <button class="cr-sidebar-btn" data-cr-section="alertas"><span class="cr-ico">🔔</span> Alertas & Config</button>
-        <div style="flex:1;"></div>
-        <div style="padding:10px 14px;border-top:1px solid rgba(255,255,255,0.08);">
-          <div id="crSidebarResumen" style="font-size:0.48rem;color:#64748b;line-height:1.6;"></div>
+        <div style="background:linear-gradient(135deg,#0f172a,#1e40af);padding:10px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0;">
+            <button id="crClosePanel" type="button" aria-label="Volver al menú principal" title="Volver al menú principal" style="width:34px;height:34px;border:none;border-radius:8px;background:rgba(255,255,255,0.14);color:#fff;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">←</button>
+            <div style="flex:1;min-width:0;">
+                <div style="font-size:0.82rem;font-weight:900;color:#fff;letter-spacing:0.02em;">Administrar rutas de entrega</div>
+                <div style="font-size:0.48rem;color:#bfdbfe;">Control de reparto</div>
+            </div>
         </div>
-      </div>
-      <!-- Main Content -->
+
+        <div class="cr-body">
+            <div class="cr-sidebar collapsed" id="crSidebar">
+                <button id="crSidebarToggle" class="cr-sidebar-toggle" title="Expandir menú">»</button>
+                <div class="cr-sidebar-label">Módulos</div>
+                <button class="cr-sidebar-btn active" data-cr-section="dashboard" title="Dashboard"><span class="cr-ico">📊</span><span>Dashboard</span></button>
+                <button class="cr-sidebar-btn" data-cr-section="pedidos" title="Pedidos"><span class="cr-ico">📦</span><span>Pedidos</span></button>
+                <button class="cr-sidebar-btn" data-cr-section="mapa" title="Mapa y Rutas"><span class="cr-ico">🗺</span><span>Mapa y Rutas</span></button>
+                <button class="cr-sidebar-btn" data-cr-section="repartidores" title="Administrar rutas de entrega"><span class="cr-ico">👥</span><span>Administrar rutas de entrega</span></button>
+                <button class="cr-sidebar-btn" data-cr-section="recoleccion" title="Recolección"><span class="cr-ico">🏭</span><span>Recolección</span></button>
+                <button class="cr-sidebar-btn" data-cr-section="alertas" title="Alertas y Configuración"><span class="cr-ico">🔔</span><span>Alertas y Configuración</span></button>
+                <div style="flex:1;"></div>
+                <div style="padding:10px 12px;border-top:1px solid rgba(255,255,255,0.08);overflow:hidden;"></div>
+            </div>
+            <!-- Main Content -->
       <div class="cr-main">
         <div id="crSubTabBar" style="display:none;flex-shrink:0;"></div>
 
@@ -32594,9 +32618,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <!-- Sub-tabs internos -->
           <div class="cr-subtabs" style="display:flex;">
             <button class="cr-subtab active" data-dash-tab="resumen">📊 Resumen & KPIs</button>
-            <button class="cr-subtab" data-dash-tab="reagendar">📅 Reagendar</button>
             <button class="cr-subtab" data-dash-tab="reportes">📄 Reportes</button>
-            <button class="cr-subtab" data-dash-tab="historial">📜 Historial</button>
           </div>
 
           <!-- ── TAB: RESUMEN GENERAL ── -->
@@ -32696,37 +32718,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
           </div>
 
-          <!-- ── TAB: HISTORIAL CLIENTE ── -->
-          <div id="crDashTab_historial" data-dash-tab="historial" style="display:none;">
-            <div class="cr-card">
-              <h3>📜 Historial de Entregas por Cliente</h3>
-              <p style="font-size:0.52rem;color:#64748b;margin:0 0 10px 0;">Consulta todas las entregas realizadas a un cliente, incluyendo motivos de no-entrega y reagendaciones.</p>
-              <div class="cr-header-bar">
-                <input id="crHistBuscar" type="text" class="cr-input" placeholder="🔍 Buscar cliente por nombre..." style="max-width:320px;">
-                <select id="crHistFiltroEstado" class="cr-select">
-                  <option value="">Todos los estados</option>
-                  <option value="entregada">✅ Entregadas</option>
-                  <option value="no_entregada">❌ No entregadas</option>
-                  <option value="pendiente">📬 Pendientes</option>
-                </select>
-              </div>
-            </div>
-            <div id="crHistResultados" style="display:flex;flex-direction:column;gap:8px;"></div>
-          </div>
-
-          <!-- ── TAB: REAGENDAMIENTO ── -->
-          <div id="crDashTab_reagendar" data-dash-tab="reagendar" style="display:none;">
-            <div class="cr-stats">
-              <div class="cr-stat"><div class="val" style="color:#f59e0b;" id="crReagPendientes">0</div><div class="lbl">Pend. Reagendar</div></div>
-              <div class="cr-stat"><div class="val" style="color:#3b82f6;" id="crReagProgramados">0</div><div class="lbl">Reagendados</div></div>
-              <div class="cr-stat"><div class="val" style="color:#ef4444;" id="crReagVencidos">0</div><div class="lbl">Vencidos</div></div>
-            </div>
-            <div class="cr-card">
-              <h3>📅 Pedidos No Entregados — Reagendamiento</h3>
-              <p style="font-size:0.52rem;color:#64748b;margin:0 0 10px 0;">Pedidos que no se pudieron entregar y necesitan reprogramarse. Se generan automáticamente desde los conceptos de visita de la app móvil.</p>
-              <div id="crReagLista" style="display:flex;flex-direction:column;gap:8px;"></div>
-            </div>
-          </div>
+          <!-- Historial y Reagendamiento movidos al módulo principal (Pedidos) y al Mapa -->
 
         </div><!-- /crSecDashboard -->
 
@@ -32734,44 +32726,43 @@ document.addEventListener('DOMContentLoaded', function() {
              SECCIÓN: PEDIDOS & ASIGNACIÓN (módulo lateral)
              ══════════════════════════════════════════════════ -->
         <div class="cr-section" id="crSecPedidos" data-cr-section="pedidos">
-          <div class="cr-stats">
-            <div class="cr-stat"><div class="val" style="color:#f59e0b;" id="crPedSinAsignar">0</div><div class="lbl">📬 Sin Asignar</div></div>
-            <div class="cr-stat"><div class="val" style="color:#3b82f6;" id="crPedAsignados">0</div><div class="lbl">📋 Asignados</div></div>
-            <div class="cr-stat"><div class="val" style="color:#8b5cf6;" id="crPedEnCamino">0</div><div class="lbl">🚚 En Camino</div></div>
-            <div class="cr-stat"><div class="val" style="color:#10b981;" id="crPedEntregados">0</div><div class="lbl">✅ Entregados</div></div>
-            <div class="cr-stat"><div class="val" style="color:#ef4444;" id="crPedNoEntregados">0</div><div class="lbl">❌ No Entregados</div></div>
-          </div>
-          <div class="cr-card">
+          <div class="cr-card" style="position:sticky;top:8px;z-index:30;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
               <h3 style="margin:0;">📦 Asignación de Pedidos</h3>
               <div style="display:flex;gap:6px;">
-                <button id="ctrlRepBtnAutoAsig" type="button" class="cr-btn success">▶ Auto-Asignar</button>
                 <button id="ctrlRepBtnRefresh" type="button" class="cr-btn" style="background:#f1f5f9;color:#64748b;border:1px solid #d1d5db;">🔄</button>
               </div>
             </div>
-            <div class="cr-header-bar">
+            <div class="cr-header-bar" style="margin-bottom:8px;">
               <select id="ctrlRepFiltroZona" class="cr-select"><option value="">Todas las zonas</option></select>
               <select id="ctrlRepFiltroEstado" class="cr-select">
                 <option value="sin_asignar">📬 Sin asignar</option>
                 <option value="asignado">📋 Asignados</option>
                 <option value="en_camino">🚚 En camino</option>
+                <option value="no_entregada">❌ No entregados</option>
                 <option value="entregada">✅ Entregados</option>
                 <option value="">Todos</option>
               </select>
-              <input type="text" id="ctrlRepBuscador" class="cr-input" placeholder="🔍 Folio o cliente..." style="max-width:200px;">
+              <input type="text" id="ctrlRepBuscador" class="cr-input" placeholder="🔍 Buscar cliente, folio o id..." style="max-width:260px;">
             </div>
-          </div>
-          <div id="ctrlRepAsignacionBar" class="cr-card" style="display:none;background:#eff6ff;border-color:#bfdbfe;">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-              <span style="font-size:0.6rem;font-weight:800;color:#1e40af;">Asignar seleccionados a:</span>
-              <select id="ctrlRepAsignarA" class="cr-select" style="flex:1;min-width:150px;"><option value="">— Repartidor —</option></select>
-              <button id="ctrlRepBtnAsignar" type="button" class="cr-btn primary">✅ ASIGNAR</button>
-              <button id="ctrlRepBtnSelAll" type="button" class="cr-btn" style="background:#fff;color:#374151;border:1px solid #bfdbfe;">☑ Todos</button>
-              <span id="ctrlRepSelCount" style="font-size:0.52rem;color:#1e40af;font-weight:800;">0 sel.</span>
+            <div id="ctrlRepAsignacionBar" style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:8px;">
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <span style="font-size:0.56rem;font-weight:800;color:#1e40af;">Asignación masiva:</span>
+                <select id="ctrlRepAsignarA" class="cr-select" style="flex:1;min-width:180px;"><option value="">— Selecciona repartidor —</option></select>
+                <button id="ctrlRepBtnSelAll" type="button" class="cr-btn" style="background:#fff;color:#374151;border:1px solid #bfdbfe;">☑ Seleccionar todo</button>
+                <button id="ctrlRepBtnAsignar" type="button" class="cr-btn primary">✅ Asignar selección</button>
+                <span id="ctrlRepSelCount" style="font-size:0.52rem;color:#1e40af;font-weight:800;">0 seleccionados</span>
+              </div>
             </div>
           </div>
           <div id="ctrlRepPedidosList" style="display:flex;flex-direction:column;gap:8px;">
             <div style="text-align:center;color:#9ca3af;padding:30px;font-size:0.6rem;">Cargando pedidos...</div>
+          </div>
+          <div class="cr-card">
+            <h3>📅 Reagendados / No Entregados</h3>
+            <p style="font-size:0.52rem;color:#64748b;margin:0 0 8px 0;">Programa la nueva fecha solo cuando tú lo decidas, sin sacar el pedido del estado no entregado.</p>
+            <div id="crPedReagStats" style="font-size:0.52rem;color:#334155;font-weight:700;margin-bottom:8px;"></div>
+            <div id="crPedReagList" style="display:flex;flex-direction:column;gap:8px;"></div>
           </div>
         </div><!-- /crSecPedidos -->
 
@@ -32814,7 +32805,7 @@ document.addEventListener('DOMContentLoaded', function() {
               </button>
             </div>
             <!-- Mapa -->
-            <div id="crMapaGeneral" class="cr-map-placeholder" style="height:420px;border-radius:0;">
+            <div id="crMapaGeneral" class="cr-map-placeholder" style="height:520px;border-radius:0;">
               <div style="text-align:center;">
                 <div style="font-size:2.5rem;margin-bottom:8px;">🗺</div>
                 <div style="font-weight:700;font-size:0.65rem;">Mapa en tiempo real</div>
@@ -32826,27 +32817,15 @@ document.addEventListener('DOMContentLoaded', function() {
             <div id="crMapaInfoPanel" style="display:none;max-height:180px;overflow-y:auto;padding:10px 14px;background:#f8fafc;border-top:1px solid #e2e8f0;font-size:0.55rem;"></div>
           </div>
 
-          <!-- Dos columnas: repartidores en ruta + paradas/detalles -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-            <div class="cr-card">
-              <h3>📡 Repartidores en Ruta</h3>
-              <div id="crLocRepartidoresEnRuta" style="font-size:0.55rem;color:#64748b;">Sin datos de ubicación</div>
-            </div>
-            <div class="cr-card">
-              <h3>📋 Paradas Programadas / Ruta</h3>
-              <div id="crRutaParadas" style="font-size:0.55rem;color:#64748b;">Sin ruta generada. Selecciona repartidor y genera ruta.</div>
-            </div>
-          </div>
-
-          <!-- Clientes por zona -->
-          <div class="cr-card">
-            <h3>📍 Clientes por Zona</h3>
-            <div id="crGeocercaResumen" style="font-size:0.55rem;color:#64748b;margin-bottom:8px;">Cargando...</div>
-            <div style="display:flex;gap:8px;margin-bottom:8px;">
-              <select id="crGeocercaFiltroZona" class="cr-select"><option value="">Todas las zonas</option></select>
-              <input id="crGeocercaBuscar" type="text" class="cr-input" placeholder="🔍 Buscar cliente..." style="max-width:220px;">
-            </div>
-            <div id="crLocClientesList" style="display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;"></div>
+          <!-- Hidden containers kept for JS compatibility (IDs used by renderLocClientesList) -->
+          <div style="display:none;" aria-hidden="true">
+            <div id="crLocRepartidoresEnRuta"></div>
+            <div id="crRutaParadas"></div>
+            <div id="crGeocercaResumen"></div>
+            <select id="crGeocercaFiltroZona"><option value="">Todas las zonas</option></select>
+            <input id="crGeocercaBuscar" type="text">
+            <input id="crMapaHistFecha" type="date">
+            <div id="crLocClientesList"></div>
           </div>
 
         </div><!-- /crSecMapa -->
@@ -32857,10 +32836,49 @@ document.addEventListener('DOMContentLoaded', function() {
         <!-- ── SECTION: REPARTIDORES ── -->
         <div class="cr-section" id="crSecRepartidores" data-cr-section="repartidores">
           <div class="cr-card">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-              <h3 style="margin:0;">👥 Repartidores</h3>
-              <button id="crRepMostrarAlta" type="button" class="cr-btn primary" style="font-size:0.48rem;">+ Nuevo</button>
-            </div>
+                                                <div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap;margin-bottom:12px;">
+                            <div style="flex:2 1 280px;min-width:220px;">
+                                <label style="display:block;font-size:0.46rem;font-weight:700;color:#64748b;margin-bottom:3px;">Buscar</label>
+                                <input id="crRepFiltroBuscar" type="text" class="cr-input" placeholder="🔍 Repartidor, zona o teléfono...">
+                            </div>
+                            <div style="flex:1 1 180px;min-width:170px;position:relative;">
+                                <label style="display:block;font-size:0.46rem;font-weight:700;color:#64748b;margin-bottom:3px;">Fecha</label>
+                                <select id="crRepFiltroFechaRapido" style="display:none;" aria-hidden="true">
+                                    <option value=""></option>
+                                    <option value="hoy">Hoy</option>
+                                    <option value="semana">Semana</option>
+                                    <option value="mes">Mes</option>
+                                    <option value="90dias">90 días</option>
+                                    <option value="rango">Rango</option>
+                                </select>
+                                <button id="crRepFechaCalBtn" type="button" style="width:100%;padding:7px 10px;background:#fff;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;font-size:0.6rem;color:#374151;text-align:left;display:flex;align-items:center;gap:5px;">
+                                    📅 <span id="crRepFechaCalLabel" style="flex:1;color:#9ca3af;">Todas las fechas</span>
+                                </button>
+                                <input id="crRepFiltroFechaDesde" type="hidden">
+                                <input id="crRepFiltroFechaHasta" type="hidden">
+                            </div>
+                        </div>
+                        <div id="crRepCalPopup" style="display:none;position:fixed;z-index:100020;background:#fff;border:1px solid #e5e7eb;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.18);padding:16px;min-width:540px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                                <span style="font-size:0.62rem;font-weight:800;color:#92400e;text-transform:uppercase;">Seleccionar rango de fechas</span>
+                                <button id="crRepCalCerrar" type="button" style="background:none;border:none;font-size:1rem;cursor:pointer;color:#6b7280;">✕</button>
+                            </div>
+                            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">
+                                <button class="mp-cal-quick cr-rep-cal-quick" data-q="hoy" type="button">Hoy</button>
+                                <button class="mp-cal-quick cr-rep-cal-quick" data-q="semana" type="button">Ult. semana</button>
+                                <button class="mp-cal-quick cr-rep-cal-quick" data-q="mes" type="button">Ult. mes</button>
+                                <button class="mp-cal-quick cr-rep-cal-quick" data-q="90dias" type="button">Últ. 90 días</button>
+                            </div>
+                            <div style="display:flex;gap:16px;">
+                                <div id="crRepCal1" class="mp-cal-month"></div>
+                                <div id="crRepCal2" class="mp-cal-month"></div>
+                            </div>
+                            <div id="crRepCalRangeLabel" style="margin-top:10px;font-size:0.58rem;color:#374151;text-align:center;min-height:16px;"></div>
+                            <div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px;align-items:center;">
+                                <button id="crRepCalLimpiar" type="button" style="padding:6px 14px;background:#f3f4f6;color:#475569;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;font-size:0.58rem;font-weight:800;">Limpiar</button>
+                                <button id="crRepCalAceptar" type="button" style="padding:6px 18px;background:#ff9900;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.6rem;font-weight:800;">✓ Aplicar</button>
+                            </div>
+                        </div>
             <div id="crRepFormAlta" style="display:none;padding:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:12px;">
               <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end;">
                 <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;display:block;margin-bottom:2px;">Nombre</label><input id="configRepartidorNombre" type="text" class="cr-input" placeholder="Juan Pérez"></div>
@@ -32873,7 +32891,6 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
             </div>
             <div id="configRepartidoresLista" style="display:flex;flex-direction:column;gap:6px;"></div>
-            <p style="font-size:0.48rem;color:#94a3b8;text-align:center;margin-top:8px;">Pulsa 📦🚚📊⚠️ en un repartidor para abrir la acción en pantalla completa.</p>
           </div>
         </div>
 
@@ -33098,7 +33115,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div id="crHistPopupBody">Cargando entregas...</div>
           </div>
         </div>
-
+        </div><!-- cierre del div wrapper -->
       </div> <!-- /cr-main -->
 
   <!-- ══ FULLSCREEN PANEL: acción de repartidor (Inv / Asignar / KPI / Pen) ══ -->
@@ -34462,7 +34479,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="entrega-section-title" style="color:#ff9900;border-color:#fde8c8;">🗺 MAPA DE ENTREGAS TEMPORALES</div>
         <div id="rtMapContainer" style="height:240px;border-radius:10px;overflow:hidden;border:1px solid #e4e8ef;flex-shrink:0;background:#f8f9fb;"></div>
         <div class="entrega-tabs" id="rtTabs">
-          <button class="entrega-tab active" data-rt-status="pendiente" style="">📬 Pendientes</button>
+          <button class="entrega-tab active" data-rt-status="pendiente">📬 Pendientes</button>
           <button class="entrega-tab" data-rt-status="en_camino">🚚 En Camino</button>
           <button class="entrega-tab" data-rt-status="entregada">✅ Entregadas</button>
         </div>
@@ -37501,6 +37518,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var GASTOS_KEY = 'config_gastos_empleado';
     var CHECKS_KEY = 'config_checks_asistencia';
     var PENALIZACIONES_KEY = 'config_penalizaciones_rep';
+    var REP_CIERRES_KEY = 'config_rutas_cerradas_rep';
     var ENT_COL = 'delivery_orders';
     var esc = window._escHtml || function(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');};
 
@@ -37533,6 +37551,158 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveChecks(c){lsSet(CHECKS_KEY,c);}
     function getPenalizaciones(){return lsGet(PENALIZACIONES_KEY,[]);}
     function savePenalizaciones(p){lsSet(PENALIZACIONES_KEY,p);}
+    function getRepCierres(){return lsGet(REP_CIERRES_KEY,{});}
+    function saveRepCierres(v){lsSet(REP_CIERRES_KEY,v);}
+    function crTodayYmd(){return new Date().toISOString().slice(0,10);}
+    function crRepCierreKey(rid){return crTodayYmd()+'__'+rid;}
+    function crRepRutaCerrada(rid){return !!getRepCierres()[crRepCierreKey(rid)];}
+    function crRepMarcarRutaCerrada(rid,data){
+        var cierres=getRepCierres();
+        cierres[crRepCierreKey(rid)]=Object.assign({rid:rid,fecha:crTodayYmd(),cerradaEn:new Date().toISOString()},data||{});
+        saveRepCierres(cierres);
+    }
+    function crRepLimpiarRutaCerrada(rid){
+        var cierres=getRepCierres();
+        var key=crRepCierreKey(rid);
+        if(cierres[key]){ delete cierres[key]; saveRepCierres(cierres); }
+    }
+    function crRepGetDateRange(){
+        var rapid=(document.getElementById('crRepFiltroFechaRapido')||{}).value||'';
+        if(!rapid) return null;
+        var now=new Date();
+        var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+        var desde,hasta;
+        if(rapid==='hoy'){ desde=hasta=today; }
+        else if(rapid==='semana'){ desde=new Date(today); desde.setDate(desde.getDate()-7); hasta=today; }
+        else if(rapid==='mes'){ desde=new Date(today); desde.setMonth(desde.getMonth()-1); hasta=today; }
+        else if(rapid==='90dias'){ desde=new Date(today); desde.setDate(desde.getDate()-90); hasta=today; }
+        else if(rapid==='rango'){
+            var d=(document.getElementById('crRepFiltroFechaDesde')||{}).value||'';
+            var h=(document.getElementById('crRepFiltroFechaHasta')||{}).value||'';
+            if(!d&&!h) return null;
+            desde=d?new Date(d+'T00:00:00'):new Date('2000-01-01');
+            hasta=h?new Date(h+'T23:59:59'):new Date('2099-12-31');
+        }
+        if(!desde||!hasta) return null;
+        return {desde:desde,hasta:hasta};
+    }
+    function crRepDateHit(e,range){
+        if(!range) return true;
+        var raw=e.fechaAsignacion||e.creadoEn||e.actualizadoEn||'';
+        var ts=crRepTs(raw);
+        if(!ts) return false;
+        return ts>=range.desde.getTime()&&ts<=range.hasta.getTime();
+    }
+    function crRepUpdateFechaLabel(txt,active){
+        var lbl=document.getElementById('crRepFechaCalLabel');
+        var btn=document.getElementById('crRepFechaCalBtn');
+        if(lbl) lbl.textContent=txt||'Todas las fechas';
+        if(btn){
+            btn.style.background=active?'#fff7ed':'#fff';
+            btn.style.borderColor=active?'#fde8c8':'#d1d5db';
+            btn.style.color=active?'#92400e':'#374151';
+        }
+    }
+    var crRepCalRangeStart=null, crRepCalRangeEnd=null;
+    var crRepCal1Month=(new Date()).getMonth(), crRepCal1Year=(new Date()).getFullYear();
+    var crRepCal2Month=crRepCal1Month===11?0:crRepCal1Month+1, crRepCal2Year=crRepCal1Month===11?crRepCal1Year+1:crRepCal1Year;
+    function crRepToDateISO(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+    function crRepOpenCalPopup(anchorEl){
+        var popup=document.getElementById('crRepCalPopup');
+        if(!popup||!anchorEl) return;
+        var rect=anchorEl.getBoundingClientRect();
+        popup.style.display='block';
+        popup.style.left=Math.max(12,Math.min(window.innerWidth-560,rect.left))+'px';
+        popup.style.top=(rect.bottom+8)+'px';
+        renderCrRepCalMonths();
+        crRepUpdateCalRangeLabel();
+    }
+    function crRepCloseCalPopup(){ var popup=document.getElementById('crRepCalPopup'); if(popup) popup.style.display='none'; }
+    function crRepRenderMonthHtml(month,year,slot){
+        var cont=document.getElementById(slot); if(!cont) return;
+        var first=new Date(year,month,1), last=new Date(year,month+1,0), today=new Date();
+        var todayTs=new Date(today.getFullYear(),today.getMonth(),today.getDate()).getTime();
+        var monthName=first.toLocaleDateString('es-MX',{month:'long',year:'numeric'});
+        var dow=['L','M','M','J','V','S','D'];
+        var start=(first.getDay()+6)%7;
+        var html='<div class="cal-header">'+
+            '<button type="button" data-cr-rep-nav="prev" data-slot="'+slot+'">‹</button>'+
+            '<span style="text-transform:capitalize;">'+monthName+'</span>'+
+            '<button type="button" data-cr-rep-nav="next" data-slot="'+slot+'">›</button>'+
+        '</div><div class="cal-grid">'+dow.map(function(d){return '<div class="cal-dow">'+d+'</div>';}).join('');
+        for(var i=0;i<start;i++) html+='<div></div>';
+        for(var day=1;day<=last.getDate();day++){
+            var date=new Date(year,month,day), ts=date.getTime(), cls='cal-day';
+            if(ts===todayTs&&!crRepCalRangeStart) cls+=' today';
+            if(crRepCalRangeStart&&crRepCalRangeEnd){
+                var s=crRepCalRangeStart.getTime(), e=crRepCalRangeEnd.getTime();
+                if(ts===s) cls+=' range-start';
+                else if(ts===e) cls+=' range-end';
+                else if(ts>s&&ts<e) cls+=' in-range';
+            }else if(crRepCalRangeStart&&ts===crRepCalRangeStart.getTime()) cls+=' range-start';
+            html+='<div class="'+cls+'" data-cr-rep-iso="'+crRepToDateISO(date)+'">'+day+'</div>';
+        }
+        html+='</div>';
+        cont.innerHTML=html;
+    }
+    function renderCrRepCalMonths(){
+        crRepRenderMonthHtml(crRepCal1Month,crRepCal1Year,'crRepCal1');
+        crRepRenderMonthHtml(crRepCal2Month,crRepCal2Year,'crRepCal2');
+        Array.prototype.forEach.call(document.querySelectorAll('#crRepCalPopup [data-cr-rep-iso]'),function(cell){
+            cell.addEventListener('click',function(){ crRepPickCalDay(cell.dataset.crRepIso); });
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('#crRepCalPopup [data-cr-rep-nav]'),function(btn){
+            btn.addEventListener('click',function(){
+                var slot=btn.dataset.slot, dir=btn.dataset.crRepNav;
+                if(slot==='crRepCal1'){
+                    if(dir==='prev'){ crRepCal1Month--; if(crRepCal1Month<0){crRepCal1Month=11;crRepCal1Year--;} }
+                    else { crRepCal1Month++; if(crRepCal1Month>11){crRepCal1Month=0;crRepCal1Year++;} }
+                }else{
+                    if(dir==='prev'){ crRepCal2Month--; if(crRepCal2Month<0){crRepCal2Month=11;crRepCal2Year--;} }
+                    else { crRepCal2Month++; if(crRepCal2Month>11){crRepCal2Month=0;crRepCal2Year++;} }
+                }
+                renderCrRepCalMonths();
+                crRepUpdateCalRangeLabel();
+            });
+        });
+    }
+    function crRepPickCalDay(iso){
+        var d=new Date(iso+'T00:00:00');
+        if(!crRepCalRangeStart||crRepCalRangeEnd){ crRepCalRangeStart=d; crRepCalRangeEnd=null; }
+        else { if(d<crRepCalRangeStart){ crRepCalRangeEnd=crRepCalRangeStart; crRepCalRangeStart=d; } else crRepCalRangeEnd=d; }
+        renderCrRepCalMonths();
+        crRepUpdateCalRangeLabel();
+    }
+    function crRepUpdateCalRangeLabel(){
+        var el=document.getElementById('crRepCalRangeLabel'); if(!el) return;
+        if(!crRepCalRangeStart){ el.textContent='Haz clic en el día de inicio'; return; }
+        if(!crRepCalRangeEnd){ el.textContent='Inicio: '+crRepCalRangeStart.toLocaleDateString('es-MX')+' — selecciona fin'; return; }
+        el.textContent='Del '+crRepCalRangeStart.toLocaleDateString('es-MX')+' al '+crRepCalRangeEnd.toLocaleDateString('es-MX');
+    }
+    function crRepApplyQuickRange(q){
+        var now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate()), desde=new Date(today), hasta=new Date(today);
+        if(q==='semana') desde.setDate(desde.getDate()-7);
+        else if(q==='mes') desde.setMonth(desde.getMonth()-1);
+        else if(q==='90dias') desde.setDate(desde.getDate()-90);
+        crRepCalRangeStart=desde; crRepCalRangeEnd=hasta;
+        crRepCal1Month=desde.getMonth(); crRepCal1Year=desde.getFullYear();
+        crRepCal2Month=hasta.getMonth(); crRepCal2Year=hasta.getFullYear();
+        if(crRepCal2Month===crRepCal1Month&&crRepCal2Year===crRepCal1Year){ crRepCal2Month++; if(crRepCal2Month>11){ crRepCal2Month=0; crRepCal2Year++; } }
+        renderCrRepCalMonths();
+        crRepUpdateCalRangeLabel();
+        Array.prototype.forEach.call(document.querySelectorAll('#crRepCalPopup .cr-rep-cal-quick'),function(b){ b.classList.toggle('active',b.dataset.q===q); });
+    }
+    function crRepApplyCalRange(){
+        if(!crRepCalRangeStart) return;
+        var end=crRepCalRangeEnd||crRepCalRangeStart;
+        var dEl=document.getElementById('crRepFiltroFechaDesde'), hEl=document.getElementById('crRepFiltroFechaHasta'), qEl=document.getElementById('crRepFiltroFechaRapido');
+        if(dEl) dEl.value=crRepToDateISO(crRepCalRangeStart);
+        if(hEl) hEl.value=crRepToDateISO(end);
+        if(qEl) qEl.value='rango';
+        crRepUpdateFechaLabel(crRepToDateISO(crRepCalRangeStart)+' – '+crRepToDateISO(end),true);
+        crRepCloseCalPopup();
+        renderRepartidoresSection();
+    }
 
     // ── PANEL OPEN/CLOSE ──
     var panel = document.getElementById('panelControlRepartidores');
@@ -37550,13 +37720,41 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     window.openControlRepartidoresGlobal = openControlReparto;
 
-    document.getElementById('ctrlRepBack').addEventListener('click',function(){
-        closeControlReparto();
-        if(typeof mostrarInicioSistema==='function') mostrarInicioSistema();
-    });
-    document.getElementById('ctrlRepBtnRefresh').addEventListener('click',function(){cargarEntregas();renderActiveSection();});
-    // Auto-asig button in crSecPedidos
-    (function(){var b=document.getElementById('ctrlRepBtnAutoAsig');if(b)b.addEventListener('click',function(){ejecutarAutoAsig();renderPedidos();});})();
+    (function(){
+        var closeBtn = document.getElementById('crClosePanel');
+        if(closeBtn) closeBtn.addEventListener('click', function(){
+            closeControlReparto();
+            if(typeof mostrarInicioSistema==='function') mostrarInicioSistema();
+        });
+        var sidebar = document.getElementById('crSidebar');
+        var toggle = document.getElementById('crSidebarToggle');
+        function syncSidebarToggle(){
+            if(!sidebar || !toggle) return;
+            var collapsed = sidebar.classList.contains('collapsed');
+            toggle.textContent = collapsed ? '»' : '«';
+            toggle.title = collapsed ? 'Expandir menú' : 'Colapsar menú';
+        }
+        if(toggle && sidebar){
+            toggle.addEventListener('click', function(){
+                sidebar.classList.toggle('collapsed');
+                syncSidebarToggle();
+            });
+            syncSidebarToggle();
+        }
+    })();
+
+    var ctrlRepBackBtn = document.getElementById('ctrlRepBack');
+    if(ctrlRepBackBtn){
+        ctrlRepBackBtn.addEventListener('click',function(){
+            closeControlReparto();
+            if(typeof mostrarInicioSistema==='function') mostrarInicioSistema();
+        });
+    }
+    var ctrlRepRefreshBtn = document.getElementById('ctrlRepBtnRefresh');
+    if(ctrlRepRefreshBtn){
+        ctrlRepRefreshBtn.addEventListener('click',function(){cargarEntregas();renderActiveSection();});
+    }
+    // Auto-asig manual button removed from Pedidos; available only in Configuración.
 
     // ── SIDEBAR NAVIGATION ──
     // ── SECTION GROUPS — 1:1 para nueva barra lateral ──
@@ -37570,26 +37768,26 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     var SEC_RENDERS = {
         dashboard:renderDashboard,
-        pedidos:renderPedidos,
-        mapa:function(){},
+        pedidos:function(){renderPedidos();renderPedidosReagendados();},
+        mapa:function(){renderLocClientesList();},
         repartidores:renderRepartidoresSection,
         recoleccion:renderRecoleccion,
         alertas:renderAlertas
     };
     var currentGroup='dashboard';
 
-    var sidebarBtns = panel.querySelectorAll('.cr-sidebar-btn[data-cr-section]');
-    var sections = panel.querySelectorAll('.cr-section[data-cr-section]');
-    sidebarBtns.forEach(function(btn){
+    var sidebarBtns = panel ? panel.querySelectorAll('.cr-sidebar-btn[data-cr-section]') : [];
+    var sections = panel ? panel.querySelectorAll('.cr-section[data-cr-section]') : [];
+    Array.prototype.forEach.call(sidebarBtns,function(btn){
         btn.addEventListener('click',function(){
-            sidebarBtns.forEach(function(b){b.classList.remove('active');});
+            Array.prototype.forEach.call(sidebarBtns,function(b){b.classList.remove('active');});
             btn.classList.add('active');
             renderActiveSection();
         });
     });
 
     // ── Sub-tabs inline (Dashboard & Alertas) — handler unificado ──
-    panel.addEventListener('click',function(e){
+    if(panel) panel.addEventListener('click',function(e){
         var btn=e.target.closest('.cr-subtab[data-dash-tab],.cr-subtab[data-alertas-tab]');
         if(!btn) return;
         var isDash=!!btn.dataset.dashTab;
@@ -37602,12 +37800,11 @@ document.addEventListener('DOMContentLoaded', function() {
         var target=document.getElementById(prefix+tab);
         if(target) target.style.display='';
         // Render data for newly-visible Dashboard sub-tabs
-        if(isDash && tab==='reagendar') renderReagendamiento();
         if(!isDash && tab==='config'){renderAutoAsigZonas();renderPenRules();}
     });
 
     // ── Capa toggle buttons en el mapa ──
-    panel.addEventListener('click',function(e){
+    if(panel) panel.addEventListener('click',function(e){
         var btn=e.target.closest('.cr-mapa-capa');
         if(!btn) return;
         btn.classList.toggle('active');
@@ -37622,14 +37819,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function getActiveSection(){
+        if(!panel) return 'dashboard';
         var active = panel.querySelector('.cr-sidebar-btn.active');
         return active ? active.dataset.crSection : 'dashboard';
     }
 
     function renderActiveSection(){
+        if(!panel) return;
         var sec = getActiveSection();
         currentGroup = sec;
-        sections.forEach(function(s){ s.classList.remove('active'); s.style.display='none'; });
+        Array.prototype.forEach.call(sections,function(s){ s.classList.remove('active'); s.style.display='none'; });
         var el = panel.querySelector('.cr-section[data-cr-section="'+sec+'"]');
         if(el){ el.classList.add('active'); el.style.display=''; }
         if(SEC_RENDERS[sec]) SEC_RENDERS[sec]();
@@ -37671,9 +37870,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ── SIDEBAR RESUMEN ──
     function updateSidebarResumen(){
         var el=document.getElementById('crSidebarResumen');if(!el)return;
-        var reps=getReps().filter(function(r){return r.activo!==false;});
-        var sinA=allEntregas.filter(function(e){return!e.repartidorId&&e.estado!=='entregada';}).length;
-        el.innerHTML='<div>👥 '+reps.length+' repartidores</div><div>📦 '+allEntregas.length+' entregas</div><div>📬 '+sinA+' sin asignar</div>';
+        el.innerHTML='';
     }
 
     // ── DASHBOARD ──
@@ -37740,6 +37937,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if(fEstado==='recibido'&&(!e.recibidoPorRepartidor||e.estado==='entregada'))return false;
             if(fEstado==='en_camino'&&e.estado!=='en_camino')return false;
             if(fEstado==='entregada'&&e.estado!=='entregada')return false;
+            if(fEstado==='no_entregada'&&e.estado!=='no_entregada')return false;
             if(busq){var h=(e.folioProduccion||'').toUpperCase().indexOf(busq)>=0||(e.cliente||'').toUpperCase().indexOf(busq)>=0||(e.id||'').toUpperCase().indexOf(busq)>=0;if(!h)return false;}
             return true;
         });
@@ -37757,7 +37955,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 '<div style="display:flex;align-items:center;gap:8px;">'+
                     '<input type="checkbox" class="cr-ped-check" data-id="'+esc(e.id)+'"'+chk+' style="width:16px;height:16px;cursor:pointer;flex-shrink:0;">'+
                     '<div style="flex:1;">'+
-                        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">'+
+                        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;">'+
                             '<span style="font-weight:900;font-size:0.62rem;color:#0f172a;">'+esc(e.folioProduccion||e.id)+'</span>'+
                             '<span class="cr-badge" style="background:'+(estadoColors[est]||'#94a3b8')+'20;color:'+(estadoColors[est]||'#94a3b8')+';">'+(estadoIcos[est]||'')+ ' '+esc(est)+'</span>'+
                             (rep?'<span class="cr-badge" style="background:#eff6ff;color:#1e40af;">🚚 '+esc(rep.nombre)+'</span>':'<span class="cr-badge" style="background:#fef2f2;color:#dc2626;">⚠️ Sin asignar</span>')+
@@ -37767,7 +37965,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         (e.adeudo?'<div style="font-size:0.5rem;color:#ef4444;font-weight:700;">Adeudo: $'+esc(e.adeudo)+'</div>':'')+
                         (e.conceptoNoEntrega?'<div style="font-size:0.5rem;color:#f59e0b;font-weight:700;">📋 '+esc(e.conceptoNoEntrega)+'</div>':'')+
                     '</div>'+
-                    (e.repartidorId?'<button class="cr-btn danger" data-action="desasignar" data-id="'+esc(e.id)+'" style="font-size:0.45rem;">✕</button>':'')+
+                    '<div style="display:flex;gap:4px;align-items:center;">'+
+                    (!e.repartidorId?'<button class="cr-btn primary" data-action="asignar-uno" data-id="'+esc(e.id)+'" style="font-size:0.45rem;">Asignar</button>':'')+
+                    (e.repartidorId?'<button class="cr-btn danger" data-action="desasignar" data-id="'+esc(e.id)+'" style="font-size:0.45rem;">Quitar</button>':'')+
+                    '</div>'+
                 '</div>'+
             '</div>';
         }).join('');
@@ -37784,22 +37985,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         });
+        list.querySelectorAll('[data-action="asignar-uno"]').forEach(function(btn){
+            btn.addEventListener('click',function(){
+                var repId=(document.getElementById('ctrlRepAsignarA')||{}).value;
+                if(!repId){alert('Primero selecciona un repartidor en la barra azul');return;}
+                var rep=getReps().find(function(r){return r.id===repId;});
+                if(!rep){alert('Repartidor inválido');return;}
+                var id=btn.dataset.id;
+                var db=getCRDB();if(!db)return;
+                db.collection(ENT_COL).doc(id).update({repartidorId:rep.id,repartidorNombre:rep.nombre,estadoAsignacion:'asignado',fechaAsignacion:new Date().toISOString(),actualizadoEn:window.firebase.firestore.FieldValue.serverTimestamp()}).then(function(){
+                    crRepLimpiarRutaCerrada(rep.id);
+                    var e=allEntregas.find(function(x){return x.id===id;});if(e){e.repartidorId=rep.id;e.repartidorNombre=rep.nombre;}
+                    renderPedidos();renderDashboard();
+                }).catch(function(err){alert('Error: '+err.message);});
+            });
+        });
         updateAsignBar();
+        renderPedidosReagendados();
     }
 
     function updateAsignBar(){
-        var bar=document.getElementById('ctrlRepAsignacionBar');
         var count=Object.keys(selectedPedidos).filter(function(k){return selectedPedidos[k];}).length;
-        var cEl=document.getElementById('ctrlRepSelCount');if(cEl)cEl.textContent=count+' sel.';
-        if(bar)bar.style.display=count>0?'':'none';
+        var cEl=document.getElementById('ctrlRepSelCount');if(cEl)cEl.textContent=count+' seleccionados';
     }
 
     // Select all
     var btnSelAll=document.getElementById('ctrlRepBtnSelAll');
     if(btnSelAll)btnSelAll.addEventListener('click',function(){
         var checks=document.querySelectorAll('#ctrlRepPedidosList .cr-ped-check');
-        var allC=Array.from(checks).every(function(c){return c.checked;});
+        var allC=checks.length>0&&Array.from(checks).every(function(c){return c.checked;});
         checks.forEach(function(c){c.checked=!allC;selectedPedidos[c.dataset.id]=!allC;if(allC)delete selectedPedidos[c.dataset.id];});
+        btnSelAll.textContent=allC?'☑ Seleccionar todo':'☑ Quitar selección';
         updateAsignBar();
     });
 
@@ -37815,6 +38031,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var batch=db.batch();
         ids.forEach(function(id){batch.update(db.collection(ENT_COL).doc(id),{repartidorId:rep.id,repartidorNombre:rep.nombre,estadoAsignacion:'asignado',fechaAsignacion:new Date().toISOString(),actualizadoEn:window.firebase.firestore.FieldValue.serverTimestamp()});});
         batch.commit().then(function(){
+            crRepLimpiarRutaCerrada(rep.id);
             ids.forEach(function(id){var e=allEntregas.find(function(x){return x.id===id;});if(e){e.repartidorId=rep.id;e.repartidorNombre=rep.nombre;}});
             selectedPedidos={};renderPedidos();renderDashboard();
             alert('✅ '+ids.length+' pedido(s) asignados a '+rep.nombre);
@@ -37855,7 +38072,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var s=document.getElementById('crAutoAsigStatus');if(s)s.textContent='✅ Sin pedidos pendientes de asignación';return;
         }
         var reps=getReps().filter(function(r){return r.activo!==false;});if(!reps.length)return;
-        var batch=db.batch();var count=0;var repIdx=0;
+        var batch=db.batch();var count=0;var repIdx=0;var repsTocados={};
         sinAsignar.forEach(function(e){
             // Por zona si hay mapping, sino round-robin
             var repId=cfg.zonaRep[e.zona||''];
@@ -37867,9 +38084,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 estadoAsignacion:'asignado',fechaAsignacion:new Date().toISOString(),
                 actualizadoEn:window.firebase&&window.firebase.firestore?window.firebase.firestore.FieldValue.serverTimestamp():null
             });
+            repsTocados[rep.id]=true;
             e.repartidorId=rep.id;e.repartidorNombre=rep.nombre;count++;
         });
         batch.commit().then(function(){
+            Object.keys(repsTocados).forEach(function(rid){crRepLimpiarRutaCerrada(rid);});
             var s=document.getElementById('crAutoAsigStatus');
             if(s)s.textContent='✅ '+count+' pedidos asignados automáticamente — '+new Date().toLocaleTimeString();
             renderPedidos();renderDashboard();
@@ -37938,7 +38157,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var inp=document.getElementById('crConceptoNuevo');var tipo=(document.getElementById('crConceptoTipo')||{}).value||'otro';
         var nombre=(inp?inp.value:'').trim();if(!nombre)return;
         var c=getConceptos();c.push({nombre:nombre,tipo:tipo});saveConceptos(c);
-       
+        if(inp)inp.value='';
+        renderConceptos();
+    });
 
     // ── PENALIZACIONES AUTOMÁTICAS (reglas configurables) ──
     var PENRULES_KEY='cr_pen_rules';
@@ -37976,7 +38197,6 @@ document.addEventListener('DOMContentLoaded', function() {
         var inpD=document.getElementById('crPenReglaDesc');if(inpD)inpD.value='';
         var inpM=document.getElementById('crPenReglaMonto');if(inpM)inpM.value='';
         renderPenRules();
-    }); if(inp)inp.value='';renderConceptos();
     });
 
     // ── ZONAS ──
@@ -38045,46 +38265,422 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     })();
 
+    function crRepNum(v){return Number(v||0)||0;}
+    function crRepTs(v){
+        if(!v) return 0;
+        if(typeof v==='number') return v;
+        if(typeof v==='string'){ var n=Date.parse(v); return isNaN(n)?0:n; }
+        if(v&&typeof v.toDate==='function'){ try{return v.toDate().getTime();}catch(ex){return 0;} }
+        if(v&&typeof v.seconds==='number') return v.seconds*1000;
+        return 0;
+    }
+    function crRepFmtDateTime(v){
+        var t=crRepTs(v); if(!t) return '—';
+        return new Date(t).toLocaleString('es-MX',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    }
+    function crRepDur(ms){
+        if(!ms||ms<=0) return '—';
+        var m=Math.floor(ms/60000), h=Math.floor(m/60), r=m%60;
+        return (h?h+'h ':'')+r+'min';
+    }
+    function crRepSameDay(ts, base){
+        if(!ts||!base) return false;
+        var a=new Date(ts), b=new Date(base);
+        return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();
+    }
+    function crRepMontoPedido(e){
+        return crRepNum(e.totalVenta||e.total||e.montoTotal||e.importeTotal||e.subtotal||e.adeudo||0);
+    }
+    function crRepMetodoPago(e){
+        var m=(e.metodoPago||e.formaPago||e.tipoPago||e.fuentePago||e.metodoCobro||'EFECTIVO')+'';
+        m=m.toUpperCase();
+        if(m.indexOf('TRANSFER')>=0) return 'TRANSFERENCIA';
+        if(m.indexOf('DEPOS')>=0) return 'DEPOSITO';
+        if(m.indexOf('TARJ')>=0) return 'TARJETA';
+        return 'EFECTIVO';
+    }
+    function crRepVisitTs(e){
+        return crRepTs(e.visitaEn||e.visitaTs||e.llegadaClienteEn||e.llegadaClienteTs||e.entregadoEn||e.noEntregadoEn||e.actualizadoEn||0);
+    }
+    function crRepVisited(e){
+        if(e&&e.enRangoCliente===true) return true;
+        if(e&&e.visitaConfirmada===true) return true;
+        if(e&&e.llegadaClienteEn) return true;
+        if(e&&e.visitaEn) return true;
+        return e&& (e.estado==='entregada'||e.estado==='no_entregada');
+    }
+    function crRepHasSessionToday(rep){
+        var now=Date.now();
+        if(typeof _crRepGpsData!=='undefined'&&_crRepGpsData&&_crRepGpsData[rep.id]){
+            var rts=crRepTs(_crRepGpsData[rep.id].ts);
+            if(crRepSameDay(rts,now)) return true;
+        }
+        var checks=getChecks();
+        return checks.some(function(c){
+            var rid=(c.repId||c.repartidorId||'')+'';
+            var rnom=(c.repartidorNombre||c.nombre||'')+'';
+            var sameRep=(rid&&rid===rep.id)||(rnom&&rnom.toUpperCase()===(rep.nombre||'').toUpperCase());
+            if(!sameRep) return false;
+            var ts=crRepTs(c.fecha||c.ts||c.creadoEn||c.createdAt||c.hora||0);
+            return crRepSameDay(ts,now);
+        });
+    }
+
+    function crRepResumenRuta(rid){
+        var pedidos=allEntregas.filter(function(e){return e.repartidorId===rid;});
+        var met={EFECTIVO:0,TRANSFERENCIA:0,DEPOSITO:0,TARJETA:0};
+        var total=0, adeudos=0, entregadas=0, noEnt=0;
+        pedidos.forEach(function(e){
+            var m=crRepMetodoPago(e); var monto=crRepMontoPedido(e);
+            met[m]=(met[m]||0)+monto; total+=monto; adeudos+=crRepNum(e.adeudo);
+            if(e.estado==='entregada') entregadas++;
+            if(e.estado==='no_entregada') noEnt++;
+        });
+        var pendientes=pedidos.filter(function(e){return e.estado!=='entregada'&&e.estado!=='no_entregada';});
+        return {pedidos:pedidos,met:met,total:total,adeudos:adeudos,entregadas:entregadas,noEnt:noEnt,pendientes:pendientes};
+    }
+
+    function crRepBuildCierreHtml(rid,rn){
+        var data=crRepResumenRuta(rid);
+        return '<!doctype html><html><head><meta charset="utf-8"><title>Cierre de ruta '+esc(rn)+'</title></head><body style="font-family:Arial,sans-serif;padding:18px;">'+
+            '<h2 style="margin:0 0 8px;">Cierre de Ruta · '+esc(rn)+'</h2>'+
+            '<div style="font-size:13px;color:#555;margin-bottom:12px;">Fecha: '+new Date().toLocaleString('es-MX')+'</div>'+
+            '<div style="display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:8px;margin-bottom:12px;">'+
+                '<div style="border:1px solid #ddd;border-radius:8px;padding:8px;">Total ventas<br><strong>'+fmtMoney(data.total)+'</strong></div>'+
+                '<div style="border:1px solid #ddd;border-radius:8px;padding:8px;">Adeudos totales<br><strong>'+fmtMoney(data.adeudos)+'</strong></div>'+
+                '<div style="border:1px solid #ddd;border-radius:8px;padding:8px;">Pedidos<br><strong>'+data.pedidos.length+'</strong></div>'+
+            '</div>'+
+            '<h3 style="margin:10px 0 6px;">Desglose por método</h3>'+
+            '<table border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse;width:100%;font-size:12px;margin-bottom:12px;"><tbody>'+
+                '<tr><td>Efectivo</td><td>'+fmtMoney(data.met.EFECTIVO||0)+'</td></tr>'+
+                '<tr><td>Transferencia</td><td>'+fmtMoney(data.met.TRANSFERENCIA||0)+'</td></tr>'+
+                '<tr><td>Depósito</td><td>'+fmtMoney(data.met.DEPOSITO||0)+'</td></tr>'+
+                '<tr><td>Tarjeta</td><td>'+fmtMoney(data.met.TARJETA||0)+'</td></tr>'+
+            '</tbody></table>'+
+            '<div style="font-size:12px;color:#374151;">No entregado hoy y regresado a almacén: <strong>'+data.pendientes.length+'</strong></div>'+
+            '<scr'+'ipt>window.onload=function(){window.print();};<\/scr'+'ipt></body></html>';
+    }
+
+    function crRepOpenPrintDoc(title,html){
+        var w=window.open('','_blank');
+        if(!w){ alert('Habilita ventanas emergentes para imprimir.'); return; }
+        w.document.open();
+        w.document.write(html.replace('<title>', '<title>'+esc(title)+' '));
+        w.document.close();
+    }
+
+    function crRepDescargarPedidosEstado(rid,rn,estado,titulo){
+        var pedidos=allEntregas.filter(function(e){return e.repartidorId===rid&&e.estado===estado;});
+        var html='<!doctype html><html><head><meta charset="utf-8"><title>'+esc(titulo)+' '+esc(rn)+'</title></head><body style="font-family:Arial,sans-serif;padding:18px;">'+
+            '<h2 style="margin:0 0 8px;">'+esc(titulo)+' · '+esc(rn)+'</h2>'+
+            '<div style="margin-bottom:12px;font-size:13px;color:#555;">Generado: '+new Date().toLocaleString('es-MX')+'</div>'+
+            '<div style="margin-bottom:12px;padding:8px;border:1px solid #ddd;border-radius:8px;display:inline-block;">Total: <strong>'+pedidos.length+'</strong></div>'+
+            '<table border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse;width:100%;font-size:12px;">'+
+            '<thead><tr><th>Folio</th><th>Cliente</th><th>Producto</th><th>Cant</th><th>Total</th><th>Adeudo</th></tr></thead><tbody>'+
+            pedidos.map(function(e){
+                return '<tr><td>'+esc(e.folioProduccion||e.id)+'</td><td>'+esc(e.cliente||'—')+'</td><td>'+esc(e.producto||'—')+'</td><td>'+esc(e.cantidad||'—')+'</td><td>'+esc(fmtMoney(crRepMontoPedido(e)))+'</td><td>'+esc(fmtMoney(crRepNum(e.adeudo)))+'</td></tr>';
+            }).join('')+
+            '</tbody></table>'+
+            '<scr'+'ipt>window.onload=function(){window.print();};<\/scr'+'ipt></body></html>';
+        crRepOpenPrintDoc(titulo,html);
+    }
+
+    function crRepAbrirInventario(rid,rn){
+        var fp=document.getElementById('crRepFsPanel');
+        var title=document.getElementById('crRepFsTitle');
+        var subtitle=document.getElementById('crRepFsSubtitle');
+        var body=document.getElementById('crRepFsBody');
+        if(!fp||!title||!subtitle||!body) return;
+        title.textContent='Inventario de '+rn;
+        subtitle.textContent='Carga actual asignada al repartidor';
+        crRepRenderInv(rid,body);
+        fp.classList.add('cr-fs-open');
+    }
+
+    function crRepAbrirUbicacion(rid,rn){
+        var fp=document.getElementById('crRepFsPanel');
+        var title=document.getElementById('crRepFsTitle');
+        var subtitle=document.getElementById('crRepFsSubtitle');
+        var body=document.getElementById('crRepFsBody');
+        if(!fp||!title||!subtitle||!body) return;
+        var rep=(typeof _crRepGpsData!=='undefined'&&_crRepGpsData)?_crRepGpsData[rid]:null;
+        title.textContent='Ubicación en tiempo real · '+rn;
+        subtitle.textContent=rep&&rep.ts ? 'Última actualización: '+new Date(crRepTs(rep.ts)).toLocaleString('es-MX',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}) : 'Sin ubicación GPS reportada';
+        body.innerHTML=''+
+            '<div style="display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px;margin-bottom:12px;">'+
+                '<div class="cr-stat"><div class="val" style="color:#2563eb;font-size:1rem;">'+esc(rep&&rep.lat?Number(rep.lat).toFixed(5):'—')+'</div><div class="lbl">Latitud</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#0f766e;font-size:1rem;">'+esc(rep&&rep.lng?Number(rep.lng).toFixed(5):'—')+'</div><div class="lbl">Longitud</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#7c3aed;font-size:1rem;">'+esc(rep&&rep.pedidosAsignados!=null?rep.pedidosAsignados:'0')+'</div><div class="lbl">Asignados</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#16a34a;font-size:1rem;">'+esc(rep&&rep.pedidosEntregados!=null?rep.pedidosEntregados:'0')+'</div><div class="lbl">Entregados</div></div>'+
+            '</div>'+
+            '<div id="crRepLiveMap" style="height:58vh;border:1px solid #dbeafe;border-radius:12px;background:#e2e8f0;"></div>'+
+            (!(rep&&rep.lat&&rep.lng)?'<div style="margin-top:10px;text-align:center;color:#94a3b8;font-size:0.55rem;">Este repartidor no tiene coordenadas GPS disponibles en este momento.</div>':'');
+        fp.classList.add('cr-fs-open');
+        setTimeout(function(){
+            if(typeof L==='undefined') return;
+            var mapEl=document.getElementById('crRepLiveMap');
+            if(!mapEl) return;
+            if(window._crRepLiveMap){ try{ window._crRepLiveMap.remove(); }catch(ex){} window._crRepLiveMap=null; }
+            if(!(rep&&rep.lat&&rep.lng)) return;
+            window._crRepLiveMap=L.map(mapEl,{zoomControl:true,attributionControl:false}).setView([rep.lat,rep.lng],16);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(window._crRepLiveMap);
+            var popup='<div class="cr-mapa-popup">'+
+                '<h4>📍 '+esc(rn)+'</h4>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">Última actualiz.</span><span class="cr-pop-val">'+(rep.ts?new Date(crRepTs(rep.ts)).toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}):'—')+'</span></div>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">Pedidos asignados</span><span class="cr-pop-val">'+esc(rep.pedidosAsignados||0)+'</span></div>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">Entregados</span><span class="cr-pop-val" style="color:#10b981;font-weight:900;">'+esc(rep.pedidosEntregados||0)+'</span></div>'+
+                (rep.zona?'<div class="cr-pop-row"><span class="cr-pop-label">Zona</span><span class="cr-pop-val">'+esc(rep.zona)+'</span></div>':'')+
+                '</div>';
+            L.marker([rep.lat,rep.lng]).addTo(window._crRepLiveMap).bindPopup(popup).openPopup();
+            if(rep.historial&&rep.historial.length>1){
+                var pts=rep.historial.filter(function(p){return p&&p.lat&&p.lng;}).map(function(p){return [p.lat,p.lng];});
+                if(pts.length>1){ L.polyline(pts,{color:'#2563eb',weight:4,opacity:0.75}).addTo(window._crRepLiveMap); }
+            }
+        },80);
+    }
+
+    function crRepCerrarMenusDescarga(){
+        Array.prototype.forEach.call(document.querySelectorAll('.cr-rep-download-menu'),function(menu){menu.style.display='none';});
+    }
+
+    if(!window._crRepMenusBound){
+        window._crRepMenusBound=true;
+        document.addEventListener('click',function(){ crRepCerrarMenusDescarga(); });
+    }
+
+    function crRepDescargarCargaInicial(rid,rn){
+        var pedidos=allEntregas.filter(function(e){return e.repartidorId===rid;});
+        var total=pedidos.reduce(function(s,e){return s+crRepMontoPedido(e);},0);
+        var adeudos=pedidos.reduce(function(s,e){return s+crRepNum(e.adeudo);},0);
+        var rows=pedidos.map(function(e){
+            return '<tr><td>'+esc(e.folioProduccion||e.id)+'</td><td>'+esc(e.cliente||'—')+'</td><td>'+esc(e.producto||'—')+'</td><td>'+esc(e.cantidad||'—')+'</td><td>'+esc(crRepFmtDateTime(e.fechaAsignacion||e.actualizadoEn))+'</td><td>'+esc(e.asignadoPorNombre||e.creadoPor||e.usuario||'Sistema')+'</td><td>'+esc(fmtMoney(crRepMontoPedido(e)))+'</td><td>'+esc(fmtMoney(crRepNum(e.adeudo)))+'</td></tr>';
+        }).join('');
+        var html='<!doctype html><html><head><meta charset="utf-8"><title>Carga inicial '+esc(rn)+'</title></head><body style="font-family:Arial,sans-serif;padding:18px;">'+
+            '<h2 style="margin:0 0 8px;">Carga Inicial · '+esc(rn)+'</h2>'+
+            '<div style="margin-bottom:12px;font-size:13px;color:#555;">Generado: '+new Date().toLocaleString('es-MX')+'</div>'+
+            '<div style="display:flex;gap:12px;margin-bottom:12px;">'+
+              '<div style="padding:8px;border:1px solid #ddd;border-radius:8px;">Total ventas: <strong>'+fmtMoney(total)+'</strong></div>'+
+              '<div style="padding:8px;border:1px solid #ddd;border-radius:8px;">Adeudos: <strong>'+fmtMoney(adeudos)+'</strong></div>'+
+              '<div style="padding:8px;border:1px solid #ddd;border-radius:8px;">Pedidos: <strong>'+pedidos.length+'</strong></div>'+
+            '</div>'+
+            '<table border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse;width:100%;font-size:12px;">'+
+              '<thead><tr><th>Folio</th><th>Cliente</th><th>Producto</th><th>Cant</th><th>Asignado</th><th>Asignó</th><th>Total</th><th>Adeudo</th></tr></thead><tbody>'+rows+
+              '</tbody></table>'+
+            '<script>window.onload=function(){window.print();}<\/script></body></html>';
+        var w=window.open('','_blank');
+        if(!w){ alert('Habilita ventanas emergentes para imprimir la carga.'); return; }
+        w.document.open(); w.document.write(html); w.document.close();
+    }
+
+    function crRepAsignarMas(rid){
+        var sb=panel?panel.querySelector('.cr-sidebar-btn[data-cr-section="pedidos"]'):null;
+        if(sb){
+            Array.prototype.forEach.call(panel.querySelectorAll('.cr-sidebar-btn[data-cr-section]'),function(b){b.classList.remove('active');});
+            sb.classList.add('active');
+        }
+        var sel=document.getElementById('ctrlRepAsignarA');
+        if(sel) sel.value=rid;
+        renderActiveSection();
+        if(sel&&typeof sel.scrollIntoView==='function') sel.scrollIntoView({behavior:'smooth',block:'center'});
+    }
+
+    function crRepCerrarRuta(rid,rn){
+        var pedidos=allEntregas.filter(function(e){return e.repartidorId===rid;});
+        if(!pedidos.length){alert('Este repartidor no tiene pedidos asignados.');return;}
+        var resumen=crRepResumenRuta(rid);
+        var entregadas=resumen.entregadas, noEnt=resumen.noEnt, pendientes=resumen.pendientes;
+        var confirmar='Cerrar ruta de '+rn+'?\n\nEntregadas: '+entregadas+'\nNo entregadas: '+noEnt+'\nPendientes por devolver: '+pendientes.length;
+        if(!confirm(confirmar)) return;
+
+        var db=getCRDB();
+        var done=function(){
+            crRepMarcarRutaCerrada(rid,{repNombre:rn,pedidos:resumen.pedidos.length,entregadas:entregadas,noEnt:noEnt,pendientes:pendientes.length});
+            crRepOpenPrintDoc('Cierre de ruta',crRepBuildCierreHtml(rid,rn));
+            renderRepartidoresSection();
+            renderPedidos();
+            renderDashboard();
+        };
+
+        if(!db){ done(); return; }
+        var maniana=new Date(); maniana.setDate(maniana.getDate()+1);
+        var fechaManiana=maniana.toISOString().slice(0,10);
+        var batch=db.batch();
+        pendientes.forEach(function(e){
+            batch.update(db.collection(ENT_COL).doc(e.id),{
+                estado:'no_entregada',
+                conceptoNoEntrega:e.conceptoNoEntrega||'Retorno a almacén al cierre de ruta',
+                devueltoAlmacen:true,
+                fechaReagendada:fechaManiana,
+                cerradoRutaEn:new Date().toISOString(),
+                actualizadoEn:window.firebase&&window.firebase.firestore?window.firebase.firestore.FieldValue.serverTimestamp():null
+            });
+        });
+        batch.commit().then(function(){
+            var adds=pendientes.map(function(e){
+                return db.collection('stored_orders').add({
+                    origen:'retorno_ruta',
+                    sourceDeliveryId:e.id,
+                    folioProduccion:e.folioProduccion||e.id,
+                    cliente:e.cliente||'',
+                    producto:e.producto||'',
+                    cantidad:e.cantidad||0,
+                    zona:e.zona||'',
+                    estado:'en_sucursal',
+                    regresoAlmacen:true,
+                    fechaReintento:fechaManiana,
+                    repartidorId:rid,
+                    repartidorNombre:rn,
+                    creadoEn:window.firebase&&window.firebase.firestore?window.firebase.firestore.FieldValue.serverTimestamp():new Date().toISOString(),
+                    actualizadoEn:window.firebase&&window.firebase.firestore?window.firebase.firestore.FieldValue.serverTimestamp():new Date().toISOString()
+                }).catch(function(){return null;});
+            });
+            Promise.all(adds).then(done).catch(done);
+        }).catch(function(err){
+            alert('Error al cerrar ruta: '+err.message);
+        });
+    }
+
     function renderRepartidoresSection(){
         var container=document.getElementById('configRepartidoresLista');if(!container)return;
         var reps=getReps();
-        if(!reps.length){container.innerHTML='<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">Sin repartidores. Usa el botón + Nuevo para agregar.</div>';return;}
-        container.innerHTML=reps.map(function(r,i){
-            var pend=allEntregas.filter(function(e){return e.repartidorId===r.id&&e.estado!=='entregada'&&e.estado!=='no_entregada';}).length;
-            return '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;transition:box-shadow 0.15s;" onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.07)\'" onmouseout="this.style.boxShadow=\'none\'">'+
-                '<div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.65rem;flex-shrink:0;">'+esc(r.nombre.charAt(0).toUpperCase())+'</div>'+
-                '<div style="flex:1;min-width:0;">'+
-                    '<div style="font-size:0.62rem;font-weight:800;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+esc(r.nombre)+'</div>'+
-                    '<div style="font-size:0.46rem;color:#64748b;">📱 '+esc(r.telefono||'—')+' · 🏷 '+esc(r.zona||'Sin zona')+(pend?' · <span style="color:#f59e0b;font-weight:700;">'+pend+' pendientes</span>':'')+'</div>'+
-                '</div>'+
-                '<div style="display:flex;gap:4px;flex-shrink:0;">'+
-                    '<button class="cr-ico-btn" data-ra="inv"     data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="Inventario / Carga asignada">📦</button>'+
-                    '<button class="cr-ico-btn" data-ra="asignar" data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="Asignar pedidos">🚚</button>'+
-                    '<button class="cr-ico-btn" data-ra="kpi"     data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="KPIs & Rendimiento">📊</button>'+
-                    '<button class="cr-ico-btn" data-ra="pen"     data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="Penalizaciones">⚠️</button>'+
-                    '<button class="cr-ico-btn danger" data-ra="del" data-ridx="'+i+'" data-rn="'+esc(r.nombre)+'" title="Eliminar repartidor">🗑</button>'+
-                '</div>'+
+        if(!reps.length){container.innerHTML='<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">Sin repartidores configurados.</div>';return;}
+        var now=Date.now();
+        var buscar=((document.getElementById('crRepFiltroBuscar')||{}).value||'').trim().toUpperCase();
+        var dateRange=crRepGetDateRange();
+        var html=reps.map(function(r){
+            var nombre=r.nombre||'Sin nombre';
+            var foto=r.fotoUrl||r.foto||r.avatarUrl||r.imagen||'';
+            var cerrada=crRepRutaCerrada(r.id);
+            var pedidosRep=allEntregas.filter(function(e){return e.repartidorId===r.id;});
+            var pedidosHoy=pedidosRep.filter(function(e){return crRepSameDay(crRepTs(e.fechaAsignacion||e.creadoEn||e.actualizadoEn),now);});
+            if(!pedidosHoy.length) pedidosHoy=pedidosRep;
+            if(dateRange) pedidosHoy=pedidosHoy.filter(function(e){return crRepDateHit(e,dateRange);});
+            var hayTexto=!buscar||nombre.toUpperCase().indexOf(buscar)>=0||String(r.zona||'').toUpperCase().indexOf(buscar)>=0||String(r.telefono||'').toUpperCase().indexOf(buscar)>=0;
+            if(!hayTexto && !pedidosHoy.length) return '';
+
+            var cargaTotal=pedidosHoy.reduce(function(s,e){return s+crRepMontoPedido(e);},0);
+            var adeudosTotal=pedidosHoy.reduce(function(s,e){return s+crRepNum(e.adeudo);},0);
+            var asigHoy=pedidosHoy.length;
+            var entregadasHoy=pedidosHoy.filter(function(e){return e.estado==='entregada';}).length;
+            var effVisPct=asigHoy?Math.round((entregadasHoy/asigHoy)*100):0;
+
+            var visitadasHoy=pedidosHoy.filter(function(e){return crRepVisited(e);}).length;
+            var effCumPct=asigHoy?Math.round((visitadasHoy/asigHoy)*100):0;
+
+            var visitTs=pedidosHoy.map(crRepVisitTs).filter(function(t){return t>0;}).sort(function(a,b){return a-b;});
+            var firstV=visitTs.length?visitTs[0]:0;
+            var lastV=visitTs.length?visitTs[visitTs.length-1]:0;
+            var dur=(firstV&&lastV&&lastV>=firstV)?(lastV-firstV):0;
+
+            var sesion=crRepHasSessionToday(r);
+            var sesionBg=sesion?'#f3f4f6':'#fee2e2';
+            var sesionCol=sesion?'#4b5563':'#b91c1c';
+            var sesionTxt=sesion?'Sesión iniciada':'Sin iniciar sesión';
+
+            var fotoHtml=foto?'<img src="'+esc(foto)+'" alt="'+esc(nombre)+'" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #dbeafe;flex-shrink:0;" onerror="this.style.display=\'none\'">'
+                :'<div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.85rem;flex-shrink:0;">'+esc(nombre.charAt(0).toUpperCase())+'</div>';
+
+            var SEP1='<span style="color:#cbd5e1;padding:0 10px;font-size:0.95rem;align-self:center;line-height:1;">|</span>';
+            var SEP2='<span style="color:#e2e8f0;padding:0 10px;font-size:0.85rem;align-self:center;line-height:1;">|</span>';
+            var disabledStyle='opacity:0.45;cursor:not-allowed;pointer-events:none;';
+            var rowBg=cerrada?'#f1f5f9':'#f0fdf4';
+            var rowBorder=cerrada?'#cbd5e1':'#bbf7d0';
+            var rowGlow=cerrada?'rgba(100,116,139,0.10)':'rgba(34,197,94,0.10)';
+            var menuHtml='<div class="cr-rep-download-menu" style="display:none;position:absolute;right:0;top:42px;min-width:230px;background:#fff;border:1px solid #dbeafe;border-radius:8px;box-shadow:0 10px 24px rgba(15,23,42,0.14);padding:6px;z-index:30;">'+
+                '<button class="cr-btn" data-rq="menu-inicial" data-rid="'+esc(r.id)+'" data-rn="'+esc(nombre)+'" style="width:100%;justify-content:flex-start;background:#fff;border:1px solid #e2e8f0;color:#0f172a;font-size:0.5rem;margin:0 0 4px 0;">⬇ Descargar inventario inicial</button>'+
+                '<button class="cr-btn" data-rq="menu-cierre" data-rid="'+esc(r.id)+'" data-rn="'+esc(nombre)+'" style="width:100%;justify-content:flex-start;background:#fff;border:1px solid #e2e8f0;color:#0f172a;font-size:0.5rem;margin:0 0 4px 0;">🧾 Exportar cierre de ruta</button>'+
+                '<button class="cr-btn" data-rq="menu-noent" data-rid="'+esc(r.id)+'" data-rn="'+esc(nombre)+'" style="width:100%;justify-content:flex-start;background:#fff;border:1px solid #e2e8f0;color:#0f172a;font-size:0.5rem;margin:0 0 4px 0;">📦 Descargar pedidos no entregados</button>'+
+                '<button class="cr-btn" data-rq="menu-ent" data-rid="'+esc(r.id)+'" data-rn="'+esc(nombre)+'" style="width:100%;justify-content:flex-start;background:#fff;border:1px solid #e2e8f0;color:#0f172a;font-size:0.5rem;">✅ Descargar pedidos entregados</button>'+
             '</div>';
-        }).join('');
-        container.querySelectorAll('[data-ra]').forEach(function(btn){
-            btn.addEventListener('click',function(){
-                var ra=btn.dataset.ra,rid=btn.dataset.rid,rn=btn.dataset.rn,ridx=parseInt(btn.dataset.ridx||0);
-                var reps2=getReps();
-                if(ra==='del'){if(!confirm('¿Eliminar "'+rn+'"?'))return;reps2.splice(ridx,1);saveReps(reps2);renderRepartidoresSection();populateRepSelects();return;}
-                var fsPanel=document.getElementById('crRepFsPanel');
-                var fsTitle=document.getElementById('crRepFsTitle');
-                var fsSub=document.getElementById('crRepFsSubtitle');
-                var fsBody=document.getElementById('crRepFsBody');
-                if(!fsPanel||!fsTitle||!fsBody)return;
-                var icons={inv:'📦',asignar:'🚚',kpi:'📊',pen:'⚠️'};
-                var labels={inv:'Inventario / Carga',asignar:'Asignar pedidos',kpi:'KPIs & Rendimiento',pen:'Penalizaciones'};
-                fsTitle.textContent=(icons[ra]||'')+' '+(labels[ra]||ra);
-                if(fsSub)fsSub.textContent='Repartidor: '+rn;
-                fsPanel.classList.add('cr-fs-open');
-                if(ra==='inv')         crRepRenderInv(rid,fsBody);
-                else if(ra==='asignar')crRepRenderAsignar(rid,rn,fsBody);
-                else if(ra==='kpi')    crRepRenderKpi(rid,fsBody);
-                else if(ra==='pen')    crRepRenderPen(rid,rn,fsBody);
+
+            var html_line=
+            '<div style="padding:10px 14px;background:'+rowBg+';border:1px solid '+rowBorder+';border-radius:10px;transition:box-shadow 0.15s, border-color 0.15s;box-shadow:inset 3px 0 0 '+(cerrada?'#94a3b8':'#22c55e')+';" onmouseover="this.style.boxShadow=\'inset 3px 0 0 '+(cerrada?'#94a3b8':'#22c55e')+',0 2px 10px '+rowGlow+'\'" onmouseout="this.style.boxShadow=\'inset 3px 0 0 '+(cerrada?'#94a3b8':'#22c55e')+'\'">'+
+
+                // ── FILA 1: Foto · Nombre/sesión · métricas · botones ──
+                '<div style="display:flex;align-items:center;gap:14px;">'+
+                    fotoHtml+
+                    // Nombre + sesión + zona
+                    '<div style="flex-shrink:0;min-width:145px;max-width:180px;">'+
+                        '<div style="font-size:0.8rem;font-weight:900;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+esc(nombre)+'</div>'+
+                        '<div style="display:flex;gap:4px;align-items:center;margin-top:3px;flex-wrap:wrap;">'+
+                            '<span style="padding:2px 7px;border-radius:999px;background:'+sesionBg+';color:'+sesionCol+';font-size:0.49rem;font-weight:800;white-space:nowrap;">'+sesionTxt+'</span>'+
+                        '</div>'+
+                        '<div style="font-size:0.46rem;color:'+(cerrada?'#64748b':'#16a34a')+';margin-top:2px;white-space:nowrap;">'+(cerrada?'⚫':'🟢')+' Ruta '+(cerrada?'cerrada':'abierta')+' · 🏷 '+esc(r.zona||'Sin zona')+'</div>'+
+                    '</div>'+
+                    // Separador izq
+                    '<div style="width:1px;height:42px;background:#e2e8f0;flex-shrink:0;"></div>'+
+                    // Métricas inline (CARGA | ADEUDOS | EF.VENTAS | EF.CUMPLIMIENTO)
+                    '<div style="display:flex;align-items:center;flex:1;min-width:0;">'+
+                        '<div style="display:flex;flex-direction:column;gap:2px;padding:0 14px;min-width:0;">'+
+                            '<span style="font-size:0.48rem;color:#64748b;font-weight:700;white-space:nowrap;text-transform:uppercase;">Carga</span>'+
+                            '<span style="font-size:0.86rem;font-weight:900;color:#1e40af;white-space:nowrap;">'+fmtMoney(cargaTotal)+'</span>'+
+                        '</div>'+SEP1+
+                        '<div style="display:flex;flex-direction:column;gap:2px;padding:0 14px;min-width:0;">'+
+                            '<span style="font-size:0.48rem;color:#64748b;font-weight:700;white-space:nowrap;text-transform:uppercase;">Adeudos</span>'+
+                            '<span style="font-size:0.86rem;font-weight:900;color:#dc2626;white-space:nowrap;">'+fmtMoney(adeudosTotal)+'</span>'+
+                        '</div>'+SEP1+
+                        '<div style="display:flex;flex-direction:column;gap:2px;padding:0 14px;min-width:0;">'+
+                            '<span style="font-size:0.48rem;color:#64748b;font-weight:700;white-space:nowrap;text-transform:uppercase;">Ef. Ventas</span>'+
+                            '<span style="font-size:0.86rem;font-weight:900;color:#0f172a;white-space:nowrap;">'+entregadasHoy+'/'+asigHoy+' <span style="color:#16a34a;font-size:0.77rem;">'+effVisPct+'%</span></span>'+
+                        '</div>'+SEP1+
+                        '<div style="display:flex;flex-direction:column;gap:2px;padding:0 14px;min-width:0;">'+
+                            '<span style="font-size:0.48rem;color:#64748b;font-weight:700;white-space:nowrap;text-transform:uppercase;">Ef. Cumplimiento</span>'+
+                            '<span style="font-size:0.86rem;font-weight:900;color:#0f172a;white-space:nowrap;">'+visitadasHoy+'/'+asigHoy+' <span style="color:#7c3aed;font-size:0.77rem;">'+effCumPct+'%</span></span>'+
+                        '</div>'+
+                    '</div>'+
+                    // Botones cuadrados icono
+                    '<div style="display:flex;gap:6px;flex-shrink:0;margin-left:10px;">'+
+                            '<button class="cr-btn" data-rq="inv" data-rid="'+esc(r.id)+'" data-rn="'+esc(nombre)+'" title="Ver inventario" style="width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;font-size:1.05rem;background:#f8fafc;color:#0f172a;border:1px solid #cbd5e1;border-radius:7px;flex-shrink:0;'+(cerrada?disabledStyle:'cursor:pointer;')+'">📦</button>'+
+                        '<button class="cr-btn" data-rq="ubicacion" data-rid="'+esc(r.id)+'" data-rn="'+esc(nombre)+'" title="Ubicación en tiempo real" style="width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;font-size:1.05rem;background:#eef2ff;color:#4338ca;border:1px solid #c7d2fe;border-radius:7px;flex-shrink:0;'+(cerrada?disabledStyle:'cursor:pointer;')+'">📍</button>'+
+                            '<div style="position:relative;">'+
+                                '<button class="cr-btn" data-rq="descarga" data-rid="'+esc(r.id)+'" data-rn="'+esc(nombre)+'" title="Descargas" style="width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;font-size:1.05rem;background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;border-radius:7px;cursor:pointer;flex-shrink:0;">⬇</button>'+
+                                menuHtml+
+                            '</div>'+
+                            '<button class="cr-btn" data-rq="mas" data-rid="'+esc(r.id)+'" title="Asignar más pedidos" style="width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;font-size:1.05rem;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;border-radius:7px;flex-shrink:0;'+(cerrada?disabledStyle:'cursor:pointer;')+'">＋</button>'+
+                            '<button class="cr-btn" data-rq="cerrar" data-rid="'+esc(r.id)+'" data-rn="'+esc(nombre)+'" title="Cerrar ruta" style="width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;font-size:1.05rem;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:7px;flex-shrink:0;'+(cerrada?disabledStyle:'cursor:pointer;')+'">🧾</button>'+
+                    '</div>'+
+                '</div>'+
+
+                // ── FILA 2: línea continua horizontal ──
+                '<div style="display:flex;align-items:center;flex-wrap:wrap;margin-top:9px;padding-top:8px;border-top:1px dashed #e2e8f0;padding-left:58px;gap:0;font-size:0.64rem;color:#334155;">'+
+                    '<span style="font-weight:800;color:#94a3b8;white-space:nowrap;">Inicio de visita:</span>'+
+                    '<span style="font-weight:700;color:#334155;white-space:nowrap;margin-left:6px;">⏱ '+esc(crRepFmtDateTime(firstV))+'</span>'+
+                    SEP2+
+                    '<span style="font-weight:800;color:#94a3b8;white-space:nowrap;">Fin de visita:</span>'+
+                    '<span style="font-weight:700;color:#334155;white-space:nowrap;margin-left:6px;">🏁 '+esc(crRepFmtDateTime(lastV))+'</span>'+
+                    SEP2+
+                    '<span style="font-weight:800;color:#94a3b8;white-space:nowrap;">Tiempo transcurrido:</span>'+
+                    '<span style="font-weight:900;color:#334155;white-space:nowrap;margin-left:6px;">⏳ '+esc(crRepDur(dur))+'</span>'+
+                    (cerrada?'<span style="margin-left:auto;display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#e5e7eb;color:#4b5563;font-size:0.46rem;font-weight:900;letter-spacing:0.04em;">CERRADA</span>':'')+
+                '</div>'+
+
+            '</div>';
+            return html_line;
+        }).filter(Boolean).join('');
+        if(!html){ html='<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">No hay rutas que coincidan con los filtros.</div>'; }
+        
+        container.innerHTML=html;
+
+        container.querySelectorAll('[data-rq]').forEach(function(btn){
+            btn.addEventListener('click',function(evt){
+                evt.preventDefault();evt.stopPropagation();
+                var q=btn.dataset.rq, rid=btn.dataset.rid, rn=btn.dataset.rn||'';
+                if(btn.disabled) return;
+                if(q!=='descarga') crRepCerrarMenusDescarga();
+                if(q==='inv') crRepAbrirInventario(rid,rn);
+                else if(q==='ubicacion') crRepAbrirUbicacion(rid,rn);
+                else if(q==='descarga'){
+                    var menu=btn.parentNode?btn.parentNode.querySelector('.cr-rep-download-menu'):null;
+                    var willOpen=!!menu&&menu.style.display!=='block';
+                    crRepCerrarMenusDescarga();
+                    if(menu&&willOpen) menu.style.display='block';
+                }
+                else if(q==='menu-inicial') crRepDescargarCargaInicial(rid,rn);
+                else if(q==='menu-cierre') crRepOpenPrintDoc('Cierre de ruta',crRepBuildCierreHtml(rid,rn));
+                else if(q==='menu-noent') crRepDescargarPedidosEstado(rid,rn,'no_entregada','Pedidos no entregados');
+                else if(q==='menu-ent') crRepDescargarPedidosEstado(rid,rn,'entregada','Pedidos entregados');
+                else if(q==='mas') crRepAsignarMas(rid);
+                else if(q==='cerrar') crRepCerrarRuta(rid,rn);
             });
         });
     }
@@ -38108,135 +38704,272 @@ document.addEventListener('DOMContentLoaded', function() {
     var _btnCancelarAlta=document.getElementById('crRepCancelarAlta');
     if(_btnMostrarAlta)_btnMostrarAlta.addEventListener('click',function(){if(_formAlta)_formAlta.style.display='block';});
     if(_btnCancelarAlta)_btnCancelarAlta.addEventListener('click',function(){if(_formAlta)_formAlta.style.display='none';});
-    // Close action panel
-    var _btnCerrarAcc=document.getElementById('crRepAccionCerrar');
-    if(_btnCerrarAcc)_btnCerrarAcc.addEventListener('click',function(){
-        var p=document.getElementById('crRepAccionPanel');if(p)p.style.display='none';
-        document.querySelectorAll('#configRepartidoresLista .cr-ico-btn.active').forEach(function(b){b.classList.remove('active');});
+    var _crRepFiltroBuscar=document.getElementById('crRepFiltroBuscar');
+    if(_crRepFiltroBuscar)_crRepFiltroBuscar.addEventListener('input',renderRepartidoresSection);
+    var _crRepFechaBtn=document.getElementById('crRepFechaCalBtn');
+    var _crRepCalPopup=document.getElementById('crRepCalPopup');
+    var _crRepCalCerrar=document.getElementById('crRepCalCerrar');
+    var _crRepCalAceptar=document.getElementById('crRepCalAceptar');
+    var _crRepCalLimpiar=document.getElementById('crRepCalLimpiar');
+    if(_crRepFechaBtn)_crRepFechaBtn.addEventListener('click',function(ev){ ev.preventDefault(); ev.stopPropagation(); crRepOpenCalPopup(_crRepFechaBtn); });
+    if(_crRepCalCerrar)_crRepCalCerrar.addEventListener('click',crRepCloseCalPopup);
+    if(_crRepCalAceptar)_crRepCalAceptar.addEventListener('click',crRepApplyCalRange);
+    if(_crRepCalLimpiar)_crRepCalLimpiar.addEventListener('click',function(){
+        crRepCalRangeStart=null; crRepCalRangeEnd=null;
+        ['crRepFiltroFechaDesde','crRepFiltroFechaHasta','crRepFiltroFechaRapido'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+        crRepUpdateFechaLabel('Todas las fechas',false);
+        crRepCloseCalPopup();
+        renderRepartidoresSection();
     });
-
-    // ── PANEL ACCIÓN REPARTIDOR: helpers ──
+    Array.prototype.forEach.call(document.querySelectorAll('#crRepCalPopup .cr-rep-cal-quick'),function(btn){
+        btn.addEventListener('click',function(){ crRepApplyQuickRange(btn.dataset.q||''); });
+    });
+    document.addEventListener('click',function(ev){
+        if(_crRepCalPopup&&_crRepCalPopup.style.display==='block'&&(!_crRepCalPopup.contains(ev.target))&&ev.target!==_crRepFechaBtn) crRepCloseCalPopup();
+    });
+    document.addEventListener('keydown',function(ev){ if(ev.key==='Escape') crRepCloseCalPopup(); });
+    // ── PANEL ACCIÓN REPARTIDOR: helpers (fullscreen) ──
     function crRepRenderInv(rid,cuerpo){
         var pedidos=allEntregas.filter(function(e){return e.repartidorId===rid;});
-        var carg=pedidos.length,
-            ent=pedidos.filter(function(e){return e.estado==='entregada';}).length,
-            pend=pedidos.filter(function(e){return e.estado!=='entregada'&&e.estado!=='no_entregada';}).length,
-            dev=pedidos.filter(function(e){return e.estado==='no_entregada';}).length;
+        var carg=pedidos.length;
+        var ent=pedidos.filter(function(e){return e.estado==='entregada';}).length;
+        var pend=pedidos.filter(function(e){return e.estado!=='entregada'&&e.estado!=='no_entregada';}).length;
+        var dev=pedidos.filter(function(e){return e.estado==='no_entregada';}).length;
+        var adeudo=pedidos.reduce(function(s,e){return s+Number(e.adeudo||0);},0);
         var stC={pendiente:'#f59e0b',en_camino:'#3b82f6',entregada:'#10b981',no_entregada:'#ef4444'};
+        var lista=pedidos.slice(0,50);
         cuerpo.innerHTML=
-            '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;">'+
-                '<div class="cr-stat"><div class="val" style="color:#3b82f6;font-size:1.1rem;">'+carg+'</div><div class="lbl">Cargados</div></div>'+
-                '<div class="cr-stat"><div class="val" style="color:#10b981;font-size:1.1rem;">'+ent+'</div><div class="lbl">Entregados</div></div>'+
-                '<div class="cr-stat"><div class="val" style="color:#f59e0b;font-size:1.1rem;">'+pend+'</div><div class="lbl">Pendientes</div></div>'+
-                '<div class="cr-stat"><div class="val" style="color:#ef4444;font-size:1.1rem;">'+dev+'</div><div class="lbl">Devueltos</div></div>'+
+            '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px;">'+
+                '<div class="cr-stat"><div class="val" style="color:#3b82f6;font-size:1.05rem;">'+carg+'</div><div class="lbl">Cargados</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#10b981;font-size:1.05rem;">'+ent+'</div><div class="lbl">Entregados</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#f59e0b;font-size:1.05rem;">'+pend+'</div><div class="lbl">Pendientes</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#ef4444;font-size:1.05rem;">'+dev+'</div><div class="lbl">No Entrega</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#0f172a;font-size:0.92rem;">'+fmtMoney(adeudo)+'</div><div class="lbl">Adeudo</div></div>'+
             '</div>'+
-            (pedidos.length?
-                '<table class="cr-table"><thead><tr><th>Folio</th><th>Producto</th><th>Cantidad</th><th>Cliente</th><th>Estado</th></tr></thead><tbody>'+
-                pedidos.map(function(e){
-                    return '<tr><td style="font-weight:700;">'+esc(e.folioProduccion||e.id)+'</td><td>'+esc(e.producto||'—')+'</td><td>'+esc(e.cantidad||'—')+'</td><td>'+esc(e.cliente||'—')+'</td>'+
-                        '<td><span class="cr-badge" style="background:'+(stC[e.estado]||'#94a3b8')+'18;color:'+(stC[e.estado]||'#94a3b8')+';">'+esc(e.estado||'pendiente')+'</span></td></tr>';
-                }).join('')+'</tbody></table>':
-                '<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:16px;">Sin carga asignada a este repartidor</div>');
+            (lista.length?
+                '<div class="cr-card" style="padding:0;overflow:auto;">'+
+                    '<table class="cr-table"><thead><tr><th>Folio</th><th>Cliente</th><th>Producto</th><th>Cant</th><th>Estado</th><th>Adeudo</th></tr></thead><tbody>'+
+                    lista.map(function(e){
+                        return '<tr>'+
+                            '<td style="font-weight:700;">'+esc(e.folioProduccion||e.id)+'</td>'+
+                            '<td>'+esc(e.cliente||'—')+'</td>'+
+                            '<td>'+esc(e.producto||'—')+'</td>'+
+                            '<td>'+esc(e.cantidad||'—')+'</td>'+
+                            '<td><span class="cr-badge" style="background:'+(stC[e.estado]||'#94a3b8')+'18;color:'+(stC[e.estado]||'#94a3b8')+';">'+esc(e.estado||'pendiente')+'</span></td>'+
+                            '<td style="font-weight:700;">'+fmtMoney(e.adeudo||0)+'</td>'+
+                        '</tr>';
+                    }).join('')+
+                    '</tbody></table>'+
+                '</div>'+
+                (pedidos.length>50?'<div style="font-size:0.5rem;color:#94a3b8;padding:6px 2px;">Mostrando 50 de '+pedidos.length+' pedidos</div>':'')
+            :'<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">Sin carga asignada a este repartidor</div>');
     }
+
     function crRepRenderAsignar(rid,rn,cuerpo){
-        var disponibles=allRecoleccion.filter(function(o){
-            return (o.estado==='terminada'||o.estado==='almacenado')&&!o.repartidorId;
+        var unassigned=allEntregas.filter(function(e){
+            return !e.repartidorId && e.estado!=='entregada' && e.estado!=='no_entregada';
         });
-        if(!disponibles.length){cuerpo.innerHTML='<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:16px;">Sin pedidos disponibles para asignar en este momento</div>';return;}
-        cuerpo.innerHTML='<div style="display:flex;flex-direction:column;gap:6px;">'+
-            disponibles.map(function(o){
-                var folio=o.folioProduccion||o.folio||o.id;
-                return '<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">'+
-                    '<div style="flex:1;min-width:0;">'+
-                        '<div style="font-weight:700;font-size:0.58rem;">'+esc(folio)+'</div>'+
-                        '<div style="font-size:0.46rem;color:#64748b;">'+esc(o.cliente||'—')+' · '+esc(o.producto||'—')+(o.cantidad?' ×'+esc(o.cantidad):'')+'</div>'+
-                    '</div>'+
-                    '<button class="cr-btn primary cr-asignar-btn" data-oid="'+esc(o.id)+'" data-osrc="'+esc(o._source||'')+'" style="font-size:0.45rem;white-space:nowrap;">🚚 Asignar a '+esc(rn)+'</button>'+
-                '</div>';
-            }).join('')+'</div>';
-        cuerpo.querySelectorAll('.cr-asignar-btn').forEach(function(btn){
-            btn.addEventListener('click',function(){
-                var oid=btn.dataset.oid,osrc=btn.dataset.osrc;
-                var db=getCRDB();if(!db){alert('Sin conexión a base de datos');return;}
-                var col=osrc==='production'?'production_orders':'stored_orders';
-                btn.disabled=true;btn.textContent='⏳ Asignando…';
-                db.collection(col).doc(oid).update({
-                    repartidorId:rid,repartidorNombre:rn,
-                    estado:'asignado_recoleccion',
-                    fechaAsignacion:new Date().toISOString()
-                }).then(function(){
-                    var o=allRecoleccion.find(function(x){return x.id===oid;});
-                    if(o){o.repartidorId=rid;o.repartidorNombre=rn;o.estado='asignado_recoleccion';}
-                    btn.closest('div[style]').innerHTML='<div style="color:#16a34a;font-weight:700;font-size:0.52rem;padding:8px;">✅ Asignado a '+esc(rn)+'</div>';
-                }).catch(function(err){btn.disabled=false;btn.textContent='🚚 Asignar';alert('Error: '+err.message);});
+        if(!unassigned.length){
+            cuerpo.innerHTML='<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">No hay pedidos pendientes sin repartidor</div>';
+            return;
+        }
+        var boxId='crRepAsigBox_'+rid.replace(/[^a-z0-9]/gi,'_');
+        var btnId='crRepAsigRun_'+rid.replace(/[^a-z0-9]/gi,'_');
+        cuerpo.innerHTML=
+            '<div class="cr-card" style="margin:0 0 10px 0;background:#eff6ff;border-color:#bfdbfe;">'+
+                '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">'+
+                    '<span style="font-size:0.56rem;font-weight:800;color:#1e40af;">Asignar pedidos a '+esc(rn)+'</span>'+
+                    '<button id="'+btnId+'" class="cr-btn primary" type="button" style="margin-left:auto;">✅ Asignar seleccionados</button>'+
+                '</div>'+
+            '</div>'+
+            '<div id="'+boxId+'" style="display:flex;flex-direction:column;gap:6px;max-height:62vh;overflow:auto;">'+
+                unassigned.slice(0,120).map(function(e){
+                    var folio=e.folioProduccion||e.id;
+                    return '<label style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;">'+
+                        '<input type="checkbox" class="cr-rep-asig-check" data-eid="'+esc(e.id)+'" style="width:16px;height:16px;">'+
+                        '<div style="flex:1;min-width:0;">'+
+                            '<div style="font-weight:800;font-size:0.58rem;color:#0f172a;">'+esc(folio)+'</div>'+
+                            '<div style="font-size:0.48rem;color:#64748b;">'+esc(e.cliente||'—')+' · '+esc(e.producto||'—')+' · '+esc(e.zona||'Sin zona')+'</div>'+
+                        '</div>'+
+                        '<span class="cr-badge" style="background:#fff7ed;color:#c2410c;">'+esc(e.estado||'pendiente')+'</span>'+
+                    '</label>';
+                }).join('')+
+            '</div>'+
+            (unassigned.length>120?'<div style="font-size:0.5rem;color:#94a3b8;padding:8px 2px;">Mostrando 120 de '+unassigned.length+' pedidos sin asignar</div>':'');
+
+        var run=document.getElementById(btnId);
+        if(run)run.addEventListener('click',function(){
+            var checks=cuerpo.querySelectorAll('.cr-rep-asig-check:checked');
+            if(!checks.length){alert('Selecciona al menos un pedido');return;}
+            var db=getCRDB();if(!db){alert('Sin conexión a base de datos');return;}
+            var batch=db.batch();
+            var ids=[];
+            checks.forEach(function(ch){
+                var id=ch.dataset.eid;
+                ids.push(id);
+                batch.update(db.collection(ENT_COL).doc(id),{
+                    repartidorId:rid,
+                    repartidorNombre:rn,
+                    estadoAsignacion:'asignado',
+                    fechaAsignacion:new Date().toISOString(),
+                    actualizadoEn:window.firebase.firestore.FieldValue.serverTimestamp()
+                });
+            });
+            run.disabled=true;
+            run.textContent='⏳ Asignando...';
+            batch.commit().then(function(){
+                crRepLimpiarRutaCerrada(rid);
+                ids.forEach(function(id){
+                    var e=allEntregas.find(function(x){return x.id===id;});
+                    if(e){e.repartidorId=rid;e.repartidorNombre=rn;e.estadoAsignacion='asignado';}
+                });
+                renderDashboard();
+                crRepRenderAsignar(rid,rn,cuerpo);
+            }).catch(function(err){
+                run.disabled=false;
+                run.textContent='✅ Asignar seleccionados';
+                alert('Error: '+err.message);
             });
         });
     }
+
     function crRepRenderKpi(rid,cuerpo){
         var data=allEntregas.filter(function(e){return e.repartidorId===rid;});
-        var total=data.length,
-            ent=data.filter(function(e){return e.estado==='entregada';}).length,
-            noEnt=data.filter(function(e){return e.estado==='no_entregada';}).length,
-            pend=data.filter(function(e){return e.estado!=='entregada'&&e.estado!=='no_entregada';}).length;
+        var total=data.length;
+        var ent=data.filter(function(e){return e.estado==='entregada';}).length;
+        var noEnt=data.filter(function(e){return e.estado==='no_entregada';}).length;
+        var pend=data.filter(function(e){return e.estado!=='entregada'&&e.estado!=='no_entregada';}).length;
         var pct=total?Math.round(ent/total*100):0;
         var pens=getPenalizaciones().filter(function(p){return p.repId===rid;});
         var totalPen=pens.reduce(function(s,p){return s+Number(p.monto||0);},0);
+        var adeudo=data.reduce(function(s,e){return s+Number(e.adeudo||0);},0);
         var color=pct>=80?'#10b981':pct>=50?'#f59e0b':'#ef4444';
+        var byZona={};
+        data.forEach(function(e){
+            var z=e.zona||'Sin zona';
+            if(!byZona[z])byZona[z]={t:0,e:0};
+            byZona[z].t++;
+            if(e.estado==='entregada')byZona[z].e++;
+        });
+        var zonas=Object.keys(byZona);
         cuerpo.innerHTML=
-            '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">'+
-                '<div class="cr-stat"><div class="val" style="color:#3b82f6;font-size:1.1rem;">'+total+'</div><div class="lbl">Total Entregas</div></div>'+
-                '<div class="cr-stat"><div class="val" style="color:#10b981;font-size:1.1rem;">'+ent+'</div><div class="lbl">Exitosas</div></div>'+
-                '<div class="cr-stat"><div class="val" style="color:'+color+';font-size:1.1rem;">'+pct+'%</div><div class="lbl">% Éxito</div></div>'+
-                '<div class="cr-stat"><div class="val" style="color:#f59e0b;font-size:1.1rem;">'+pend+'</div><div class="lbl">Pendientes</div></div>'+
-                '<div class="cr-stat"><div class="val" style="color:#ef4444;font-size:1.1rem;">'+noEnt+'</div><div class="lbl">No entregadas</div></div>'+
-                '<div class="cr-stat"><div class="val" style="color:#dc2626;font-size:1rem;">'+fmtMoney(totalPen)+'</div><div class="lbl">Penalizaciones $</div></div>'+
+            '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;">'+
+                '<div class="cr-stat"><div class="val" style="color:#3b82f6;font-size:1.05rem;">'+total+'</div><div class="lbl">Total</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#10b981;font-size:1.05rem;">'+ent+'</div><div class="lbl">Entregadas</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:'+color+';font-size:1.05rem;">'+pct+'%</div><div class="lbl">Éxito</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#ef4444;font-size:1.05rem;">'+noEnt+'</div><div class="lbl">No Entrega</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#f59e0b;font-size:1.05rem;">'+pend+'</div><div class="lbl">Pendientes</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#0f172a;font-size:0.92rem;">'+fmtMoney(adeudo)+'</div><div class="lbl">Adeudo</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#dc2626;font-size:0.92rem;">'+fmtMoney(totalPen)+'</div><div class="lbl">Penalizaciones</div></div>'+
+                '<div class="cr-stat"><div class="val" style="color:#8b5cf6;font-size:1.05rem;">'+zonas.length+'</div><div class="lbl">Zonas activas</div></div>'+
             '</div>'+
-            '<div style="text-align:center;padding:8px;font-size:0.7rem;font-weight:900;color:'+color+';">'+
-                (pct>=80?'⭐ Rendimiento Excelente':pct>=60?'👍 Rendimiento Bueno':total?'⚠️ Necesita Mejorar':'— Sin datos aún —')+
+            '<div class="cr-card" style="margin:0 0 8px 0;">'+
+                '<div style="font-size:0.62rem;font-weight:900;color:'+color+';margin-bottom:6px;">'+
+                    (pct>=80?'Rendimiento excelente':pct>=60?'Rendimiento estable':total?'Requiere seguimiento':'Sin datos de entrega')+
+                '</div>'+
+                (zonas.length?zonas.map(function(z){
+                    var zt=byZona[z].t||0;
+                    var ze=byZona[z].e||0;
+                    var zp=zt?Math.round((ze/zt)*100):0;
+                    return '<div style="display:flex;align-items:center;gap:8px;margin:4px 0;">'+
+                        '<div style="min-width:120px;font-size:0.5rem;font-weight:700;color:#334155;">'+esc(z)+'</div>'+
+                        '<div style="flex:1;height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;">'+
+                            '<div style="height:100%;width:'+zp+'%;background:'+(zp>=80?'#10b981':zp>=50?'#f59e0b':'#ef4444')+';"></div>'+
+                        '</div>'+
+                        '<div style="font-size:0.48rem;font-weight:800;color:#0f172a;min-width:48px;text-align:right;">'+zp+'%</div>'+
+                    '</div>';
+                }).join(''):'<div style="font-size:0.52rem;color:#94a3b8;">Sin zonas registradas para este repartidor</div>')+
             '</div>';
     }
+
     function crRepRenderPen(rid,rn,cuerpo){
-        var safeId='crRepPL'+rid.replace(/[^a-z0-9]/gi,'_');
+        var uid=rid.replace(/[^a-z0-9]/gi,'_');
+        var listId='crRepPenList_'+uid;
+        var selRuleId='crRepPenRule_'+uid;
+        var motivoId='crRepPenMot_'+uid;
+        var montoId='crRepPenMto_'+uid;
+        var btnId='crRepPenBtn_'+uid;
+
         function _listar(){
             var pens=getPenalizaciones().filter(function(p){return p.repId===rid;});
-            var lista=document.getElementById(safeId);if(!lista)return;
-            if(!pens.length){lista.innerHTML='<div style="color:#94a3b8;font-size:0.52rem;padding:10px;text-align:center;">Sin penalizaciones registradas para este repartidor</div>';return;}
-            lista.innerHTML='<table class="cr-table"><thead><tr><th>Fecha</th><th>Motivo</th><th>Monto</th><th></th></tr></thead><tbody>'+
-                pens.map(function(p,i){
-                    return '<tr><td>'+fmtDate(p.fecha)+'</td><td>'+esc(p.motivo||'—')+'</td><td style="font-weight:700;color:#ef4444;">'+fmtMoney(p.monto)+'</td>'+
-                        '<td><button class="cr-btn danger cr-del-pen" data-pi="'+i+'" style="font-size:0.42rem;padding:3px 8px;">✕</button></td></tr>';
-                }).join('')+'</tbody></table>';
+            var total=pens.reduce(function(s,p){return s+Number(p.monto||0);},0);
+            var lista=document.getElementById(listId);if(!lista)return;
+            if(!pens.length){
+                lista.innerHTML='<div style="color:#94a3b8;font-size:0.52rem;padding:12px;text-align:center;">Sin penalizaciones registradas para '+esc(rn)+'</div>';
+                return;
+            }
+            lista.innerHTML=
+                '<div style="font-size:0.52rem;font-weight:800;color:#dc2626;margin-bottom:6px;">Total penalizado: '+fmtMoney(total)+'</div>'+
+                '<table class="cr-table"><thead><tr><th>Fecha</th><th>Motivo</th><th>Monto</th><th></th></tr></thead><tbody>'+
+                    pens.map(function(p,i){
+                        return '<tr>'+
+                            '<td>'+fmtDate(p.fecha)+'</td>'+
+                            '<td>'+esc(p.motivo||'—')+'</td>'+
+                            '<td style="font-weight:800;color:#dc2626;">'+fmtMoney(p.monto)+'</td>'+
+                            '<td><button class="cr-btn danger cr-del-pen" data-pi="'+i+'" style="font-size:0.42rem;padding:3px 8px;">✕</button></td>'+
+                        '</tr>';
+                    }).join('')+
+                '</tbody></table>';
             lista.querySelectorAll('.cr-del-pen').forEach(function(b){
                 b.addEventListener('click',function(){
                     var allPens=getPenalizaciones();
                     var repPens=allPens.filter(function(p){return p.repId===rid;});
-                    var gi=allPens.indexOf(repPens[parseInt(b.dataset.pi)]);
+                    var gi=allPens.indexOf(repPens[parseInt(b.dataset.pi,10)]);
                     if(gi>=0)allPens.splice(gi,1);
-                    savePenalizaciones(allPens);_listar();
+                    savePenalizaciones(allPens);
+                    _listar();
                 });
             });
         }
+
+        var rules=(typeof getPenRules==='function')?getPenRules():[];
         cuerpo.innerHTML=
-            '<div style="display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:end;margin-bottom:12px;">'+
-                '<div><label style="font-size:0.48rem;font-weight:700;color:#64748b;display:block;margin-bottom:2px;">Motivo</label>'+
-                '<input id="crRepPM" type="text" class="cr-input" placeholder="Descripción de la penalización"></div>'+
-                '<div><label style="font-size:0.48rem;font-weight:700;color:#64748b;display:block;margin-bottom:2px;">Monto $</label>'+
-                '<input id="crRepPMto" type="number" class="cr-input" placeholder="0.00" style="width:90px;"></div>'+
-                '<button id="crRepPGuardar" type="button" class="cr-btn danger" style="white-space:nowrap;">⚠️ Aplicar</button>'+
+            '<div class="cr-card" style="margin:0 0 10px 0;background:#fff5f5;border-color:#fecaca;">'+
+                '<div style="display:grid;grid-template-columns:1fr 1fr 120px auto;gap:8px;align-items:end;">'+
+                    '<div>'+
+                        '<label style="font-size:0.48rem;font-weight:700;color:#64748b;display:block;margin-bottom:2px;">Regla automática</label>'+
+                        '<select id="'+selRuleId+'" class="cr-select" style="width:100%;">'+
+                            '<option value="">— Seleccionar regla —</option>'+
+                            rules.map(function(r,idx){return '<option value="'+idx+'">'+esc((r.desc||r.falta||'Regla')+' · '+fmtMoney(r.monto||0))+'</option>';}).join('')+
+                        '</select>'+
+                    '</div>'+
+                    '<div>'+
+                        '<label style="font-size:0.48rem;font-weight:700;color:#64748b;display:block;margin-bottom:2px;">Motivo</label>'+
+                        '<input id="'+motivoId+'" type="text" class="cr-input" placeholder="Motivo de penalización">'+
+                    '</div>'+
+                    '<div>'+
+                        '<label style="font-size:0.48rem;font-weight:700;color:#64748b;display:block;margin-bottom:2px;">Monto</label>'+
+                        '<input id="'+montoId+'" type="number" class="cr-input" placeholder="0.00" min="0" step="0.01">'+
+                    '</div>'+
+                    '<button id="'+btnId+'" type="button" class="cr-btn danger" style="white-space:nowrap;">⚠️ Aplicar</button>'+
+                '</div>'+
             '</div>'+
-            '<div id="'+safeId+'"></div>';
+            '<div id="'+listId+'"></div>';
         _listar();
-        var btnG=document.getElementById('crRepPGuardar');
+
+        var selRule=document.getElementById(selRuleId);
+        if(selRule)selRule.addEventListener('change',function(){
+            var idx=parseInt(selRule.value,10);
+            if(isNaN(idx))return;
+            var r=rules[idx];if(!r)return;
+            var m=document.getElementById(motivoId);if(m)m.value=(r.desc||r.falta||'Penalización automática');
+            var mt=document.getElementById(montoId);if(mt)mt.value=Number(r.monto||0).toFixed(2);
+        });
+
+        var btnG=document.getElementById(btnId);
         if(btnG)btnG.addEventListener('click',function(){
-            var motivo=((document.getElementById('crRepPM')||{}).value||'').trim();
-            var monto=Number((document.getElementById('crRepPMto')||{}).value)||0;
+            var motivo=((document.getElementById(motivoId)||{}).value||'').trim();
+            var monto=Number((document.getElementById(montoId)||{}).value)||0;
             if(!motivo){alert('Ingresa el motivo');return;}
+            if(monto<=0){alert('Ingresa un monto válido');return;}
             var pens=getPenalizaciones();
-            pens.push({repId:rid,motivo:motivo,monto:monto,fecha:new Date().toISOString()});
+            pens.push({repId:rid,motivo:motivo,monto:monto,fecha:new Date().toISOString(),origen:'regla_automatica'});
             savePenalizaciones(pens);
-            var m=document.getElementById('crRepPM');if(m)m.value='';
-            var mt=document.getElementById('crRepPMto');if(mt)mt.value='';
+            var m=document.getElementById(motivoId);if(m)m.value='';
+            var mt=document.getElementById(montoId);if(mt)mt.value='';
+            var sr=document.getElementById(selRuleId);if(sr)sr.value='';
             _listar();
+            renderDashboard();
         });
     }
 
@@ -38287,90 +39020,42 @@ document.addEventListener('DOMContentLoaded', function() {
         renderPenalizacionesSec();
     });
 
-    // ── HISTORIAL CLIENTE ──
-    function renderHistorial(){
-        var container=document.getElementById('crHistResultados');if(!container)return;
-        var busq=((document.getElementById('crHistBuscar')||{}).value||'').trim().toUpperCase();
-        var filtroEst=(document.getElementById('crHistFiltroEstado')||{}).value||'';
-        if(!busq){container.innerHTML='<div class="cr-card"><div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">Escribe un nombre de cliente para buscar su historial</div></div>';return;}
-        var filtered=allEntregas.filter(function(e){
-            if((e.cliente||'').toUpperCase().indexOf(busq)<0)return false;
-            if(filtroEst&&e.estado!==filtroEst)return false;
-            return true;
-        });
-        // Group by client
-        var clients={};
-        filtered.forEach(function(e){var k=e.cliente||'Sin nombre';if(!clients[k])clients[k]=[];clients[k].push(e);});
-        var keys=Object.keys(clients);
-        if(!keys.length){container.innerHTML='<div class="cr-card"><div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">Sin resultados para "'+esc(busq)+'"</div></div>';return;}
-        container.innerHTML=keys.map(function(cli){
-            var entregas=clients[cli];
-            var exitosas=entregas.filter(function(e){return e.estado==='entregada';}).length;
-            var fallidas=entregas.filter(function(e){return e.estado==='no_entregada';}).length;
-            return '<div class="cr-card">'+
-                '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'+
-                    '<div style="width:36px;height:36px;border-radius:50%;background:#1e40af;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.65rem;">'+esc(cli.charAt(0))+'</div>'+
-                    '<div style="flex:1;"><div style="font-weight:900;font-size:0.65rem;color:#0f172a;">'+esc(cli)+'</div><div style="font-size:0.48rem;color:#64748b;">'+entregas.length+' entregas · '+exitosas+' exitosas · '+fallidas+' fallidas · Zona: '+esc(entregas[0].zona||'—')+'</div></div>'+
-                '</div>'+
-                '<table class="cr-table"><thead><tr><th>Folio</th><th>Producto</th><th>Fecha</th><th>Estado</th><th>Repartidor</th><th>Motivo</th></tr></thead><tbody>'+
-                entregas.map(function(e){
-                    var stColors={entregada:'#10b981',no_entregada:'#ef4444',pendiente:'#f59e0b',en_camino:'#3b82f6'};
-                    return '<tr><td style="font-weight:700;">'+esc(e.folioProduccion||e.id)+'</td><td>'+esc(e.producto||'—')+'</td><td>'+fmtDate(e.creadoEn)+'</td>'+
-                        '<td><span class="cr-badge" style="background:'+(stColors[e.estado]||'#94a3b8')+'18;color:'+(stColors[e.estado]||'#94a3b8')+';">'+esc(e.estado||'pendiente')+'</span></td>'+
-                        '<td>'+esc(e.repartidorNombre||'—')+'</td><td>'+esc(e.conceptoNoEntrega||'—')+'</td></tr>';
-                }).join('')+'</tbody></table></div>';
-        }).join('');
-    }
-    var histBuscar=document.getElementById('crHistBuscar');if(histBuscar)histBuscar.addEventListener('input',renderHistorial);
-    var histFiltro=document.getElementById('crHistFiltroEstado');if(histFiltro)histFiltro.addEventListener('change',renderHistorial);
-
     // ── KPIs ──
     function renderKpis(){
         var reps=getReps().filter(function(r){return r.activo!==false;});
         var repId=(document.getElementById('crKpiFiltroRep')||{}).value||'';
         var data=repId?allEntregas.filter(function(e){return e.repartidorId===repId;}):allEntregas;
-        var total=data.length;var exitosas=data.filter(function(e){return e.estado==='entregada';}).length;
+        var total=data.length;
+        var exitosas=data.filter(function(e){return e.estado==='entregada';}).length;
         var noEnt=data.filter(function(e){return e.estado==='no_entregada';}).length;
         var pctExito=total>0?Math.round(exitosas/total*100):0;
-        var checks=getChecks();var retardos=checks.filter(function(c){return c.retardo;}).length;
+        var checks=getChecks();
+        var retardos=checks.filter(function(c){return c.retardo;}).length;
         var pctPunt=checks.length>0?Math.round((checks.length-retardos)/checks.length*100):100;
 
         var el=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
-        el('crKpiExito',pctExito+'%');el('crKpiPromedio',total>0?Math.round(total/30):'0');
-        el('crKpiTiempo','~2.5h');el('crKpiPuntualidad',pctPunt+'%');
-        el('crKpiNoEntregas',noEnt);el('crKpiCalificacion',pctExito>=80?'⭐ Excelente':pctExito>=60?'👍 Bueno':'⚠️ Mejorar');
+        el('crKpiExito',pctExito+'%');
+        el('crKpiPromedio',total>0?Math.round(total/30):'0');
+        el('crKpiPuntualidad',pctPunt+'%');
+        el('crKpiNoEntregas',noEnt);
 
-        // Ranking
-        var tbody=document.getElementById('crKpiRanking');
-        if(tbody&&reps.length){
+        var rankingMini=document.getElementById('crKpiRankingMini');
+        if(rankingMini&&reps.length){
             var ranking=reps.map(function(r){
                 var rData=allEntregas.filter(function(e){return e.repartidorId===r.id;});
                 var rExit=rData.filter(function(e){return e.estado==='entregada';}).length;
                 var rTotal=rData.length;
-                return {nombre:r.nombre,zona:r.zona,entregas:rTotal,exitosas:rExit,pct:rTotal>0?Math.round(rExit/rTotal*100):0};
-            }).sort(function(a,b){return b.pct-a.pct||b.entregas-a.entregas;});
-            tbody.innerHTML=ranking.map(function(r,i){
-                var medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1);
-                var trend=r.pct>=80?'📈':r.pct>=50?'➡️':'📉';
-                return '<tr><td style="font-weight:900;font-size:0.65rem;">'+medal+'</td><td style="font-weight:700;">'+esc(r.nombre)+'</td><td>'+r.entregas+'</td><td><span class="cr-badge" style="background:'+(r.pct>=80?'#f0fdf4;color:#16a34a':r.pct>=50?'#fff7ed;color:#f59e0b':'#fef2f2;color:#ef4444')+'">'+r.pct+'%</span></td><td>—</td><td>'+(r.pct>=80?'⭐':r.pct>=50?'👍':'⚠️')+'</td><td>'+trend+'</td></tr>';
-            }).join('');
-        }
-
-        // Zonas
-        var zonasEl=document.getElementById('crKpiZonas');
-        if(zonasEl){
-            var zonas=getZonas();
-            zonasEl.innerHTML=zonas.map(function(z){
-                var zData=allEntregas.filter(function(e){return e.zona===z.nombre;});
-                var zExit=zData.filter(function(e){return e.estado==='entregada';}).length;
-                return '<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px;">'+
-                    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><span style="width:12px;height:12px;border-radius:3px;background:'+(z.color||'#3b82f6')+';"></span><span style="font-weight:800;font-size:0.58rem;">'+esc(z.nombre)+'</span></div>'+
-                    '<div style="font-size:0.48rem;color:#64748b;">'+zData.length+' pedidos · '+zExit+' entregados · '+(zData.length>0?Math.round(zExit/zData.length*100):0)+'% éxito</div>'+
+                return {nombre:r.nombre,entregas:rTotal,pct:rTotal?Math.round((rExit/rTotal)*100):0};
+            }).sort(function(a,b){return b.pct-a.pct||b.entregas-a.entregas;}).slice(0,3);
+            rankingMini.innerHTML=ranking.map(function(r,i){
+                return '<div style="display:flex;align-items:center;gap:6px;font-size:0.5rem;">'+
+                    '<span style="font-weight:900;color:#1e40af;">'+(i+1)+'.</span>'+
+                    '<span style="flex:1;color:#0f172a;font-weight:700;">'+esc(r.nombre)+'</span>'+
+                    '<span class="cr-badge" style="background:#eff6ff;color:#1e40af;">'+r.pct+'%</span>'+
                 '</div>';
             }).join('');
         }
     }
-    var kpiRep=document.getElementById('crKpiFiltroRep');if(kpiRep)kpiRep.addEventListener('change',renderKpis);
 
     // ── ALERTAS ──
     var ALERTAS_KEY='cr_alertas';
@@ -38438,42 +39123,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     var invRep=document.getElementById('crInvFiltroRep');if(invRep)invRep.addEventListener('change',renderInventario);
 
-    // ── REAGENDAMIENTO ──
-    function renderReagendamiento(){
+    // ── REAGENDADOS EN MÓDULO PRINCIPAL PEDIDOS ──
+    function renderPedidosReagendados(){
         var noEntregados=allEntregas.filter(function(e){return e.estado==='no_entregada';});
         var reagendados=noEntregados.filter(function(e){return e.fechaReagendada;});
-        var pendReag=noEntregados.filter(function(e){return!e.fechaReagendada;});
-        var vencidos=reagendados.filter(function(e){return new Date(e.fechaReagendada)<new Date();});
-        var sEl=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
-        sEl('crReagPendientes',pendReag.length);sEl('crReagProgramados',reagendados.length);sEl('crReagVencidos',vencidos.length);
+        var pend=noEntregados.filter(function(e){return !e.fechaReagendada;});
+        var s=document.getElementById('crPedReagStats');
+        if(s)s.textContent='Pendientes por fecha: '+pend.length+' · Con fecha programada: '+reagendados.length+' · Total no entregados: '+noEntregados.length;
 
-        var container=document.getElementById('crReagLista');if(!container)return;
-        if(!noEntregados.length){container.innerHTML='<div class="cr-card"><div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">✅ Todos los pedidos fueron entregados exitosamente</div></div>';return;}
+        var container=document.getElementById('crPedReagList');if(!container)return;
+        if(!noEntregados.length){container.innerHTML='<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">Sin pedidos no entregados para reagendar</div>';return;}
         container.innerHTML=noEntregados.map(function(e){
-            return '<div class="cr-card" style="padding:10px;">'+
-                '<div style="display:flex;align-items:center;gap:8px;">'+
-                    '<div style="flex:1;">'+
-                        '<div style="font-weight:900;font-size:0.6rem;color:#0f172a;margin-bottom:2px;">'+esc(e.folioProduccion||e.id)+' — '+esc(e.cliente||'—')+'</div>'+
-                        '<div style="font-size:0.48rem;color:#64748b;">'+esc(e.producto||'—')+' · Repartidor: '+esc(e.repartidorNombre||'—')+' · Motivo: <span style="color:#ef4444;font-weight:700;">'+esc(e.conceptoNoEntrega||'Sin motivo')+'</span></div>'+
-                    '</div>'+
-                    '<div style="display:flex;align-items:center;gap:6px;">'+
-                        '<input type="date" class="cr-input cr-reag-fecha" data-id="'+esc(e.id)+'" value="'+(e.fechaReagendada||'')+'" style="width:130px;font-size:0.5rem;">'+
-                        '<button class="cr-btn primary cr-reag-btn" data-id="'+esc(e.id)+'" style="font-size:0.45rem;">📅 Reagendar</button>'+
-                    '</div>'+
+            return '<div style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;">'+
+                '<div style="flex:1;min-width:0;">'+
+                    '<div style="font-weight:900;font-size:0.58rem;color:#0f172a;">'+esc(e.folioProduccion||e.id)+' — '+esc(e.cliente||'—')+'</div>'+
+                    '<div style="font-size:0.48rem;color:#64748b;">'+esc(e.producto||'—')+' · Repartidor: '+esc(e.repartidorNombre||'—')+' · Motivo: <span style="color:#ef4444;font-weight:700;">'+esc(e.conceptoNoEntrega||'Sin motivo')+'</span></div>'+
+                    (e.fechaReagendada?'<div style="font-size:0.48rem;color:#1e40af;font-weight:700;">📅 Programado para: '+esc(e.fechaReagendada)+'</div>':'')+
                 '</div>'+
+                '<input type="date" class="cr-input cr-ped-reag-fecha" data-id="'+esc(e.id)+'" value="'+esc(((e.fechaReagendada||'')+'').slice(0,10))+'" style="width:140px;font-size:0.5rem;">'+
+                '<button class="cr-btn primary cr-ped-reag-btn" data-id="'+esc(e.id)+'" style="font-size:0.45rem;">Guardar fecha</button>'+
             '</div>';
         }).join('');
-        container.querySelectorAll('.cr-reag-btn').forEach(function(btn){
+
+        container.querySelectorAll('.cr-ped-reag-btn').forEach(function(btn){
             btn.addEventListener('click',function(){
                 var id=btn.dataset.id;
-                var fechaInput=container.querySelector('.cr-reag-fecha[data-id="'+id+'"]');
+                var fechaInput=container.querySelector('.cr-ped-reag-fecha[data-id="'+id+'"]');
                 var fecha=fechaInput?fechaInput.value:'';
                 if(!fecha){alert('Selecciona una fecha');return;}
                 var db=getCRDB();if(!db)return;
-                db.collection(ENT_COL).doc(id).update({fechaReagendada:fecha,estado:'pendiente',actualizadoEn:window.firebase.firestore.FieldValue.serverTimestamp()}).then(function(){
-                    var e=allEntregas.find(function(x){return x.id===id;});if(e){e.fechaReagendada=fecha;e.estado='pendiente';}
-                    renderReagendamiento();
-                    alert('✅ Reagendado para '+fecha);
+                db.collection(ENT_COL).doc(id).update({fechaReagendada:fecha,actualizadoEn:window.firebase.firestore.FieldValue.serverTimestamp()}).then(function(){
+                    var e=allEntregas.find(function(x){return x.id===id;});if(e)e.fechaReagendada=fecha;
+                    renderPedidosReagendados();
                 }).catch(function(err){alert('Error: '+err.message);});
             });
         });
@@ -38622,50 +39303,46 @@ document.addEventListener('DOMContentLoaded', function() {
         setKmCosto(v);renderKilometraje();alert('Costo actualizado: $'+v.toFixed(2)+'/km');
     });
 
-    // ── LOCALIZACIÓN TOGGLE (Repartidores / Clientes) ──
+    // ── LOCALIZACIÓN CLIENTES (Mapa) ──
     (function(){
-        var toggleBtns=panel.querySelectorAll('#crLocToggle .cr-toggle');
-        toggleBtns.forEach(function(btn){
-            btn.addEventListener('click',function(){
-                toggleBtns.forEach(function(t){t.classList.remove('active');});
-                btn.classList.add('active');
-                var view=btn.dataset.loc;
-                var repsView=document.getElementById('crLocViewReps');
-                var cliView=document.getElementById('crLocViewClientes');
-                if(repsView) repsView.style.display=(view==='repartidores'?'':'none');
-                if(cliView) cliView.style.display=(view==='clientes'?'':'none');
-                if(view==='clientes') renderLocClientesList();
-            });
-        });
         var locZona=document.getElementById('crLocFiltroZona');
         if(locZona) locZona.addEventListener('change',function(){ renderLocClientesList(); });
         var locBuscar=document.getElementById('crLocBuscar');
         if(locBuscar) locBuscar.addEventListener('input',function(){ renderLocClientesList(); });
+        var histFecha=document.getElementById('crMapaHistFecha');
+        if(histFecha){
+            if(!histFecha.value) histFecha.value=(new Date().toISOString().split('T')[0]);
+            histFecha.addEventListener('change',function(){ renderLocClientesList(); });
+        }
     })();
 
     function renderLocClientesList(){
         var container=document.getElementById('crLocClientesList');if(!container) return;
         var zona=((document.getElementById('crLocFiltroZona')||{}).value||'').toLowerCase();
         var busq=((document.getElementById('crLocBuscar')||{}).value||'').toUpperCase().trim();
-        // Build client map from entregas
+        var fechaSel=((document.getElementById('crMapaHistFecha')||{}).value||'').trim();
+
         var clientMap={};
         allEntregas.forEach(function(e){
             if(!e.cliente) return;
+            var f=((e.fechaReagendada||e.fechaEntrega||e.fechaAsignacion||e.creadoEn||'')+'').slice(0,10);
+            if(fechaSel && f!==fechaSel) return;
             var key=e.cliente;
             if(!clientMap[key]) clientMap[key]={nombre:e.cliente,zona:e.zona||'',entregas:0,exitosas:0,fallidas:0};
             clientMap[key].entregas++;
             if(e.estado==='entregada') clientMap[key].exitosas++;
             if(e.estado==='no_entregada') clientMap[key].fallidas++;
         });
+
         var clients=Object.values(clientMap);
-        // Apply filters
         if(zona) clients=clients.filter(function(c){ return (c.zona||'').toLowerCase()===zona; });
         if(busq) clients=clients.filter(function(c){ return c.nombre.toUpperCase().indexOf(busq)>=0; });
         clients.sort(function(a,b){ return b.entregas-a.entregas; });
-        // Update geocerca resumen
+
         var resumen=document.getElementById('crGeocercaResumen');
-        if(resumen) resumen.innerHTML='<span style="font-weight:700;">'+clients.length+'</span> clientes encontrados';
+        if(resumen) resumen.innerHTML='<span style="font-weight:700;">'+clients.length+'</span> clientes encontrados'+(fechaSel?' para '+esc(fechaSel):'');
         if(!clients.length){ container.innerHTML='<div style="color:#94a3b8;font-size:0.55rem;padding:10px;text-align:center;">Sin clientes con entregas registradas</div>'; return; }
+
         container.innerHTML=clients.map(function(c){
             var pct=c.entregas>0?Math.round(c.exitosas/c.entregas*100):0;
             var color=pct>=80?'#10b981':pct>=50?'#f59e0b':'#ef4444';
@@ -38678,15 +39355,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 '<button class="cr-btn primary cr-ver-historial" data-cliente="'+esc(c.nombre)+'" style="font-size:0.45rem;white-space:nowrap;flex-shrink:0;">📜 Historial</button>'+
             '</div>';
         }).join('');
-        container.querySelectorAll('.cr-ver-historial').forEach(function(btn){
-            btn.addEventListener('click',function(){ showHistorialPopup(btn.dataset.cliente); });
-        });
-    }
-
-    // ── HISTORIAL POPUP ──
-    function showHistorialPopup(clienteNombre){
-        var popup=document.getElementById('crHistPopup');if(!popup) return;
-        popup.style.display='block';
+display='block';
         var infoEl=document.getElementById('crHistPopupClienteInfo');
         if(infoEl) infoEl.innerHTML='<span style="font-size:0.8rem;margin-right:6px;">👤</span>'+esc(clienteNombre);
         var entregas=allEntregas.filter(function(e){ return e.cliente===clienteNombre; });
@@ -38719,6 +39388,259 @@ document.addEventListener('DOMContentLoaded', function() {
     })();
 
 
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // ── MAPA EN TIEMPO REAL (Leaflet + Firestore repartidores_gps) ──────────
+    // ══════════════════════════════════════════════════════════════════════════
+    var _crMap = null;            // Leaflet map instance
+    var _crMapLayers = {};        // { repartidores:L.LayerGroup, clientes:…, paradas:… }
+    var _crGpsUnsub = null;       // Firestore realtime listener
+    var _crRepGpsData = {};       // { repId: { lat, lng, nombre, ts, historial:[] } }
+    var GPS_COLLECTION = 'repartidores_gps';  // Firestore: { repId, repNombre, lat, lng, timestamp }
+
+    // ── Helpers ──
+    function crMapParadaMinutos(){
+        return Number(getConfigValue('checkpoints','paradaMinutos')||5);
+    }
+    function crMapMakeIcon(html, size){
+        if(typeof L === 'undefined') return null;
+        return L.divIcon({ html:html, className:'', iconSize:[size,size], iconAnchor:[size/2,size/2], popupAnchor:[0,-size/2] });
+    }
+    function crMapRepIcon(rep){
+        var ini = (rep.nombre||rep.repNombre||'?').charAt(0).toUpperCase();
+        return crMapMakeIcon('<div class="cr-marker-rep" title="'+esc(rep.nombre||rep.repNombre||'')+'">'+ ini +'</div>',38);
+    }
+    function crMapParadaIcon(){
+        return crMapMakeIcon('<div class="cr-marker-parada" title="Parada">⏱</div>',26);
+    }
+    function crMapClienteIcon(estado){
+        var ico = estado==='entregada'?'✅': estado==='no_entregada'?'❌': estado==='en_camino'?'🚚':'📍';
+        return crMapMakeIcon('<div class="cr-marker-cli '+esc(estado||'')+'" title="Cliente">'+ico+'</div>',28);
+    }
+
+    // ── Init Leaflet map ──
+    function initCRMapa(){
+        if(typeof L === 'undefined') return;
+        var container = document.getElementById('crMapaGeneral');
+        if(!container) return;
+        if(_crMap){ _crMap.invalidateSize(); return; }
+        container.innerHTML = '';   // remove placeholder
+        container.style.background = '#e2e8f0';
+        _crMap = L.map(container, { zoomControl:true, attributionControl:false });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+            maxZoom:19,
+            attribution:'© OpenStreetMap'
+        }).addTo(_crMap);
+        L.control.attribution({prefix:'© OSM'}).addTo(_crMap);
+
+        // Layer groups
+        _crMapLayers = {
+            repartidores: L.layerGroup().addTo(_crMap),
+            clientes_pendientes: L.layerGroup().addTo(_crMap),
+            clientes_entregados: L.layerGroup(),
+            no_encontrados: L.layerGroup(),
+            paradas: L.layerGroup().addTo(_crMap),
+            ruta_trazada: L.layerGroup()
+        };
+
+        // Default center: sucursal coords or generic MX
+        var sucLat = parseFloat(getConfigValue('reparto','sucursalLat')) || 19.432608;
+        var sucLng = parseFloat(getConfigValue('reparto','sucursalLng')) || -99.133209;
+        _crMap.setView([sucLat, sucLng], 13);
+
+        // Wire layer-toggle buttons
+        var panel = document.getElementById('panelControlRepartidores');
+        if(panel){
+            panel.addEventListener('click', function(e){
+                var btn = e.target.closest('.cr-mapa-capa');
+                if(!btn || !_crMap) return;
+                var capa = btn.dataset.capa;
+                if(!_crMapLayers[capa]) return;
+                if(btn.classList.contains('active')){
+                    _crMap.addLayer(_crMapLayers[capa]);
+                } else {
+                    _crMap.removeLayer(_crMapLayers[capa]);
+                }
+            });
+        }
+
+        // Start realtime GPS subscription
+        crMapSuscribirGPS();
+        // Render clients on map
+        crMapRenderClientes();
+    }
+
+    // ── Firestore realtime listener for repartidores_gps ──
+    function crMapSuscribirGPS(){
+        var db = getCRDB(); if(!db) return;
+        if(_crGpsUnsub){ try{_crGpsUnsub();}catch(ex){} }
+        _crGpsUnsub = db.collection(GPS_COLLECTION)
+            .onSnapshot(function(snap){
+                snap.forEach(function(doc){
+                    var d = doc.data();
+                    var id = doc.id;
+                    var prev = _crRepGpsData[id];
+                    // Store history for stop detection (max 60 pts)
+                    if(!prev) _crRepGpsData[id] = { historial:[] };
+                    var rep = _crRepGpsData[id];
+                    rep.nombre = d.repNombre || d.nombre || id;
+                    rep.lat = d.lat; rep.lng = d.lng;
+                    rep.ts = d.timestamp;
+                    rep.pedidosAsignados = d.pedidosAsignados || 0;
+                    rep.pedidosEntregados = d.pedidosEntregados || 0;
+                    rep.zona = d.zona || '';
+                    rep.tel = d.tel || '';
+                    // append history point
+                    rep.historial.push({ lat:d.lat, lng:d.lng, ts:d.timestamp||Date.now() });
+                    if(rep.historial.length > 60) rep.historial.shift();
+                });
+                crMapRenderRepartidores();
+                crMapDetectarParadas();
+                crMapActualizarListaEnRuta();
+            }, function(err){ console.warn('[CRMapa GPS]', err); });
+    }
+
+    // ── Render repartidor markers ──
+    function crMapRenderRepartidores(){
+        if(!_crMap || !_crMapLayers.repartidores) return;
+        _crMapLayers.repartidores.clearLayers();
+        Object.keys(_crRepGpsData).forEach(function(id){
+            var rep = _crRepGpsData[id];
+            if(!rep.lat || !rep.lng) return;
+            var icon = crMapRepIcon(rep);
+            if(!icon) return;
+            var marker = L.marker([rep.lat, rep.lng], { icon:icon });
+            var tsStr = rep.ts ? new Date(rep.ts).toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}) : '—';
+            var popup = '<div class="cr-mapa-popup">'+
+                '<h4>🚚 '+esc(rep.nombre)+'</h4>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">Última actualiz.</span><span class="cr-pop-val">'+tsStr+'</span></div>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">Pedidos asignados</span><span class="cr-pop-val">'+esc(rep.pedidosAsignados)+'</span></div>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">Entregados</span><span class="cr-pop-val" style="color:#10b981;font-weight:900;">'+esc(rep.pedidosEntregados)+'</span></div>'+
+                (rep.zona ? '<div class="cr-pop-row"><span class="cr-pop-label">Zona</span><span class="cr-pop-val">'+esc(rep.zona)+'</span></div>' : '')+
+                (rep.tel ? '<div class="cr-pop-row"><span class="cr-pop-label">Tel</span><span class="cr-pop-val">'+esc(rep.tel)+'</span></div>' : '')+
+                '</div>';
+            marker.bindPopup(popup, { maxWidth:220, className:'leaflet-popup-cr' });
+            _crMapLayers.repartidores.addLayer(marker);
+        });
+    }
+
+    // ── Detect paradas (5+ min same location) ──
+    function crMapDetectarParadas(){
+        if(!_crMap || !_crMapLayers.paradas) return;
+        _crMapLayers.paradas.clearLayers();
+        var umbralMs = crMapParadaMinutos() * 60 * 1000;
+        Object.keys(_crRepGpsData).forEach(function(id){
+            var rep = _crRepGpsData[id];
+            var hist = rep.historial;
+            if(hist.length < 2) return;
+            // Group consecutive points within ~30m radius
+            var grupos = [];
+            hist.forEach(function(pt){
+                var added = false;
+                for(var i=0;i<grupos.length;i++){
+                    var g = grupos[i];
+                    var dist = crMapDistM(pt.lat,pt.lng,g.lat,g.lng);
+                    if(dist < 30){
+                        g.puntos.push(pt);
+                        g.lat = (g.lat*g.puntos.length + pt.lat)/(g.puntos.length+1);
+                        g.lng = (g.lng*g.puntos.length + pt.lng)/(g.puntos.length+1);
+                        added = true; break;
+                    }
+                }
+                if(!added) grupos.push({ lat:pt.lat, lng:pt.lng, puntos:[pt] });
+            });
+            grupos.forEach(function(g){
+                if(g.puntos.length < 2) return;
+                var tsMin = Math.min.apply(null, g.puntos.map(function(p){return p.ts||0;}));
+                var tsMax = Math.max.apply(null, g.puntos.map(function(p){return p.ts||0;}));
+                var durMs = tsMax - tsMin;
+                if(durMs < umbralMs) return;
+                var minStr = Math.round(durMs/60000)+'min';
+                var icon = crMapParadaIcon();
+                if(!icon) return;
+                var marker = L.marker([g.lat, g.lng], { icon:icon });
+                var popup = '<div class="cr-mapa-popup">'+
+                    '<h4>⏱ Parada · '+esc(rep.nombre)+'</h4>'+
+                    '<div class="cr-pop-row"><span class="cr-pop-label">Duración</span><span class="cr-pop-val" style="color:#d97706;font-weight:900;">'+minStr+'</span></div>'+
+                    '<div class="cr-pop-row"><span class="cr-pop-label">Inicio</span><span class="cr-pop-val">'+new Date(tsMin).toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'})+'</span></div>'+
+                    '</div>';
+                marker.bindPopup(popup, { maxWidth:200, className:'leaflet-popup-cr' });
+                _crMapLayers.paradas.addLayer(marker);
+            });
+        });
+    }
+
+    // ── Render client markers from allEntregas ──
+    function crMapRenderClientes(){
+        if(!_crMap) return;
+        ['clientes_pendientes','clientes_entregados','no_encontrados'].forEach(function(k){
+            if(_crMapLayers[k]) _crMapLayers[k].clearLayers();
+        });
+        var visto = {};
+        allEntregas.forEach(function(e){
+            if(!e.lat || !e.lng) return;
+            var estado = e.estado||'pendiente';
+            var capa = estado==='entregada'?'clientes_entregados': estado==='no_entregada'?'no_encontrados':'clientes_pendientes';
+            if(!_crMapLayers[capa]) return;
+            var key = e.lat+'_'+e.lng+'_'+e.cliente;
+            if(visto[key]) return; visto[key]=1;
+            var icon = crMapClienteIcon(estado);
+            if(!icon) return;
+            var marker = L.marker([e.lat, e.lng], { icon:icon });
+            var pct = 0;
+            if(e.cliente){
+                var total = allEntregas.filter(function(x){return x.cliente===e.cliente;}).length;
+                var ok = allEntregas.filter(function(x){return x.cliente===e.cliente&&x.estado==='entregada';}).length;
+                pct = total>0?Math.round(ok/total*100):0;
+            }
+            var popup = '<div class="cr-mapa-popup">'+
+                '<h4>📍 '+esc(e.cliente||'Sin nombre')+'</h4>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">Zona</span><span class="cr-pop-val">'+esc(e.zona||'—')+'</span></div>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">Estado</span><span class="cr-pop-val">'+esc(estado)+'</span></div>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">% Éxito</span><span class="cr-pop-val" style="color:#10b981;">'+pct+'%</span></div>'+
+                '<div class="cr-pop-row"><span class="cr-pop-label">Repartidor</span><span class="cr-pop-val">'+esc(e.repartidorNombre||'—')+'</span></div>'+
+                '<button class="cr-pop-btn" onclick="window.__crShowHistFromMap&&window.__crShowHistFromMap('+JSON.stringify(e.cliente||'')+')" >📜 Ver Historial</button>'+
+                '</div>';
+            marker.bindPopup(popup, { maxWidth:230, className:'leaflet-popup-cr' });
+            _crMapLayers[capa].addLayer(marker);
+        });
+    }
+    // Expose for popup button
+    window.__crShowHistFromMap = function(nombre){ if(typeof showHistorialPopup==='function') showHistorialPopup(nombre); };
+
+    // ── Haversine distance in meters ──
+    function crMapDistM(lat1,lng1,lat2,lng2){
+        var R=6371000,r=Math.PI/180;
+        var dLat=(lat2-lat1)*r, dLng=(lng2-lng1)*r;
+        var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*r)*Math.cos(lat2*r)*Math.sin(dLng/2)*Math.sin(dLng/2);
+        return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+    }
+
+    // ── Actualizar lista lateral "Repartidores en Ruta" (panel bajo mapa) ──
+    function crMapActualizarListaEnRuta(){
+        var el = document.getElementById('crLocRepartidoresEnRuta'); // hidden, kept for compat
+        var panel = document.getElementById('crMapaInfoPanel');
+        var keys = Object.keys(_crRepGpsData);
+        var html = keys.length ? keys.map(function(id){
+            var rep = _crRepGpsData[id];
+            var tsStr = rep.ts ? new Date(rep.ts).toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'}) : '—';
+            return '<div style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;margin:3px;">'+
+                '<div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.55rem;flex-shrink:0;">'+esc((rep.nombre||'?').charAt(0))+'</div>'+
+                '<div><div style="font-weight:800;font-size:0.55rem;">'+esc(rep.nombre)+'</div>'+
+                '<div style="font-size:0.43rem;color:#64748b;">'+rep.pedidosEntregados+'/'+rep.pedidosAsignados+' · '+tsStr+'</div></div>'+
+                '<button onclick="crMapCentrarEn('+rep.lat+','+rep.lng+')" style="border:none;background:#eff6ff;color:#1e40af;border-radius:6px;padding:3px 7px;font-size:0.43rem;font-weight:700;cursor:pointer;">📍</button>'+
+            '</div>';
+        }).join('') : '<span style="color:#94a3b8;font-size:0.52rem;">Sin posiciones GPS activas</span>';
+        if(panel && keys.length){ panel.style.display='block'; panel.innerHTML='<div style="font-size:0.45rem;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">🚚 Repartidores en ruta</div><div style="display:flex;flex-wrap:wrap;gap:2px;">'+html+'</div>'; }
+        if(el) el.innerHTML = html;
+    }
+    window.crMapCentrarEn = function(lat,lng){ if(_crMap) _crMap.setView([lat,lng],16); };
+
+    // ── Override SEC_RENDERS.mapa to also init map ──
+    SEC_RENDERS.mapa = function(){
+        renderLocClientesList();
+        setTimeout(function(){ initCRMapa(); crMapRenderClientes(); },100);
+    };
 
         // ── RECOLECCIÓN (Admin: Control de Reparto) ──
     var RECOL_COLLECTION = 'stored_orders';
