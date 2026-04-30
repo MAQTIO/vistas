@@ -32862,133 +32862,6 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         </div>
 
-        <!-- ── SECTION: CONCEPTOS DE VISITA ── -->
-        <div class="cr-section" id="crSecConceptos" data-cr-section="conceptos">
-          <div class="cr-card">
-            <h3>📋 Conceptos de Visita</h3>
-            <p style="font-size:0.52rem;color:#64748b;margin:0 0 12px 0;">Cuando un repartidor no puede entregar, seleccionará uno de estos motivos desde la app móvil. Los conceptos aparecerán en el historial de entregas.</p>
-            <div id="crConceptosLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;"></div>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <input id="crConceptoNuevo" type="text" class="cr-input" placeholder="Ej: Cliente no encontrado, Dirección incorrecta, Cancelado..." style="flex:1;">
-              <select id="crConceptoTipo" class="cr-select">
-                <option value="no_entrega">❌ No entrega</option>
-                <option value="reagendar">📅 Reagendar</option>
-                <option value="parcial">📦 Entrega parcial</option>
-                <option value="otro">📝 Otro</option>
-              </select>
-              <button id="crConceptoAgregar" type="button" class="cr-btn primary">+ Agregar</button>
-            </div>
-          </div>
-          <div class="cr-card">
-            <h3>📊 Uso de Conceptos</h3>
-            <div id="crConceptosStats" style="font-size:0.55rem;color:#64748b;">Sin registros aún</div>
-          </div>
-        </div>
-
-        <!-- ── SECTION: ZONAS ── -->
-        <div class="cr-section" id="crSecZonas" data-cr-section="zonas">
-          <div class="cr-card">
-            <h3>🏷 Zonas de Reparto</h3>
-            <p style="font-size:0.52rem;color:#64748b;margin:0 0 12px 0;">Define las zonas geográficas para clasificar clientes y organizar rutas de entrega.</p>
-            <div id="configZonasLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;"></div>
-            <div style="display:flex;gap:8px;align-items:center;">
-              <input id="configZonaNueva" type="text" class="cr-input" placeholder="Nombre (ej: Zona Centro, Zona Norte...)" style="flex:1;">
-              <input id="configZonaColor" type="color" value="#3b82f6" style="width:40px;height:34px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;">
-              <button id="configZonaAgregar" type="button" class="cr-btn primary">+ Agregar Zona</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── SECTION: GEOCERCAS ── -->
-        <div class="cr-section" id="crSecGeocercas" data-cr-section="geocercas">
-          <div class="cr-card">
-            <h3>📍 Geocercas — Mapa de Clientes</h3>
-            <p style="font-size:0.52rem;color:#64748b;margin:0 0 12px 0;">Mapa interactivo con las ubicaciones de todos los clientes. Útil para planificar rutas y verificar cobertura de zonas.</p>
-            <div style="display:flex;gap:8px;margin-bottom:10px;">
-              <select id="crGeocercaFiltroZona" class="cr-select"><option value="">Todas las zonas</option></select>
-              <input id="crGeocercaBuscar" type="text" class="cr-input" placeholder="🔍 Buscar cliente..." style="max-width:250px;">
-            </div>
-            <div id="crMapaClientes" class="cr-map-placeholder" style="height:400px;">
-              <div style="text-align:center;">
-                <div style="font-size:2rem;margin-bottom:8px;">📍</div>
-                <div>Mapa de clientes</div>
-                <div style="font-size:0.5rem;color:#94a3b8;margin-top:4px;">Se mostrarán todos los clientes mapeados por zona</div>
-              </div>
-            </div>
-          </div>
-          <div class="cr-card">
-            <h3>📊 Clientes por Zona</h3>
-            <div id="crGeocercaResumen" style="font-size:0.55rem;color:#64748b;">Cargando...</div>
-          </div>
-        </div>
-
-        <!-- ── SECTION: GASTOS EMPLEADO ── -->
-        <div class="cr-section" id="crSecGastos" data-cr-section="gastos">
-          <div class="cr-header-bar">
-            <select id="crGastoFiltroRep" class="cr-select"><option value="">Todos los repartidores</option></select>
-            <select id="crGastoFiltroPeriodo" class="cr-select">
-              <option value="hoy">Hoy</option>
-              <option value="semana">Esta semana</option>
-              <option value="mes" selected>Este mes</option>
-              <option value="todo">Todo</option>
-            </select>
-          </div>
-          <div class="cr-stats" id="crGastosResumen">
-            <div class="cr-stat"><div class="val" style="color:#ef4444;" id="crGastoTotal">$0</div><div class="lbl">Total Gastos</div></div>
-            <div class="cr-stat"><div class="val" style="color:#f59e0b;" id="crGastoCombustible">$0</div><div class="lbl">Combustible</div></div>
-            <div class="cr-stat"><div class="val" style="color:#3b82f6;" id="crGastoAlimentos">$0</div><div class="lbl">Alimentos</div></div>
-            <div class="cr-stat"><div class="val" style="color:#8b5cf6;" id="crGastoOtros">$0</div><div class="lbl">Otros</div></div>
-          </div>
-          <div class="cr-card">
-            <h3>💰 Registro de Gastos</h3>
-            <table class="cr-table">
-              <thead><tr><th>Fecha</th><th>Repartidor</th><th>Concepto</th><th>Monto</th><th>Evidencia</th><th>Estado</th></tr></thead>
-              <tbody id="crGastosTabla"><tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:20px;">Sin gastos registrados</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- ── SECTION: HORARIOS ── -->
-        <div class="cr-section" id="crSecHorarios" data-cr-section="horarios">
-          <div class="cr-card">
-            <h3>🕐 Configuración de Horarios</h3>
-            <p style="font-size:0.52rem;color:#64748b;margin:0 0 12px 0;">Define los horarios de trabajo de cada repartidor. Se usarán para el control de asistencia y cálculo de horas extras.</p>
-            <div id="crHorariosLista"></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:8px;align-items:end;margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0;">
-              <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Repartidor</label><select id="crHorarioRep" class="cr-select" style="width:100%;"></select></div>
-              <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Hora Entrada</label><input id="crHorarioEntrada" type="time" value="08:00" class="cr-input"></div>
-              <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Hora Salida</label><input id="crHorarioSalida" type="time" value="18:00" class="cr-input"></div>
-              <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Días</label><select id="crHorarioDias" class="cr-select" style="width:100%;"><option value="lun-sab">Lun-Sáb</option><option value="lun-vie">Lun-Vie</option><option value="todos">Todos</option><option value="personalizado">Personalizado</option></select></div>
-              <button id="crHorarioGuardar" type="button" class="cr-btn primary" style="white-space:nowrap;">💾 Guardar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── SECTION: CHECKS ASISTENCIA ── -->
-        <div class="cr-section" id="crSecChecks" data-cr-section="checks">
-          <div class="cr-header-bar">
-            <select id="crCheckFiltroRep" class="cr-select"><option value="">Todos</option></select>
-            <select id="crCheckFiltroPeriodo" class="cr-select">
-              <option value="hoy" selected>Hoy</option>
-              <option value="semana">Esta semana</option>
-              <option value="mes">Este mes</option>
-            </select>
-          </div>
-          <div class="cr-stats">
-            <div class="cr-stat"><div class="val" style="color:#10b981;" id="crCheckPresentes">0</div><div class="lbl">Presentes Hoy</div></div>
-            <div class="cr-stat"><div class="val" style="color:#ef4444;" id="crCheckAusentes">0</div><div class="lbl">Ausentes</div></div>
-            <div class="cr-stat"><div class="val" style="color:#f59e0b;" id="crCheckRetardos">0</div><div class="lbl">Retardos</div></div>
-            <div class="cr-stat"><div class="val" style="color:#3b82f6;" id="crCheckHorasExtra">0</div><div class="lbl">Horas Extra</div></div>
-          </div>
-          <div class="cr-card">
-            <h3>✅ Registro de Entradas/Salidas</h3>
-            <table class="cr-table">
-              <thead><tr><th>Fecha</th><th>Repartidor</th><th>Entrada</th><th>Salida</th><th>Horas</th><th>Estado</th><th>Ubicación</th></tr></thead>
-              <tbody id="crChecksTabla"><tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:20px;">Sin registros hoy</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-
         <!-- ── SECTION: REPARTIDORES ── -->
         <div class="cr-section" id="crSecRepartidores" data-cr-section="repartidores">
           <div class="cr-card">
@@ -33082,54 +32955,40 @@ document.addEventListener('DOMContentLoaded', function() {
           <!-- ── Tab: Configuración del módulo ── -->
           <div id="crAlertasTab_config" style="display:none;">
             <div class="cr-card">
-              <h3>🗺 Zonas de Entrega</h3>
-              <div id="crConfigZonasLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;min-height:40px;color:#94a3b8;font-size:0.55rem;"></div>
-              <div style="display:grid;grid-template-columns:1fr auto;gap:8px;">
-                <input id="crConfigZonaNombre" type="text" class="cr-input" placeholder="Nombre de zona...">
-                <button id="crConfigZonaAgregar" type="button" class="cr-btn primary">+ Agregar</button>
+              <h3>🏷 Zonas de Reparto</h3>
+              <p style="font-size:0.52rem;color:#64748b;margin:0 0 12px 0;">Define las zonas geográficas para clasificar clientes y organizar rutas de entrega.</p>
+              <div id="configZonasLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;"></div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input id="configZonaNueva" type="text" class="cr-input" placeholder="Nombre (ej: Zona Centro, Zona Norte...)" style="flex:1;">
+                <input id="configZonaColor" type="color" value="#3b82f6" style="width:40px;height:34px;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;">
+                <button id="configZonaAgregar" type="button" class="cr-btn primary">+ Agregar Zona</button>
               </div>
             </div>
             <div class="cr-card">
-              <h3>📍 Geocercas</h3>
-              <p style="font-size:0.52rem;color:#64748b;margin:0 0 8px 0;">Define las zonas delimitadas en el mapa para monitoreo automático.</p>
-              <div id="crGeocercaLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;min-height:40px;color:#94a3b8;font-size:0.55rem;"></div>
-              <button id="crGeocercaAgregar" type="button" class="cr-btn primary">+ Nueva Geocerca</button>
-            </div>
-            <div class="cr-card">
-              <h3>💳 Conceptos de Gastos</h3>
-              <div id="crGastosConceptosLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;min-height:40px;color:#94a3b8;font-size:0.55rem;"></div>
-              <div style="display:grid;grid-template-columns:1fr auto;gap:8px;">
-                <input id="crGastoConceptoNombre" type="text" class="cr-input" placeholder="Concepto de gasto...">
-                <button id="crGastoConceptoAgregar" type="button" class="cr-btn primary">+ Agregar</button>
+              <h3>🕐 Horarios de Repartidores</h3>
+              <p style="font-size:0.52rem;color:#64748b;margin:0 0 12px 0;">Define los horarios de trabajo de cada repartidor para control de asistencia.</p>
+              <div id="crHorariosLista"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:8px;align-items:end;margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0;">
+                <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Repartidor</label><select id="crHorarioRep" class="cr-select" style="width:100%;"></select></div>
+                <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Entrada</label><input id="crHorarioEntrada" type="time" value="08:00" class="cr-input"></div>
+                <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Salida</label><input id="crHorarioSalida" type="time" value="18:00" class="cr-input"></div>
+                <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Días</label><select id="crHorarioDias" class="cr-select" style="width:100%;"><option value="lun-sab">Lun-Sáb</option><option value="lun-vie">Lun-Vie</option><option value="todos">Todos</option></select></div>
+                <button id="crHorarioGuardar" type="button" class="cr-btn primary" style="white-space:nowrap;">💾 Guardar</button>
               </div>
             </div>
             <div class="cr-card">
-              <h3>🕐 Horarios de Operación</h3>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;" id="crHorariosConfig">
-                <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Hora inicio:</label><input type="time" id="crHorarioInicio" class="cr-input" value="08:00"></div>
-                <div><label style="font-size:0.48rem;font-weight:700;color:#64748b;">Hora fin:</label><input type="time" id="crHorarioFin" class="cr-input" value="18:00"></div>
-                <div>
-                  <label style="font-size:0.48rem;font-weight:700;color:#64748b;">Días activos:</label>
-                  <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">
-                    <label style="font-size:0.48rem;cursor:pointer;"><input type="checkbox" checked> Lun</label>
-                    <label style="font-size:0.48rem;cursor:pointer;"><input type="checkbox" checked> Mar</label>
-                    <label style="font-size:0.48rem;cursor:pointer;"><input type="checkbox" checked> Mié</label>
-                    <label style="font-size:0.48rem;cursor:pointer;"><input type="checkbox" checked> Jue</label>
-                    <label style="font-size:0.48rem;cursor:pointer;"><input type="checkbox" checked> Vie</label>
-                    <label style="font-size:0.48rem;cursor:pointer;"><input type="checkbox"> Sáb</label>
-                    <label style="font-size:0.48rem;cursor:pointer;"><input type="checkbox"> Dom</label>
-                  </div>
-                </div>
-              </div>
-              <div style="margin-top:10px;"><button id="crHorarioGuardar" type="button" class="cr-btn primary">💾 Guardar Horarios</button></div>
-            </div>
-            <div class="cr-card">
-              <h3>✅ Conceptos de Visita</h3>
-              <p style="font-size:0.52rem;color:#64748b;margin:0 0 8px 0;">Resultados disponibles para los repartidores al reportar una visita fallida en la app.</p>
-              <div id="crCheckConceptosLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;min-height:40px;color:#94a3b8;font-size:0.55rem;"></div>
-              <div style="display:grid;grid-template-columns:1fr auto;gap:8px;">
-                <input id="crCheckConceptoNombre" type="text" class="cr-input" placeholder="Concepto de visita...">
-                <button id="crCheckConceptoAgregar" type="button" class="cr-btn primary">+ Agregar</button>
+              <h3>📋 Conceptos de Visita</h3>
+              <p style="font-size:0.52rem;color:#64748b;margin:0 0 8px 0;">Motivos que usan los repartidores al reportar una visita fallida desde la app.</p>
+              <div id="crConceptosLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;"></div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input id="crConceptoNuevo" type="text" class="cr-input" placeholder="Ej: Cliente no encontrado, Dirección incorrecta..." style="flex:1;">
+                <select id="crConceptoTipo" class="cr-select">
+                  <option value="no_entrega">❌ No entrega</option>
+                  <option value="reagendar">📅 Reagendar</option>
+                  <option value="parcial">📦 Entrega parcial</option>
+                  <option value="otro">📝 Otro</option>
+                </select>
+                <button id="crConceptoAgregar" type="button" class="cr-btn primary">+ Agregar</button>
               </div>
             </div>
           </div>
@@ -37684,7 +37543,7 @@ document.addEventListener('DOMContentLoaded', function() {
         reagendar:renderReagendamiento,
         alertas:renderAlertas
     };
-    var currentGroup='dashboard', currentSubIdx=0;
+    var currentGroup='dashboard';
 
     var sidebarBtns = panel.querySelectorAll('.cr-sidebar-btn[data-cr-section]');
     var sections = panel.querySelectorAll('.cr-section[data-cr-section]');
@@ -37692,32 +37551,22 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click',function(){
             sidebarBtns.forEach(function(b){b.classList.remove('active');});
             btn.classList.add('active');
-            currentSubIdx=0;
             renderActiveSection();
         });
     });
 
-    // ── Sub-tabs inline: data-dash-tab (Dashboard) ──
+    // ── Sub-tabs inline (Dashboard & Alertas) — handler unificado ──
     panel.addEventListener('click',function(e){
-        var btn=e.target.closest('[data-dash-tab].cr-subtab');
+        var btn=e.target.closest('.cr-subtab[data-dash-tab],.cr-subtab[data-alertas-tab]');
         if(!btn) return;
-        var tab=btn.dataset.dashTab;
-        panel.querySelectorAll('[data-dash-tab].cr-subtab').forEach(function(b){b.classList.remove('active');});
+        var isDash=!!btn.dataset.dashTab;
+        var tab=isDash ? btn.dataset.dashTab : btn.dataset.alertasTab;
+        var prefix=isDash ? 'crDashTab_' : 'crAlertasTab_';
+        var attr=isDash ? '[data-dash-tab]' : '[data-alertas-tab]';
+        btn.closest('.cr-section').querySelectorAll('.cr-subtab'+attr).forEach(function(b){b.classList.remove('active');});
         btn.classList.add('active');
-        panel.querySelectorAll('[id^="crDashTab_"]').forEach(function(el){el.style.display='none';});
-        var target=document.getElementById('crDashTab_'+tab);
-        if(target) target.style.display='';
-    });
-
-    // ── Sub-tabs inline: data-alertas-tab (Alertas & Config) ──
-    panel.addEventListener('click',function(e){
-        var btn=e.target.closest('[data-alertas-tab].cr-subtab');
-        if(!btn) return;
-        var tab=btn.dataset.alertasTab;
-        panel.querySelectorAll('[data-alertas-tab].cr-subtab').forEach(function(b){b.classList.remove('active');});
-        btn.classList.add('active');
-        panel.querySelectorAll('[id^="crAlertasTab_"]').forEach(function(el){el.style.display='none';});
-        var target=document.getElementById('crAlertasTab_'+tab);
+        panel.querySelectorAll('[id^="'+prefix+'"]').forEach(function(el){el.style.display='none';});
+        var target=document.getElementById(prefix+tab);
         if(target) target.style.display='';
     });
 
@@ -37741,59 +37590,22 @@ document.addEventListener('DOMContentLoaded', function() {
         return active ? active.dataset.crSection : 'dashboard';
     }
 
-    function showSubSection(groupKey, idx){
-        var g=SECTION_GROUPS[groupKey]; if(!g) return;
-        // Hide ALL sections first
-        sections.forEach(function(s){ s.classList.remove('active'); s.style.display='none'; });
-        // Show the target sub-section
-        var targetKey=g.sections[idx];
-        var el=panel.querySelector('.cr-section[data-cr-section="'+targetKey+'"]');
-        if(el){ el.classList.add('active'); el.style.display=''; }
-        // Call its render function
-        if(SEC_RENDERS[targetKey]) SEC_RENDERS[targetKey]();
-        populateZonaSelects();
-        populateRepSelects();
-    }
-
     function renderActiveSection(){
         var sec = getActiveSection();
-        currentGroup=sec;
-        var g=SECTION_GROUPS[sec];
-        if(!g){ /* fallback for any unmapped section */
-            sections.forEach(function(s){ s.classList.remove('active'); s.style.display='none'; });
-            var direct=panel.querySelector('.cr-section[data-cr-section="'+sec+'"]');
-            if(direct){direct.classList.add('active');direct.style.display='';}
-            if(SEC_RENDERS[sec]) SEC_RENDERS[sec]();
-            updateSidebarResumen(); return;
-        }
-        // Sub-tab bar
-        var tabBar=document.getElementById('crSubTabBar');
-        if(g.tabs && g.tabs.length>1){
-            tabBar.style.display='';
-            tabBar.innerHTML='<div class="cr-subtabs">'+g.tabs.map(function(t,i){
-                return '<button class="cr-subtab'+(i===currentSubIdx?' active':'')+'" data-sub-idx="'+i+'">'+t+'</button>';
-            }).join('')+'</div>';
-            tabBar.querySelectorAll('.cr-subtab').forEach(function(btn){
-                btn.addEventListener('click',function(){
-                    currentSubIdx=parseInt(btn.dataset.subIdx);
-                    tabBar.querySelectorAll('.cr-subtab').forEach(function(t){t.classList.remove('active');});
-                    btn.classList.add('active');
-                    showSubSection(currentGroup, currentSubIdx);
-                });
-            });
-        } else {
-            tabBar.style.display='none';
-            tabBar.innerHTML='';
-        }
-        // Show first (or current) sub-section
-        showSubSection(sec, currentSubIdx);
+        currentGroup = sec;
+        sections.forEach(function(s){ s.classList.remove('active'); s.style.display='none'; });
+        var el = panel.querySelector('.cr-section[data-cr-section="'+sec+'"]');
+        if(el){ el.classList.add('active'); el.style.display=''; }
+        if(SEC_RENDERS[sec]) SEC_RENDERS[sec]();
+        populateZonaSelects();
+        populateRepSelects();
         updateSidebarResumen();
     }
 
     // ── POPULATE SELECTS ──
     function populateZonaSelects(){
         var zonas=getZonas();
-        document.querySelectorAll('#cliFormZona,#ctrlRepFiltroZona,#configRepartidorZona,#crGeocercaFiltroZona').forEach(function(sel){
+        document.querySelectorAll('#cliFormZona,#ctrlRepFiltroZona,#configRepartidorZona,#crLocFiltroZona').forEach(function(sel){
             var cur=sel.value;
             var opts='<option value="">'+((sel.id==='cliFormZona'||sel.id==='configRepartidorZona')?'— Sin zona —':'Todas las zonas')+'</option>';
             zonas.forEach(function(z){opts+='<option value="'+esc(z.nombre)+'"'+(cur===z.nombre?' selected':'')+'>'+esc(z.nombre)+'</option>';});
@@ -37802,10 +37614,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     function populateRepSelects(){
         var reps=getReps().filter(function(r){return r.activo!==false;});
-        document.querySelectorAll('#ctrlRepAsignarA,#crGastoFiltroRep,#crCheckFiltroRep,#crHorarioRep,#crRutaRep,#crPenRep,#crKpiFiltroRep,#crInvFiltroRep,#crChatRep,#crKmFiltroRep,#crKmRep,#crRepFiltroRep').forEach(function(sel){
+        document.querySelectorAll('#ctrlRepAsignarA,#crHorarioRep,#crRutaRep,#crPenRep,#crKpiFiltroRep,#crInvFiltroRep,#crChatRep,#crKmFiltroRep,#crKmRep,#crRepFiltroRep').forEach(function(sel){
             var cur=sel.value;
-            var first = sel.id==='crGastoFiltroRep'||sel.id==='crCheckFiltroRep' ? '<option value="">Todos</option>' : '<option value="">— Seleccionar —</option>';
-            var opts=first;
+            var opts='<option value="">— Seleccionar —</option>';
             reps.forEach(function(r){opts+='<option value="'+esc(r.id)+'">'+esc(r.nombre)+(r.zona?' ('+esc(r.zona)+')':'')+'</option>';});
             sel.innerHTML=opts;if(cur)sel.value=cur;
         });
@@ -37879,24 +37690,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ── LOCALIZACIÓN ──
-    function renderLocalizacion(){
-        var container=document.getElementById('crMapaGeneral');
-        if(!container||container.dataset.loaded)return;
-        var reps=getReps().filter(function(r){return r.activo!==false;});
-        var html='<div style="position:absolute;inset:0;background:linear-gradient(135deg,#e0f2fe,#dbeafe);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:10px;">'+
-            '<div style="font-size:2rem;margin-bottom:8px;">🗺</div>'+
-            '<div style="font-size:0.65rem;font-weight:800;color:#1e40af;margin-bottom:10px;">Mapa de Localización</div>'+
-            '<div style="font-size:0.5rem;color:#64748b;margin-bottom:12px;">'+reps.length+' repartidores registrados</div>'+
-            '<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:90%;">'+
-            reps.map(function(r){
-                return '<div style="background:#fff;border:1px solid #bfdbfe;border-radius:6px;padding:6px 10px;display:flex;align-items:center;gap:4px;">'+
-                    '<span style="color:#3b82f6;">📍</span><span style="font-size:0.5rem;font-weight:700;">'+esc(r.nombre)+'</span>'+
-                    '<span style="font-size:0.45rem;color:#94a3b8;">'+esc(r.zona||'')+'</span></div>';
-            }).join('')+'</div>'+
-            '<div style="margin-top:12px;font-size:0.45rem;color:#94a3b8;">Integra Google Maps API para ver ubicaciones en tiempo real</div></div>';
-        container.innerHTML=html;
-    }
-
     // ── PEDIDOS ──
     function renderPedidos(){
         var list=document.getElementById('ctrlRepPedidosList');if(!list)return;
@@ -38050,58 +37843,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if(inp)inp.value='';renderZonas();populateZonaSelects();
     });
 
-    // ── GEOCERCAS ──
-    function renderGeocercas(){
-        var container=document.getElementById('crMapaClientes');if(!container)return;
-        var zonas=getZonas();
-        var html='<div style="position:absolute;inset:0;background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;">'+
-            '<div style="font-size:2rem;margin-bottom:8px;">📍</div>'+
-            '<div style="font-size:0.65rem;font-weight:800;color:#166534;">Mapa de Clientes por Zona</div>'+
-            '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;justify-content:center;">'+
-            zonas.map(function(z){
-                return '<div style="display:flex;align-items:center;gap:4px;padding:4px 10px;background:#fff;border:1px solid #e2e8f0;border-radius:6px;">'+
-                    '<span style="width:10px;height:10px;border-radius:50%;background:'+(z.color||'#3b82f6')+';"></span>'+
-                    '<span style="font-size:0.5rem;font-weight:700;">'+esc(z.nombre)+'</span></div>';
-            }).join('')+'</div>'+
-            '<div style="margin-top:12px;font-size:0.45rem;color:#94a3b8;">Integra Google Maps API para ver clientes mapeados</div></div>';
-        container.innerHTML=html;
-
-        // Resumen
-        var resEl=document.getElementById('crGeocercaResumen');
-        if(resEl){
-            if(!zonas.length){resEl.innerHTML='Sin zonas configuradas';return;}
-            resEl.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;">'+
-                zonas.map(function(z){
-                    return '<div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;">'+
-                        '<span style="width:12px;height:12px;border-radius:3px;background:'+(z.color||'#3b82f6')+';"></span>'+
-                        '<span style="font-size:0.52rem;font-weight:700;">'+esc(z.nombre)+'</span></div>';
-                }).join('')+'</div>';
-        }
-    }
-
-    // ── GASTOS EMPLEADO ──
-    function renderGastos(){
-        var gastos=getGastos();
-        var total=0,comb=0,alim=0,otros=0;
-        gastos.forEach(function(g){
-            var m=Number(g.monto||0);total+=m;
-            if(g.categoria==='combustible')comb+=m;
-            else if(g.categoria==='alimentos')alim+=m;
-            else otros+=m;
-        });
-        var el=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
-        el('crGastoTotal',fmtMoney(total));el('crGastoCombustible',fmtMoney(comb));el('crGastoAlimentos',fmtMoney(alim));el('crGastoOtros',fmtMoney(otros));
-
-        var tbody=document.getElementById('crGastosTabla');
-        if(tbody){
-            if(!gastos.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:20px;">Sin gastos registrados. Los repartidores reportan gastos desde la app móvil.</td></tr>';return;}
-            tbody.innerHTML=gastos.map(function(g){
-                return '<tr><td>'+esc(fmtDate(g.fecha))+'</td><td>'+esc(g.repartidor||'—')+'</td><td>'+esc(g.concepto||'—')+'</td><td style="font-weight:700;">'+fmtMoney(g.monto)+'</td><td>'+(g.evidencia?'📎':'—')+'</td>'+
-                    '<td><span class="cr-badge" style="background:'+(g.aprobado?'#f0fdf4;color:#16a34a':'#fff7ed;color:#f59e0b')+'">'+(g.aprobado?'Aprobado':'Pendiente')+'</span></td></tr>';
-            }).join('');
-        }
-    }
-
     // ── HORARIOS ──
     function renderHorarios(){
         var container=document.getElementById('crHorariosLista');if(!container)return;
@@ -38130,32 +37871,6 @@ document.addEventListener('DOMContentLoaded', function() {
         else h.push({repId:repId,entrada:entrada,salida:salida,dias:dias});
         saveHorarios(h);renderHorarios();
     });
-
-    // ── CHECKS ASISTENCIA ──
-    function renderChecks(){
-        var checks=getChecks();
-        var hoy=new Date().toISOString().split('T')[0];
-        var checksHoy=checks.filter(function(c){return(c.fecha||'').startsWith(hoy);});
-        var reps=getReps().filter(function(r){return r.activo!==false;});
-        var presentes=checksHoy.filter(function(c){return c.entrada;}).length;
-        var ausentes=reps.length-presentes;
-        var retardos=checksHoy.filter(function(c){return c.retardo;}).length;
-
-        var el=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
-        el('crCheckPresentes',presentes);el('crCheckAusentes',ausentes<0?0:ausentes);el('crCheckRetardos',retardos);el('crCheckHorasExtra','0');
-
-        var tbody=document.getElementById('crChecksTabla');
-        if(tbody){
-            if(!checks.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:20px;">Sin registros. Los checks se generan desde la app móvil del repartidor.</td></tr>';return;}
-            var repMap={};getReps().forEach(function(r){repMap[r.id]=r;});
-            tbody.innerHTML=checks.slice(0,50).map(function(c){
-                var r=repMap[c.repId];
-                return '<tr><td>'+esc(c.fecha||'—')+'</td><td style="font-weight:700;">'+esc(r?r.nombre:c.repId)+'</td><td>'+esc(c.entrada||'—')+'</td><td>'+esc(c.salida||'—')+'</td><td>'+esc(c.horas||'—')+'</td>'+
-                    '<td><span class="cr-badge" style="background:'+(c.retardo?'#fef2f2;color:#ef4444':'#f0fdf4;color:#16a34a')+'">'+(c.retardo?'Retardo':'OK')+'</span></td>'+
-                    '<td style="font-size:0.45rem;">'+esc(c.ubicacion||'—')+'</td></tr>';
-            }).join('');
-        }
-    }
 
     // ── REPARTIDORES ──
     function renderRepartidoresSection(){
@@ -38577,9 +38292,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setKmCosto(v);renderKilometraje();alert('Costo actualizado: $'+v.toFixed(2)+'/km');
     });
 
-    // ── UPDATE renderActiveSection to include new sections ──
-    var _origRenderActive = renderActiveSection;
-
     // ── LOCALIZACIÓN TOGGLE (Repartidores / Clientes) ──
     (function(){
         var toggleBtns=panel.querySelectorAll('#crLocToggle .cr-toggle');
@@ -38676,20 +38388,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if(popup) popup.addEventListener('click',function(e){ if(e.target===popup) popup.style.display='none'; });
     })();
 
-    // ── POPULATE LOCALIZACION ZONA SELECT ──
-    var _origPopZonas = populateZonaSelects;
-    populateZonaSelects = function(){
-        _origPopZonas();
-        // Also populate the loc filter
-        var zonas=getZonas();
-        var locSel=document.getElementById('crLocFiltroZona');
-        if(locSel){
-            var cur=locSel.value;
-            var opts='<option value="">Todas las zonas</option>';
-            zonas.forEach(function(z){opts+='<option value="'+esc(z.nombre)+'"'+(cur===z.nombre?' selected':'')+'>'+esc(z.nombre)+'</option>';});
-            locSel.innerHTML=opts;if(cur)locSel.value=cur;
-        }
-    };
+
 
         // ── RECOLECCIÓN (Admin: Control de Reparto) ──
     var RECOL_COLLECTION = 'stored_orders';
