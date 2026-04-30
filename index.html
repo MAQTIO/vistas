@@ -32546,6 +32546,14 @@ document.addEventListener('DOMContentLoaded', function() {
   #panelControlRepartidores .cr-ico-btn.active { background:#dbeafe;box-shadow:0 0 0 2px #3b82f6; }
   #panelControlRepartidores .cr-ico-btn.danger { background:#fef2f2; }
   #panelControlRepartidores .cr-ico-btn.danger:hover { background:#fee2e2; }
+  /* Fullscreen sub-panel for icon actions */
+  .cr-fs-overlay { display:none;position:fixed;inset:0;background:#f1f5f9;z-index:10050;flex-direction:column; }
+  .cr-fs-overlay.cr-fs-open { display:flex; }
+  .cr-fs-header { background:linear-gradient(135deg,#0f172a,#1e40af);padding:10px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0; }
+  .cr-fs-header .cr-fs-back { background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+  .cr-fs-header .cr-fs-title { flex:1;font-size:0.75rem;font-weight:900;color:#fff; }
+  .cr-fs-header .cr-fs-subtitle { font-size:0.48rem;color:#93c5fd; }
+  .cr-fs-body { flex:1;overflow-y:auto;padding:16px; }
 </style>
 <div id="panelControlRepartidores" class="entrega-overlay">
   <div style="display:flex;flex-direction:column;width:100%;height:100vh;">
@@ -32564,6 +32572,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="cr-sidebar">
         <div style="padding:12px 14px 8px;font-size:0.42rem;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:1px;">Módulos</div>
         <button class="cr-sidebar-btn active" data-cr-section="dashboard"><span class="cr-ico">📊</span> Dashboard</button>
+        <button class="cr-sidebar-btn" data-cr-section="pedidos"><span class="cr-ico">📦</span> Pedidos</button>
         <button class="cr-sidebar-btn" data-cr-section="mapa"><span class="cr-ico">🗺</span> Mapa & Rutas</button>
         <button class="cr-sidebar-btn" data-cr-section="repartidores"><span class="cr-ico">👥</span> Repartidores</button>
         <button class="cr-sidebar-btn" data-cr-section="recoleccion"><span class="cr-ico">🏭</span> Recolección</button>
@@ -32584,9 +32593,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
           <!-- Sub-tabs internos -->
           <div class="cr-subtabs" style="display:flex;">
-            <button class="cr-subtab active" data-dash-tab="resumen">📊 Resumen</button>
-            <button class="cr-subtab" data-dash-tab="pedidos">📦 Pedidos</button>
-            <button class="cr-subtab" data-dash-tab="kpis">🏆 KPIs</button>
+            <button class="cr-subtab active" data-dash-tab="resumen">📊 Resumen & KPIs</button>
             <button class="cr-subtab" data-dash-tab="reagendar">📅 Reagendar</button>
             <button class="cr-subtab" data-dash-tab="reportes">📄 Reportes</button>
             <button class="cr-subtab" data-dash-tab="historial">📜 Historial</button>
@@ -32614,85 +32621,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div id="crDashActivity" style="max-height:260px;overflow-y:auto;font-size:0.55rem;color:#475569;">Cargando...</div>
               </div>
             </div>
-            <!-- Penalizaciones compactas -->
-            <div class="cr-card" style="margin-top:0;">
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-                <h3 style="margin:0;flex:1;">⚠️ Penalizaciones</h3>
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:6px;align-items:end;flex:3;">
-                  <select id="crPenRep" class="cr-select" style="width:100%;"></select>
-                  <input id="crPenMotivo" type="text" class="cr-input" placeholder="Motivo...">
-                  <input id="crPenMonto" type="number" class="cr-input" placeholder="$0.00" min="0" step="0.01">
-                  <button id="crPenAgregar" type="button" class="cr-btn danger" style="white-space:nowrap;">+ Registrar</button>
+            <!-- KPIs fusionados en Resumen -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div class="cr-card">
+                <h3>🏆 KPIs del Período</h3>
+                <div class="cr-stats" style="grid-template-columns:1fr 1fr 1fr;gap:6px;" id="crKpisResumen">
+                  <div class="cr-stat"><div class="val" style="color:#10b981;" id="crKpiExito">0%</div><div class="lbl">% Éxito</div></div>
+                  <div class="cr-stat"><div class="val" style="color:#3b82f6;" id="crKpiPromedio">0</div><div class="lbl">Entg/Día</div></div>
+                  <div class="cr-stat"><div class="val" style="color:#8b5cf6;" id="crKpiPuntualidad">0%</div><div class="lbl">Puntual.</div></div>
+                </div>
+                <h3 style="margin-top:10px;">📈 Top Repartidores</h3>
+                <div id="crKpiRankingMini" style="display:flex;flex-direction:column;gap:4px;"></div>
+              </div>
+              <div class="cr-card">
+                <h3>🛣️ Kilometraje del Período</h3>
+                <div class="cr-stats" style="grid-template-columns:1fr 1fr;gap:6px;">
+                  <div class="cr-stat"><div class="val" style="color:#0ea5e9;" id="crKmTotal">0</div><div class="lbl">Km Total</div></div>
+                  <div class="cr-stat"><div class="val" style="color:#f59e0b;" id="crKmCosto">$0</div><div class="lbl">Costo Est.</div></div>
+                  <div class="cr-stat"><div class="val" style="color:#8b5cf6;" id="crKmPromedio">0</div><div class="lbl">Km/Día</div></div>
+                  <div class="cr-stat"><div class="val" style="color:#10b981;" id="crKmViaticos">$0</div><div class="lbl">Viáticos</div></div>
                 </div>
               </div>
-              <table class="cr-table">
-                <thead><tr><th>Fecha</th><th>Repartidor</th><th>Motivo</th><th>Monto</th><th>Acciones</th></tr></thead>
-                <tbody id="crPenTabla"><tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:16px;">Sin penalizaciones</td></tr></tbody>
-              </table>
             </div>
           </div>
 
-          <!-- ── TAB: KPIs & RANKING ── -->
-          <div id="crDashTab_kpis" data-dash-tab="kpis" style="display:none;">
-            <div class="cr-header-bar">
-              <select id="crKpiFiltroRep" class="cr-select"><option value="">Todos los repartidores</option></select>
-              <select id="crKpiFiltroPeriodo" class="cr-select">
-                <option value="semana">Esta semana</option>
-                <option value="mes" selected>Este mes</option>
-                <option value="todo">Todo el tiempo</option>
-              </select>
-            </div>
-            <div class="cr-stats" id="crKpisStats">
-              <div class="cr-stat"><div class="val" style="color:#10b981;" id="crKpiExito">0%</div><div class="lbl">% Entrega Exitosa</div></div>
-              <div class="cr-stat"><div class="val" style="color:#3b82f6;" id="crKpiPromedio">0</div><div class="lbl">Entregas/Día</div></div>
-              <div class="cr-stat"><div class="val" style="color:#f59e0b;" id="crKpiTiempo">—</div><div class="lbl">Tiempo Prom. Ruta</div></div>
-              <div class="cr-stat"><div class="val" style="color:#8b5cf6;" id="crKpiPuntualidad">0%</div><div class="lbl">Puntualidad</div></div>
-              <div class="cr-stat"><div class="val" style="color:#ef4444;" id="crKpiNoEntregas">0</div><div class="lbl">No Entregas</div></div>
-              <div class="cr-stat"><div class="val" style="color:#0ea5e9;" id="crKpiCalificacion">—</div><div class="lbl">Calificación</div></div>
-            </div>
-            <div class="cr-card">
-              <h3>📈 Ranking de Repartidores</h3>
-              <table class="cr-table">
-                <thead><tr><th>#</th><th>Repartidor</th><th>Entregas</th><th>% Éxito</th><th>Puntualidad</th><th>Calificación</th><th>Tendencia</th></tr></thead>
-                <tbody id="crKpiRanking"><tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:20px;">Cargando...</td></tr></tbody>
-              </table>
-            </div>
-            <div class="cr-card">
-              <h3>📊 Desempeño por Zona</h3>
-              <div id="crKpiZonas" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;"></div>
-            </div>
-            <!-- Kilometraje dentro de KPIs -->
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-              <div class="cr-card">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-                  <h3 style="margin:0;flex:1;">🛣️ Kilometraje</h3>
-                  <select id="crKmFiltroRep" class="cr-select"><option value="">Todos</option></select>
-                  <select id="crKmFiltroPeriodo" class="cr-select"><option value="hoy">Hoy</option><option value="semana">Semana</option><option value="mes" selected>Mes</option></select>
-                </div>
-                <div class="cr-stats" style="grid-template-columns:1fr 1fr;">
-                  <div class="cr-stat"><div class="val" style="color:#0ea5e9;font-size:1.1rem;" id="crKmTotal">0</div><div class="lbl">Km Totales</div></div>
-                  <div class="cr-stat"><div class="val" style="color:#f59e0b;font-size:1.1rem;" id="crKmCosto">$0</div><div class="lbl">Costo Estimado</div></div>
-                  <div class="cr-stat"><div class="val" style="color:#8b5cf6;font-size:1.1rem;" id="crKmPromedio">0</div><div class="lbl">Km Prom/Día</div></div>
-                  <div class="cr-stat"><div class="val" style="color:#10b981;font-size:1.1rem;" id="crKmViaticos">$0</div><div class="lbl">Viáticos</div></div>
-                </div>
-              </div>
-              <div class="cr-card">
-                <h3>⚙️ Registro Manual Km</h3>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
-                  <div><label style="font-size:0.45rem;font-weight:700;color:#64748b;">Repartidor</label><select id="crKmRep" class="cr-select" style="width:100%;"></select></div>
-                  <div><label style="font-size:0.45rem;font-weight:700;color:#64748b;">Fecha</label><input id="crKmFecha" type="date" class="cr-input"></div>
-                  <div><label style="font-size:0.45rem;font-weight:700;color:#64748b;">Km Inicio</label><input id="crKmInicio" type="number" class="cr-input" placeholder="0" min="0"></div>
-                  <div><label style="font-size:0.45rem;font-weight:700;color:#64748b;">Km Final</label><input id="crKmFinal" type="number" class="cr-input" placeholder="0" min="0"></div>
-                </div>
-                <div style="display:flex;gap:6px;align-items:center;">
-                  <div style="flex:1;"><label style="font-size:0.45rem;font-weight:700;color:#64748b;">Costo/Km ($)</label><input id="crKmCostoPorKm" type="number" class="cr-input" value="3.50" step="0.10" min="0"></div>
-                  <button id="crKmAgregar" type="button" class="cr-btn primary" style="white-space:nowrap;align-self:flex-end;">+ Registrar</button>
-                  <button id="crKmGuardarCosto" type="button" class="cr-btn success" style="white-space:nowrap;align-self:flex-end;">💾</button>
-                </div>
-                <table class="cr-table" style="margin-top:8px;"><thead><tr><th>Fecha</th><th>Repartidor</th><th>Recorrido</th><th>Costo</th><th></th></tr></thead><tbody id="crKmTabla"><tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:10px;">Sin registros</td></tr></tbody></table>
-              </div>
-            </div>
-          </div>
+          <!-- ── TAB: REAGENDAR (preservado) ── -->
+          <!-- crDashTab_kpis: KPI detallado eliminado — ver crKpisResumen en Resumen tab -->
 
           <!-- ── TAB: EXPORTAR REPORTES ── -->
           <div id="crDashTab_reportes" data-dash-tab="reportes" style="display:none;">
@@ -32760,33 +32714,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <div id="crHistResultados" style="display:flex;flex-direction:column;gap:8px;"></div>
           </div>
 
-          <!-- ── TAB: PEDIDOS & ASIGNACIÓN ── -->
-          <div id="crDashTab_pedidos" data-dash-tab="pedidos" style="display:none;">
-            <div class="cr-header-bar">
-              <select id="ctrlRepFiltroZona" class="cr-select"><option value="">Todas las zonas</option></select>
-              <select id="ctrlRepFiltroEstado" class="cr-select">
-                <option value="sin_asignar">📬 Sin asignar</option>
-                <option value="asignado">📋 Asignados</option>
-                <option value="en_camino">🚚 En camino</option>
-                <option value="entregada">✅ Entregados</option>
-                <option value="">Todos</option>
-              </select>
-              <input type="text" id="ctrlRepBuscador" class="cr-input" placeholder="🔍 Buscar folio o cliente..." style="max-width:220px;">
-            </div>
-            <div id="ctrlRepAsignacionBar" class="cr-card" style="display:none;background:#eff6ff;border-color:#bfdbfe;">
-              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                <span style="font-size:0.6rem;font-weight:800;color:#1e40af;">Asignar a:</span>
-                <select id="ctrlRepAsignarA" class="cr-select" style="flex:1;min-width:150px;"><option value="">— Repartidor —</option></select>
-                <button id="ctrlRepBtnAsignar" type="button" class="cr-btn primary">✅ ASIGNAR</button>
-                <button id="ctrlRepBtnSelAll" type="button" class="cr-btn" style="background:#f1f5f9;color:#374151;border:1px solid #d1d5db;">☑ Todos</button>
-                <span id="ctrlRepSelCount" style="font-size:0.52rem;color:#6b7280;font-weight:700;">0 sel.</span>
-              </div>
-            </div>
-            <div id="ctrlRepPedidosList" style="display:flex;flex-direction:column;gap:8px;">
-              <div style="text-align:center;color:#9ca3af;padding:30px;font-size:0.6rem;">Cargando pedidos...</div>
-            </div>
-          </div>
-
           <!-- ── TAB: REAGENDAMIENTO ── -->
           <div id="crDashTab_reagendar" data-dash-tab="reagendar" style="display:none;">
             <div class="cr-stats">
@@ -32802,6 +32729,51 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
 
         </div><!-- /crSecDashboard -->
+
+        <!-- ══════════════════════════════════════════════════
+             SECCIÓN: PEDIDOS & ASIGNACIÓN (módulo lateral)
+             ══════════════════════════════════════════════════ -->
+        <div class="cr-section" id="crSecPedidos" data-cr-section="pedidos">
+          <div class="cr-stats">
+            <div class="cr-stat"><div class="val" style="color:#f59e0b;" id="crPedSinAsignar">0</div><div class="lbl">📬 Sin Asignar</div></div>
+            <div class="cr-stat"><div class="val" style="color:#3b82f6;" id="crPedAsignados">0</div><div class="lbl">📋 Asignados</div></div>
+            <div class="cr-stat"><div class="val" style="color:#8b5cf6;" id="crPedEnCamino">0</div><div class="lbl">🚚 En Camino</div></div>
+            <div class="cr-stat"><div class="val" style="color:#10b981;" id="crPedEntregados">0</div><div class="lbl">✅ Entregados</div></div>
+            <div class="cr-stat"><div class="val" style="color:#ef4444;" id="crPedNoEntregados">0</div><div class="lbl">❌ No Entregados</div></div>
+          </div>
+          <div class="cr-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <h3 style="margin:0;">📦 Asignación de Pedidos</h3>
+              <div style="display:flex;gap:6px;">
+                <button id="ctrlRepBtnAutoAsig" type="button" class="cr-btn success">▶ Auto-Asignar</button>
+                <button id="ctrlRepBtnRefresh" type="button" class="cr-btn" style="background:#f1f5f9;color:#64748b;border:1px solid #d1d5db;">🔄</button>
+              </div>
+            </div>
+            <div class="cr-header-bar">
+              <select id="ctrlRepFiltroZona" class="cr-select"><option value="">Todas las zonas</option></select>
+              <select id="ctrlRepFiltroEstado" class="cr-select">
+                <option value="sin_asignar">📬 Sin asignar</option>
+                <option value="asignado">📋 Asignados</option>
+                <option value="en_camino">🚚 En camino</option>
+                <option value="entregada">✅ Entregados</option>
+                <option value="">Todos</option>
+              </select>
+              <input type="text" id="ctrlRepBuscador" class="cr-input" placeholder="🔍 Folio o cliente..." style="max-width:200px;">
+            </div>
+          </div>
+          <div id="ctrlRepAsignacionBar" class="cr-card" style="display:none;background:#eff6ff;border-color:#bfdbfe;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span style="font-size:0.6rem;font-weight:800;color:#1e40af;">Asignar seleccionados a:</span>
+              <select id="ctrlRepAsignarA" class="cr-select" style="flex:1;min-width:150px;"><option value="">— Repartidor —</option></select>
+              <button id="ctrlRepBtnAsignar" type="button" class="cr-btn primary">✅ ASIGNAR</button>
+              <button id="ctrlRepBtnSelAll" type="button" class="cr-btn" style="background:#fff;color:#374151;border:1px solid #bfdbfe;">☑ Todos</button>
+              <span id="ctrlRepSelCount" style="font-size:0.52rem;color:#1e40af;font-weight:800;">0 sel.</span>
+            </div>
+          </div>
+          <div id="ctrlRepPedidosList" style="display:flex;flex-direction:column;gap:8px;">
+            <div style="text-align:center;color:#9ca3af;padding:30px;font-size:0.6rem;">Cargando pedidos...</div>
+          </div>
+        </div><!-- /crSecPedidos -->
 
         <!-- ══════════════════════════════════════════════════
              SECCIÓN FUSIONADA: MAPA + RUTAS INTERACTIVO
@@ -32901,13 +32873,7 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
             </div>
             <div id="configRepartidoresLista" style="display:flex;flex-direction:column;gap:6px;"></div>
-          </div>
-          <div id="crRepAccionPanel" style="display:none;" class="cr-card">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #e2e8f0;">
-              <span id="crRepAccionTitulo" style="font-size:0.65rem;font-weight:900;color:#0f172a;"></span>
-              <button id="crRepAccionCerrar" type="button" style="background:none;border:none;cursor:pointer;font-size:1.1rem;color:#94a3b8;line-height:1;padding:2px 6px;">✕</button>
-            </div>
-            <div id="crRepAccionCuerpo"></div>
+            <p style="font-size:0.48rem;color:#94a3b8;text-align:center;margin-top:8px;">Pulsa 📦🚚📊⚠️ en un repartidor para abrir la acción en pantalla completa.</p>
           </div>
         </div>
 
@@ -33045,6 +33011,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button id="crConceptoAgregar" type="button" class="cr-btn primary">+ Agregar</button>
               </div>
             </div>
+            <!-- ── PENALIZACIONES AUTOMÁTICAS ── -->
+            <div class="cr-card" style="border-left:4px solid #ef4444;">
+              <h3>⚠️ Reglas de Penalización Automática</h3>
+              <p style="font-size:0.52rem;color:#64748b;margin:0 0 12px 0;">Define qué faltas generan una penalización automática y por qué monto. El sistema aplica el descuento al detectar el evento en la app del repartidor.</p>
+              <div id="crPenReglasLista" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end;background:#fff5f5;border:1px dashed #fca5a5;border-radius:8px;padding:10px;">
+                <div>
+                  <label style="font-size:0.45rem;font-weight:700;color:#64748b;display:block;margin-bottom:2px;">Tipo de falta</label>
+                  <select id="crPenReglaFalta" class="cr-select" style="width:100%;">
+                    <option value="no_entrega">❌ No entrega sin motivo válido</option>
+                    <option value="retardo">🕐 Retardo de entrada (&gt;15 min)</option>
+                    <option value="falta">🚫 Falta injustificada</option>
+                    <option value="fuera_zona">📍 Abandonar geocerca</option>
+                    <option value="queja">😤 Queja de cliente</option>
+                    <option value="dano">💔 Daño en paquete</option>
+                    <option value="otro">📝 Otro motivo</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="font-size:0.45rem;font-weight:700;color:#64748b;display:block;margin-bottom:2px;">Descripción</label>
+                  <input id="crPenReglaDesc" type="text" class="cr-input" placeholder="Breve descripción..." style="width:100%;">
+                </div>
+                <div>
+                  <label style="font-size:0.45rem;font-weight:700;color:#64748b;display:block;margin-bottom:2px;">Monto ($)</label>
+                  <input id="crPenReglaMonto" type="number" class="cr-input" placeholder="0.00" min="0" step="0.01" style="width:100%;">
+                </div>
+                <button id="crPenReglaAgregar" type="button" class="cr-btn danger" style="white-space:nowrap;">+ Agregar Regla</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -33105,6 +33100,22 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
       </div> <!-- /cr-main -->
+
+  <!-- ══ FULLSCREEN PANEL: acción de repartidor (Inv / Asignar / KPI / Pen) ══ -->
+  <div id="crRepFsPanel" class="cr-fs-overlay">
+    <div class="cr-fs-header">
+      <button id="crRepFsBack" class="cr-fs-back" title="Volver">←</button>
+      <div style="flex:1;">
+        <div id="crRepFsTitle" class="cr-fs-title">—</div>
+        <div id="crRepFsSubtitle" class="cr-fs-subtitle"></div>
+      </div>
+    </div>
+    <div id="crRepFsBody" class="cr-fs-body"></div>
+  </div>
+
+  <!-- ══ SECCIÓN PEDIDOS: módulo lateral dedicado ══ -->
+  <!-- crSecPedidos está dentro de cr-main (ver após crSecRepartidores) -->
+
     </div> <!-- /cr-body -->
   </div>
 </div>
@@ -37544,11 +37555,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if(typeof mostrarInicioSistema==='function') mostrarInicioSistema();
     });
     document.getElementById('ctrlRepBtnRefresh').addEventListener('click',function(){cargarEntregas();renderActiveSection();});
+    // Auto-asig button in crSecPedidos
+    (function(){var b=document.getElementById('ctrlRepBtnAutoAsig');if(b)b.addEventListener('click',function(){ejecutarAutoAsig();renderPedidos();});})();
 
     // ── SIDEBAR NAVIGATION ──
     // ── SECTION GROUPS — 1:1 para nueva barra lateral ──
     var SECTION_GROUPS = {
         dashboard:    { sections:['dashboard'] },
+        pedidos:      { sections:['pedidos'] },
         mapa:         { sections:['mapa'] },
         repartidores: { sections:['repartidores'] },
         recoleccion:  { sections:['recoleccion'] },
@@ -37556,6 +37570,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     var SEC_RENDERS = {
         dashboard:renderDashboard,
+        pedidos:renderPedidos,
         mapa:function(){},
         repartidores:renderRepartidoresSection,
         recoleccion:renderRecoleccion,
@@ -37587,9 +37602,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var target=document.getElementById(prefix+tab);
         if(target) target.style.display='';
         // Render data for newly-visible Dashboard sub-tabs
-        if(isDash && tab==='pedidos') renderPedidos();
         if(isDash && tab==='reagendar') renderReagendamiento();
-        if(!isDash && tab==='config') renderAutoAsigZonas();
+        if(!isDash && tab==='config'){renderAutoAsigZonas();renderPenRules();}
     });
 
     // ── Capa toggle buttons en el mapa ──
@@ -37924,7 +37938,45 @@ document.addEventListener('DOMContentLoaded', function() {
         var inp=document.getElementById('crConceptoNuevo');var tipo=(document.getElementById('crConceptoTipo')||{}).value||'otro';
         var nombre=(inp?inp.value:'').trim();if(!nombre)return;
         var c=getConceptos();c.push({nombre:nombre,tipo:tipo});saveConceptos(c);
-        if(inp)inp.value='';renderConceptos();
+       
+
+    // ── PENALIZACIONES AUTOMÁTICAS (reglas configurables) ──
+    var PENRULES_KEY='cr_pen_rules';
+    function getPenRules(){return lsGet(PENRULES_KEY,[]);}
+    function savePenRules(r){lsSet(PENRULES_KEY,r);}
+    var faltaLabels={no_entrega:'No entrega sin motivo válido',retardo:'Retardo de entrada (>15 min)',falta:'Falta injustificada',fuera_zona:'Abandonar geocerca',queja:'Queja de cliente',dano:'Daño en paquete',otro:'Otro motivo'};
+    var faltaIcos={no_entrega:'❌',retardo:'🕐',falta:'🚫',fuera_zona:'📍',queja:'😤',dano:'💔',otro:'📝'};
+    function renderPenRules(){
+        var container=document.getElementById('crPenReglasLista');if(!container)return;
+        var rules=getPenRules();
+        if(!rules.length){container.innerHTML='<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:12px;">Sin reglas. Agrega tu primera regla de penalización.</div>';return;}
+        container.innerHTML=rules.map(function(r,i){
+            return '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff5f5;border:1px solid #fca5a5;border-radius:6px;">'+
+                '<span style="font-size:0.8rem;">'+(faltaIcos[r.falta]||'⚠️')+'</span>'+
+                '<div style="flex:1;">'+
+                    '<div style="font-size:0.6rem;font-weight:800;color:#0f172a;">'+esc(faltaLabels[r.falta]||r.falta)+'</div>'+
+                    (r.desc?'<div style="font-size:0.48rem;color:#64748b;">'+esc(r.desc)+'</div>':'')+
+                '</div>'+
+                '<span class="cr-badge" style="background:#fef2f2;color:#dc2626;font-weight:800;">$'+esc(Number(r.monto||0).toFixed(2))+'</span>'+
+                '<button type="button" data-pen-del="'+i+'" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.8rem;" title="Eliminar">✕</button>'+
+            '</div>';
+        }).join('');
+        container.querySelectorAll('[data-pen-del]').forEach(function(btn){
+            btn.addEventListener('click',function(){var r=getPenRules();r.splice(parseInt(btn.dataset.penDel),1);savePenRules(r);renderPenRules();});
+        });
+    }
+    var btnAddPenRegla=document.getElementById('crPenReglaAgregar');
+    if(btnAddPenRegla)btnAddPenRegla.addEventListener('click',function(){
+        var falta=(document.getElementById('crPenReglaFalta')||{}).value||'otro';
+        var desc=((document.getElementById('crPenReglaDesc')||{}).value||'').trim();
+        var monto=parseFloat((document.getElementById('crPenReglaMonto')||{}).value||0)||0;
+        if(!monto){alert('Ingresa un monto mayor a 0');return;}
+        var r=getPenRules();r.push({falta:falta,desc:desc,monto:monto,creadaEn:new Date().toISOString()});
+        savePenRules(r);
+        var inpD=document.getElementById('crPenReglaDesc');if(inpD)inpD.value='';
+        var inpM=document.getElementById('crPenReglaMonto');if(inpM)inpM.value='';
+        renderPenRules();
+    }); if(inp)inp.value='';renderConceptos();
     });
 
     // ── ZONAS ──
@@ -37984,26 +38036,32 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ── REPARTIDORES ──
+    // Back button for fullscreen rep panel
+    (function(){
+        var fsBack=document.getElementById('crRepFsBack');
+        if(fsBack)fsBack.addEventListener('click',function(){
+            var fp=document.getElementById('crRepFsPanel');
+            if(fp)fp.classList.remove('cr-fs-open');
+        });
+    })();
+
     function renderRepartidoresSection(){
         var container=document.getElementById('configRepartidoresLista');if(!container)return;
         var reps=getReps();
         if(!reps.length){container.innerHTML='<div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">Sin repartidores. Usa el botón + Nuevo para agregar.</div>';return;}
         container.innerHTML=reps.map(function(r,i){
             var pend=allEntregas.filter(function(e){return e.repartidorId===r.id&&e.estado!=='entregada'&&e.estado!=='no_entregada';}).length;
-            var isAct=r.activo!==false;
             return '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;transition:box-shadow 0.15s;" onmouseover="this.style.boxShadow=\'0 2px 8px rgba(0,0,0,0.07)\'" onmouseout="this.style.boxShadow=\'none\'">'+
-                '<div style="width:38px;height:38px;border-radius:50%;background:'+(isAct?'linear-gradient(135deg,#1e40af,#3b82f6)':'#94a3b8')+';color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.65rem;flex-shrink:0;">'+esc(r.nombre.charAt(0).toUpperCase())+'</div>'+
+                '<div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.65rem;flex-shrink:0;">'+esc(r.nombre.charAt(0).toUpperCase())+'</div>'+
                 '<div style="flex:1;min-width:0;">'+
                     '<div style="font-size:0.62rem;font-weight:800;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+esc(r.nombre)+'</div>'+
                     '<div style="font-size:0.46rem;color:#64748b;">📱 '+esc(r.telefono||'—')+' · 🏷 '+esc(r.zona||'Sin zona')+(pend?' · <span style="color:#f59e0b;font-weight:700;">'+pend+' pendientes</span>':'')+'</div>'+
                 '</div>'+
-                '<span class="cr-badge" style="'+(isAct?'background:#f0fdf4;color:#16a34a':'background:#fef2f2;color:#dc2626')+';flex-shrink:0;">'+(isAct?'Activo':'Inactivo')+'</span>'+
                 '<div style="display:flex;gap:4px;flex-shrink:0;">'+
-                    '<button class="cr-ico-btn" data-ra="inv"    data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="Inventario / Carga asignada">📦</button>'+
+                    '<button class="cr-ico-btn" data-ra="inv"     data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="Inventario / Carga asignada">📦</button>'+
                     '<button class="cr-ico-btn" data-ra="asignar" data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="Asignar pedidos">🚚</button>'+
-                    '<button class="cr-ico-btn" data-ra="kpi"    data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="KPIs & Rendimiento">📊</button>'+
-                    '<button class="cr-ico-btn" data-ra="pen"    data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="Penalizaciones">⚠️</button>'+
-                    '<button class="cr-ico-btn" data-ra="toggle" data-ridx="'+i+'" title="'+(isAct?'Desactivar':'Activar')+'">'+(isAct?'⏸':'▶')+'</button>'+
+                    '<button class="cr-ico-btn" data-ra="kpi"     data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="KPIs & Rendimiento">📊</button>'+
+                    '<button class="cr-ico-btn" data-ra="pen"     data-rid="'+esc(r.id)+'" data-rn="'+esc(r.nombre)+'" title="Penalizaciones">⚠️</button>'+
                     '<button class="cr-ico-btn danger" data-ra="del" data-ridx="'+i+'" data-rn="'+esc(r.nombre)+'" title="Eliminar repartidor">🗑</button>'+
                 '</div>'+
             '</div>';
@@ -38012,24 +38070,21 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.addEventListener('click',function(){
                 var ra=btn.dataset.ra,rid=btn.dataset.rid,rn=btn.dataset.rn,ridx=parseInt(btn.dataset.ridx||0);
                 var reps2=getReps();
-                if(ra==='toggle'){reps2[ridx].activo=reps2[ridx].activo===false;saveReps(reps2);renderRepartidoresSection();return;}
                 if(ra==='del'){if(!confirm('¿Eliminar "'+rn+'"?'))return;reps2.splice(ridx,1);saveReps(reps2);renderRepartidoresSection();populateRepSelects();return;}
-                var acPanel=document.getElementById('crRepAccionPanel');
-                var titulo=document.getElementById('crRepAccionTitulo');
-                var cuerpo=document.getElementById('crRepAccionCuerpo');
-                if(!acPanel||!titulo||!cuerpo)return;
+                var fsPanel=document.getElementById('crRepFsPanel');
+                var fsTitle=document.getElementById('crRepFsTitle');
+                var fsSub=document.getElementById('crRepFsSubtitle');
+                var fsBody=document.getElementById('crRepFsBody');
+                if(!fsPanel||!fsTitle||!fsBody)return;
                 var icons={inv:'📦',asignar:'🚚',kpi:'📊',pen:'⚠️'};
                 var labels={inv:'Inventario / Carga',asignar:'Asignar pedidos',kpi:'KPIs & Rendimiento',pen:'Penalizaciones'};
-                titulo.innerHTML='<span style="margin-right:4px;">'+esc(icons[ra]||'')+'</span><b>'+esc(labels[ra]||ra)+'</b> &nbsp;·&nbsp; '+esc(rn);
-                acPanel.style.display='block';
-                acPanel.scrollIntoView({behavior:'smooth',block:'nearest'});
-                // Mark active button
-                container.querySelectorAll('.cr-ico-btn.active').forEach(function(b){b.classList.remove('active');});
-                btn.classList.add('active');
-                if(ra==='inv')    crRepRenderInv(rid,cuerpo);
-                else if(ra==='asignar') crRepRenderAsignar(rid,rn,cuerpo);
-                else if(ra==='kpi')    crRepRenderKpi(rid,cuerpo);
-                else if(ra==='pen')    crRepRenderPen(rid,rn,cuerpo);
+                fsTitle.textContent=(icons[ra]||'')+' '+(labels[ra]||ra);
+                if(fsSub)fsSub.textContent='Repartidor: '+rn;
+                fsPanel.classList.add('cr-fs-open');
+                if(ra==='inv')         crRepRenderInv(rid,fsBody);
+                else if(ra==='asignar')crRepRenderAsignar(rid,rn,fsBody);
+                else if(ra==='kpi')    crRepRenderKpi(rid,fsBody);
+                else if(ra==='pen')    crRepRenderPen(rid,rn,fsBody);
             });
         });
     }
@@ -38878,6 +38933,8 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function(){
         renderZonas();
         renderConceptos();
+        renderPedidos();
+        renderPenRules();
         renderRepartidoresSection();
         populateZonaSelects();
         populateRepSelects();
