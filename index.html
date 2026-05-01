@@ -31209,7 +31209,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="almacenpedidos-body">
       <div style="display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;">
-        <button class="prod-tab active" data-alm-status="almacenado" style="background:#ff9900;border-color:#e68a00;color:#fff;">📦 Almacenados</button>
         <button id="btnRecolectarPedidos" class="prod-tab" style="background:#ff9900;border-color:#e68a00;color:#fff;margin-left:auto;">📷 Recolectar</button>
         <button id="btnEnviarLoteSucursal" class="prod-tab" style="background:#ff9900;border-color:#ff9900;color:#fff;">🏬 Entregar a Sucursal</button>
         <button id="btnConfirmarLlegadaSucursal" class="prod-tab" style="background:#1e40af;border-color:#1e40af;color:#fff;display:none;">📍 Confirmar Llegada</button>
@@ -33066,7 +33065,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="cr-section" id="crSecRecoleccion" data-cr-section="recoleccion">
           <div class="cr-stats">
             <div class="cr-stat"><div class="val" style="color:#f59e0b;" id="crRecTerminados">0</div><div class="lbl">🏭 Terminados</div></div>
-            <div class="cr-stat"><div class="val" style="color:#ff9900;" id="crRecAlmacenados">0</div><div class="lbl">📦 Almacenados</div></div>
             <div class="cr-stat"><div class="val" style="color:#ea580c;" id="crRecAsignados">0</div><div class="lbl">🚚 Asig. Recolección</div></div>
             <div class="cr-stat"><div class="val" style="color:#10b981;" id="crRecEntregados">0</div><div class="lbl">✅ En Sucursal</div></div>
           </div>
@@ -33075,13 +33073,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <p style="font-size:0.52rem;color:#64748b;margin:0 0 12px 0;">Asigna pedidos terminados en taller a un repartidor para que los recoja, escanee y lleve a sucursal.</p>
             <div class="cr-header-bar">
               <select id="crRecFiltroEstado" class="cr-select">
-                <option value="">Todos los estados</option>
-                <option value="terminada">🏭 Terminados (sin recoger)</option>
-                <option value="almacenado">📦 Almacenados</option>
-                <option value="asignado_recoleccion">🚚 Asignados a repartidor</option>
-                <option value="recogido">📷 Recogidos por repartidor</option>
-                <option value="en_transito_sucursal">🏬 En tránsito a sucursal</option>
-                <option value="en_sucursal">✅ Entregado en sucursal</option>
+                <option value="todos" selected>📋 Todos</option>
+                <option value="terminada">🏭 Terminados</option>
+                <option value="recoleccion">🚚 Recolección</option>
+                <option value="sucursal">✅ Sucursal</option>
               </select>
               <input id="crRecBuscar" type="text" class="cr-input" placeholder="🔍 Buscar folio o cliente..." style="max-width:250px;">
               <button id="crRecRecargar" type="button" class="cr-btn" style="background:#f3f4f6;color:#64748b;border:1px solid #d1d5db;">🔄 Recargar</button>
@@ -39670,22 +39665,31 @@ display='block';
     }
 
     function renderRecoleccion(){
-        var filtroEst=(document.getElementById('crRecFiltroEstado')||{}).value||'';
+        var filtroEst=(document.getElementById('crRecFiltroEstado')||{}).value||'todos';
         var busq=((document.getElementById('crRecBuscar')||{}).value||'').toUpperCase().trim();
+        function estadoEnCategoria(estado, categoria){
+            if(!categoria) return true;
+            if(categoria==='todos') return true;
+            if(categoria==='terminada') return estado==='terminada';
+            if(categoria==='recoleccion') return estado==='almacenado' || estado==='asignado_recoleccion' || estado==='recogido' || estado==='en_transito_sucursal';
+            if(categoria==='sucursal') return estado==='en_sucursal' || estado==='recibido_sucursal';
+            return estado===categoria;
+        }
         // Stats
         var terminados=allRecoleccion.filter(function(o){return o.estado==='terminada';}).length;
-        var almacenados=allRecoleccion.filter(function(o){return o.estado==='almacenado';}).length;
-        var asignados=allRecoleccion.filter(function(o){return o.estado==='asignado_recoleccion';}).length;
+        var recolectados=allRecoleccion.filter(function(o){return estadoEnCategoria(o.estado,'recoleccion');}).length;
         var enSucursal=allRecoleccion.filter(function(o){return o.estado==='en_sucursal'||o.estado==='recibido_sucursal';}).length;
         var sEl=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
-        sEl('crRecTerminados',terminados);sEl('crRecAlmacenados',almacenados);
-        sEl('crRecAsignados',asignados);sEl('crRecEntregados',enSucursal);
+        sEl('crRecTerminados',terminados);
+        sEl('crRecAsignados',recolectados);sEl('crRecEntregados',enSucursal);
 
         var lista=allRecoleccion;
-        if(filtroEst) lista=lista.filter(function(o){return o.estado===filtroEst;});
+        if(filtroEst) lista=lista.filter(function(o){return estadoEnCategoria(o.estado, filtroEst);});
         if(busq) lista=lista.filter(function(o){
             return (o.folioProduccion||o.folio||'').toUpperCase().indexOf(busq)>=0||(o.cliente||'').toUpperCase().indexOf(busq)>=0;
         });
+        var asignBar=document.getElementById('crRecAsignacionBar');
+        if(asignBar) asignBar.style.display=lista.some(function(o){return o.estado==='terminada';})?'':'none';
 
         var container=document.getElementById('crRecPedidosList');if(!container)return;
         if(!lista.length){container.innerHTML='<div class="cr-card"><div style="text-align:center;color:#94a3b8;font-size:0.55rem;padding:20px;">Sin pedidos en este estado</div></div>';return;}
@@ -39696,7 +39700,7 @@ display='block';
 
         container.innerHTML=lista.map(function(o){
             var folio=o.folioProduccion||o.folio||o.id;
-            var canAssign=o.estado==='terminada'||o.estado==='almacenado';
+            var canAssign=o.estado==='terminada';
             return '<div class="cr-card" style="padding:10px;">'+
                 '<div style="display:flex;align-items:center;gap:10px;">'+
                     (canAssign?'<input type="checkbox" class="cr-rec-check" data-rec-id="'+esc(o.id)+'" data-rec-src="'+esc(o._source||'')+'" style="width:18px;height:18px;cursor:pointer;">':'')+
@@ -39710,8 +39714,6 @@ display='block';
                             (o.repartidorNombre?' · <span style="color:#ea580c;font-weight:700;">🚚 '+esc(o.repartidorNombre)+'</span>':'')+
                         '</div>'+
                     '</div>'+
-                    (o.estado==='terminada'?'<button class="cr-btn primary cr-rec-almacenar" data-rec-id="'+esc(o.id)+'" style="font-size:0.42rem;">📦 Almacenar</button>':'')+
-                    (o.estado==='almacenado'||o.estado==='asignado_recoleccion'?'<button class="cr-btn cr-rec-enviar-reparto" data-rec-id="'+esc(o.id)+'" style="font-size:0.42rem;background:#fff8ee;color:#ff9900;border:1px solid #ffcf80;">📦 → Reparto</button>':'')+
                 '</div>'+
             '</div>';
         }).join('');
@@ -39727,35 +39729,6 @@ display='block';
         var selAll=document.getElementById('crRecBtnSelAll');
         if(selAll){selAll.onclick=function(){var st=container.querySelectorAll('.cr-rec-check:not(:checked)').length>0;checks.forEach(function(c){c.checked=st;});updateSelCount();};}
 
-        // Almacenar individual (terminada → almacenado)
-        container.querySelectorAll('.cr-rec-almacenar').forEach(function(btn){
-            btn.addEventListener('click',function(){
-                var id=btn.dataset.recId;
-                var orden=allRecoleccion.find(function(o){return o.id===id;});if(!orden)return;
-                var db=getCRDB();if(!db)return;
-                // Create in stored_orders
-                db.collection(RECOL_COLLECTION).add({
-                    folioProduccion:orden.folioProduccion||orden.folio||'',produccionDocId:orden.id,
-                    cliente:orden.cliente||'',producto:orden.producto||'',cantidad:orden.cantidad||'',
-                    color:orden.color||'',fechaEntrega:orden.fechaEntrega||'',disenoUrl:orden.disenoUrl||'',
-                    estado:'almacenado',creadoEn:window.firebase.firestore.FieldValue.serverTimestamp(),
-                    actualizadoEn:window.firebase.firestore.FieldValue.serverTimestamp()
-                }).then(function(){
-                    // Update production order
-                    db.collection('production_orders').doc(id).update({estado:'almacenada',actualizadoEn:window.firebase.firestore.FieldValue.serverTimestamp()});
-                    cargarRecoleccion();
-                }).catch(function(err){alert('Error: '+err.message);});
-            });
-        });
-
-        // Enviar a reparto individual
-        container.querySelectorAll('.cr-rec-enviar-reparto').forEach(function(btn){
-            btn.addEventListener('click',function(){
-                var id=btn.dataset.recId;
-                var orden=allRecoleccion.find(function(o){return o.id===id;});if(!orden)return;
-                enviarAReparto(orden);
-            });
-        });
     }
 
     // Asignar recolección masiva
