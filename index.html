@@ -4060,6 +4060,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            position: relative;
         }
         .design-module-header {
             display: flex;
@@ -14546,6 +14547,8 @@ const imgBolsaDeliveryBase = new Image();
 <div id="popupDesignTracking" class="clientesmod-overlay" aria-hidden="true">
     <div class="design-module-wrap" role="dialog" aria-modal="true" aria-labelledby="popupDesignTrackingTitulo">
 
+        <button id="btnDesignClose" class="clientesmod-back" type="button" title="Volver al menú principal" aria-label="Volver al menú principal">←</button>
+
         <!-- HEADER -->
         <div class="design-module-header">
             <span style="font-size:1rem;">🎨</span>
@@ -14558,7 +14561,6 @@ const imgBolsaDeliveryBase = new Image();
                 ⚠ Saturación detectada
             </div>
             <button id="btnDesignBiblioteca" class="design-btn secondary" type="button" style="margin-left:4px;">📚 Biblioteca</button>
-            <button id="btnDesignClose" class="design-btn danger" type="button" style="margin-left:4px;">✕ Cerrar</button>
         </div>
 
         <!-- TABS -->
@@ -27786,16 +27788,17 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
         if (!readOnly) {
             if (isLocked) {
                 acciones = `<button class="design-btn secondary" type="button" disabled style="opacity:0.45;font-size:0.56rem;cursor:not-allowed;">🔒 ${escHtml(lock.user)}</button>`;
-            } else if (isMySession) {
-                if (tabMode === 'en-produccion') {
+            } else if (tabMode === 'en-produccion') {
+                // En producción: ver detalles + subir diseño (solo si es mi sesión)
+                if (isMySession) {
                     acciones = `<button class="design-btn primary" type="button" data-design-action="comenzar" data-order-id="${oid}" style="font-size:0.56rem;">🎨 Ver detalles</button>
                         <button class="design-btn success" type="button" data-design-action="subir-diseno" data-order-id="${oid}" style="font-size:0.56rem;">📤 Subir Diseño</button>`;
                 } else {
-                    acciones = `<button class="design-btn primary" type="button" data-design-action="comenzar" data-order-id="${oid}" style="font-size:0.56rem;">▶ Continuar</button>`;
+                    acciones = `<button class="design-btn primary" type="button" data-design-action="comenzar" data-order-id="${oid}" style="font-size:0.56rem;">🎨 Abrir diseño</button>`;
                 }
             } else {
-                const label = tabMode === 'en-produccion' ? '🎨 Abrir diseño' : '▶ Comenzar';
-                acciones = `<button class="design-btn primary" type="button" data-design-action="comenzar" data-order-id="${oid}" style="font-size:0.56rem;">${label}</button>`;
+                // Pendientes: solo Comenzar, sin importar si hay sesión previa
+                acciones = `<button class="design-btn primary" type="button" data-design-action="comenzar" data-order-id="${oid}" style="font-size:0.56rem;">▶ Comenzar</button>`;
             }
         }
 
@@ -30464,49 +30467,17 @@ window.MU = (function() {
       <button id="btnPopupInsumoCerrar" type="button" style="margin-left:auto;background:rgba(255,255,255,0.2);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;">✕</button>
     </div>
 
-    <!-- Modo de urgencia global -->
-    <div style="padding:10px 18px 6px;background:#fff7ed;border-bottom:1px solid #fde8c8;flex-shrink:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-      <span style="font-size:0.6rem;font-weight:800;color:#92400e;text-transform:uppercase;letter-spacing:0.4px;">Urgencia:</span>
-      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.62rem;font-weight:700;">
-        <input type="radio" name="insumoModoUrgencia" value="todos_normal" checked style="accent-color:#ff9900;"> 🟢 Todos Normal
-      </label>
-      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.62rem;font-weight:700;">
-        <input type="radio" name="insumoModoUrgencia" value="todos_urgente" style="accent-color:#dc2626;"> 🔴 Todos Urgente
-      </label>
-      <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:0.62rem;font-weight:700;">
-        <input type="radio" name="insumoModoUrgencia" value="variable" style="accent-color:#6366f1;"> 🔵 Variable (por ítem)
-      </label>
-    </div>
-
-    <!-- Formulario de agregar ítem -->
-    <div style="padding:12px 18px;background:#fafafa;border-bottom:1px solid #e5e7eb;flex-shrink:0;">
-      <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;">
-        <div style="flex:2 1 180px;min-width:0;">
-          <label style="font-size:0.52rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:3px;">Insumo</label>
-          <input type="text" id="popupInsumoNombre" placeholder="Nombre o buscar..." autocomplete="off"
-            style="width:100%;border:1px solid #d1d5db;border-radius:8px;padding:7px 10px;font-size:0.68rem;box-sizing:border-box;outline:none;">
-          <div id="popupInsumoSugerencias" style="display:none;position:absolute;background:#fff;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;z-index:10;max-height:120px;overflow-y:auto;width:auto;min-width:200px;box-shadow:0 4px 12px rgba(0,0,0,0.1);"></div>
-        </div>
-        <div style="flex:1 1 80px;min-width:0;">
-          <label style="font-size:0.52rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:3px;">Cantidad</label>
-          <input type="number" id="popupInsumoCantidad" min="1" value="1"
-            style="width:100%;border:1px solid #d1d5db;border-radius:8px;padding:7px 10px;font-size:0.68rem;box-sizing:border-box;outline:none;">
-        </div>
-        <div id="popupInsumoUrgenciaWrap" style="flex:1 1 100px;min-width:0;">
-          <label style="font-size:0.52rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:3px;">Urgencia ítem</label>
-          <select id="popupInsumoUrgencia" style="width:100%;border:1px solid #d1d5db;border-radius:8px;padding:7px 6px;font-size:0.65rem;background:#fff;box-sizing:border-box;outline:none;cursor:pointer;">
-            <option value="normal">🟢 Normal</option>
-            <option value="urgente">🔴 Urgente</option>
-          </select>
-        </div>
-        <button id="btnPopupInsumoAgregar" type="button"
-          style="flex-shrink:0;padding:7px 16px;background:#ff9900;color:#fff;border:none;border-radius:8px;font-weight:800;font-size:0.65rem;cursor:pointer;white-space:nowrap;height:32px;align-self:flex-end;">
-          ➕ Agregar
+    <!-- Buscador de insumos -->
+    <div style="padding:14px 18px;background:#fafafa;border-bottom:1px solid #e5e7eb;flex-shrink:0;">
+      <label style="font-size:0.52rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:5px;">Buscar insumo</label>
+      <div style="display:flex;gap:0;position:relative;">
+        <input type="text" id="popupInsumoNombre" placeholder="Escribe para buscar por coincidencia..." autocomplete="off"
+          style="flex:1;min-width:0;border:1.5px solid #d1d5db;border-radius:10px 0 0 10px;padding:10px 14px;font-size:0.78rem;box-sizing:border-box;outline:none;background:#fff;">
+        <button id="btnInsumoListaTodos" type="button"
+          style="flex-shrink:0;padding:0 18px;border:1.5px solid #ff9900;border-left:none;border-radius:0 10px 10px 0;background:#ff9900;color:#fff;cursor:pointer;font-weight:800;font-size:0.68rem;white-space:nowrap;">
+          📦 Ver Insumos
         </button>
-      </div>
-      <div style="margin-top:6px;">
-        <input type="text" id="popupInsumoComentarios" placeholder="Comentario opcional para este ítem..."
-          style="width:100%;border:1px solid #e5e7eb;border-radius:8px;padding:6px 10px;font-size:0.62rem;box-sizing:border-box;outline:none;background:#fff;">
+        <div id="popupInsumoSugerencias" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid #e5e7eb;border-top:none;border-radius:0 0 10px 10px;z-index:100;max-height:180px;overflow-y:auto;box-shadow:0 6px 18px rgba(0,0,0,0.12);margin-top:1px;"></div>
       </div>
     </div>
 
@@ -30551,6 +30522,67 @@ window.MU = (function() {
     </div>
   </div>
 </div>
+
+<!-- POPUP: Lista de todos los insumos disponibles -->
+<div id="popupListaInsumos" style="display:none;position:fixed;inset:0;z-index:100001;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;width:min(96vw,480px);max-height:86vh;display:flex;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,0.35);overflow:hidden;">
+    <div style="background:#ff9900;padding:13px 18px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+      <span style="font-size:1rem;">📦</span>
+      <div style="flex:1;">
+        <div style="font-size:0.85rem;font-weight:800;color:#fff;">Insumos Disponibles</div>
+        <div style="font-size:0.52rem;color:rgba(255,255,255,0.85);">Doble clic o Enter para seleccionar</div>
+      </div>
+      <button id="btnListaInsumosCerrar" type="button" style="background:rgba(255,255,255,0.2);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div style="padding:10px 14px;border-bottom:1px solid #e5e7eb;flex-shrink:0;">
+      <input type="text" id="listaInsumosSearch" placeholder="Filtrar insumos..." autocomplete="off"
+        style="width:100%;border:1.5px solid #d1d5db;border-radius:8px;padding:8px 12px;font-size:0.72rem;box-sizing:border-box;outline:none;">
+    </div>
+    <div id="listaInsumosLista" style="flex:1;overflow-y:auto;padding:6px 8px;"></div>
+    <div style="padding:10px 14px;border-top:1px solid #e5e7eb;display:flex;justify-content:flex-end;gap:8px;flex-shrink:0;background:#fafafa;">
+      <button id="btnListaInsumosCancelar" type="button" style="padding:8px 16px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;font-size:0.68rem;font-weight:600;">Cancelar</button>
+      <button id="btnListaInsumosSeleccionar" type="button" style="padding:8px 20px;border:none;border-radius:8px;background:#ff9900;color:#fff;cursor:pointer;font-weight:800;font-size:0.68rem;">✓ Seleccionar</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP: Cantidad y urgencia del insumo seleccionado -->
+<div id="popupDetalleInsumo" style="display:none;position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,0.55);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;width:min(96vw,360px);box-shadow:0 16px 48px rgba(0,0,0,0.35);overflow:hidden;">
+    <div style="background:#ff9900;padding:13px 18px;display:flex;align-items:center;gap:8px;">
+      <span style="font-size:1rem;">➕</span>
+      <div style="font-size:0.85rem;font-weight:800;color:#fff;flex:1;">Agregar a solicitud</div>
+      <button id="btnDetalleInsumoCerrar" type="button" style="background:rgba(255,255,255,0.2);border:none;color:#fff;border-radius:50%;width:28px;height:28px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+    <div style="padding:18px 18px 14px;">
+      <div id="detalleInsumoNombre" style="font-size:0.85rem;font-weight:900;color:#f07a00;margin-bottom:14px;padding:8px 12px;background:#fff7ed;border-radius:8px;border:1px solid #fde8c8;"></div>
+      <div style="display:flex;gap:10px;margin-bottom:12px;">
+        <div style="flex:1;">
+          <label style="font-size:0.52rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:4px;">Cantidad</label>
+          <input type="number" id="detalleInsumoCantidad" min="1" value="1"
+            style="width:100%;border:1.5px solid #d1d5db;border-radius:8px;padding:9px 10px;font-size:0.82rem;box-sizing:border-box;outline:none;font-weight:700;text-align:center;">
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:0.52rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:4px;">Urgencia</label>
+          <select id="detalleInsumoUrgencia" style="width:100%;border:1.5px solid #d1d5db;border-radius:8px;padding:9px 8px;font-size:0.72rem;background:#fff;box-sizing:border-box;outline:none;cursor:pointer;">
+            <option value="normal">🟢 Normal</option>
+            <option value="urgente">🔴 Urgente</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <label style="font-size:0.52rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.4px;display:block;margin-bottom:4px;">Comentario (opcional)</label>
+        <input type="text" id="detalleInsumoComentario" placeholder="Notas para este insumo..."
+          style="width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:8px 10px;font-size:0.68rem;box-sizing:border-box;outline:none;background:#fff;">
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button id="btnDetalleInsumoCancelar" type="button" style="flex:1;padding:10px;border:1px solid #d1d5db;border-radius:8px;background:#fff;cursor:pointer;font-size:0.72rem;font-weight:600;">Cancelar</button>
+        <button id="btnDetalleInsumoAceptar" type="button" style="flex:2;padding:10px;border:none;border-radius:8px;background:#ff9900;color:#fff;cursor:pointer;font-weight:800;font-size:0.72rem;">✓ Agregar a solicitud</button>
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
 <div class="produccion-right">
         <div class="prod-section-title">📋 ÓRDENES DE PRODUCCIÓN</div>
@@ -30894,11 +30926,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function imprimirDisenoOrden(orden) {
-        if (!orden || !orden.disenoUrl) { alert('Esta orden no tiene diseño subido.'); return; }
-        var w = window.open('', '_blank', 'width=800,height=600');
-        w.document.write('<html><head><title>Imprimir Diseño — '+esc(orden.folio||'')+'</title><style>body{margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#fff;}img{max-width:100%;max-height:95vh;object-fit:contain;}@media print{body{margin:0;}}</style></head><body>');
-        w.document.write('<img src="'+esc(orden.disenoUrl)+'" onload="setTimeout(function(){window.print();},400);">');
-        w.document.write('</body></html>');
+        var archivos = Array.isArray(orden.disenoArchivos) ? orden.disenoArchivos.filter(function(a){ return a.src; }) : [];
+        var tieneDisenoUrl = orden && orden.disenoUrl;
+        if (!archivos.length && !tieneDisenoUrl) { alert('Esta orden no tiene diseño subido.'); return; }
+        var w = window.open('', '_blank', 'width=860,height=700');
+        var folio = esc(orden.folio || '');
+        w.document.write('<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Diseño — '+folio+'</title>'+
+            '<style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Segoe UI,sans-serif;padding:24px;background:#fff;}'+
+            'h2{font-size:1rem;color:#ff9900;margin-bottom:18px;border-bottom:2px solid #ff9900;padding-bottom:8px;}'+
+            '.diseno-item{margin-bottom:28px;page-break-inside:avoid;}'+
+            '.diseno-item-title{font-size:0.7rem;font-weight:800;color:#374151;margin-bottom:8px;}'+
+            '.diseno-item img{max-width:100%;object-fit:contain;border:1px solid #e5e7eb;border-radius:8px;display:block;}'+
+            '.diseno-item .comentario{font-size:0.65rem;color:#555;font-style:italic;margin-top:6px;}'+
+            '@media print{body{padding:12px;}}</style></head><body>'+
+            '<h2>🎨 Diseño — Orden '+folio+'</h2>');
+        if (archivos.length) {
+            archivos.forEach(function(a, i) {
+                w.document.write('<div class="diseno-item">'+
+                    '<div class="diseno-item-title">'+(i+1)+'. '+esc(a.nombre||'Archivo '+(i+1))+'</div>'+
+                    '<img src="'+esc(a.src)+'">'+
+                    (a.comentario ? '<div class="comentario">📝 '+esc(a.comentario)+'</div>' : '')+
+                '</div>');
+            });
+        } else {
+            w.document.write('<div class="diseno-item"><img src="'+esc(orden.disenoUrl)+'"></div>');
+        }
+        w.document.write('<scr'+'ipt>window.onload=function(){window.print();}<\/scr'+'ipt></body></html>');
         w.document.close();
     }
 
@@ -31115,25 +31168,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Timer de órdenes en proceso
-    var _timerInterval = null;
+    // Timer de órdenes — calcula inicio→fin sin actualización en tiempo real
     function _formatElapsed(ms) {
         if (!ms || ms < 0) return '00:00:00';
         var s = Math.floor(ms / 1000);
         var h = Math.floor(s / 3600); s -= h * 3600;
         var m = Math.floor(s / 60); s -= m * 60;
         return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-    }
-    function _tickTimers() {
-        var now = Date.now();
-        document.querySelectorAll('.prod-timer-valor').forEach(function(el) {
-            var start = Number(el.dataset.start || '0');
-            if (start) el.textContent = _formatElapsed(now - start);
-        });
-    }
-    function _startTimerTick() {
-        if (_timerInterval) clearInterval(_timerInterval);
-        _timerInterval = setInterval(_tickTimers, 1000);
     }
 
     function renderOrdenes() {
@@ -31155,11 +31196,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     else if (typeof o.inicioTrabajoEn === 'number') startMs = o.inicioTrabajoEn;
                 }
                 var startStr = startMs ? new Date(startMs).toLocaleString('es-MX',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'short'}) : '—';
+                var elapsed = startMs ? _formatElapsed(Date.now() - startMs) : '—';
                 timerHtml = '<div style="display:flex;align-items:center;gap:8px;margin:4px 0;background:#fff7ed;border:1px solid #fde8c8;border-radius:8px;padding:5px 10px;font-size:0.62rem;">'+
                     '<span style="color:#92400e;font-weight:700;">⏱ Iniciado:</span>'+
                     '<span style="color:#92400e;">'+esc(startStr)+'</span>'+
-                    '<span style="color:#92400e;font-weight:700;margin-left:auto;">⏱ Tiempo:</span>'+
-                    '<span class="prod-timer-valor" data-start="'+esc(String(startMs))+'" style="font-family:monospace;font-weight:800;color:#ff9900;min-width:58px;">'+_formatElapsed(startMs?Date.now()-startMs:0)+'</span>'+
+                    '<span style="color:#92400e;font-weight:700;margin-left:auto;">⏱ Transcurrido:</span>'+
+                    '<span style="font-family:monospace;font-weight:800;color:#ff9900;min-width:58px;">'+elapsed+'</span>'+
                 '</div>';
             }
             if (o.estado === 'terminada' && o.inicioTrabajoEn && o.terminadaEn) {
@@ -31202,7 +31244,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 '</div>'+
                 timerHtml+
                 '<div class="prod-orden-info">'+
-                  '<span><strong>Cliente:</strong> '+esc(o.cliente||'—')+'</span>'+
                   '<span><strong>Producto:</strong> '+esc(o.producto||'—')+'</span>'+
                   '<span><strong>'+esc(colorLabel)+':</strong> '+esc(o.color||'—')+'</span>'+
                   '<span><strong>Cantidad:</strong> '+esc(o.cantidad||'—')+'</span>'+
@@ -31214,9 +31255,6 @@ document.addEventListener('DOMContentLoaded', function() {
               '</div>';
         }).join('');
 
-        // Arrancar tick del timer si hay órdenes en proceso
-        var hayEnProceso = lista.some(function(o){ return o.estado === 'en_proceso'; });
-        if (hayEnProceso) _startTimerTick();
 
         prodOrdenList.querySelectorAll('[data-action]').forEach(function(btn) {
             btn.addEventListener('click', function() {
@@ -31273,8 +31311,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Campos de detalle del producto
         var detalles = [
             ['Folio',      orden.folio],
-            ['Cliente',    orden.cliente],
-            ['Teléfono',   orden.telefono],
             ['Producto',   orden.producto],
             ['Detalle',    orden.detalleProducto],
             [colorLabel,   orden.color],
@@ -31295,7 +31331,7 @@ document.addEventListener('DOMContentLoaded', function() {
             '<div style="background:#fff;border-radius:14px;width:min(96vw,460px);max-height:92vh;overflow-y:auto;box-shadow:0 12px 48px rgba(0,0,0,0.35);">'+
                 '<div style="background:linear-gradient(135deg,#ff9900,#e68200);padding:16px 20px;border-radius:14px 14px 0 0;position:sticky;top:0;z-index:2;">'+
                     '<div style="font-size:1rem;font-weight:800;color:#fff;">▶ ¡Orden Iniciada!</div>'+
-                    '<div style="font-size:0.6rem;color:rgba(255,255,255,0.88);margin-top:2px;">'+esc(orden.folio||'Sin folio')+' — '+esc(orden.cliente||'')+'</div>'+
+                    '<div style="font-size:0.6rem;color:rgba(255,255,255,0.88);margin-top:2px;">'+esc(orden.folio||'Sin folio')+' — '+esc(orden.producto||'')+'</div>'+
                 '</div>'+
                 '<div style="padding:16px 18px;">'+
                     '<div style="margin-bottom:12px;">'+disenoImg+'</div>'+
@@ -31461,16 +31497,127 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function _syncInsumoUrgenciaWrap() {
-        var modo = document.querySelector('input[name="insumoModoUrgencia"]:checked');
-        var wrap = document.getElementById('popupInsumoUrgenciaWrap');
-        if (!wrap) return;
-        wrap.style.display = (modo && modo.value === 'variable') ? '' : 'none';
+    function _getInsumosCatalogo() {
+        try { return JSON.parse(localStorage.getItem('mock_insumos_v1') || '[]'); } catch(e) { return []; }
+    }
+    function _insumoNombre(x) { return String(x.nombre || x.name || ''); }
+
+    // Abre el popup de detalle (cantidad + urgencia) para un insumo ya elegido
+    function abrirDetalleInsumo(nombreInsumo) {
+        var popup = document.getElementById('popupDetalleInsumo');
+        if (!popup) return;
+        var nomEl   = document.getElementById('detalleInsumoNombre');
+        var cantEl  = document.getElementById('detalleInsumoCantidad');
+        var urgEl   = document.getElementById('detalleInsumoUrgencia');
+        var comEl   = document.getElementById('detalleInsumoComentario');
+        if (nomEl)  nomEl.textContent = nombreInsumo;
+        if (cantEl) { cantEl.value = '1'; }
+        if (urgEl)  urgEl.value = 'normal';
+        if (comEl)  comEl.value = '';
+        popup.style.display = 'flex';
+        setTimeout(function() { if (cantEl) cantEl.focus(); }, 100);
+
+        function cerrarDetalle() { popup.style.display = 'none'; }
+
+        document.getElementById('btnDetalleInsumoCerrar').onclick   = cerrarDetalle;
+        document.getElementById('btnDetalleInsumoCancelar').onclick  = cerrarDetalle;
+        document.getElementById('btnDetalleInsumoAceptar').onclick   = function() {
+            var cant = Math.max(1, parseInt(cantEl ? cantEl.value : '1', 10) || 1);
+            var urg  = urgEl ? urgEl.value : 'normal';
+            var com  = comEl ? comEl.value.trim() : '';
+            _insumoItems.push({ nombre: nombreInsumo, cantidad: cant, urgencia: urg, comentario: com });
+            _renderInsumoTabla();
+            cerrarDetalle();
+            // Limpiar búsqueda principal y devolver foco
+            var nomBusq = document.getElementById('popupInsumoNombre');
+            var sug     = document.getElementById('popupInsumoSugerencias');
+            if (nomBusq) { nomBusq.value = ''; nomBusq.focus(); }
+            if (sug)     sug.style.display = 'none';
+        };
+        // Enter en cantidad avanza a urgencia; Enter en urgencia acepta
+        if (cantEl) cantEl.onkeydown = function(e) { if (e.key === 'Enter') { e.preventDefault(); if (urgEl) urgEl.focus(); } };
+        if (urgEl)  urgEl.onkeydown  = function(e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('btnDetalleInsumoAceptar').click(); } };
     }
 
-    function _getModoUrgencia() {
-        var modo = document.querySelector('input[name="insumoModoUrgencia"]:checked');
-        return modo ? modo.value : 'todos_normal';
+    // Abre el popup de lista completa de insumos
+    function abrirListaInsumos() {
+        var popup = document.getElementById('popupListaInsumos');
+        if (!popup) return;
+        var searchEl = document.getElementById('listaInsumosSearch');
+        var listaEl  = document.getElementById('listaInsumosLista');
+        if (searchEl) searchEl.value = '';
+        var _seleccionado = null;
+
+        function renderLista(filtro) {
+            var all = _getInsumosCatalogo();
+            var q   = (filtro || '').trim().toLowerCase();
+            var lista;
+            if (!q) {
+                lista = all;
+            } else {
+                var starts   = all.filter(function(x) { return _insumoNombre(x).toLowerCase().startsWith(q); });
+                var contains = all.filter(function(x) { var n = _insumoNombre(x).toLowerCase(); return !n.startsWith(q) && n.includes(q); });
+                lista = starts.concat(contains);
+            }
+            if (!lista.length) {
+                listaEl.innerHTML = '<div style="padding:20px;text-align:center;color:#9ca3af;font-size:0.68rem;font-style:italic;">Sin insumos coincidentes</div>';
+                _seleccionado = null;
+                return;
+            }
+            listaEl.innerHTML = lista.map(function(x, i) {
+                var nom = _insumoNombre(x);
+                return '<div class="_insumo-row" tabindex="0" data-nombre="'+esc(nom)+'" data-idx="'+i+'" '+
+                    'style="padding:9px 14px;cursor:pointer;font-size:0.72rem;color:#1f2937;border-bottom:1px solid #f3f4f6;border-radius:4px;outline:none;">'+
+                    esc(nom)+'</div>';
+            }).join('');
+            // Eventos de cada fila
+            listaEl.querySelectorAll('._insumo-row').forEach(function(row) {
+                row.addEventListener('click', function() {
+                    listaEl.querySelectorAll('._insumo-row').forEach(function(r) {
+                        r.style.background = ''; r.style.color = '#1f2937'; r.style.fontWeight = '';
+                    });
+                    row.style.background   = '#fff7ed';
+                    row.style.color        = '#f07a00';
+                    row.style.fontWeight   = '800';
+                    _seleccionado = row.dataset.nombre;
+                });
+                row.addEventListener('dblclick', function() {
+                    _seleccionado = row.dataset.nombre;
+                    elegirInsumo();
+                });
+                row.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') { _seleccionado = row.dataset.nombre; elegirInsumo(); }
+                    if (e.key === 'ArrowDown') { e.preventDefault(); var next = row.nextElementSibling; if (next) next.focus(); }
+                    if (e.key === 'ArrowUp')   { e.preventDefault(); var prev = row.previousElementSibling; if (prev) prev.focus(); }
+                });
+            });
+        }
+
+        function elegirInsumo() {
+            if (!_seleccionado) return;
+            var nom = _seleccionado;
+            cerrarLista();
+            abrirDetalleInsumo(nom);
+        }
+
+        function cerrarLista() { popup.style.display = 'none'; }
+
+        renderLista('');
+        popup.style.display = 'flex';
+        setTimeout(function() { if (searchEl) searchEl.focus(); }, 100);
+
+        if (searchEl) searchEl.oninput = function() { renderLista(searchEl.value); };
+        if (searchEl) searchEl.onkeydown = function(e) {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                var first = listaEl.querySelector('._insumo-row');
+                if (first) first.focus();
+            }
+        };
+
+        document.getElementById('btnListaInsumosCerrar').onclick    = cerrarLista;
+        document.getElementById('btnListaInsumosCancelar').onclick   = cerrarLista;
+        document.getElementById('btnListaInsumosSeleccionar').onclick = elegirInsumo;
     }
 
     function abrirPopupSolicitarInsumo(urgenciaPredeterminada) {
@@ -31479,106 +31626,55 @@ document.addEventListener('DOMContentLoaded', function() {
         _insumoItems = [];
         popup.style.display = 'flex';
 
-        // Reset form
-        var nombre    = document.getElementById('popupInsumoNombre');
-        var cantidad  = document.getElementById('popupInsumoCantidad');
-        var urgencia  = document.getElementById('popupInsumoUrgencia');
-        var coment    = document.getElementById('popupInsumoComentarios');
-        if (nombre)   nombre.value = '';
-        if (cantidad) cantidad.value = '1';
-        if (urgencia) urgencia.value = urgenciaPredeterminada === 'urgente' ? 'urgente' : 'normal';
-        if (coment)   coment.value = '';
-
-        // Preset radio según urgencia predeterminada
-        var radios = document.querySelectorAll('input[name="insumoModoUrgencia"]');
-        radios.forEach(function(r) {
-            r.checked = (urgenciaPredeterminada === 'urgente' && r.value === 'todos_urgente') ||
-                        (!urgenciaPredeterminada && r.value === 'todos_normal') ||
-                        (urgenciaPredeterminada === 'normal' && r.value === 'todos_normal');
-        });
-        if (urgenciaPredeterminada === 'urgente') {
-            var ru = document.querySelector('input[name="insumoModoUrgencia"][value="todos_urgente"]');
-            if (ru) ru.checked = true;
-        }
-        _syncInsumoUrgenciaWrap();
+        var nombre = document.getElementById('popupInsumoNombre');
+        var sug    = document.getElementById('popupInsumoSugerencias');
+        if (nombre) nombre.value = '';
+        if (sug)    sug.style.display = 'none';
         _renderInsumoTabla();
 
-        // Listeners modo urgencia
-        radios.forEach(function(r) {
-            r.onchange = function() {
-                _syncInsumoUrgenciaWrap();
-                // Si cambia a "todos_urgente" o "todos_normal", actualiza items existentes
-                var m = _getModoUrgencia();
-                if (m !== 'variable') {
-                    var u = m === 'todos_urgente' ? 'urgente' : 'normal';
-                    _insumoItems.forEach(function(it) { it.urgencia = u; });
-                    _renderInsumoTabla();
-                }
-            };
-        });
-
-        // Autocomplete desde catálogo de insumos
+        // Buscador con coincidencia más cercana → selección abre detalle
         if (nombre) {
             nombre.oninput = function() {
                 var q = nombre.value.trim().toLowerCase();
-                var sug = document.getElementById('popupInsumoSugerencias');
                 if (!sug) return;
                 if (!q) { sug.style.display = 'none'; return; }
-                var insumos = [];
-                try { insumos = JSON.parse(localStorage.getItem('mock_insumos_v1') || '[]'); } catch(e){}
-                var matches = insumos.filter(function(x) {
-                    return String(x.nombre||x.name||'').toLowerCase().includes(q);
-                }).slice(0, 8);
+                var all    = _getInsumosCatalogo();
+                var starts   = all.filter(function(x) { return _insumoNombre(x).toLowerCase().startsWith(q); });
+                var contains = all.filter(function(x) { var n = _insumoNombre(x).toLowerCase(); return !n.startsWith(q) && n.includes(q); });
+                var matches  = starts.concat(contains).slice(0, 10);
                 if (!matches.length) { sug.style.display = 'none'; return; }
                 sug.style.display = 'block';
                 sug.innerHTML = matches.map(function(m) {
-                    return '<div style="padding:6px 10px;cursor:pointer;font-size:0.62rem;color:#374151;border-bottom:1px solid #f3f4f6;" data-nombre="'+esc(m.nombre||m.name||'')+'">'+
-                        esc(m.nombre||m.name||'')+'</div>';
+                    return '<div style="padding:8px 14px;cursor:pointer;font-size:0.72rem;color:#374151;border-bottom:1px solid #f3f4f6;" data-nombre="'+esc(_insumoNombre(m))+'">'+
+                        esc(_insumoNombre(m))+'</div>';
                 }).join('');
                 sug.querySelectorAll('div[data-nombre]').forEach(function(d) {
-                    d.addEventListener('click', function() {
-                        nombre.value = d.dataset.nombre;
+                    d.addEventListener('mousedown', function(e) {
+                        e.preventDefault();
                         sug.style.display = 'none';
+                        abrirDetalleInsumo(d.dataset.nombre);
                     });
-                    d.addEventListener('mouseenter', function() { d.style.background='#fff7ed'; });
-                    d.addEventListener('mouseleave', function() { d.style.background=''; });
+                    d.addEventListener('mouseenter', function() { d.style.background = '#fff7ed'; });
+                    d.addEventListener('mouseleave', function() { d.style.background = ''; });
                 });
             };
-        }
-
-        // Botón agregar ítem
-        var btnAgregar = document.getElementById('btnPopupInsumoAgregar');
-        btnAgregar.onclick = function() {
-            var nom = (nombre?.value || '').trim();
-            if (!nom) { nombre && nombre.focus(); return; }
-            var cant = Math.max(1, parseInt(cantidad?.value||'1',10)||1);
-            var m = _getModoUrgencia();
-            var urg;
-            if (m === 'todos_urgente') urg = 'urgente';
-            else if (m === 'todos_normal') urg = 'normal';
-            else urg = urgencia?.value || 'normal';
-            var com = (coment?.value || '').trim();
-            _insumoItems.push({ nombre: nom, cantidad: cant, urgencia: urg, comentario: com });
-            if (nombre)   nombre.value = '';
-            if (cantidad) cantidad.value = '1';
-            if (coment)   coment.value = '';
-            var sug = document.getElementById('popupInsumoSugerencias');
-            if (sug) sug.style.display = 'none';
-            _renderInsumoTabla();
-            setTimeout(function() { if (nombre) nombre.focus(); }, 50);
-        };
-
-        // Enviar con Enter en campo nombre
-        if (nombre) {
             nombre.onkeydown = function(e) {
-                if (e.key === 'Enter') { e.preventDefault(); btnAgregar.click(); }
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    var nom = nombre.value.trim();
+                    if (nom) { sug.style.display = 'none'; abrirDetalleInsumo(nom); }
+                }
+            };
+            nombre.onblur = function() {
+                setTimeout(function() { if (sug) sug.style.display = 'none'; }, 160);
             };
         }
 
-        function cerrar() {
-            popup.style.display = 'none';
-            _insumoItems = [];
-        }
+        // Botón Ver Insumos → popup lista
+        var btnLista = document.getElementById('btnInsumoListaTodos');
+        if (btnLista) btnLista.onclick = abrirListaInsumos;
+
+        function cerrar() { popup.style.display = 'none'; _insumoItems = []; }
 
         var btnCancelar = document.getElementById('btnPopupInsumoCancelar');
         var btnCerrar   = document.getElementById('btnPopupInsumoCerrar');
@@ -31589,6 +31685,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (btnEnviar) btnEnviar.onclick = async function() {
             if (!_insumoItems.length) { alert('Agrega al menos un insumo.'); return; }
             var db = getProdDB(); if (!db) return;
+            var solicitador = localStorage.getItem('logged_user_name') || '';
             btnEnviar.disabled = true;
             btnEnviar.textContent = 'Enviando...';
             try {
@@ -31596,12 +31693,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 _insumoItems.forEach(function(it) {
                     var ref = db.collection('supply_requests').doc();
                     batch.set(ref, {
-                        nombre:    it.nombre,
-                        cantidad:  it.cantidad,
-                        urgencia:  it.urgencia,
+                        nombre:      it.nombre,
+                        cantidad:    it.cantidad,
+                        urgencia:    it.urgencia,
                         comentarios: it.comentario || '',
-                        estado:    'solicitado',
-                        creadoEn:  window.firebase.firestore.FieldValue.serverTimestamp()
+                        solicitador: solicitador,
+                        estado:      'solicitado',
+                        creadoEn:    window.firebase.firestore.FieldValue.serverTimestamp()
                     });
                 });
                 await batch.commit();
@@ -31676,11 +31774,32 @@ document.addEventListener('DOMContentLoaded', function() {
     function imprimirOrden(orden) {
         var fecha = orden.creadoEn&&orden.creadoEn.toDate ? orden.creadoEn.toDate().toLocaleDateString('es-MX',{day:'2-digit',month:'long',year:'numeric'}) : new Date().toLocaleDateString('es-MX');
         var estadoLabel = {pendiente:'Pendiente',en_proceso:'En Proceso',terminada:'Terminada',cancelada:'Cancelada'}[orden.estado]||orden.estado;
-        var colorLabel = orden.producto === 'Bolsas Kraft' ? 'Tinta' : 'Color';
-        var w=window.open('','_blank','width=820,height=700');
+        var colorLabel = (orden.producto === 'Bolsas Kraft' || orden.producto === 'Bolsas Kraft Blancas') ? 'Tinta' : 'Color';
+        var watermark = orden.estado === 'terminada'
+            ? '<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-35deg);font-size:4.5rem;font-weight:900;color:rgba(220,38,38,0.18);white-space:nowrap;pointer-events:none;z-index:0;letter-spacing:4px;">ORDEN FINALIZADA</div>'
+            : '';
+        // Vistas previas: disenoArchivos (del módulo de diseño) o disenoUrl
+        var previews = '';
+        var archivos = Array.isArray(orden.disenoArchivos) ? orden.disenoArchivos : [];
+        if (archivos.length) {
+            previews = '<div style="margin-top:24px;border-top:2px dashed #e5e7eb;padding-top:18px;">'+
+                '<div style="font-size:0.65rem;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:12px;">Vista previa del diseño</div>'+
+                archivos.map(function(a, i) {
+                    var comentario = a.comentario ? '<div style="font-size:0.72rem;color:#555;margin-top:6px;font-style:italic;">📝 '+esc(a.comentario)+'</div>' : '';
+                    var img = a.src ? '<img src="'+esc(a.src)+'" style="max-width:100%;max-height:280px;object-fit:contain;border:1px solid #e5e7eb;border-radius:8px;display:block;">' : '';
+                    return '<div style="margin-bottom:16px;"><div style="font-size:0.68rem;font-weight:700;color:#ff9900;margin-bottom:6px;">'+(i+1)+'. '+esc(a.nombre||'Archivo '+(i+1))+'</div>'+img+comentario+'</div>';
+                }).join('')+
+            '</div>';
+        } else if (orden.disenoUrl) {
+            previews = '<div style="margin-top:24px;border-top:2px dashed #e5e7eb;padding-top:18px;">'+
+                '<div style="font-size:0.65rem;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:12px;">Vista previa del diseño</div>'+
+                '<img src="'+esc(orden.disenoUrl)+'" style="max-width:100%;max-height:300px;object-fit:contain;border:1px solid #e5e7eb;border-radius:8px;display:block;">'+
+            '</div>';
+        }
+        var w = window.open('','_blank','width=820,height=700');
         w.document.write('<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Orden '+esc(orden.folio)+'</title>'+
             '<style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Segoe UI,sans-serif;color:#111;padding:30px;}'+
-            '.hdr{border-bottom:3px solid #0288d1;padding-bottom:14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;}'+
+            '.hdr{border-bottom:3px solid #ff9900;padding-bottom:14px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;}'+
             '.hdr h1{font-size:1.3rem;color:#ff9900;}.folio{font-size:1rem;font-weight:800;}'+
             '.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;background:#fff7ed;color:#ff9900;}'+
             '.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}'+
@@ -31688,21 +31807,21 @@ document.addEventListener('DOMContentLoaded', function() {
             '.field span{font-size:0.9rem;font-weight:600;}'+
             '.notas{background:#f5f5f5;border-radius:8px;padding:12px;font-size:0.85rem;color:#333;}'+
             '.ftr{margin-top:40px;border-top:1px solid #ccc;padding-top:12px;display:flex;justify-content:space-between;font-size:0.72rem;color:#888;}'+
+            '@media print{img{page-break-inside:avoid;}}'+
             '</style></head><body>'+
+            watermark+
             '<div class="hdr"><div><h1>ORDEN DE PRODUCCIÓN</h1><div style="font-size:0.75rem;color:#666;margin-top:4px;">Fecha: '+fecha+'</div></div>'+
             '<div style="text-align:right"><div class="folio">'+esc(orden.folio||'—')+'</div><span class="badge">'+estadoLabel+'</span></div></div>'+
             '<div class="grid">'+
-                            '<div class="field"><label>Nombre del Cliente</label><span>'+esc(orden.cliente||'—')+'</span></div>'+
-                            '<div class="field"><label>Número de Teléfono</label><span>'+esc(orden.telefono||'—')+'</span></div>'+
-                            '<div class="field"><label>ID Cliente</label><span>'+esc(orden.clienteId||'—')+'</span></div>'+
               '<div class="field"><label>Producto</label><span>'+esc(orden.producto||'—')+'</span></div>'+
-                              '<div class="field"><label>'+esc(colorLabel)+'</label><span>'+esc(orden.color||'—')+'</span></div>'+
+              '<div class="field"><label>'+esc(colorLabel)+'</label><span>'+esc(orden.color||'—')+'</span></div>'+
               '<div class="field"><label>Cantidad</label><span>'+esc(orden.cantidad||'—')+'</span></div>'+
-                            '<div class="field"><label>Detalle del Producto</label><span>'+esc(orden.detalleProducto||'—')+'</span></div>'+
-                            '<div class="field"><label>Fecha de Creación</label><span>'+esc(orden.fechaCreacion||'—')+'</span></div>'+
-                            '<div class="field"><label>Fecha de Entrega</label><span>'+esc(orden.fechaEntrega||'—')+'</span></div>'+
+              '<div class="field"><label>Detalle del Producto</label><span>'+esc(orden.detalleProducto||'—')+'</span></div>'+
+              '<div class="field"><label>Fecha de Entrega</label><span>'+esc(orden.fechaEntrega||'—')+'</span></div>'+
+              '<div class="field"><label>Fecha de Creación</label><span>'+esc(orden.fechaCreacion||'—')+'</span></div>'+
             '</div>'+
-                        (orden.notas?'<div style="margin-bottom:18px"><div style="font-size:0.65rem;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:6px;">Comentarios</div><div class="notas">'+esc(orden.notas)+'</div></div>':'')+
+            (orden.notas?'<div style="margin-bottom:18px"><div style="font-size:0.65rem;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:6px;">Indicaciones</div><div class="notas">'+esc(orden.notas)+'</div></div>':'')+
+            previews+
             '<div class="ftr"><span>Maquileros VP</span><span>Módulo de Producción</span><span>'+new Date().toLocaleString('es-MX')+'</span></div>'+
             '<scr'+'ipt>window.onload=function(){window.print();}<\/scr'+'ipt>'+
             '</body></html>');
