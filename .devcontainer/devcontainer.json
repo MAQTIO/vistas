@@ -8,5 +8,14 @@
       "visibility": "public"
     }
   },
-  "forwardPorts": [8080]
+  "forwardPorts": [
+    8080
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Google.geminicodeassist"
+      ]
+    }
+  }
 }
