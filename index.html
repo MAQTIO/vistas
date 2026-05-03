@@ -14823,19 +14823,19 @@ const imgBolsaDeliveryBase = new Image();
 
 <!-- POPUP: Fondo de Caja -->
 <div id="popupFondoCaja" class="popup-overlay" aria-hidden="true">
-    <div class="popup-card wide" role="dialog" aria-modal="true" aria-labelledby="fondoCajaTitulo">
-        <div class="popup-header" style="padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 16px;">
-            <h2 id="fondoCajaTitulo" class="popup-title-main">Apertura de turno — Fondo inicial</h2>
+    <div style="background:#fff;color:#1a1a1a;padding:32px 28px 24px;border-radius:18px;min-width:300px;max-width:380px;width:min(92vw,380px);box-shadow:0 24px 60px rgba(0,0,0,0.32);display:flex;flex-direction:column;gap:20px;position:relative;" role="dialog" aria-modal="true" aria-labelledby="fondoCajaTitulo">
+        <div style="background:#FF8C00;margin:-32px -28px 0;padding:24px 28px 18px;border-radius:18px 18px 0 0;text-align:center;">
+            <div style="font-size:2rem;line-height:1;margin-bottom:6px;">💰</div>
+            <h2 id="fondoCajaTitulo" style="margin:0;font-size:1rem;font-weight:900;color:#fff;letter-spacing:0.5px;text-transform:uppercase;">Apertura de turno</h2>
+            <div style="font-size:0.68rem;color:rgba(255,255,255,0.88);margin-top:4px;font-weight:600;">Indica el fondo inicial de la caja para iniciar</div>
         </div>
-        <div class="popup-panel" style="margin-bottom: 12px; background: transparent; padding: 0; border: none;">
-            <div class="orden-field">
-                <label for="fondoCajaInputMonto">Monto inicial (mínimo $1)</label>
-                <input id="fondoCajaInputMonto" type="number" min="1" step="0.01" placeholder="Ej: 500.00" value="1">
-            </div>
+        <div>
+            <label for="fondoCajaInputMonto" style="display:block;font-size:0.65rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:7px;">Monto inicial (mínimo $1)</label>
+            <input id="fondoCajaInputMonto" type="number" min="1" step="0.01" placeholder="500.00" value="1" style="width:100%;padding:13px 14px;border:2px solid #FF8C00;border-radius:10px;font-size:1.3rem;font-weight:700;color:#1a1a1a;background:#fff8f0;text-align:center;outline:none;box-sizing:border-box;">
         </div>
-        <div class="popup-actions" style="gap: 8px; padding: 8px; border-top: 1px solid rgba(255,255,255,0.1);">
-            <button id="fondoCajaAceptar" class="popup-btn primary" type="button">Aceptar</button>
-            <button id="fondoCajaCancelar" class="popup-btn cancel" type="button">Cancelar</button>
+        <div style="display:flex;gap:10px;">
+            <button id="fondoCajaAceptar" type="button" style="flex:1;padding:13px;background:#FF8C00;color:#fff;border:none;border-radius:10px;font-size:0.82rem;font-weight:900;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;transition:background .15s;">Iniciar turno</button>
+            <button id="fondoCajaCancelar" type="button" style="padding:13px 18px;background:#fff;color:#FF8C00;border:2px solid #FF8C00;border-radius:10px;font-size:0.82rem;font-weight:800;cursor:pointer;transition:background .15s;">Cancelar</button>
         </div>
     </div>
 </div>
@@ -17946,9 +17946,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCajaUI();
     };
 
+    let _fondoCalledFromCaja = false;
+
     const openCajaPopup = () => {
         loadTurnoActivo();
         if (!turnoActivo) {
+            _fondoCalledFromCaja = true;
             openFondoCajaPopup();
             return;
         }
@@ -29237,7 +29240,11 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
             }
             crearTurno(monto);
             closeFondoCajaPopup();
-            _abrirCajaDirecto();
+            if (_fondoCalledFromCaja) {
+                _abrirCajaDirecto();
+            } else {
+                if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
+            }
         });
     }
 
@@ -30821,7 +30828,7 @@ window.MU = (function() {
     <div class="produccion-header">
             <button id="produccionBack" class="produccion-back" type="button" title="Volver al menú principal" aria-label="Volver al menú principal">←</button>
       <h2 style="margin:0;font-size:0.84rem;letter-spacing:0.25px;font-weight:900;text-transform:uppercase;color:#1f2937;">PRODUCCIÓN</h2>
-      <span style="margin-left:auto;font-size:0.62rem;color:#64748b;font-weight:600;">Órdenes autorizadas desde diseño — más urgente primero</span>
+
     </div>
     <div class="produccion-body">
       <div class="produccion-left">
@@ -36154,7 +36161,11 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const maybeOpenCajaFondoOnDailyLogin = () => {
-        renderCajaUI();
+        loadTurnoActivo();
+        if (!turnoActivo) {
+            _fondoCalledFromCaja = false;
+            openFondoCajaPopup();
+        }
     };
 
     const doLogin = async () => {
