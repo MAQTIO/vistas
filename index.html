@@ -13441,12 +13441,13 @@ const imgBolsaDeliveryBase = new Image();
                     <div class="caja-meta">
                         <div class="caja-meta-box"><b>Caja</b><span id="cajaNombreLabel">Caja principal</span></div>
                         <div class="caja-meta-box"><b>ID de caja</b><span id="cajaIdLabel">CAJA-01</span></div>
-                        <div class="caja-meta-box"><b>Usuario logeado</b><span id="cajaUsuarioLabel">Usuario en turno</span></div>
+                        <div class="caja-meta-box"><b>Usuario</b><span id="cajaUsuarioLabel">—</span></div>
+                        <div class="caja-meta-box"><b>Apertura de turno</b><span id="cajaTurnoApertura">—</span></div>
                     </div>
                 </div>
                 <div class="caja-zone caja-zone-readonly">
                     <div class="caja-zone-head">
-                        <h4>Resumen del día</h4>
+                        <h4>Resumen del turno</h4>
                     </div>
                     <div class="caja-grid">
                         <div class="caja-kpi"><b>Fondo</b><span id="cajaKpiFondo">$0.00</span></div>
@@ -13476,11 +13477,12 @@ const imgBolsaDeliveryBase = new Image();
                     <div class="caja-meta">
                         <div class="caja-meta-box"><b>Caja</b><span id="cajaNombreLabelGasto">Caja principal</span></div>
                         <div class="caja-meta-box"><b>ID de caja</b><span id="cajaIdLabelGasto">CAJA-01</span></div>
-                        <div class="caja-meta-box"><b>Usuario logeado</b><span id="cajaUsuarioLabelGasto">Usuario en turno</span></div>
+                        <div class="caja-meta-box"><b>Usuario</b><span id="cajaUsuarioLabelGasto">—</span></div>
+                        <div class="caja-meta-box"><b>Apertura de turno</b><span id="cajaTurnoAperturaGasto">—</span></div>
                     </div>
                 </div>
                 <div class="caja-zone caja-zone-readonly">
-                    <div class="caja-zone-head"><h4>Dinero disponible (efectivo del día)</h4></div>
+                    <div class="caja-zone-head"><h4>Dinero disponible (turno actual)</h4></div>
                     <div id="cajaDisponibleMonto" class="caja-disponible" style="padding:8px 0;font-size:1rem;">$0.00</div>
                 </div>
                 <div class="caja-zone caja-zone-editable">
@@ -14823,7 +14825,7 @@ const imgBolsaDeliveryBase = new Image();
 <div id="popupFondoCaja" class="popup-overlay" aria-hidden="true">
     <div class="popup-card wide" role="dialog" aria-modal="true" aria-labelledby="fondoCajaTitulo">
         <div class="popup-header" style="padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 16px;">
-            <h2 id="fondoCajaTitulo" class="popup-title-main">Fondo inicial de caja</h2>
+            <h2 id="fondoCajaTitulo" class="popup-title-main">Apertura de turno — Fondo inicial</h2>
         </div>
         <div class="popup-panel" style="margin-bottom: 12px; background: transparent; padding: 0; border: none;">
             <div class="orden-field">
@@ -15950,6 +15952,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const CAJA_SETTINGS_KEY = 'mock_caja_settings_v1';
     const CAJA_MOVS_KEY = 'mock_caja_movs_v1';
     const CAJA_APERTURAS_KEY = 'mock_caja_aperturas_v1';
+    const CAJA_TURNO_ACTIVO_KEY = 'caja_turno_activo_v1';
+    const CAJA_HISTORIAL_KEY = 'caja_historial_turnos_v1';
     const CAL_ALERTS_KEY = 'mock_calendario_alertas_v1';
     const CLIENTES_MODULO_KEY = 'mock_clientes_modulo_v1';
     let productosTab = 'stock';
@@ -15973,7 +15977,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let cajaTabActiva = 'corte';
     let cajaSettings = { nombre: 'Caja principal', id: 'CAJA-01' };
     let cajaMovimientos = [];
-    let cajaAperturas = {};
+    let turnoActivo = null;
+    let historialTurnos = [];
     let calendarioAlertas = {};
     let calViewDate = new Date();
     let calSelectedDate = '';
@@ -17688,19 +17693,26 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (_) {}
     };
 
-    const loadCajaAperturas = () => {
+    const loadTurnoActivo = () => {
         try {
-            const parsed = JSON.parse(localStorage.getItem(CAJA_APERTURAS_KEY) || '{}');
-            cajaAperturas = (parsed && typeof parsed === 'object') ? parsed : {};
-        } catch (_) {
-            cajaAperturas = {};
-        }
+            const parsed = JSON.parse(localStorage.getItem(CAJA_TURNO_ACTIVO_KEY) || 'null');
+            turnoActivo = (parsed && typeof parsed === 'object' && parsed.id) ? parsed : null;
+        } catch (_) { turnoActivo = null; }
     };
 
-    const saveCajaAperturas = () => {
+    const saveTurnoActivo = () => {
+        try { localStorage.setItem(CAJA_TURNO_ACTIVO_KEY, JSON.stringify(turnoActivo)); } catch (_) {}
+    };
+
+    const loadHistorialTurnos = () => {
         try {
-            localStorage.setItem(CAJA_APERTURAS_KEY, JSON.stringify(cajaAperturas));
-        } catch (_) {}
+            const parsed = JSON.parse(localStorage.getItem(CAJA_HISTORIAL_KEY) || '[]');
+            historialTurnos = Array.isArray(parsed) ? parsed : [];
+        } catch (_) { historialTurnos = []; }
+    };
+
+    const saveHistorialTurnos = () => {
+        try { localStorage.setItem(CAJA_HISTORIAL_KEY, JSON.stringify(historialTurnos)); } catch (_) {}
     };
 
     const getUsuarioLogeado = () => {
@@ -17746,33 +17758,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const ensureCajaFondoDelDia = () => {
-        const day = todayISO();
-        const minFondo = Math.max(1, Number(getConfigValue('caja', 'fondoMinimo') || 1));
-        const current = Number(cajaAperturas[day]);
-        if (Number.isFinite(current) && current >= minFondo) return current;
-        // Si ya se inicio sesion y no hay fondo, asignar el minimo sin preguntar
-        cajaAperturas[day] = minFondo;
-        saveCajaAperturas();
-        return cajaAperturas[day];
+    const crearTurno = (fondoInicial) => {
+        turnoActivo = {
+            id: 'TRN-' + Date.now().toString(36).toUpperCase(),
+            usuario: getUsuarioLogeado(),
+            fechaApertura: new Date().toISOString(),
+            fondoInicial: Math.max(1, Number(fondoInicial) || 1),
+            fechaCierre: null
+        };
+        saveTurnoActivo();
     };
 
-    const getCajaResumenDelDia = () => {
-        const day = todayISO();
-        const fondo = Math.max(1, Number(cajaAperturas[day] || 1));
-        const ventasHoy = misPedidosData.filter((r) => r.tipo === 'venta' && String(r.fechaEmitida || '').slice(0, 10) === day);
-        const movsHoy = cajaMovimientos.filter((m) => String(m.fecha || '').slice(0, 10) === day);
+    const cerrarTurno = () => {
+        if (!turnoActivo) return;
+        loadHistorialTurnos();
+        const r = getCajaResumenDelTurno();
+        historialTurnos.unshift({
+            ...turnoActivo,
+            fechaCierre: new Date().toISOString(),
+            totalVentas: r.efectivo + r.tarjeta + r.transferencia + r.deposito,
+            totalGastos: r.gastos,
+            totalNeto: r.totalNeto
+        });
+        saveHistorialTurnos();
+        turnoActivo = null;
+        saveTurnoActivo();
+    };
+
+    const getCajaResumenDelTurno = () => {
+        if (!turnoActivo) return { fondo: 0, efectivo: 0, tarjeta: 0, transferencia: 0, deposito: 0, gastos: 0, totalNeto: 0 };
+        const fondo = turnoActivo.fondoInicial;
+        const turnoId = turnoActivo.id;
+        const turnoStart = turnoActivo.fechaApertura;
+        const turnoStartDate = turnoStart.slice(0, 10);
+
+        // Ventas desde apertura del turno (por fecha de emisión)
+        const ventasTurno = misPedidosData.filter((r) =>
+            r.tipo === 'venta' && String(r.fechaEmitida || '').slice(0, 10) >= turnoStartDate
+        );
+        // Movimientos del turno (por turnoId si está etiquetado, o por fecha)
+        const movsTurno = cajaMovimientos.filter((m) => {
+            if (m.turnoId) return m.turnoId === turnoId;
+            const mf = String(m.fecha || '');
+            return mf >= turnoStart || mf.slice(0, 10) >= turnoStartDate;
+        });
 
         const ingresos = { EFECTIVO: 0, TARJETA: 0, TRANSFERENCIA: 0, DEPOSITO: 0 };
-        ventasHoy.forEach((r) => {
+        ventasTurno.forEach((r) => {
             const metodo = String(r.metodoPago || 'EFECTIVO').toUpperCase();
             const amount = Math.max(0, Number(r.anticipo || 0));
             if (amount <= 0) return;
             if (metodo in ingresos) ingresos[metodo] += amount;
             else ingresos.EFECTIVO += amount;
         });
-
-        movsHoy.forEach((m) => {
+        movsTurno.forEach((m) => {
             const metodo = String(m.fuente || 'EFECTIVO').toUpperCase();
             const amount = Math.max(0, Number(m.monto || 0));
             if (!(metodo in ingresos)) return;
@@ -17780,12 +17819,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (m.tipo === 'gasto') ingresos[metodo] -= amount;
         });
 
-        const gastos = movsHoy
+        const gastos = movsTurno
             .filter((m) => m.tipo === 'gasto')
             .reduce((acc, m) => acc + Math.max(0, Number(m.monto || 0)), 0);
 
         return {
-            day,
             fondo,
             efectivo: ingresos.EFECTIVO,
             tarjeta: ingresos.TARJETA,
@@ -17797,7 +17835,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const getDisponiblePorFuente = (fuente) => {
-        const r = getCajaResumenDelDia();
+        const r = getCajaResumenDelTurno();
         if (fuente === 'TARJETA') return Math.max(0, r.tarjeta);
         if (fuente === 'TRANSFERENCIA') return Math.max(0, r.transferencia);
         if (fuente === 'DEPOSITO') return Math.max(0, r.deposito);
@@ -17808,15 +17846,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!popupCaja) return;
         loadMisPedidos();
         syncCajaFuenteOptions();
-        const resumen = getCajaResumenDelDia();
+        const resumen = getCajaResumenDelTurno();
         const usuario = getUsuarioLogeado();
 
+        const aperturaStr = turnoActivo ? new Date(turnoActivo.fechaApertura).toLocaleString('es-MX') : '—';
         if (cajaNombreLabel) cajaNombreLabel.textContent = cajaSettings.nombre;
         if (cajaIdLabel) cajaIdLabel.textContent = cajaSettings.id;
         if (cajaUsuarioLabel) cajaUsuarioLabel.textContent = usuario;
+        const _cajaAperturaEl = document.getElementById('cajaTurnoApertura');
+        if (_cajaAperturaEl) _cajaAperturaEl.textContent = aperturaStr;
         if (cajaNombreLabelGasto) cajaNombreLabelGasto.textContent = cajaSettings.nombre;
         if (cajaIdLabelGasto) cajaIdLabelGasto.textContent = cajaSettings.id;
         if (cajaUsuarioLabelGasto) cajaUsuarioLabelGasto.textContent = usuario;
+        const _cajaAperturaElG = document.getElementById('cajaTurnoAperturaGasto');
+        if (_cajaAperturaElG) _cajaAperturaElG.textContent = aperturaStr;
 
         if (cajaKpiFondo) cajaKpiFondo.textContent = formatMoney(resumen.fondo);
         if (cajaKpiEfectivo) cajaKpiEfectivo.textContent = formatMoney(resumen.efectivo);
@@ -17851,10 +17894,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const printCajaTicket = () => {
-        const r = getCajaResumenDelDia();
+        const r = getCajaResumenDelTurno();
         const usuario = getUsuarioLogeado();
         const now = new Date();
-        const stamp = `${now.toLocaleDateString('es-MX')} ${now.toLocaleTimeString('es-MX')}`;
+        const stamp = now.toLocaleString('es-MX');
+        const aperturaStamp = turnoActivo ? new Date(turnoActivo.fechaApertura).toLocaleString('es-MX') : '—';
         const html = `<!doctype html><html><head><meta charset="utf-8"><title>Corte de Caja</title>
             <style>
                 body{font-family:Consolas,monospace;padding:10px;color:#111}
@@ -17867,15 +17911,16 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="meta">Caja: ${cajaSettings.nombre}</div>
             <div class="meta">ID caja: ${cajaSettings.id}</div>
             <div class="meta">Usuario: ${usuario}</div>
-            <div class="meta">Fecha: ${stamp}</div>
-            <div class="line"><span>Fondo</span><span>${formatMoney(r.fondo)}</span></div>
+            <div class="meta">Turno apertura: ${aperturaStamp}</div>
+            <div class="meta">Turno cierre: ${stamp}</div>
+            <div class="line"><span>Fondo inicial</span><span>${formatMoney(r.fondo)}</span></div>
             <div class="line"><span>Efectivo</span><span>${formatMoney(r.efectivo)}</span></div>
             <div class="line"><span>Tarjeta</span><span>${formatMoney(r.tarjeta)}</span></div>
             <div class="line"><span>Transferencias</span><span>${formatMoney(r.transferencia)}</span></div>
             <div class="line"><span>Depósitos</span><span>${formatMoney(r.deposito)}</span></div>
             <div class="line"><span>Gastos</span><span>${formatMoney(r.gastos)}</span></div>
             <div class="line total"><span>Total neto</span><span>${formatMoney(r.totalNeto)}</span></div>
-            
+
 </body></html>`;
         const w = window.open('', '_blank', 'width=420,height=700');
         if (!w) {
@@ -17889,18 +17934,25 @@ document.addEventListener('DOMContentLoaded', () => {
         w.print();
     };
 
-    const openCajaPopup = () => {
+    const _abrirCajaDirecto = () => {
         if (!popupCaja) return;
         loadCajaSettings();
         loadCajaMovimientos();
-        loadCajaAperturas();
-        ensureCajaFondoDelDia();
         cajaTabActiva = 'corte';
         popupCaja.style.display = 'flex';
         popupCaja.setAttribute('aria-hidden', 'false');
         document.body.classList.add('popup-open');
         document.documentElement.classList.add('popup-open');
         renderCajaUI();
+    };
+
+    const openCajaPopup = () => {
+        loadTurnoActivo();
+        if (!turnoActivo) {
+            openFondoCajaPopup();
+            return;
+        }
+        _abrirCajaDirecto();
     };
 
     const closeCajaPopup = () => {
@@ -20318,14 +20370,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const generarReporteCortesCaja = () => {
         const head = document.getElementById('repReporteHead');
         const body = document.getElementById('repReporteBody');
-        let aperturas = [];
-        try { aperturas = JSON.parse(localStorage.getItem(CAJA_APERTURAS_KEY) || '[]'); } catch(_){}
-        if (head) head.innerHTML = '<tr><th>FECHA APERTURA</th><th>FECHA CIERRE</th><th>FONDO INICIAL</th><th>VENTAS</th><th>DIFERENCIA</th><th>ESTADO</th></tr>';
+        loadHistorialTurnos();
+        loadTurnoActivo();
+        const todos = [...historialTurnos];
+        if (turnoActivo) todos.unshift(turnoActivo);
+        if (head) head.innerHTML = '<tr><th>APERTURA</th><th>CIERRE</th><th>FONDO</th><th>VENTAS</th><th>GASTOS</th><th>ESTADO</th></tr>';
         const resumen = document.getElementById('repVistaResumen');
-        if (resumen) resumen.innerHTML = `<span class="rep-chip">CORTES: ${aperturas.length}</span>`;
+        if (resumen) resumen.innerHTML = `<span class="rep-chip">TURNOS: ${todos.length}</span>`;
         if (body) {
-            if (!aperturas.length) { body.innerHTML = '<tr><td colspan="6" class="clientesmod-empty">SIN CORTES DE CAJA</td></tr>'; return; }
-            body.innerHTML = aperturas.reverse().map((a) => `<tr><td>${escCliMod(a.fechaApertura||'')}</td><td>${escCliMod(a.fechaCierre||'ABIERTA')}</td><td>${formatMoney(Number(a.fondoInicial||0))}</td><td>${formatMoney(Number(a.totalVentas||0))}</td><td>${formatMoney(Number(a.diferencia||0))}</td><td>${a.fechaCierre?'CERRADA':'ABIERTA'}</td></tr>`).join('');
+            if (!todos.length) { body.innerHTML = '<tr><td colspan="6" class="clientesmod-empty">SIN TURNOS REGISTRADOS</td></tr>'; return; }
+            body.innerHTML = todos.map((a) => {
+                const ap = a.fechaApertura ? new Date(a.fechaApertura).toLocaleString('es-MX') : '—';
+                const ci = a.fechaCierre ? new Date(a.fechaCierre).toLocaleString('es-MX') : 'ABIERTO';
+                return `<tr><td>${escCliMod(ap)}</td><td>${escCliMod(ci)}</td><td>${formatMoney(Number(a.fondoInicial||0))}</td><td>${formatMoney(Number(a.totalVentas||0))}</td><td>${formatMoney(Number(a.totalGastos||0))}</td><td>${a.fechaCierre?'CERRADO':'ABIERTO'}</td></tr>`;
+            }).join('');
         }
     };
 
@@ -21333,7 +21391,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mpDetOrdenActual.metodoPago    = metodo;
             const idx = misPedidosData.findIndex(r => r.id === mpDetOrdenActual.id);
             if (idx >= 0) { misPedidosData[idx].anticipo = nuevoAnticipo; misPedidosData[idx].adeudoCliente = nuevoAdeudo; misPedidosData[idx].metodoPago = metodo; }
-            const movCaja = { id: 'CM-' + Date.now().toString(36).toUpperCase(), tipo: 'ingreso', monto, concepto: `Abono Orden ${mpDetOrdenActual.folio} — ${mpDetOrdenActual.clienteNombre}`, fecha: todayISO(), formaPago: metodo, folio: mpDetOrdenActual.folio, ...extras };
+            const movCaja = { id: 'CM-' + Date.now().toString(36).toUpperCase(), tipo: 'ingreso', monto, concepto: `Abono Orden ${mpDetOrdenActual.folio} — ${mpDetOrdenActual.clienteNombre}`, fecha: new Date().toISOString(), formaPago: metodo, folio: mpDetOrdenActual.folio, fuente: metodo, turnoId: turnoActivo?.id || '', ...extras };
             try { const cajaMov = JSON.parse(localStorage.getItem('mock_caja_movs_v1') || '[]'); cajaMov.push(movCaja); localStorage.setItem('mock_caja_movs_v1', JSON.stringify(cajaMov)); } catch (_) {}
             saveMisPedidos();
             document.getElementById('mpDetAnticipo').textContent = formatMoney(nuevoAnticipo);
@@ -25268,8 +25326,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (cajaBtnRealizarCorte) {
         cajaBtnRealizarCorte.addEventListener('click', () => {
-            renderCajaUI();
+            if (!confirm('¿Confirmas el corte de caja? Se cerrará el turno actual y regresarás al inicio.')) return;
             printCajaTicket();
+            cerrarTurno();
+            closeCajaPopup();
         });
     }
 
@@ -25358,7 +25418,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const fuente = String(document.getElementById('cajaIngresoFuente')?.value||'EFECTIVO').toUpperCase();
         const monto = Math.max(0, Number(document.getElementById('cajaIngresoMonto')?.value||0));
         if (!Number.isFinite(monto)||monto<=0) { notifyError('La cantidad debe ser mayor a cero.','Caja'); return; }
-        cajaMovimientos.unshift({ id:`CJ-${Date.now().toString(36).toUpperCase()}`, fecha:new Date().toISOString(), tipo:'ingreso', fuente, monto, motivo });
+        cajaMovimientos.unshift({ id:`CJ-${Date.now().toString(36).toUpperCase()}`, fecha:new Date().toISOString(), tipo:'ingreso', fuente, monto, motivo, turnoId: turnoActivo?.id || '' });
         saveCajaMovimientos(); renderCajaUI();
         const p=document.getElementById('cajaPanelIngreso'); if(p){p.style.display='none';p.setAttribute('aria-hidden','true');}
         const inp=document.getElementById('cajaIngresoMonto'); if(inp) inp.value='';
@@ -25377,7 +25437,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (disponible<=0) { notifyError('No hay dinero disponible en esa fuente hoy.','Caja'); return; }
         if (!Number.isFinite(monto)||monto<=0) { notifyError('La cantidad debe ser mayor a cero.','Caja'); return; }
         if (monto>disponible) { notifyError(`No puedes sacar más de lo disponible (${formatMoney(disponible)}).`,'Caja'); return; }
-        cajaMovimientos.unshift({ id:`CJ-${Date.now().toString(36).toUpperCase()}`, fecha:new Date().toISOString(), tipo:'gasto', fuente, monto, motivo });
+        cajaMovimientos.unshift({ id:`CJ-${Date.now().toString(36).toUpperCase()}`, fecha:new Date().toISOString(), tipo:'gasto', fuente, monto, motivo, turnoId: turnoActivo?.id || '' });
         saveCajaMovimientos(); renderCajaUI();
         const p=document.getElementById('cajaPanelGastoAcc'); if(p){p.style.display='none';p.setAttribute('aria-hidden','true');}
         const inp=document.getElementById('cajaGastoAccMonto'); if(inp) inp.value='';
@@ -29173,20 +29233,19 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
             const monto = Number(montoStr);
             if (!Number.isFinite(monto) || monto < 1) {
                 notifyError('El fondo inicial debe ser un número mayor o igual a 1.', 'Caja');
-                fondoCajaInputMonto.focus();
+                fondoCajaInputMonto?.focus();
                 return;
             }
-            const day = todayISO();
-            cajaAperturas[day] = monto;
-            saveCajaAperturas();
+            crearTurno(monto);
             closeFondoCajaPopup();
-            renderCajaUI();
+            _abrirCajaDirecto();
         });
     }
 
     if (fondoCajaCancelar) {
         fondoCajaCancelar.addEventListener('click', () => {
             closeFondoCajaPopup();
+            if (typeof mostrarInicioSistema === 'function') mostrarInicioSistema();
         });
     }
 
@@ -29241,7 +29300,7 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
 
     loadCajaSettings();
     loadCajaMovimientos();
-    loadCajaAperturas();
+    loadTurnoActivo();
     loadSystemConfig();
     umRefreshAllSelectors();
     umLoadFromFirebase(() => umRefreshAllSelectors());
@@ -36096,20 +36155,6 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const maybeOpenCajaFondoOnDailyLogin = () => {
-        const email = localStorage.getItem('logged_user_email') || window._currentFirebaseUser?.email || '';
-        const day = todayISO();
-        const key = getCajaLoginDayKey(email);
-        if (localStorage.getItem(key) === day) {
-            renderCajaUI();
-            return;
-        }
-        localStorage.setItem(key, day);
-        loadCajaAperturas();
-        const current = Number(cajaAperturas[day]);
-        if (!Number.isFinite(current) || current < 1) {
-            openFondoCajaPopup();
-            return;
-        }
         renderCajaUI();
     };
 
