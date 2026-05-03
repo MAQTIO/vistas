@@ -5865,6 +5865,44 @@
             background: #fff;
         }
 
+        .prod-tab-procesos-wrap {
+            margin-top: 8px;
+            border: 1px solid #f07a00;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .prod-tab-procesos-header {
+            padding: 6px 10px;
+            background: #fff3e6;
+            border-bottom: 1px solid #f07a00;
+            font-size: 0.6rem;
+            font-weight: 900;
+            color: #92400e;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .prod-tab-procesos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0;
+        }
+        .prod-proc-tab-card {
+            border-right: 1px solid #fde8c8;
+            overflow: auto;
+        }
+        .prod-proc-tab-card:last-child { border-right: none; }
+        .prod-proc-tab-name {
+            padding: 5px 8px;
+            background: #fffbf5;
+            border-bottom: 1px solid #fde8c8;
+            font-size: 0.58rem;
+            font-weight: 800;
+            color: #d76700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         @media (max-width: 1180px) {
             .mispedidos-filters {
                 grid-template-columns: repeat(3, minmax(130px, 1fr));
@@ -6481,59 +6519,6 @@
             font-weight: 400;
         }
 
-        /* Demo Mode Toggle */
-        .demo-toggle-wrap {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 2px 0 0;
-        }
-        .demo-toggle-label {
-            font-size: 0.62rem;
-            font-weight: 700;
-            color: #9ca3af;
-            letter-spacing: 0.5px;
-            user-select: none;
-            transition: color 0.2s;
-        }
-        .demo-toggle-label.active { color: #f59e0b; }
-        .demo-toggle {
-            position: relative;
-            width: 44px;
-            height: 24px;
-            cursor: pointer;
-        }
-        .demo-toggle input { opacity: 0; width: 0; height: 0; }
-        .demo-toggle .demo-slider {
-            position: absolute;
-            inset: 0;
-            background: #d1d5db;
-            border-radius: 24px;
-            transition: background 0.25s;
-        }
-        .demo-toggle .demo-slider::before {
-            content: '';
-            position: absolute;
-            left: 3px;
-            top: 3px;
-            width: 18px;
-            height: 18px;
-            background: #fff;
-            border-radius: 50%;
-            transition: transform 0.25s;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-        }
-        .demo-toggle input:checked + .demo-slider { background: #f59e0b; }
-        .demo-toggle input:checked + .demo-slider::before { transform: translateX(20px); }
-        .demo-status {
-            font-size: 0.55rem;
-            color: #9ca3af;
-            text-align: center;
-            min-height: 14px;
-            transition: color 0.2s;
-        }
-        .demo-status.on { color: #f59e0b; }
 
         .inicio-grid {
             width: 100%;
@@ -8536,14 +8521,6 @@
         </div>
         <div class="inicio-title">PANEL DE VENTAS</div>
         <div class="inicio-sub">Selecciona un modulo principal para iniciar</div>
-        <div class="demo-toggle-wrap">
-            <span class="demo-toggle-label" id="demoLabel">🧪 MODO DEMO</span>
-            <label class="demo-toggle">
-                <input type="checkbox" id="demoModeToggle">
-                <span class="demo-slider"></span>
-            </label>
-        </div>
-        <div class="demo-status" id="demoStatus"></div>
         <div class="inicio-grid">
             <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('NUEVA ORDEN')"><span class="ico">🆕</span><span>NUEVA ORDEN</span></button>
             <button class="inicio-card" type="button" onclick="abrirModuloPrincipal('MIS PEDIDOS')"><span class="ico">📦</span><span>MIS PEDIDOS</span></button>
@@ -13875,9 +13852,9 @@ const imgBolsaDeliveryBase = new Image();
                                 <button id="prodFormScanCodigo" class="productos-btn" type="button" title="Escanear código de barras" style="padding:6px 10px;font-size:0.75rem;">📷 Escanear</button>
                             </div>
                         </div>
-                        <div class="orden-field"><label for="prodFormTipo">TIPO DE PRODUCTO</label><select id="prodFormTipo"><option value="stock">PRODUCTO</option><option value="gran-formato">GRAN FORMATO</option><option value="fabricado">FABRICADO</option><option value="insumo">INSUMO</option><option value="proceso">PROCESO</option><option value="servicio">SERVICIO</option></select></div>
-                        <div class="orden-field" id="prodFormNombreWrap"><label for="prodFormProducto">Nombre</label><input id="prodFormProducto" type="text" placeholder="Nombre del artículo"></div>
-                        <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo"><label for="prodFormCategoria">Categoría</label><div style="display:flex;gap:4px;align-items:center;"><select id="prodFormCategoria" style="flex:1;"><option value="">Seleccionar...</option></select><button type="button" id="prodFormCategoriaAdd" class="productos-btn" style="padding:4px 8px;font-size:0.7rem;white-space:nowrap;" title="Agregar categoría">+</button></div></div>
+                        <div class="orden-field"><label for="prodFormTipo">TIPO DE PRODUCTO</label><select id="prodFormTipo"><option value="stock">PRODUCTO</option><option value="gran-formato">GRAN FORMATO</option><option value="insumo">INSUMO</option><option value="proceso">PROCESO</option><option value="servicio">SERVICIO</option></select></div>
+                        <div class="orden-field" id="prodFormNombreWrap"><label for="prodFormProducto">Nombre del producto <span style="color:#dc2626;">*</span></label><input id="prodFormProducto" type="text" placeholder="Nombre del artículo"></div>
+                        <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo"><label for="prodFormCategoria">Categoría <span style="color:#dc2626;">*</span></label><div style="display:flex;gap:4px;align-items:center;"><select id="prodFormCategoria" style="flex:1;"><option value="">Seleccionar...</option></select><button type="button" id="prodFormCategoriaAdd" class="productos-btn" style="padding:4px 8px;font-size:0.7rem;white-space:nowrap;" title="Agregar categoría">+</button></div></div>
                         <div class="orden-field" data-nat="producto,fabricado,insumo"><label for="prodFormMaterial">Material</label><input id="prodFormMaterial" type="text"></div>
                         <div class="orden-field" data-nat="insumo"><label for="prodFormDesgastePorUso">Desgaste por unidad usada</label><input id="prodFormDesgastePorUso" type="number" min="0" step="0.001" value="1" placeholder="Cantidad que se consume por uso"></div>
                         <div class="orden-field prod-stock-only productos-field-span3" data-nat="producto,fabricado,insumo,proceso,servicio"><label for="prodFormDescripcion">Descripción</label><textarea id="prodFormDescripcion" rows="2" placeholder="Descripción del producto" style="resize:none;"></textarea></div>
@@ -13887,20 +13864,24 @@ const imgBolsaDeliveryBase = new Image();
                 <!-- PASO: stock-compra ─ Stock y Compra -->
                 <div class="prod-step-panel" data-step="stock-compra">
                     <div class="productos-modal-grid">
+                        <div class="orden-field prod-stock-only productos-field-span3" data-nat="producto,fabricado,insumo">
+                            <label for="prodFormUMGrupo">Grupo de unidades</label>
+                            <div style="display:flex;gap:4px;align-items:center;">
+                                <select id="prodFormUMGrupo" style="flex:1;"><option value="">Seleccionar grupo...</option></select>
+                                <button type="button" id="prodFormUMConfig" class="productos-btn" style="padding:4px 8px;font-size:0.7rem;" title="Configurar unidades de medida">⚙</button>
+                            </div>
+                        </div>
                         <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo">
                             <label for="prodFormUMCompra">U. medida compra</label>
                             <select id="prodFormUMCompra" style="width:100%;"></select>
                         </div>
                         <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo">
                             <label for="prodFormUMVenta">U. medida venta</label>
-                            <div style="display:flex;gap:4px;align-items:center;">
-                                <select id="prodFormUMVenta" style="flex:1;"></select>
-                                <button type="button" id="prodFormUMConfig" class="productos-btn" style="padding:4px 8px;font-size:0.7rem;" title="Configurar unidades de medida">⚙</button>
-                            </div>
+                            <select id="prodFormUMVenta" style="width:100%;"></select>
                         </div>
-                        <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo"><label for="prodFormExistencias">Existencias</label><input id="prodFormExistencias" type="number" min="0" step="1"></div>
-                        <div class="orden-field prod-stock-only" data-nat="producto,fabricado"><label for="prodFormMinima">Cantidad mínima</label><input id="prodFormMinima" type="number" min="0" step="1"></div>
-                        <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo"><label for="prodFormPrecioCompra">Precio de compra</label><input id="prodFormPrecioCompra" type="number" min="0" step="0.01"></div>
+                        <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo"><label for="prodFormExistencias">Existencias <span style="color:#dc2626;">*</span></label><input id="prodFormExistencias" type="number" min="0" step="1"></div>
+                        <div class="orden-field prod-stock-only" data-nat="producto,fabricado"><label for="prodFormMinima">Cantidad mínima <span style="color:#dc2626;">*</span></label><input id="prodFormMinima" type="number" min="0" step="1"></div>
+                        <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo"><label for="prodFormPrecioCompra">Precio de compra <span style="color:#dc2626;">*</span></label><input id="prodFormPrecioCompra" type="number" min="0" step="0.01"></div>
                         <div class="orden-field prod-stock-only" data-nat="producto,fabricado,insumo"><label for="prodFormProveedor">Proveedor</label><div style="display:flex;gap:4px;align-items:center;"><select id="prodFormProveedor" style="flex:1;"><option value="">Seleccionar...</option></select><button type="button" id="prodFormProveedorAdd" class="productos-btn" style="padding:4px 8px;font-size:0.7rem;white-space:nowrap;" title="Agregar proveedor" onclick="abrirPopupProveedorDesdeProductos()">+</button></div></div>
                     </div>
                 </div>
@@ -13932,8 +13913,36 @@ const imgBolsaDeliveryBase = new Image();
                 <!-- PASO: config ─ Procesos / Fabricación / Insumos -->
                 <div class="prod-step-panel" data-step="config">
                     <div class="productos-modal-grid">
-                        <div class="orden-field productos-field-span3 prod-stock-only" data-nat="producto,fabricado"><label style="margin-bottom:2px;">⚙️ Procesos asignados</label><div style="display:flex;align-items:center;gap:6px;"><button type="button" id="prodFormProcesosBtn" class="productos-btn" style="padding:6px 14px;font-size:0.62rem;background:#f07a00;color:#fff;border:none;border-radius:6px;">⚙️ Seleccionar procesos</button><span id="prodFormProcesosResumen" style="font-size:0.55rem;color:#9ca3af;flex:1;">Sin procesos asignados</span></div><div id="prodFormProcesosPreview" style="margin-top:4px;font-size:0.6rem;"></div></div>
-                        <div class="orden-field productos-field-span3" data-nat="fabricado"><label style="margin-bottom:2px;">🧪 Receta de fabricación</label><div style="display:flex;align-items:center;gap:6px;"><button type="button" id="prodFormRecetaBtn" class="productos-btn" style="padding:6px 14px;font-size:0.62rem;background:#f07a00;color:#fff;border:none;border-radius:6px;">🧪 Configurar receta</button><span id="prodFormRecetaResumen" style="font-size:0.55rem;color:#9ca3af;flex:1;">Sin insumos en la receta</span></div><div id="prodFormRecetaPreview" style="margin-top:4px;max-height:45px;overflow-y:auto;font-size:0.6rem;"></div></div>
+                        <div class="orden-field productos-field-span3 prod-stock-only" data-nat="producto,fabricado">
+                            <label style="margin-bottom:4px;font-size:0.62rem;font-weight:900;color:#374151;text-transform:uppercase;letter-spacing:0.3px;">Procesos asignados <span id="procesosBadgeCount" style="background:#fff3e6;color:#d76700;padding:1px 8px;border-radius:20px;font-size:0.55rem;font-weight:700;border:1px solid #f07a00;margin-left:4px;">0 procesos</span></label>
+                            <div style="border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
+                                <div style="padding:6px 8px;background:#f9fafb;border-bottom:1px solid #eee;">
+                                    <input id="procesosSearchInput" type="text" placeholder="Buscar proceso..." style="width:100%;padding:5px 8px;border:1px solid #d1d5db;border-radius:6px;font-size:0.62rem;">
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;max-height:220px;overflow:hidden;">
+                                    <div style="overflow-y:auto;border-right:1px solid #e5e7eb;">
+                                        <div style="padding:4px 8px;background:#f3f4f6;font-size:0.55rem;font-weight:700;color:#6b7280;border-bottom:1px solid #e5e7eb;">Disponibles</div>
+                                        <table style="width:100%;border-collapse:collapse;">
+                                            <tbody id="procesosDisponiblesTableBody"></tbody>
+                                        </table>
+                                    </div>
+                                    <div style="overflow-y:auto;">
+                                        <div style="padding:4px 8px;background:#fff3e6;font-size:0.55rem;font-weight:700;color:#92400e;border-bottom:1px solid #fde68a;">Asignados</div>
+                                        <table style="width:100%;border-collapse:collapse;">
+                                            <tbody id="procesosConfirmadosTableBody"></tbody>
+                                        </table>
+                                        <div id="procesosConfirmadosEmpty" style="display:none;padding:12px;text-align:center;color:#9ca3af;font-size:0.58rem;">Sin procesos asignados</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="orden-field productos-field-span3" data-nat="producto,fabricado" style="border-top:1px solid #f3f4f6;padding-top:8px;margin-top:2px;">
+                            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.68rem;font-weight:700;color:#374151;">
+                                <input type="checkbox" id="prodFormNecesitaFabricacion" style="width:15px;height:15px;cursor:pointer;">
+                                Este producto requiere fabricación (activa la receta de insumos)
+                            </label>
+                        </div>
+                        <div class="orden-field productos-field-span3" id="prodFabRecetaSection" data-nat="producto,fabricado" style="display:none;"><label style="margin-bottom:2px;">Receta de fabricación</label><div style="display:flex;align-items:center;gap:6px;"><button type="button" id="prodFormRecetaBtn" class="productos-btn" style="padding:6px 14px;font-size:0.62rem;background:#f07a00;color:#fff;border:none;border-radius:6px;">Configurar receta</button><span id="prodFormRecetaResumen" style="font-size:0.55rem;color:#9ca3af;flex:1;">Sin insumos en la receta</span></div><div id="prodFormRecetaPreview" style="margin-top:4px;max-height:45px;overflow-y:auto;font-size:0.6rem;"></div></div>
                         <div class="orden-field productos-field-span3" data-nat="proceso"><label style="margin-bottom:2px;">🧰 Insumos del proceso</label><div style="display:flex;align-items:center;gap:6px;"><button type="button" id="prodFormProcesoInsumosBtn" class="productos-btn" style="padding:6px 14px;font-size:0.62rem;background:#f07a00;color:#fff;border:none;border-radius:6px;">🧰 Enlazar insumos</button><span id="prodFormProcesoInsumosResumen" style="font-size:0.55rem;color:#9ca3af;flex:1;">Sin insumos enlazados</span></div><div id="prodFormProcesoInsumosPreview" style="margin-top:4px;font-size:0.6rem;"></div></div>
                     </div>
                 </div>
@@ -13981,15 +13990,46 @@ const imgBolsaDeliveryBase = new Image();
                         <div class="orden-field prod-gf-ml-only"><label for="prodGfPrecioRevML">Precio de venta por M/lineal revendedor</label><input id="prodGfPrecioRevML" type="number" min="0" step="0.01"></div>
                         <div class="orden-field prod-gf-m2-only"><label for="prodGfCostoM2">Costo por M2</label><input id="prodGfCostoM2" type="number" min="0" step="0.01"></div>
                         <div class="orden-field prod-gf-ml-only"><label for="prodGfCostoML">Costo por M/lineal</label><input id="prodGfCostoML" type="number" min="0" step="0.01"></div>
-                        <div class="orden-field productos-field-span3">
-                            <label for="prodGfAjusteAncho">Ajuste del precio al ancho del vinil</label>
+                        <div class="orden-field">
+                            <label for="prodGfAjusteAncho">Ajuste al ancho del vinil</label>
                             <select id="prodGfAjusteAncho">
                                 <option value="metro">Ajustar al metro</option>
                                 <option value="medio">Ajustar a medio metro</option>
                                 <option value="sin">Sin ajuste</option>
                             </select>
                         </div>
+                        <div class="orden-field">
+                            <label for="prodGfAjusteAlto">Ajuste al alto del vinil</label>
+                            <select id="prodGfAjusteAlto">
+                                <option value="metro">Ajustar al metro</option>
+                                <option value="medio">Ajustar a medio metro</option>
+                                <option value="sin">Sin ajuste</option>
+                            </select>
+                        </div>
                     </div>
+                </div>
+
+                <!-- PASO: tabulador-gf ─ Tabulador Gran Formato -->
+                <div class="prod-step-panel" data-step="tabulador-gf">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                        <span style="font-size:0.72rem;font-weight:700;color:#374151;">Precios por rango de <span id="gfTabUnidadLabel">M2</span></span>
+                        <button type="button" onclick="gfTabAgregarRango()" style="font-size:0.65rem;padding:3px 10px;background:#2563eb;color:#fff;border:none;border-radius:6px;cursor:pointer;">+ Agregar rango</button>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%;border-collapse:collapse;font-size:0.65rem;" id="gfTabuladorTable">
+                            <thead>
+                                <tr style="background:#f3f4f6;">
+                                    <th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e5e7eb;">Desde <span id="gfTabUnidadMin">M2</span></th>
+                                    <th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e5e7eb;">Hasta <span id="gfTabUnidadMax">M2</span> <small style="font-weight:400;">(vacío = ilimitado)</small></th>
+                                    <th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e5e7eb;">Precio general</th>
+                                    <th style="padding:4px 6px;text-align:left;border-bottom:1px solid #e5e7eb;">Precio revendedor</th>
+                                    <th style="padding:4px 6px;border-bottom:1px solid #e5e7eb;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="gfTabuladorBody"></tbody>
+                        </table>
+                    </div>
+                    <p id="gfTabVacioMsg" style="font-size:0.62rem;color:#9ca3af;text-align:center;margin:12px 0;">Sin rangos configurados. Se usarán los precios base.</p>
                 </div>
 
             </div><!-- fin prod-form-main -->
@@ -14014,9 +14054,10 @@ const imgBolsaDeliveryBase = new Image();
             <label for="umGrupoSelect" style="font-size:0.66rem;font-weight:700;color:#374151;">Grupo activo</label>
             <div style="display:flex;gap:6px;align-items:center;">
                 <select id="umGrupoSelect" style="flex:1;"></select>
-                <button id="umGrupoEliminar" class="productos-btn" type="button" style="font-size:0.62rem;padding:4px 8px;background:#ef4444;color:#fff;border:none;border-radius:6px;cursor:pointer;" title="Eliminar grupo activo">✕</button>
+                <button id="umGrupoToggle" class="productos-btn" type="button" style="font-size:0.62rem;padding:4px 10px;border-radius:6px;cursor:pointer;" title="Deshabilitar grupo">Deshabilitar</button>
             </div>
         </div>
+        <div id="umGrupoVinculados" style="display:none;font-size:0.6rem;color:#92400e;background:#fff8f0;border:1px solid #fcd9b0;border-radius:6px;padding:5px 8px;margin-bottom:6px;"></div>
 
         <!-- Nombre del grupo (editable) -->
         <div class="orden-field" style="margin-bottom:6px;">
@@ -14038,7 +14079,7 @@ const imgBolsaDeliveryBase = new Image();
                         <th style="padding:6px 8px;text-align:left;color:#374151;font-weight:700;border-bottom:1px solid #e5e7eb;">Unidad</th>
                         <th style="padding:6px 8px;text-align:left;color:#374151;font-weight:700;border-bottom:1px solid #e5e7eb;">Abreviación</th>
                         <th style="padding:6px 8px;text-align:right;color:#374151;font-weight:700;border-bottom:1px solid #e5e7eb;">Factor → base</th>
-                        <th style="padding:6px 4px;text-align:center;color:#374151;font-weight:700;border-bottom:1px solid #e5e7eb;width:36px;"></th>
+                        <th style="padding:6px 4px;text-align:center;color:#374151;font-weight:700;border-bottom:1px solid #e5e7eb;width:60px;">Estado</th>
                     </tr>
                 </thead>
                 <tbody id="umUnidadesTbody"></tbody>
@@ -14193,74 +14234,7 @@ const imgBolsaDeliveryBase = new Image();
     </div>
 </div>
 
-<!-- ============ POPUP: PROCESOS ASIGNADOS ============ -->
-<div id="popupProcesosAsignados" class="productos-modal-overlay" aria-hidden="true" style="z-index:2200;">
-    <div class="productos-modal-card wide" role="dialog" aria-modal="true" style="max-width:820px;padding:0;overflow:hidden;border:1px solid #e5e7eb;max-height:88dvh;display:flex;flex-direction:column;">
-        <!-- Header -->
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px 10px;border-bottom:2px solid #f07a00;background:#fff;">
-            <div style="display:flex;align-items:center;gap:8px;">
-                <span style="font-size:1rem;">⚙️</span>
-                <h3 style="margin:0;font-size:0.82rem;font-weight:900;color:#1f2937;text-transform:uppercase;letter-spacing:0.2px;">Procesos asignados</h3>
-            </div>
-            <div style="display:flex;gap:6px;align-items:center;">
-                <span id="procesosBadgeCount" style="background:#fff3e6;color:#d76700;padding:2px 10px;border-radius:20px;font-size:0.58rem;font-weight:700;border:1px solid #f07a00;">0 procesos</span>
-                <button type="button" id="procesosPopupClose" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:#6b7280;padding:4px;">✕</button>
-            </div>
-        </div>
-        <!-- Body: two columns -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0;overflow:hidden;">
-            <!-- LEFT: Lista de procesos disponibles -->
-            <div style="display:flex;flex-direction:column;border-right:1px solid #e5e7eb;overflow:hidden;">
-                <div style="padding:8px 12px;background:#f9fafb;border-bottom:1px solid #eee;">
-                    <div style="font-size:0.68rem;font-weight:800;color:#374151;margin-bottom:4px;">🔍 Procesos disponibles</div>
-                    <input id="procesosSearchInput" type="text" placeholder="Buscar proceso..." style="width:100%;padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:0.65rem;">
-                </div>
-                <div style="flex:1;overflow-y:auto;min-height:0;">
-                    <table style="width:100%;border-collapse:collapse;">
-                        <thead style="position:sticky;top:0;background:#f3f4f6;z-index:1;">
-                            <tr>
-                                <th style="padding:6px 8px;font-size:0.58rem;text-align:left;color:#6b7280;border-bottom:1px solid #e5e7eb;">Proceso</th>
-                                <th style="padding:6px 8px;font-size:0.58rem;text-align:left;color:#6b7280;border-bottom:1px solid #e5e7eb;">Descripción</th>
-                                <th style="padding:6px 8px;font-size:0.58rem;text-align:center;color:#6b7280;border-bottom:1px solid #e5e7eb;">Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody id="procesosDisponiblesTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- RIGHT: Procesos confirmados -->
-            <div style="display:flex;flex-direction:column;overflow:hidden;">
-                <div style="padding:8px 12px;background:#fff3e6;border-bottom:1px solid #f07a00;">
-                    <div style="font-size:0.68rem;font-weight:800;color:#92400e;">✅ Procesos seleccionados</div>
-                </div>
-                <div style="flex:1;overflow-y:auto;min-height:0;">
-                    <table style="width:100%;border-collapse:collapse;">
-                        <thead style="position:sticky;top:0;background:#e0e7ff;z-index:1;">
-                            <tr>
-                                <th style="padding:6px 8px;font-size:0.58rem;text-align:left;color:#92400e;border-bottom:1px solid #f07a00;">Proceso</th>
-                                <th style="padding:6px 8px;font-size:0.58rem;text-align:center;color:#92400e;border-bottom:1px solid #f07a00;">Costo</th>
-                                <th style="padding:6px 8px;font-size:0.58rem;text-align:center;color:#92400e;border-bottom:1px solid #f07a00;">Notas</th>
-                                <th style="padding:6px 8px;font-size:0.58rem;text-align:center;color:#92400e;border-bottom:1px solid #f07a00;">Quitar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="procesosConfirmadosTableBody"></tbody>
-                    </table>
-                </div>
-                <div id="procesosConfirmadosEmpty" style="flex:1;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:0.65rem;padding:20px;">
-                    Selecciona procesos desde la tabla de la izquierda
-                </div>
-            </div>
-        </div>
-        <!-- Footer -->
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px solid #e5e7eb;background:#f9fafb;">
-            <span id="procesosTotalInfo" style="font-size:0.6rem;color:#6b7280;">0 procesos seleccionados</span>
-            <div style="display:flex;gap:6px;">
-                <button type="button" id="procesosAceptar" class="productos-btn primary" style="padding:6px 18px;font-size:0.68rem;background:#f07a00;">Aceptar</button>
-                <button type="button" id="procesosCancelar" class="productos-btn gray" style="padding:6px 18px;font-size:0.68rem;">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- popupProcesosAsignados eliminado — panel inline en paso config -->
 
 
 <!-- ============ POPUP: INSUMOS DEL PROCESO ============ -->
@@ -14362,6 +14336,27 @@ const imgBolsaDeliveryBase = new Image();
 </div>
 
 
+<!-- ============ POPUP: CONFIGURAR PROCESOS DE LÍNEA ============ -->
+<div id="popupLineaProcesosConfig" class="productos-modal-overlay" aria-hidden="true" style="z-index:2225;">
+    <div class="productos-modal-card" role="dialog" aria-modal="true" style="max-width:560px;width:96vw;padding:0;overflow:hidden;border:1px solid #e5e7eb;max-height:82dvh;display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px 10px;border-bottom:2px solid #f07a00;background:#fff;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:1rem;">⚙</span>
+                <div>
+                    <h3 style="margin:0;font-size:0.78rem;font-weight:900;color:#1f2937;">Configurar procesos</h3>
+                    <span id="lpcProductoNombre" style="font-size:0.62rem;color:#6b7280;display:block;"></span>
+                </div>
+            </div>
+            <button type="button" onclick="closeLpcPopup()" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:#6b7280;padding:4px;" title="Cerrar">✕</button>
+        </div>
+        <div id="lpcBody" style="flex:1;overflow-y:auto;min-height:0;padding:14px 18px;display:flex;flex-direction:column;gap:10px;"></div>
+        <div style="padding:10px 18px;border-top:1px solid #e5e7eb;background:#f9fafb;display:flex;justify-content:flex-end;gap:8px;flex-shrink:0;">
+            <button type="button" onclick="closeLpcPopup()" class="productos-btn gray" style="padding:6px 18px;font-size:0.68rem;">Cancelar</button>
+            <button type="button" onclick="saveLpcPopup()" class="productos-btn primary" style="padding:6px 18px;font-size:0.68rem;background:#f07a00;color:#fff;border-color:#d76700;">Guardar configuración</button>
+        </div>
+    </div>
+</div>
+
 <!-- ============ POPUP: CONFIRMAR UBICACIÓN AL GUARDAR ============ -->
 <div id="popupConfirmarUbicacion" class="productos-modal-overlay" aria-hidden="true" style="z-index:2250;">
     <div class="productos-modal-card" role="dialog" aria-modal="true" style="max-width:420px;padding:0;overflow:hidden;border:2px solid #f07a00;">
@@ -14461,9 +14456,13 @@ const imgBolsaDeliveryBase = new Image();
                         <table class="prod-tabulador-table" id="prodTabRangosPreview"></table>
                     </section>
                     <section class="prod-tabulador-section">
-                        <h4>Precios</h4>
+                        <h4>Precios generales</h4>
                         <table class="prod-tabulador-table" id="prodTabPreciosPreview"></table>
                     </section>
+                </div>
+                <div id="prodTabProcesosWrap" style="display:none;" class="prod-tab-procesos-wrap">
+                    <div class="prod-tab-procesos-header">Costo por proceso y rango</div>
+                    <div id="prodTabProcesosGrid" class="prod-tab-procesos-grid"></div>
                 </div>
             </div>
         </div>
@@ -14637,20 +14636,10 @@ const imgBolsaDeliveryBase = new Image();
                     <div class="design-comenzar-section-title">📝 Indicaciones para diseño</div>
                     <div class="design-comenzar-value" id="designComenzarNotasD" style="white-space:pre-wrap;">–</div>
                 </div>
-                <!-- Notas de producción -->
-                <div class="design-comenzar-section">
-                    <div class="design-comenzar-section-title">🏭 Notas de producción</div>
-                    <div class="design-comenzar-value" id="designComenzarNotasP" style="white-space:pre-wrap;">–</div>
-                </div>
                 <!-- Comentarios generales -->
                 <div class="design-comenzar-section">
                     <div class="design-comenzar-section-title">💬 Comentarios generales</div>
                     <div class="design-comenzar-value" id="designComenzarComentarios" style="white-space:pre-wrap;">–</div>
-                </div>
-                <!-- Líneas del pedido -->
-                <div class="design-comenzar-section">
-                    <div class="design-comenzar-section-title">📦 Productos en la orden</div>
-                    <div id="designComenzarLineas" style="font-size:0.62rem;color:#111827;"></div>
                 </div>
             </div>
             <div class="design-comenzar-right">
@@ -15768,6 +15757,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prodGfCostoM2 = document.getElementById('prodGfCostoM2');
     const prodGfCostoML = document.getElementById('prodGfCostoML');
     const prodGfAjusteAncho = document.getElementById('prodGfAjusteAncho');
+    const prodGfAjusteAlto = document.getElementById('prodGfAjusteAlto');
     const prodFormFotoPrincipal = document.getElementById('prodFormFotoPrincipal');
     const prodFormFotoPreview = document.getElementById('prodFormFotoPreview');
     const prodColorNombre = document.getElementById('prodColorNombre');
@@ -15784,7 +15774,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Wizard de producto ──────────────────────────────────────
     const PROD_STEPS_MAP = {
         'producto':    [{id:'basico',icon:'📋',label:'Identificación'},{id:'stock-compra',icon:'📦',label:'Stock y Compra'},{id:'precios',icon:'💲',label:'Precios'},{id:'config',icon:'⚙️',label:'Procesos'},{id:'empaque',icon:'📫',label:'Empaque'},{id:'muestrario',icon:'🎨',label:'Muestrario'}],
-        'gran-formato':[{id:'basico',icon:'📋',label:'Identificación'},{id:'precios-gf',icon:'💲',label:'Precios GF'}],
+        'gran-formato':[{id:'basico',icon:'📋',label:'Identificación'},{id:'precios-gf',icon:'💲',label:'Precios GF'},{id:'tabulador-gf',icon:'📊',label:'Tabulador'}],
         'fabricado':   [{id:'basico',icon:'📋',label:'Identificación'},{id:'stock-compra',icon:'📦',label:'Stock y Compra'},{id:'precios',icon:'💲',label:'Precios'},{id:'config',icon:'🧪',label:'Fabricación'},{id:'empaque',icon:'📫',label:'Empaque'},{id:'muestrario',icon:'🎨',label:'Muestrario'}],
         'insumo':      [{id:'basico',icon:'📋',label:'Identificación'},{id:'stock-compra',icon:'📦',label:'Stock y Compra'},{id:'empaque',icon:'📫',label:'Empaque'}],
         'proceso':     [{id:'basico',icon:'📋',label:'Identificación'},{id:'config',icon:'🧰',label:'Insumos'}],
@@ -15839,6 +15829,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // siguiente button label
         if (prodFormSiguiente) prodFormSiguiente.textContent = (idx === steps.length - 1) ? '✓ Guardar →' : 'Siguiente →';
         renderProdStepNav();
+        if (steps[idx].id === 'config') {
+            renderProcesosDisponiblesTable();
+            renderProcesosConfirmadosTable();
+        }
+        if (steps[idx].id === 'tabulador-gf') {
+            renderGfTabuladorTable();
+        }
     };
 
     const validateProdCurrentStep = () => {
@@ -15856,6 +15853,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 nombre?.focus();
                 alert('El nombre del producto es obligatorio.');
                 return false;
+            }
+        }
+        if (cur.id === 'stock-compra') {
+            const nat = document.getElementById('prodFormTipo')?.value || 'stock';
+            if (['stock', 'fabricado', 'insumo'].includes(nat)) {
+                const pc = document.getElementById('prodFormPrecioCompra');
+                if (!pc?.value || Number(pc.value) <= 0) {
+                    pc?.focus();
+                    alert('El precio de compra es obligatorio y debe ser mayor a 0.');
+                    return false;
+                }
+            }
+        }
+        if (cur.id === 'precios') {
+            const nat = document.getElementById('prodFormTipo')?.value || 'stock';
+            if (nat === 'servicio') {
+                const pv = document.getElementById('prodFormVenta');
+                if (!pv?.value || Number(pv.value) <= 0) {
+                    pv?.focus();
+                    alert('El precio unitario es obligatorio para servicios y debe ser mayor a 0.');
+                    return false;
+                }
             }
         }
         return true;
@@ -16750,11 +16769,19 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (_) { if (cb) cb(); }
     };
 
+    const umCountProductosForGrupo = (grupoNombre) => {
+        try {
+            const prods = JSON.parse(localStorage.getItem(PRODUCTOS_KEY) || '[]');
+            return prods.filter(p => p.umGrupo === grupoNombre).length;
+        } catch(e) { return 0; }
+    };
+
     const umBuildOptions = () => {
         const grupos = getUMGrupos();
         const opts = [];
         grupos.forEach((g) => {
-            (g.unidades || []).forEach((u) => {
+            if (g.activo === false) return;
+            (g.unidades || []).filter(u => u.activo !== false).forEach((u) => {
                 opts.push({ value: u.abrev, label: u.nombre + ' (' + u.abrev + ')', grupo: g.nombre });
             });
         });
@@ -16790,9 +16817,44 @@ document.addEventListener('DOMContentLoaded', () => {
         if (allValues.includes(prev)) sel.value = prev;
     };
 
+    const umPopulateSelectByGroup = (sel, grupoNombre, currentValue) => {
+        if (!sel) return;
+        const prev = currentValue !== undefined ? currentValue : sel.value;
+        sel.innerHTML = '';
+        const grupos = getUMGrupos();
+        const g = grupos.find(x => x.nombre === grupoNombre);
+        const unidades = g ? (g.unidades || []) : [];
+        if (!unidades.length) {
+            const op = document.createElement('option'); op.value = ''; op.textContent = '— sin unidades —'; sel.appendChild(op);
+        } else {
+            unidades.forEach(u => {
+                const op = document.createElement('option');
+                op.value = u.abrev; op.textContent = u.nombre + ' (' + u.abrev + ')';
+                sel.appendChild(op);
+            });
+        }
+        const allValues = Array.from(sel.options).map(o => o.value);
+        sel.value = allValues.includes(prev) ? prev : (allValues[0] || '');
+    };
+
+    const umPopulateGrupoSelect = (sel, currentGrupo) => {
+        if (!sel) return;
+        sel.innerHTML = '<option value="">Seleccionar grupo...</option>';
+        getUMGrupos().filter(g => g.activo !== false).forEach(g => {
+            const op = document.createElement('option'); op.value = g.nombre; op.textContent = g.nombre; sel.appendChild(op);
+        });
+        if (currentGrupo) sel.value = currentGrupo;
+    };
+
     const umRefreshAllSelectors = () => {
         umPopulateSelect(configProductosUnidadPorDefecto);
         umPopulateSelect(configInsumosUnidadPorDefecto);
+        // Refrescar selectores del formulario de producto manteniendo el grupo activo
+        const grupoSel = document.getElementById('prodFormUMGrupo');
+        umPopulateGrupoSelect(grupoSel, grupoSel?.value);
+        const grupoActual = grupoSel?.value || '';
+        umPopulateSelectByGroup(document.getElementById('prodFormUMCompra'), grupoActual);
+        umPopulateSelectByGroup(document.getElementById('prodFormUMVenta'), grupoActual);
     };
 
     // ---- UI del popup UM ----
@@ -16805,7 +16867,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const umNuevoGrupo = document.getElementById('umNuevoGrupo');
     const umGuardar = document.getElementById('umGuardar');
     const umCerrar = document.getElementById('umCerrar');
-    const umGrupoEliminar = document.getElementById('umGrupoEliminar');
+    const umGrupoEliminar = null; // eliminación deshabilitada por seguridad — usar umGrupoToggle
     const btnAbrirUMConfigProductos = document.getElementById('btnAbrirUMConfigProductos');
     const btnAbrirUMConfigInsumos = document.getElementById('btnAbrirUMConfigInsumos');
     const prodFormUMConfigBtn = document.getElementById('prodFormUMConfig');
@@ -16832,11 +16894,41 @@ document.addEventListener('DOMContentLoaded', () => {
         grupos.forEach((g, i) => {
             const op = document.createElement('option');
             op.value = i;
-            op.textContent = g.nombre || '(Sin nombre ' + (i + 1) + ')';
+            op.textContent = (g.activo === false ? '[INACTIVO] ' : '') + (g.nombre || '(Sin nombre ' + (i + 1) + ')');
+            if (g.activo === false) op.style.color = '#9ca3af';
             umGrupoSelect.appendChild(op);
         });
         if (umGrupoActivo >= grupos.length) umGrupoActivo = Math.max(0, grupos.length - 1);
         umGrupoSelect.value = umGrupoActivo;
+        umUpdateGrupoToggleBtn();
+    };
+
+    const umUpdateGrupoToggleBtn = () => {
+        const btn = document.getElementById('umGrupoToggle');
+        const info = document.getElementById('umGrupoVinculados');
+        if (!btn) return;
+        const g = getUMGrupos()[umGrupoActivo];
+        if (!g) { btn.style.display = 'none'; if (info) info.style.display = 'none'; return; }
+        btn.style.display = '';
+        if (g.activo === false) {
+            btn.textContent = 'Habilitar';
+            btn.style.cssText = 'font-size:0.62rem;padding:4px 10px;border-radius:6px;cursor:pointer;background:#16a34a;color:#fff;border:none;';
+            btn.title = 'Habilitar este grupo';
+            if (info) info.style.display = 'none';
+        } else {
+            const count = umCountProductosForGrupo(g.nombre);
+            btn.textContent = 'Deshabilitar';
+            btn.style.cssText = 'font-size:0.62rem;padding:4px 10px;border-radius:6px;cursor:pointer;background:#f59e0b;color:#fff;border:none;';
+            btn.title = count > 0 ? `${count} producto(s) vinculado(s) — no se puede deshabilitar` : 'Deshabilitar este grupo';
+            if (info) {
+                if (count > 0) {
+                    info.textContent = `Este grupo tiene ${count} producto(s) vinculado(s). Cambia su unidad de medida antes de deshabilitarlo.`;
+                    info.style.display = 'block';
+                } else {
+                    info.style.display = 'none';
+                }
+            }
+        }
     };
 
     const umRenderGrupo = () => {
@@ -16862,15 +16954,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         umUnidadesTbody.innerHTML = unidades.map((u, idx) => {
             const isBase = idx === (g.baseIndex || 0);
+            const isActivo = u.activo !== false;
+            const rowOpacity = isActivo ? '' : 'opacity:0.5;';
             const bg = isBase ? 'background:#fffbeb;' : '';
             const fbg = isBase ? 'background:#fef3c7;font-weight:700;' : '';
             const nEsc = (u.nombre || '').replace(/"/g, '&quot;');
             const aEsc = (u.abrev || '').replace(/"/g, '&quot;');
-            return '<tr style="border-bottom:1px solid #f3f4f6;' + bg + '">' +
+            const toggleStyle = isActivo
+                ? 'font-size:0.55rem;padding:2px 6px;border-radius:4px;cursor:pointer;background:#fff3e6;color:#d76700;border:1px solid #f07a00;'
+                : 'font-size:0.55rem;padding:2px 6px;border-radius:4px;cursor:pointer;background:#f3f4f6;color:#6b7280;border:1px solid #d1d5db;';
+            return '<tr style="border-bottom:1px solid #f3f4f6;' + bg + rowOpacity + '">' +
                 '<td style="padding:5px 8px;"><input type="text" value="' + nEsc + '" data-um-field="nombre" data-um-idx="' + idx + '" style="width:100%;font-size:0.66rem;border:1px solid #d1d5db;border-radius:4px;padding:3px 6px;" placeholder="Nombre..."></td>' +
                 '<td style="padding:5px 4px;"><input type="text" value="' + aEsc + '" data-um-field="abrev" data-um-idx="' + idx + '" style="width:100%;font-size:0.66rem;border:1px solid #d1d5db;border-radius:4px;padding:3px 6px;" placeholder="abrev"></td>' +
                 '<td style="padding:5px 4px;text-align:right;"><input type="number" value="' + (u.factor ?? 1) + '" data-um-field="factor" data-um-idx="' + idx + '" min="0.0001" step="any" style="width:80px;font-size:0.66rem;border:1px solid #d1d5db;border-radius:4px;padding:3px 6px;text-align:right;' + fbg + '"></td>' +
-                '<td style="padding:5px 4px;text-align:center;"><button type="button" data-um-del="' + idx + '" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.78rem;" title="Eliminar">\u2715</button></td>' +
+                '<td style="padding:5px 4px;text-align:center;"><button type="button" data-um-toggle-u="' + idx + '" style="' + toggleStyle + '" title="' + (isActivo ? 'Deshabilitar unidad' : 'Habilitar unidad') + '">' + (isActivo ? 'Activo' : 'Inactivo') + '</button></td>' +
                 '</tr>';
         }).join('');
     };
@@ -16932,14 +17029,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (umUnidadesTbody) {
         umUnidadesTbody.addEventListener('click', (ev) => {
-            const btn = ev.target.closest('button[data-um-del]');
+            const btn = ev.target.closest('button[data-um-toggle-u]');
             if (!btn) return;
             umReadFieldsFromDOM();
-            const idx = Number(btn.dataset.umDel);
+            const idx = Number(btn.dataset.umToggleU);
             const g = getUMGrupos()[umGrupoActivo];
             if (!g || !g.unidades || !g.unidades[idx]) return;
-            g.unidades.splice(idx, 1);
-            if (g.baseIndex >= g.unidades.length) g.baseIndex = Math.max(0, g.unidades.length - 1);
+            g.unidades[idx].activo = g.unidades[idx].activo === false ? true : false;
             umRenderUnidades(g);
             umRenderBaseSelect(g);
         });
@@ -16957,16 +17053,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (umGrupoEliminar) {
-        umGrupoEliminar.addEventListener('click', () => {
+    const umGrupoToggleBtn = document.getElementById('umGrupoToggle');
+    if (umGrupoToggleBtn) {
+        umGrupoToggleBtn.addEventListener('click', () => {
+            umReadFieldsFromDOM();
             const grupos = getUMGrupos();
-            if (!grupos.length) return;
             const g = grupos[umGrupoActivo];
-            if (!confirm('\u00bfEliminar el grupo "' + (g?.nombre || 'Sin nombre') + '"?')) return;
-            grupos.splice(umGrupoActivo, 1);
-            umGrupoActivo = Math.max(0, umGrupoActivo - 1);
-            umRenderGrupoSelect();
-            umRenderGrupo();
+            if (!g) return;
+            if (g.activo === false) {
+                g.activo = true;
+                umSaveToSystem();
+                umRenderGrupoSelect();
+                umRenderGrupo();
+                notifyInfo(`Grupo "${g.nombre}" habilitado.`, 'Unidades');
+            } else {
+                const count = umCountProductosForGrupo(g.nombre);
+                if (count > 0) {
+                    notifyError(`El grupo "${g.nombre}" tiene ${count} producto(s) vinculado(s). Cambia su unidad de medida antes de deshabilitarlo.`, 'Unidades');
+                    umUpdateGrupoToggleBtn();
+                    return;
+                }
+                g.activo = false;
+                umSaveToSystem();
+                umRenderGrupoSelect();
+                umRenderGrupo();
+                notifyInfo(`Grupo "${g.nombre}" deshabilitado.`, 'Unidades');
+            }
         });
     }
 
@@ -16996,6 +17108,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnAbrirUMConfigProductos) btnAbrirUMConfigProductos.addEventListener('click', umOpenPopup);
     if (btnAbrirUMConfigInsumos) btnAbrirUMConfigInsumos.addEventListener('click', umOpenPopup);
     if (prodFormUMConfigBtn) prodFormUMConfigBtn.addEventListener('click', umOpenPopup);
+
+    // Cuando cambia el grupo, repoblar compra y venta con las unidades de ese grupo
+    const prodFormUMGrupoEl = document.getElementById('prodFormUMGrupo');
+    if (prodFormUMGrupoEl) {
+        prodFormUMGrupoEl.addEventListener('change', () => {
+            const g = prodFormUMGrupoEl.value;
+            umPopulateSelectByGroup(document.getElementById('prodFormUMCompra'), g);
+            umPopulateSelectByGroup(document.getElementById('prodFormUMVenta'), g);
+        });
+    }
 
     // Auto-fill factor en insumos al seleccionar unidad
     const umGetFactorForAbrev = (abrev) => {
@@ -18928,33 +19050,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const mkInsumoId = () => `INS-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 90 + 10)}`;
     const mkAlmacenId = () => `ALM-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 90 + 10)}`;
 
-    const seedProveedoresModulo = () => ([
-        { id: 'PRV-001', nombre: 'Papelera del Centro', empresa: 'Papelera del Centro SA', telefono: '9511008899', correo: 'ventas@papeleracentro.mx', creditoDias: 30, saldoPendiente: 18500, notas: 'Entrega martes y viernes' },
-        { id: 'PRV-002', nombre: 'Insumos Gráficos MX', empresa: 'Insumos Gráficos MX SA', telefono: '9512234455', correo: 'contacto@insumosgraficos.mx', creditoDias: 15, saldoPendiente: 9200, notas: 'Tinta, vinil y materiales de impresión' },
-        { id: 'PRV-003', nombre: 'Papelera del Sur', empresa: 'Papelera del Sur SA', telefono: '9514443322', correo: 'ventas@papeleradelsur.com', creditoDias: 30, saldoPendiente: 5800, notas: 'Papel kraft y cartulina. Entrega 3-5 días' },
-        { id: 'PRV-004', nombre: 'Tintas MX Oaxaca', empresa: 'Tintas MX SA de CV', telefono: '9516665544', correo: 'oaxaca@tintasmx.com', creditoDias: 7, saldoPendiente: 3200, notas: 'Tintas serigráficas, solventes. Mínimo $500' },
-        { id: 'PRV-005', nombre: 'Distribuidora de Plásticos', empresa: 'Distribuidora de Plásticos SA', telefono: '9518887766', correo: 'dist.plasticos@gmail.com', creditoDias: 15, saldoPendiente: 1500, notas: 'Bolsas, película stretch, cinta' }
-    ]);
+    const seedProveedoresModulo = () => ([]);
 
-    const seedInsumosModulo = () => ([
-        { id: 'INS-001', nombre: 'Tinta Serigráfica Negra', categoria: 'Tintas', unidad: 'Litro', unidadCompra: 'Galón', factorCompraBase: 3.785, unidadVenta: 'Litro', factorVentaBase: 1, ventaPublica: false, precioVentaPublico: 0, contabilizarDesgaste: true, unidadDesgaste: 'Impresiones', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 8, minimo: 3, costoUnitario: 320, foto: '', notas: 'Uso diario — proveedor PRV-004' },
-        { id: 'INS-002', nombre: 'Tinta Serigráfica Dorada', categoria: 'Tintas', unidad: 'Litro', unidadCompra: 'Galón', factorCompraBase: 3.785, unidadVenta: 'Litro', factorVentaBase: 1, ventaPublica: false, precioVentaPublico: 0, contabilizarDesgaste: true, unidadDesgaste: 'Impresiones', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 12, minimo: 4, costoUnitario: 380, foto: '', notas: 'Para serigrafía en bolsas' },
-        { id: 'INS-003', nombre: 'Tinta Serigráfica Blanca', categoria: 'Tintas', unidad: 'Litro', unidadCompra: 'Galón', factorCompraBase: 3.785, unidadVenta: 'Litro', factorVentaBase: 1, ventaPublica: false, precioVentaPublico: 0, contabilizarDesgaste: true, unidadDesgaste: 'Impresiones', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 6, minimo: 3, costoUnitario: 350, foto: '', notas: 'Tinta base para fondos' },
-        { id: 'INS-004', nombre: 'Papel Couché 150g', categoria: 'Papel', unidad: 'Kilogramo', unidadCompra: 'Paquete', factorCompraBase: 25, unidadVenta: 'Kilogramo', factorVentaBase: 1, ventaPublica: false, precioVentaPublico: 0, contabilizarDesgaste: false, unidadDesgaste: '', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 40, minimo: 10, costoUnitario: 65, foto: '', notas: 'Para tarjetas y volantes' },
-        { id: 'INS-005', nombre: 'Cuerda de Algodón', categoria: 'Accesorios', unidad: 'Metro', unidadCompra: 'Rollo', factorCompraBase: 200, unidadVenta: 'Metro', factorVentaBase: 1, ventaPublica: true, precioVentaPublico: 12, contabilizarDesgaste: false, unidadDesgaste: '', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 200, minimo: 50, costoUnitario: 8, foto: '', notas: 'Para bolsas ecológicas' },
-        { id: 'INS-006', nombre: 'Manta Cruda', categoria: 'Textiles', unidad: 'Metro', unidadCompra: 'Rollo', factorCompraBase: 50, unidadVenta: 'Metro', factorVentaBase: 1, ventaPublica: false, precioVentaPublico: 0, contabilizarDesgaste: true, unidadDesgaste: 'Piezas cortadas', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 35, minimo: 10, costoUnitario: 45, foto: '', notas: 'Para bolsas ecológicas personalizadas' },
-        { id: 'INS-007', nombre: 'Papel Kraft Natural 120g', categoria: 'Papel', unidad: 'Kilogramo', unidadCompra: 'Bobina', factorCompraBase: 100, unidadVenta: 'Kilogramo', factorVentaBase: 1, ventaPublica: false, precioVentaPublico: 0, contabilizarDesgaste: false, unidadDesgaste: '', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 85, minimo: 20, costoUnitario: 38, foto: '', notas: 'Materia prima bolsas kraft' },
-        { id: 'INS-008', nombre: 'Film Laminado Mate', categoria: 'Acabados', unidad: 'Metro', unidadCompra: 'Rollo', factorCompraBase: 100, unidadVenta: 'Metro', factorVentaBase: 1, ventaPublica: false, precioVentaPublico: 0, contabilizarDesgaste: true, unidadDesgaste: 'Pliegos', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 60, minimo: 15, costoUnitario: 25, foto: '', notas: 'Para laminado mate de tarjetas y volantes' },
-        { id: 'INS-009', nombre: 'Emulsión Fotosensible', categoria: 'Serigrafía', unidad: 'Litro', unidadCompra: 'Bote', factorCompraBase: 1, unidadVenta: 'Litro', factorVentaBase: 1, ventaPublica: false, precioVentaPublico: 0, contabilizarDesgaste: true, unidadDesgaste: 'Marcos', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 3, minimo: 2, costoUnitario: 450, foto: '', notas: 'Para preparación de marcos serigráficos' },
-        { id: 'INS-010', nombre: 'Cartulina Sulfatada 300g', categoria: 'Papel', unidad: 'Pliego', unidadCompra: 'Paquete', factorCompraBase: 100, unidadVenta: 'Pliego', factorVentaBase: 1, ventaPublica: false, precioVentaPublico: 0, contabilizarDesgaste: false, unidadDesgaste: '', desgasteCicloActual: 0, desgastePromedio: 0, ciclosDesgaste: 0, existencias: 150, minimo: 30, costoUnitario: 12, foto: '', notas: 'Base para tarjetas de presentación' }
-    ]);
+    const seedInsumosModulo = () => ([]);
 
-    const seedAlmacenModulo = () => ([
-        { id: 'ALM-001', producto: 'Bolsa Boutique Rosa Pastel', stock: 250, ubicacion: 'Pasillo A / Estante 2', costoUnitario: 25, notas: '' },
-        { id: 'ALM-002', producto: 'Bolsa Kraft Natural #3', stock: 500, ubicacion: 'Pasillo A / Estante 4', costoUnitario: 6, notas: 'Alto movimiento' },
-        { id: 'ALM-003', producto: 'Lona Front 13oz', stock: 18, ubicacion: 'Pasillo C / Rack 1', costoUnitario: 75, notas: 'Gran formato' },
-        { id: 'ALM-004', producto: 'Tinta Dorada (venta)', stock: 35, ubicacion: 'Pasillo B / Gaveta 3', costoUnitario: 180, notas: 'Insumo para reventa' }
-    ]);
+    const seedAlmacenModulo = () => ([]);
 
     const saveProveedoresModulo = () => {
         try {
@@ -21663,25 +21763,7 @@ document.addEventListener('DOMContentLoaded', () => {
         filas: makeTabuladorRows()
     });
 
-    const seedTabuladores = () => {
-        const t1 = buildTabulador('Mayoreo base');
-        const t2 = buildTabulador('Mostrador base');
-        t1.filas = [
-            { tipo: 'lt', min: '', max: '100', precioRevendedor: 3.8, precioGeneral: 5.2 },
-            { tipo: 'range', min: '101', max: '250', precioRevendedor: 3.4, precioGeneral: 4.8 },
-            { tipo: 'range', min: '251', max: '500', precioRevendedor: 3.1, precioGeneral: 4.5 },
-            { tipo: 'range', min: '501', max: '1000', precioRevendedor: 2.7, precioGeneral: 4.1 },
-            { tipo: 'gte', min: '1001', max: '', precioRevendedor: 2.4, precioGeneral: 3.8 }
-        ];
-        t2.filas = [
-            { tipo: 'lt', min: '', max: '50', precioRevendedor: 7.8, precioGeneral: 10.5 },
-            { tipo: 'range', min: '51', max: '100', precioRevendedor: 7.2, precioGeneral: 9.9 },
-            { tipo: 'range', min: '101', max: '200', precioRevendedor: 6.8, precioGeneral: 9.2 },
-            { tipo: 'range', min: '201', max: '500', precioRevendedor: 6.3, precioGeneral: 8.7 },
-            { tipo: 'gte', min: '501', max: '', precioRevendedor: 5.9, precioGeneral: 8.1 }
-        ];
-        return [t1, t2];
-    };
+    const seedTabuladores = () => ([]);
 
     const loadTabuladores = () => {
         try {
@@ -21811,6 +21893,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const renderProdTabuladorProcesos = () => {
+        const wrap = document.getElementById('prodTabProcesosWrap');
+        const grid = document.getElementById('prodTabProcesosGrid');
+        if (!wrap || !grid) return;
+        const active = getTabuladorById(prodPendingTabuladorId);
+        if (!active || !procesosDraft.length) { wrap.style.display = 'none'; return; }
+        wrap.style.display = '';
+        const filaLabel = (f) => {
+            if (f.tipo === 'lt')  return `&lt; ${prodEscape(String(f.max))}`;
+            if (f.tipo === 'gte') return `${prodEscape(String(f.min))}+`;
+            return `${prodEscape(String(f.min))}–${prodEscape(String(f.max))}`;
+        };
+        grid.innerHTML = procesosDraft.map((proc, pi) => {
+            const costos = Array.isArray(proc.costosPorRango) && proc.costosPorRango.length === active.filas.length
+                ? proc.costosPorRango
+                : active.filas.map(() => ({ costo: Number(proc.costo || 0) }));
+            return `<div class="prod-proc-tab-card">
+                <div class="prod-proc-tab-name" title="${prodEscape(proc.procesoNombre || proc.procesoId)}">${prodEscape(proc.procesoNombre || proc.procesoId)}</div>
+                <table class="prod-tabulador-table">
+                    <thead><tr><th>Rango</th><th>Costo</th></tr></thead>
+                    <tbody>${active.filas.map((f, ri) =>
+                        `<tr>
+                            <td style="text-align:left;padding-left:6px;">${filaLabel(f)}</td>
+                            <td><input type="number" min="0" step="0.01"
+                                data-proc-pi="${pi}" data-proc-ri="${ri}"
+                                value="${Number(costos[ri]?.costo || 0)}"></td>
+                        </tr>`
+                    ).join('')}</tbody>
+                </table>
+            </div>`;
+        }).join('');
+    };
+
+    const syncProcesosTabPreciosFromUI = () => {
+        const active = getTabuladorById(prodPendingTabuladorId);
+        if (!active) return;
+        procesosDraft.forEach((proc, pi) => {
+            proc.costosPorRango = active.filas.map((_, ri) => {
+                const inp = document.querySelector(`[data-proc-pi="${pi}"][data-proc-ri="${ri}"]`);
+                return { costo: Math.max(0, Number(inp?.value || 0)) };
+            });
+        });
+    };
+
     const readFileAsDataUrlLocal = (file) => new Promise((resolve, reject) => {
         if (!file) return resolve('');
         const reader = new FileReader();
@@ -21842,28 +21968,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('\n')
         : '';
 
-    const seedProductos = () => ([
-        // ─── PRODUCTO (3) — stock directo ───
-        { id: 'P001', codigo: 'BB-001', producto: 'Bolsa Boutique Rosa Pastel', medida: 'MEDIANA (35x41)', material: 'Couché 300g', minima: 50, existencias: 250, precioRevendedor: 38, precioVenta: 45, categoria: 'Bolsa Boutique Troquelada', tipo: 'stock', naturaleza: 'producto', necesitaFabricacion: false, recetaInsumos: [], coloresSubproductos: [{color:'Rosa Pastel',existencias:120,foto:''},{color:'Azul Marino',existencias:80,foto:''},{color:'Verde Esmeralda',existencias:50,foto:''}] },
-        { id: 'P002', codigo: 'BK-001', producto: 'Bolsa Kraft Natural #3', medida: '3 12.5x26.5+6.5', material: 'Kraft 120g', minima: 100, existencias: 500, precioRevendedor: 9, precioVenta: 12, categoria: 'Bolsas Kraft', tipo: 'stock', naturaleza: 'producto', necesitaFabricacion: false, recetaInsumos: [], coloresSubproductos: [{color:'Natural',existencias:500,foto:''}] },
-        { id: 'P003', codigo: 'GF-LON-001', producto: 'Lona Front 13oz', medida: '1x1 m', material: 'Lona Front 13 oz', minima: 1, existencias: 18, precioRevendedor: 120, precioVenta: 165, categoria: 'Lonas', tipo: 'gran-formato', naturaleza: 'producto', necesitaFabricacion: false, recetaInsumos: [], gfCobroTipo: 'm2', gfPrecioGeneralM2: 165, gfPrecioRevM2: 120, gfCostoM2: 75 },
-        // ─── FABRICADO (3) — con recetas ───
-        { id: 'P004', codigo: 'FB-TP-001', producto: 'Tarjeta de Presentación 4x1', medida: 'STD 9x5 horizontal', material: 'Cartulina Sulfatada 300g', minima: 100, existencias: 0, precioRevendedor: 280, precioVenta: 350, categoria: 'Tarjetas', tipo: 'stock', naturaleza: 'fabricado', necesitaFabricacion: true, recetaInsumos: [{insumoId:'INS-004',cantidad:0.15,desgaste:5},{insumoId:'INS-002',cantidad:0.02,desgaste:3}] },
-        { id: 'P005', codigo: 'FB-VL-001', producto: 'Volante Media Carta 4x1', medida: 'MEDIA CARTA 14x21.5', material: 'Couché 150g', minima: 100, existencias: 0, precioRevendedor: 650, precioVenta: 800, categoria: 'Volantes', tipo: 'stock', naturaleza: 'fabricado', necesitaFabricacion: true, recetaInsumos: [{insumoId:'INS-004',cantidad:0.25,desgaste:4},{insumoId:'INS-002',cantidad:0.03,desgaste:2},{insumoId:'INS-003',cantidad:0.01,desgaste:2}] },
-        { id: 'P006', codigo: 'FB-BE-001', producto: 'Bolsa Ecológica Personalizada', medida: '30x40 cm', material: 'Manta Cruda', minima: 50, existencias: 0, precioRevendedor: 45, precioVenta: 55, categoria: 'Bolsa Ecológica', tipo: 'stock', naturaleza: 'fabricado', necesitaFabricacion: true, recetaInsumos: [{insumoId:'INS-006',cantidad:0.5,desgaste:8},{insumoId:'INS-002',cantidad:0.04,desgaste:5},{insumoId:'INS-005',cantidad:0.6,desgaste:3}] },
-        // ─── INSUMO (3) ───
-        { id: 'P007', codigo: 'INS-VTA-001', producto: 'Tinta Dorada (venta)', medida: '250 ml', material: 'Tinta serigráfica', minima: 10, existencias: 35, precioRevendedor: 180, precioVenta: 250, categoria: 'Tintas', tipo: 'stock', naturaleza: 'insumo', necesitaFabricacion: false, recetaInsumos: [] },
-        { id: 'P008', codigo: 'INS-VTA-002', producto: 'Papel Transfer A4 (paq 100)', medida: 'Paquete 100 hojas', material: 'Papel Transfer', minima: 5, existencias: 22, precioRevendedor: 120, precioVenta: 160, categoria: 'Papelería', tipo: 'stock', naturaleza: 'insumo', necesitaFabricacion: false, recetaInsumos: [] },
-        { id: 'P009', codigo: 'INS-VTA-003', producto: 'Rollo Vinil Textil 50cm', medida: '50cm x 1m', material: 'Vinil textil PU', minima: 8, existencias: 40, precioRevendedor: 65, precioVenta: 90, categoria: 'Viniles', tipo: 'stock', naturaleza: 'insumo', necesitaFabricacion: false, recetaInsumos: [] },
-        // ─── PROCESO (3) ───
-        { id: 'P010', codigo: 'PRC-001', producto: 'Serigrafía 1 Tinta', medida: 'Por impresión', material: 'N/A', minima: 50, existencias: 0, precioRevendedor: 3.5, precioVenta: 5, categoria: 'Procesos', tipo: 'stock', naturaleza: 'proceso', necesitaFabricacion: false, recetaInsumos: [{insumoId:'INS-002',cantidad:0.005,desgaste:10}] },
-        { id: 'P011', codigo: 'PRC-002', producto: 'Troquelado por Pieza', medida: 'Por pieza', material: 'N/A', minima: 100, existencias: 0, precioRevendedor: 1.8, precioVenta: 2.5, categoria: 'Procesos', tipo: 'stock', naturaleza: 'proceso', necesitaFabricacion: false, recetaInsumos: [] },
-        { id: 'P012', codigo: 'PRC-003', producto: 'Laminado Mate', medida: 'Por pliego', material: 'Film mate', minima: 50, existencias: 0, precioRevendedor: 6, precioVenta: 8.5, categoria: 'Procesos', tipo: 'stock', naturaleza: 'proceso', necesitaFabricacion: false, recetaInsumos: [{insumoId:'INS-008',cantidad:1,desgaste:5}] },
-        // ─── SERVICIO (3) ───
-        { id: 'P013', codigo: 'SRV-001', producto: 'Diseño Gráfico Profesional', medida: 'Por proyecto', material: 'N/A', minima: 0, existencias: 0, precioRevendedor: 800, precioVenta: 1200, categoria: 'Servicios', tipo: 'stock', naturaleza: 'servicio', necesitaFabricacion: false, recetaInsumos: [] },
-        { id: 'P014', codigo: 'SRV-002', producto: 'Instalación de Lona/Vinil', medida: 'Por m²', material: 'N/A', minima: 0, existencias: 0, precioRevendedor: 50, precioVenta: 80, categoria: 'Servicios', tipo: 'stock', naturaleza: 'servicio', necesitaFabricacion: false, recetaInsumos: [] },
-        { id: 'P015', codigo: 'SRV-003', producto: 'Envío Foráneo', medida: 'Por envío', material: 'N/A', minima: 0, existencias: 0, precioRevendedor: 0, precioVenta: 250, categoria: 'Servicios', tipo: 'stock', naturaleza: 'servicio', necesitaFabricacion: false, recetaInsumos: [] }
-    ]);
+    const seedProductos = () => ([]);
 
     const loadProductos = () => {
         try {
@@ -21987,7 +22092,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Gran formato toolbar no longer needed as separate tab
     };
 
-    const syncProdFormModeByTipo = () => {
+    const syncProdFormModeByTipo = (skipReset = false) => {
         const tipoVal = prodFormTipo?.value || 'stock';
         const isGF = (tipoVal === 'gran-formato');
         const natMap = {'stock':'producto','gran-formato':'producto','fabricado':'fabricado','insumo':'insumo','proceso':'proceso','servicio':'servicio'};
@@ -22029,7 +22134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const lblProd = document.querySelector('label[for="prodFormProducto"]');
         if (lblProd) {
             const labels = { producto: 'Nombre del producto', fabricado: 'Nombre del producto fabricado', insumo: 'Nombre del insumo', proceso: 'Nombre del proceso', servicio: 'Nombre del servicio' };
-            lblProd.textContent = labels[nat] || 'Nombre';
+            lblProd.innerHTML = (labels[nat] || 'Nombre') + ' <span style="color:#dc2626;">*</span>';
         }
 
         // Update modal title
@@ -22042,11 +22147,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update procesos/receta summary when switching type
         if (nat === 'producto' || nat === 'fabricado') {
             updateProcesosResumen();
-        }
-
-        // Populate receta insumos for fabricado
-        if (nat === 'fabricado') {
-            updateRecetaResumen();
         }
 
         // --- Adapt layout to fill popup for each naturaleza ---
@@ -22095,17 +22195,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 descField.style.cssText = 'resize:none;flex:1;min-height:40px;';
             }
             if (grid) { grid.style.gridTemplateRows = 'repeat(5, auto) 1fr'; }
-        } else if (nat === 'fabricado') {
-            // FABRICADO: como producto pero con receta
-            if (grid) { grid.style.alignContent = 'start'; }
-            updateRecetaResumen();
         } else {
-            // PRODUCTO: muchos campos — dejar compacto
+            // PRODUCTO / FABRICADO fusionado — compacto
             if (grid) { grid.style.alignContent = 'start'; }
         }
 
+        // Visibilidad de receta según checkbox de fabricación
+        syncFabricadoCheckbox();
+
         // Actualizar wizard si existe
-        if (typeof resetProdWizard === 'function') resetProdWizard();
+        if (!skipReset && typeof resetProdWizard === 'function') resetProdWizard();
+    };
+
+    const syncFabricadoCheckbox = () => {
+        const checked = prodFormNecesitaFabricacion?.checked || false;
+        const section = document.getElementById('prodFabRecetaSection');
+        if (section) section.style.display = checked ? '' : 'none';
+        if (checked) updateRecetaResumen();
     };
 
     const renderProductosTabla = () => {
@@ -22447,8 +22553,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodFormTipo) prodFormTipo.value = 'stock';
         if (prodFormProducto) prodFormProducto.value = '';
         if (prodFormCategoria) prodFormCategoria.value = '';
-        var umC = document.getElementById('prodFormUMCompra'); if (umC) umC.value = 'Unidad';
-        var umV = document.getElementById('prodFormUMVenta'); if (umV) umV.value = 'Unidad';
+        const umGrupoNew = document.getElementById('prodFormUMGrupo');
+        const defaultGrupo = getUMGrupos()[0]?.nombre || '';
+        umPopulateGrupoSelect(umGrupoNew, defaultGrupo);
+        umPopulateSelectByGroup(document.getElementById('prodFormUMCompra'), defaultGrupo);
+        umPopulateSelectByGroup(document.getElementById('prodFormUMVenta'), defaultGrupo);
         if (prodFormMaterial) prodFormMaterial.value = '';
         if (prodFormMinima) prodFormMinima.value = '0';
         if (prodFormExistencias) prodFormExistencias.value = '0';
@@ -22458,6 +22567,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodFormProveedor) prodFormProveedor.value = '';
         if (prodFormDescripcion) prodFormDescripcion.value = '';
         recetaDraft = []; procesosDraft = []; procesoInsumosDraft = [];
+        if (prodFormNecesitaFabricacion) prodFormNecesitaFabricacion.checked = false;
         // receta cleared via recetaDraft = []
         const ubiPClear = document.getElementById('prodFormUbiPasillo');
         const ubiRClear = document.getElementById('prodFormUbiRack');
@@ -22492,8 +22602,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodGfCostoM2) prodGfCostoM2.value = '0';
         if (prodGfCostoML) prodGfCostoML.value = '0';
         if (prodGfAjusteAncho) prodGfAjusteAncho.value = 'sin';
+        if (prodGfAjusteAlto) prodGfAjusteAlto.value = 'sin';
+        gfTabuladorDraft = [];
         if (prodFormRevendedor) prodFormRevendedor.value = '0';
         if (prodFormVenta) prodFormVenta.value = '0';
+        _prodPrecioRevendedorTocado = false;
         if (prodFormFotoPrincipal) prodFormFotoPrincipal.value = '';
         if (prodColorNombre) prodColorNombre.value = '';
         if (prodColorExistencias) prodColorExistencias.value = '0';
@@ -22508,12 +22621,21 @@ document.addEventListener('DOMContentLoaded', () => {
         productoEditandoId = row.id;
         if (prodFormTitulo) prodFormTitulo.textContent = 'Editar producto';
         if (prodFormCodigo) prodFormCodigo.value = row.codigo || '';
-        if (prodFormTipo) prodFormTipo.value = (row.naturaleza && row.naturaleza !== 'producto') ? row.naturaleza : (row.tipo || 'stock');
+        const _tipoEdit = (row.naturaleza && row.naturaleza !== 'producto') ? row.naturaleza : (row.tipo || 'stock');
+        if (prodFormTipo) prodFormTipo.value = _tipoEdit === 'fabricado' ? 'stock' : _tipoEdit;
+        if (prodFormNecesitaFabricacion) prodFormNecesitaFabricacion.checked = (_tipoEdit === 'fabricado' || row.necesitaFabricacion === true);
         { const dp = document.getElementById('prodFormDesgastePorUso'); if (dp) dp.value = String(Number(row.desgastePorUso || 1)); }
         if (prodFormProducto) prodFormProducto.value = row.producto || '';
         if (prodFormCategoria) prodFormCategoria.value = row.categoria || '';
-        var umC2 = document.getElementById('prodFormUMCompra'); if (umC2) umC2.value = row.umCompra || 'Unidad';
-        var umV2 = document.getElementById('prodFormUMVenta'); if (umV2) umV2.value = row.umVenta || 'Unidad';
+        const umGrupoEdit = document.getElementById('prodFormUMGrupo');
+        const savedGrupo = row.umGrupo || (() => {
+            // inferir grupo desde la unidad guardada si no existe el campo
+            for (const g of getUMGrupos()) { if ((g.unidades||[]).some(u => u.abrev === (row.umCompra||row.umVenta))) return g.nombre; }
+            return getUMGrupos()[0]?.nombre || '';
+        })();
+        umPopulateGrupoSelect(umGrupoEdit, savedGrupo);
+        umPopulateSelectByGroup(document.getElementById('prodFormUMCompra'), savedGrupo, row.umCompra || '');
+        umPopulateSelectByGroup(document.getElementById('prodFormUMVenta'), savedGrupo, row.umVenta || '');
         if (prodFormMaterial) prodFormMaterial.value = row.material || '';
         if (prodFormMinima) prodFormMinima.value = String(Number(row.minima || 0));
         if (prodFormExistencias) prodFormExistencias.value = String(Number(row.existencias || 0));
@@ -22539,7 +22661,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { const impDis = document.getElementById('prodFormImprimirDiseno'); if (impDis) impDis.checked = !!row.permitirImprimirDiseno; }
         updateUbicacionCodigo();
         recetaDraft = Array.isArray(row.recetaInsumos) ? row.recetaInsumos.map(r => ({insumoId: r.insumoId || '', insumoNombre: r.insumoNombre || r.insumoId || '', insumoCode: r.insumoCode || r.insumoId || '', cantidad: Number(r.cantidad || 1), unidad: r.unidad || 'Pza'})) : [];
-        procesosDraft = Array.isArray(row.procesosDetalle) ? row.procesosDetalle.map(p => ({procesoId: p.procesoId || '', procesoNombre: p.procesoNombre || p.procesoId || '', costo: Number(p.costo || 0), notas: p.notas || ''})) : (Array.isArray(row.procesos) ? row.procesos.map(id => ({procesoId: id, procesoNombre: id, costo: 0, notas: ''})) : []);
+        procesosDraft = Array.isArray(row.procesosDetalle)
+            ? row.procesosDetalle.map(p => ({ procesoId: p.procesoId || '', procesoNombre: p.procesoNombre || p.procesoId || '', costo: Number(p.costo || 0), notas: p.notas || '', costosPorRango: Array.isArray(p.costosPorRango) ? p.costosPorRango : [] }))
+            : (Array.isArray(row.procesos) ? row.procesos.map(id => ({procesoId: id, procesoNombre: id, costo: 0, notas: '', costosPorRango: []})) : []);
         procesoInsumosDraft = Array.isArray(row.insumosEnlazados) ? row.insumosEnlazados.map(i => ({insumoId: i.insumoId || '', insumoNombre: i.insumoNombre || i.insumoId || '', insumoCode: i.insumoCode || i.insumoId || '', categoria: i.categoria || ''})) : [];
         updateRecetaResumen();
         updateProcesosResumen();
@@ -22567,8 +22691,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (prodGfCostoM2) prodGfCostoM2.value = String(Number(row.gfCostoM2 || 0));
         if (prodGfCostoML) prodGfCostoML.value = String(Number(row.gfCostoML || 0));
         if (prodGfAjusteAncho) prodGfAjusteAncho.value = row.gfAjusteAncho || 'sin';
+        if (prodGfAjusteAlto) prodGfAjusteAlto.value = row.gfAjusteAlto || 'sin';
+        gfTabuladorDraft = Array.isArray(row.gfTabuladorRangos) ? row.gfTabuladorRangos.map(r => ({...r})) : [];
         if (prodFormRevendedor) prodFormRevendedor.value = String(Number(row.precioRevendedor || 0));
         if (prodFormVenta) prodFormVenta.value = String(Number(row.precioVenta || 0));
+        _prodPrecioRevendedorTocado = Number(row.precioRevendedor || 0) > 0;
         const _prodIvaCheck = document.getElementById('prodFormIncluyeIVA');
         if (_prodIvaCheck) _prodIvaCheck.checked = !!row.incluyeIVA;
         if (prodFormFotoPrincipal) prodFormFotoPrincipal.value = '';
@@ -22588,14 +22715,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const collectProductFormPayload = () => {
+        const _isFab = prodFormNecesitaFabricacion?.checked || false;
         const payload = {
             codigo: String(prodFormCodigo?.value || '').trim(),
-            naturaleza: ({'stock':'producto','gran-formato':'producto'})[prodFormTipo?.value] || (prodFormTipo?.value || 'producto'),
-            tipo: prodFormTipo?.value || 'stock',
+            naturaleza: _isFab ? 'fabricado' : (({'stock':'producto','gran-formato':'producto'})[prodFormTipo?.value] || (prodFormTipo?.value || 'producto')),
+            tipo: _isFab ? 'fabricado' : (prodFormTipo?.value || 'stock'),
             producto: String(prodFormProducto?.value || '').trim(),
             categoria: String(prodFormCategoria?.value || '').trim() || 'General',
-            umCompra: String(document.getElementById('prodFormUMCompra')?.value || '').trim() || 'Unidad',
-            umVenta: String(document.getElementById('prodFormUMVenta')?.value || '').trim() || 'Unidad',
+            umGrupo: String(document.getElementById('prodFormUMGrupo')?.value || '').trim(),
+            umCompra: String(document.getElementById('prodFormUMCompra')?.value || '').trim() || 'pza',
+            umVenta: String(document.getElementById('prodFormUMVenta')?.value || '').trim() || 'pza',
             material: String(prodFormMaterial?.value || '').trim() || '-',
             minima: Math.max(0, Number(prodFormMinima?.value || 0)),
             existencias: Math.max(0, Number(prodFormExistencias?.value || 0)),
@@ -22606,8 +22735,8 @@ document.addEventListener('DOMContentLoaded', () => {
             insumosEnlazados: (prodFormTipo?.value === 'proceso') ? [...procesoInsumosDraft] : [],
             proveedor: String(prodFormProveedor?.value || '').trim(),
             descripcion: String(prodFormDescripcion?.value || '').trim(),
-            necesitaFabricacion: (prodFormTipo?.value === 'fabricado'),
-            recetaInsumos: (prodFormTipo?.value === 'fabricado') ? [...recetaDraft] : [],
+            necesitaFabricacion: _isFab,
+            recetaInsumos: _isFab ? [...recetaDraft] : [],
             fotoPrincipal: prodMainPhotoData,
             coloresSubproductos: prodColorDraftList.map((c) => ({
                 color: String(c.color || '').trim(),
@@ -22618,6 +22747,8 @@ document.addEventListener('DOMContentLoaded', () => {
             variantesCombo: typeof variantesComboData !== "undefined" ? JSON.parse(JSON.stringify(variantesComboData)) : {},
             gfCobroTipo: prodGfCobroTipo?.value === 'm-lineal' ? 'm-lineal' : 'm2',
             gfAjusteAncho: ['metro', 'medio', 'sin'].includes(prodGfAjusteAncho?.value || '') ? prodGfAjusteAncho.value : 'sin',
+            gfAjusteAlto: ['metro', 'medio', 'sin'].includes(prodGfAjusteAlto?.value || '') ? prodGfAjusteAlto.value : 'sin',
+            gfTabuladorRangos: gfTabuladorDraft.map(r => ({...r})),
             gfPrecioGeneralM2: Math.max(0, Number(prodGfPrecioGeneralM2?.value || 0)),
             gfPrecioRevM2: Math.max(0, Number(prodGfPrecioRevM2?.value || 0)),
             gfPrecioGeneralML: Math.max(0, Number(prodGfPrecioGeneralML?.value || 0)),
@@ -22666,6 +22797,65 @@ document.addEventListener('DOMContentLoaded', () => {
         return payload;
     };
 
+    // ── Gran Formato: Tabulador por rangos ───────────────────────
+    let gfTabuladorDraft = [];
+
+    const renderGfTabuladorTable = () => {
+        const body = document.getElementById('gfTabuladorBody');
+        const vacioMsg = document.getElementById('gfTabVacioMsg');
+        const isML = prodGfCobroTipo?.value === 'm-lineal';
+        const unit = isML ? 'M/Lin' : 'M²';
+        document.querySelectorAll('#gfTabUnidadLabel,#gfTabUnidadMin,#gfTabUnidadMax').forEach(el => { el.textContent = unit; });
+        if (!body) return;
+        if (!gfTabuladorDraft.length) {
+            body.innerHTML = '';
+            if (vacioMsg) vacioMsg.style.display = '';
+            return;
+        }
+        if (vacioMsg) vacioMsg.style.display = 'none';
+        body.innerHTML = gfTabuladorDraft.map((row, i) => `
+            <tr style="border-bottom:1px solid #f3f4f6;">
+                <td style="padding:3px 6px;"><input type="number" min="0" step="0.01" value="${row.minM || 0}" data-gftab-min="${i}" style="width:70px;font-size:0.65rem;"></td>
+                <td style="padding:3px 6px;"><input type="number" min="0" step="0.01" value="${row.maxM != null ? row.maxM : ''}" placeholder="∞" data-gftab-max="${i}" style="width:70px;font-size:0.65rem;"></td>
+                <td style="padding:3px 6px;"><input type="number" min="0" step="0.01" value="${row.precioGeneral || 0}" data-gftab-gen="${i}" style="width:80px;font-size:0.65rem;"></td>
+                <td style="padding:3px 6px;"><input type="number" min="0" step="0.01" value="${row.precioRevendedor || 0}" data-gftab-rev="${i}" style="width:80px;font-size:0.65rem;"></td>
+                <td style="padding:3px 6px;"><button type="button" onclick="gfTabEliminarRango(${i})" style="font-size:0.6rem;padding:2px 7px;background:#fee2e2;color:#dc2626;border:none;border-radius:4px;cursor:pointer;">✕</button></td>
+            </tr>
+        `).join('');
+    };
+
+    const syncGfTabuladorFromUI = () => {
+        const body = document.getElementById('gfTabuladorBody');
+        if (!body) return;
+        gfTabuladorDraft = gfTabuladorDraft.map((_, i) => {
+            const minEl = body.querySelector(`[data-gftab-min="${i}"]`);
+            const maxEl = body.querySelector(`[data-gftab-max="${i}"]`);
+            const genEl = body.querySelector(`[data-gftab-gen="${i}"]`);
+            const revEl = body.querySelector(`[data-gftab-rev="${i}"]`);
+            return {
+                minM: Math.max(0, Number(minEl?.value || 0)),
+                maxM: maxEl?.value?.trim() !== '' ? Math.max(0, Number(maxEl.value)) : null,
+                precioGeneral: Math.max(0, Number(genEl?.value || 0)),
+                precioRevendedor: Math.max(0, Number(revEl?.value || 0))
+            };
+        });
+    };
+
+    window.gfTabAgregarRango = () => {
+        syncGfTabuladorFromUI();
+        const last = gfTabuladorDraft[gfTabuladorDraft.length - 1];
+        const nextMin = last?.maxM != null ? last.maxM : (last != null ? last.minM + 1 : 0);
+        gfTabuladorDraft.push({ minM: nextMin, maxM: null, precioGeneral: 0, precioRevendedor: 0 });
+        renderGfTabuladorTable();
+    };
+
+    window.gfTabEliminarRango = (idx) => {
+        syncGfTabuladorFromUI();
+        gfTabuladorDraft.splice(idx, 1);
+        renderGfTabuladorTable();
+    };
+    // ─────────────────────────────────────────────────────────────
+
     const getProductoSeleccionado = () => {
         const first = Array.from(productosSelectedIds)[0] || '';
         return productosData.find((p) => p.id === first);
@@ -22711,8 +22901,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 precioGeneral: Math.max(0, Number(f.precioGeneral || 0))
             }));
         }
+        // Cargar costosPorRango guardados en procesosDetalle si existen
+        if (Array.isArray(prodPendingPayload?.procesosDetalle)) {
+            prodPendingPayload.procesosDetalle.forEach((pd, i) => {
+                if (procesosDraft[i] && Array.isArray(pd.costosPorRango)) {
+                    procesosDraft[i].costosPorRango = pd.costosPorRango;
+                }
+            });
+        }
         renderProdTabuladorSelect();
         renderProdTabuladorPreview();
+        renderProdTabuladorProcesos();
         renderProdMainPhotoPreview();
         syncUbicacionToStep2();
         openProdModal(popupProdTabulador);
@@ -22725,6 +22924,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commitPendingProduct = () => {
         if (!prodPendingPayload) return;
         syncProdTabPreciosFromUI();
+        syncProcesosTabPreciosFromUI();
         const active = getTabuladorById(prodPendingTabuladorId);
         const detalle = (active?.filas || []).map((f, i) => ({
             tipo: f.tipo,
@@ -23270,8 +23470,24 @@ document.addEventListener('DOMContentLoaded', () => {
         refs.tablaBody.innerHTML = ordenLineas.map((row, idx) => {
             const importe = Number(row.precio) * Number(row.cantidad);
             const cls = idx === ordenLineaActiva ? ' class="orden-row-selected"' : '';
+            const prodModel = row.productoId ? productosData.find(p => p.id === row.productoId) : null;
+            const tieneProcesos = Array.isArray(prodModel?.procesosDetalle) && prodModel.procesosDetalle.length > 0;
+            const tieneVariantes = (Array.isArray(prodModel?.variantes) && prodModel.variantes.length > 0) ||
+                                   (Array.isArray(prodModel?.coloresSubproductos) && prodModel.coloresSubproductos.length > 0);
+            const mostrarBoton = tieneProcesos || tieneVariantes;
+            const config = row.procesosConfig;
+            const configOk = mostrarBoton && config && (
+                (Array.isArray(config.procesos) && config.procesos.some(p => p.activo)) ||
+                (config.variantes && Object.values(config.variantes).some(Boolean))
+            );
+            const variantesTag = config?.variantes && Object.values(config.variantes).filter(Boolean).length
+                ? `<span style="font-size:0.55rem;color:#f07a00;font-weight:700;">${Object.values(config.variantes).filter(Boolean).join(' / ')}</span>`
+                : '';
+            const procBtn = mostrarBoton
+                ? `<button type="button" data-proc-config-idx="${idx}" style="margin-top:3px;font-size:0.55rem;padding:1px 7px;border:1px solid ${configOk ? '#6ee7b7' : '#fde68a'};border-radius:4px;cursor:pointer;background:${configOk ? '#d1fae5' : '#fffbeb'};color:${configOk ? '#065f46' : '#92400e'};white-space:nowrap;">⚙ ${configOk ? 'Config. ✓' : 'Configurar'}</button>`
+                : '';
             return `<tr data-orden-row="${idx}"${cls}>
-                <td>${row.producto}</td>
+                <td>${row.producto}${variantesTag ? `<br>${variantesTag}` : ''}${procBtn ? `<br>${procBtn}` : ''}</td>
                 <td>${row.medida}</td>
                 <td>${row.material}</td>
                 <td>${formatMoney(row.precio)}</td>
@@ -23765,6 +23981,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (refs.tablaBody) {
         refs.tablaBody.addEventListener('click', (ev) => {
+            // Handle process config button
+            const procConfigBtn = ev.target.closest('[data-proc-config-idx]');
+            if (procConfigBtn) {
+                ev.stopPropagation();
+                openLineaProcesosConfig(Number(procConfigBtn.getAttribute('data-proc-config-idx')));
+                return;
+            }
             // Handle +/- buttons
             const plusBtn = ev.target.closest('.qty-plus');
             const minusBtn = ev.target.closest('.qty-minus');
@@ -25954,6 +26177,10 @@ document.addEventListener('DOMContentLoaded', () => {
         prodFormTipo.addEventListener('change', () => { syncProdFormModeByTipo(); });
     }
 
+    if (prodFormNecesitaFabricacion) {
+        prodFormNecesitaFabricacion.addEventListener('change', syncFabricadoCheckbox);
+    }
+
     // Receta popup button
     const recetaBtn = document.getElementById('prodFormRecetaBtn');
     if (recetaBtn) recetaBtn.addEventListener('click', () => openRecetaPopup());
@@ -25971,8 +26198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (recetaSearchInput) recetaSearchInput.addEventListener('input', () => renderRecetaInsumosTable());
 
     // Procesos popup button
-    const procesosBtn = document.getElementById('prodFormProcesosBtn');
-    if (procesosBtn) procesosBtn.addEventListener('click', () => openProcesosPopup());
+    // prodFormProcesosBtn eliminado — procesos son inline en el paso config
 
     // Proceso-Insumos popup button
     const procInsBtn = document.getElementById('prodFormProcesoInsumosBtn');
@@ -26045,12 +26271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (popupConfirmUbi) popupConfirmUbi.addEventListener('click', (e) => { if (e.target === popupConfirmUbi) closeConfirmUbicacion(false); });
 
     // Procesos popup close/accept/cancel
-    const procesosPopupClose = document.getElementById('procesosPopupClose');
-    const procesosCancelar = document.getElementById('procesosCancelar');
-    const procesosAceptar = document.getElementById('procesosAceptar');
-    if (procesosPopupClose) procesosPopupClose.addEventListener('click', () => closeProcesosPopup(false));
-    if (procesosCancelar) procesosCancelar.addEventListener('click', () => closeProcesosPopup(false));
-    if (procesosAceptar) procesosAceptar.addEventListener('click', () => closeProcesosPopup(true));
+    // procesosPopupClose/Aceptar/Cancelar eliminados — panel inline, cambios son inmediatos
 
     // Procesos search
     const procesosSearchInput = document.getElementById('procesosSearchInput');
@@ -26058,9 +26279,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Click overlay to close popups
     const popupReceta = document.getElementById('popupRecetaFabricacion');
-    const popupProcesos = document.getElementById('popupProcesosAsignados');
     if (popupReceta) popupReceta.addEventListener('click', (e) => { if (e.target === popupReceta) closeRecetaPopup(false); });
-    if (popupProcesos) popupProcesos.addEventListener('click', (e) => { if (e.target === popupProcesos) closeProcesosPopup(false); });
 
     // Urgente surtir tab in insumos module
     const insumosTabUrgente = document.getElementById('insumosTabUrgente');
@@ -26074,7 +26293,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (prodGfCobroTipo) {
         prodGfCobroTipo.addEventListener('change', () => {
-            syncProdFormModeByTipo();
+            syncProdFormModeByTipo(true);
         });
     }
 
@@ -26602,21 +26821,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let procesosDraftBackup = [];
 
     function openProcesosPopup() {
-        const popup = document.getElementById('popupProcesosAsignados');
-        if (!popup) return;
-        procesosDraftBackup = JSON.parse(JSON.stringify(procesosDraft));
-        popup.style.display = 'flex';
-        popup.setAttribute('aria-hidden', 'false');
         renderProcesosDisponiblesTable();
         renderProcesosConfirmadosTable();
     }
 
-    function closeProcesosPopup(accept) {
-        const popup = document.getElementById('popupProcesosAsignados');
-        if (!popup) return;
-        if (!accept) procesosDraft = procesosDraftBackup;
-        popup.style.display = 'none';
-        popup.setAttribute('aria-hidden', 'true');
+    function closeProcesosPopup() {
         updateProcesosResumen();
     }
 
@@ -26842,6 +27051,125 @@ document.addEventListener('DOMContentLoaded', () => {
     let _selInsProcCallback = null;
     let _selInsProcPending = []; // [{procesoId, procesoNombre, insumosEnlazados, selected}]
     let _selInsProcCurrentIdx = 0;
+
+    // ── Configurador de procesos por línea de orden ──────────────
+    let _lineaProcConfigIdx = -1;
+
+    window.openLineaProcesosConfig = function(idx) {
+        const linea = ordenLineas[idx];
+        if (!linea) return;
+        const producto = linea.productoId ? productosData.find(p => p.id === linea.productoId) : null;
+        if (!producto) { alert('No se encontró el producto en el catálogo.'); return; }
+        const procesos = Array.isArray(producto.procesosDetalle) ? producto.procesosDetalle : [];
+        const hasVariantes = (Array.isArray(producto.variantes) && producto.variantes.length > 0) ||
+                             (Array.isArray(producto.coloresSubproductos) && producto.coloresSubproductos.length > 0);
+        if (!procesos.length && !hasVariantes) { alert('Este producto no tiene procesos ni variantes configurados.'); return; }
+
+        _lineaProcConfigIdx = idx;
+        const ex = linea.procesosConfig || { variantes: {}, procesos: [] };
+
+        const nombreEl = document.getElementById('lpcProductoNombre');
+        if (nombreEl) nombreEl.textContent = linea.producto;
+
+        const body = document.getElementById('lpcBody');
+        if (!body) return;
+
+        const _e = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+        // Sección de variantes
+        const hasColores = Array.isArray(producto.coloresSubproductos) && producto.coloresSubproductos.length > 0;
+        const hasSoloVariantes = Array.isArray(producto.variantes) && producto.variantes.length > 0;
+        let varHtml = '';
+        if (hasVariantes || hasColores) {
+            varHtml = `<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;">
+                <div style="font-size:0.6rem;font-weight:700;color:#6b7280;letter-spacing:0.5px;margin-bottom:8px;">VARIANTES DEL PRODUCTO</div>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;">`;
+            if (hasSoloVariantes) {
+                producto.variantes.forEach(vt => {
+                    const saved = ex.variantes?.[vt.tipo] || '';
+                    varHtml += `<div style="display:flex;flex-direction:column;gap:2px;min-width:100px;">
+                        <label style="font-size:0.58rem;font-weight:700;color:#374151;">${_e(vt.tipo)}</label>
+                        <select data-lpc-variante="${_e(vt.tipo)}" style="font-size:0.65rem;padding:3px 6px;border:1px solid #d1d5db;border-radius:5px;">
+                            <option value="">— Seleccionar —</option>
+                            ${vt.valores.map(v => `<option value="${_e(v)}"${(ex.variantes?.[vt.tipo]||'')=== v?' selected':''}>${_e(v)}</option>`).join('')}
+                        </select></div>`;
+                });
+            } else if (hasColores) {
+                varHtml += `<div style="display:flex;flex-direction:column;gap:2px;min-width:100px;">
+                    <label style="font-size:0.58rem;font-weight:700;color:#374151;">Color</label>
+                    <select data-lpc-variante="Color" style="font-size:0.65rem;padding:3px 6px;border:1px solid #d1d5db;border-radius:5px;">
+                        <option value="">— Seleccionar —</option>
+                        ${producto.coloresSubproductos.map(c => `<option value="${_e(c.color)}"${(ex.variantes?.['Color']||'')=== c.color?' selected':''}>${_e(c.color)}</option>`).join('')}
+                    </select></div>`;
+            }
+            varHtml += '</div></div>';
+        }
+
+        // Sección de procesos
+        let procHtml = `<div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="font-size:0.6rem;font-weight:700;color:#6b7280;letter-spacing:0.5px;">PROCESOS ASIGNADOS</div>`;
+        procesos.forEach((pd, pi) => {
+            const savedP = (ex.procesos||[]).find(ep => ep.procesoId === pd.procesoId) || { activo: true, notas: '' };
+            procHtml += `<div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                    <input type="checkbox" id="lpcProc${pi}" data-lpc-proc-idx="${pi}" style="width:14px;height:14px;cursor:pointer;" ${savedP.activo?'checked':''} onchange="toggleLpcProcNotas(${pi})">
+                    <label for="lpcProc${pi}" style="font-size:0.7rem;font-weight:700;color:#1f2937;cursor:pointer;">${_e(pd.procesoNombre||pd.procesoId)}</label>
+                </div>
+                <div id="lpcProcNotas${pi}" style="display:${savedP.activo?'':'none'};">
+                    <label style="font-size:0.58rem;color:#6b7280;display:block;margin-bottom:2px;">Notas / instrucciones para este proceso:</label>
+                    <input type="text" data-lpc-proc-notas="${pi}" value="${_e(savedP.notas||'')}" placeholder="Ej: tinta base agua, pantone 485..." style="width:100%;box-sizing:border-box;font-size:0.65rem;padding:4px 8px;border:1px solid #d1d5db;border-radius:5px;">
+                </div>
+            </div>`;
+        });
+        procHtml += '</div>';
+
+        body.innerHTML = varHtml + procHtml;
+
+        const popup = document.getElementById('popupLineaProcesosConfig');
+        if (popup) { popup.style.display = 'flex'; popup.setAttribute('aria-hidden', 'false'); }
+    };
+
+    window.toggleLpcProcNotas = function(pi) {
+        const cb = document.querySelector(`#lpcBody [data-lpc-proc-idx="${pi}"]`);
+        const div = document.getElementById(`lpcProcNotas${pi}`);
+        if (div) div.style.display = cb?.checked ? '' : 'none';
+    };
+
+    window.closeLpcPopup = function() {
+        const popup = document.getElementById('popupLineaProcesosConfig');
+        if (popup) { popup.style.display = 'none'; popup.setAttribute('aria-hidden', 'true'); }
+        _lineaProcConfigIdx = -1;
+    };
+
+    window.saveLpcPopup = function() {
+        if (_lineaProcConfigIdx < 0 || _lineaProcConfigIdx >= ordenLineas.length) return;
+        const linea = ordenLineas[_lineaProcConfigIdx];
+        if (!linea) return;
+        const producto = linea.productoId ? productosData.find(p => p.id === linea.productoId) : null;
+        if (!producto) return;
+
+        const variantes = {};
+        document.querySelectorAll('#lpcBody [data-lpc-variante]').forEach(sel => {
+            if (sel.value) variantes[sel.getAttribute('data-lpc-variante')] = sel.value;
+        });
+
+        const procesos = (producto.procesosDetalle || []).map((pd, pi) => {
+            const cb = document.querySelector(`#lpcBody [data-lpc-proc-idx="${pi}"]`);
+            const notasEl = document.querySelector(`#lpcBody [data-lpc-proc-notas="${pi}"]`);
+            return {
+                procesoId: pd.procesoId,
+                procesoNombre: pd.procesoNombre || pd.procesoId,
+                activo: cb?.checked || false,
+                notas: (notasEl?.value || '').trim()
+            };
+        });
+
+        linea.procesosConfig = { variantes, procesos };
+        window.closeLpcPopup();
+        renderTabla();
+        saveTicketActivo();
+    };
+    // ─────────────────────────────────────────────────────────────
 
     function promptSeleccionInsumosProcesos(producto, onComplete) {
         // producto = modelo completo del producto con procesosDetalle
@@ -27417,6 +27745,18 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
         });
     }
 
+    let _prodPrecioRevendedorTocado = false;
+    if (prodFormVenta) {
+        prodFormVenta.addEventListener('input', () => {
+            if (!_prodPrecioRevendedorTocado && prodFormRevendedor) {
+                prodFormRevendedor.value = prodFormVenta.value;
+            }
+        });
+    }
+    if (prodFormRevendedor) {
+        prodFormRevendedor.addEventListener('input', () => { _prodPrecioRevendedorTocado = true; });
+    }
+
     if (prodFormSiguiente) {
         prodFormSiguiente.addEventListener('click', () => {
             const steps = getProdWizardSteps();
@@ -27431,6 +27771,8 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
             if (!payload) return;
             prodPendingPayload = payload;
             if (payload.tipo === 'gran-formato') {
+                syncGfTabuladorFromUI();
+                prodPendingPayload.gfTabuladorRangos = gfTabuladorDraft.map(r => ({...r}));
                 prodPendingTabuladorId = '';
                 prodPendingTabuladorPrecios = [];
                 commitPendingProduct();
@@ -27463,10 +27805,12 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
     if (prodTabuladorSelect) {
         prodTabuladorSelect.addEventListener('change', () => {
             syncProdTabPreciosFromUI();
+            syncProcesosTabPreciosFromUI();
             prodPendingTabuladorId = prodTabuladorSelect.value || '';
             if (prodPendingPayload) prodPendingPayload.tabuladorId = prodPendingTabuladorId;
             prodPendingTabuladorPrecios = [];
             renderProdTabuladorPreview();
+            renderProdTabuladorProcesos();
         });
     }
 
@@ -27761,6 +28105,8 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
         const estadoInfo = estadoMap[order.estado] || { label: escHtml(order.estado||'N/A'), css:'pendiente' };
 
         const folio     = escHtml(String(order.folio || order.id || '—'));
+        const pedidoOrigen = order.pedidoOrigen && order.pedidoOrigen !== order.folio
+            ? escHtml(String(order.pedidoOrigen)) : '';
         const cliente   = escHtml(String(order.clienteNombre || order.cliente || order.nombreCliente || '—'));
         const producto  = escHtml(String(order.producto || order.nombreProducto || '—'));
         const disenador = escHtml(String(order.disenador || ''));
@@ -27807,6 +28153,7 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
                 <span style="font-size:0.8rem;font-weight:900;color:#f07a00;letter-spacing:0.2px;">${folio}</span>
                 <span class="design-order-tag ${estadoInfo.css}">${estadoInfo.label}</span>
                 ${isMySession ? `<span class="design-order-tag mis">✏️ Tú</span>` : ''}
+                ${pedidoOrigen ? `<span style="font-size:0.52rem;color:#64748b;font-weight:600;">Pedido: ${pedidoOrigen}</span>` : ''}
             </div>
             <div style="font-size:0.68rem;color:#111827;margin-bottom:3px;"><span style="color:#f07a00;">👤</span> ${cliente}</div>
             <div style="font-size:0.63rem;color:#111827;margin-bottom:${notas?'3px':'6px'};"><span style="color:#f07a00;">🖨</span> ${producto}</div>
@@ -28004,6 +28351,7 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
         if (infoEl) infoEl.innerHTML =
             `<div style="display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:0.64rem;color:#111827;">
                 <strong style="color:#f07a00;">Folio:</strong>     <span>${escHtml(String(order.folio||order.id))}</span>
+                ${order.pedidoOrigen && order.pedidoOrigen !== order.folio ? `<strong style="color:#64748b;">Pedido:</strong><span style="color:#64748b;">${escHtml(String(order.pedidoOrigen))} (${order.lineaIdx+1} de ${order.totalLineas})</span>` : ''}
                 <strong style="color:#f07a00;">Cliente:</strong>   <span>${escHtml(clienteStr)}</span>
                 <strong style="color:#f07a00;">Producto:</strong>  <span>${escHtml(productoStr)}</span>
                 <strong style="color:#f07a00;">Estado:</strong>    <span>${escHtml(String(order.estado||'—'))}</span>
@@ -28018,42 +28366,10 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
             order.notasDisenador || order.notasDiseno || order.instruccionesDiseno ||
             'Sin indicaciones de diseño registradas.';
 
-        // Notas producción
-        const notasPEl = document.getElementById('designComenzarNotasP');
-        if (notasPEl) notasPEl.textContent =
-            order.notasProduccion || order.notasProd || 'Sin notas de producción.';
-
         // Comentarios generales
         const comsEl = document.getElementById('designComenzarComentarios');
         if (comsEl) comsEl.textContent =
             order.comentarios || order.notas || order.observaciones || 'Sin comentarios adicionales.';
-
-        // Líneas del pedido
-        const lineasEl = document.getElementById('designComenzarLineas');
-        if (lineasEl) {
-            const lineas = Array.isArray(order.lineas) ? order.lineas
-                : Array.isArray(order.productos) ? order.productos : [];
-            if (lineas.length) {
-                lineasEl.innerHTML = lineas.map((l, i) => {
-                    const desc  = l.descripcion || l.producto || l.nombre || l.nombreProducto || `Línea ${i+1}`;
-                    const qty   = l.cantidad || l.qty || '';
-                    const notas = l.notas || l.obs || l.instrucciones || '';
-                    const size  = l.talla || l.tamaño || l.size || '';
-                    return `<div style="padding:4px 0;border-bottom:1px solid #f0f0f0;color:#111827;">
-                        <span style="color:#f07a00;font-weight:800;">${i+1}.</span>
-                        ${escHtml(String(desc))}
-                        ${qty ? `<span style="color:#f07a00;font-weight:700;"> × ${escHtml(String(qty))}</span>` : ''}
-                        ${size ? `<span style="color:#64748b;font-size:0.54rem;"> [${escHtml(String(size))}]</span>` : ''}
-                        ${notas ? `<div style="color:#374151;font-size:0.54rem;margin-top:2px;padding-left:10px;">↳ ${escHtml(String(notas))}</div>` : ''}
-                    </div>`;
-                }).join('');
-            } else {
-                // Si no hay líneas, mostrar el producto principal
-                lineasEl.innerHTML = productoStr !== '—'
-                    ? `<div style="font-size:0.62rem;color:#111827;">${escHtml(productoStr)}${order.cantidad?` <span style="color:#f07a00;">×</span> `+escHtml(String(order.cantidad)):''}</div>`
-                    : '<span style="color:#64748b;font-size:0.62rem;">Sin detalles de líneas.</span>';
-            }
-        }
 
         // Imágenes de referencia
         const imgsEl = document.getElementById('designComenzarImagenes');
@@ -28792,33 +29108,50 @@ body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction:
     });
 
     // Global para que el cotizador auto-envíe órdenes al módulo de diseño (localStorage)
+    // Cada línea del pedido genera una orden de diseño separada (folio-1, folio-2…)
+    // pero todas comparten pedidoOrigen para saber que pertenecen al mismo pedido.
     window.enviarAutoADiseno = function(venta) {
         try {
             const orders = getDesignOrders();
-            const linea0 = (venta.lineas && venta.lineas[0]) || {};
-            const cantTotal = (venta.lineas || []).reduce((s, l) => s + Number(l.cantidad || 1), 0);
-            const newOrder = {
-                id: 'dis_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
-                folio: venta.folio || '',
-                clienteNombre: venta.clienteNombre || venta.cliente || '',
-                cliente: venta.clienteNombre || venta.cliente || '',
-                telefono: venta.telefono || '',
-                clienteId: venta.clienteId || '',
-                producto: linea0.producto || venta.producto || '',
-                cantidad: String(cantTotal),
-                fechaEntrega: venta.fechaEntrega || '',
-                disenador: venta.disenador || '',
-                notasDisenador: venta.notasDisenador || '',
-                notasProduccion: venta.notasProduccion || '',
-                comentarios: venta.comentarios || '',
-                lineas: venta.lineas || [],
-                estado: 'pendiente_diseno',
-                creadoEn: new Date().toISOString(),
-                origenCotizador: true
-            };
-            orders.push(newOrder);
+            const lineas = Array.isArray(venta.lineas) && venta.lineas.length
+                ? venta.lineas
+                : [{ producto: venta.producto || '', cantidad: venta.cantidad || 1 }];
+            const multiLinea = lineas.length > 1;
+
+            lineas.forEach((linea, i) => {
+                const folio = multiLinea ? `${venta.folio || ''}-${i + 1}` : (venta.folio || '');
+                const newOrder = {
+                    id: 'dis_' + (Date.now() + i) + '_' + Math.random().toString(36).slice(2, 7),
+                    folio,
+                    pedidoOrigen: venta.folio || '',
+                    clienteNombre: venta.clienteNombre || venta.cliente || '',
+                    cliente: venta.clienteNombre || venta.cliente || '',
+                    telefono: venta.telefono || '',
+                    clienteId: venta.clienteId || '',
+                    producto: linea.producto || linea.nombre || linea.descripcion || venta.producto || '',
+                    cantidad: String(linea.cantidad || 1),
+                    fechaEntrega: venta.fechaEntrega || '',
+                    disenador: linea.disenador || venta.disenador || '',
+                    notasDisenador: linea.notasDisenador || venta.notasDisenador || '',
+                    notasProduccion: venta.notasProduccion || '',
+                    comentarios: venta.comentarios || '',
+                    lineas: [linea],
+                    lineaIdx: i,
+                    totalLineas: lineas.length,
+                    estado: 'pendiente_diseno',
+                    creadoEn: new Date().toISOString(),
+                    origenCotizador: true
+                };
+                orders.push(newOrder);
+            });
+
             saveDesignOrders(orders);
-            if (typeof notifyInfo === 'function') notifyInfo(`Orden ${newOrder.folio} enviada automáticamente a Diseño.`, 'Diseño');
+            if (typeof notifyInfo === 'function') {
+                const msg = multiLinea
+                    ? `Orden ${venta.folio} enviada a Diseño (${lineas.length} productos separados).`
+                    : `Orden ${venta.folio} enviada automáticamente a Diseño.`;
+                notifyInfo(msg, 'Diseño');
+            }
         } catch(e) { console.error('enviarAutoADiseno:', e); }
     };
     window.closeDisenoPopupGlobal = () => { if (typeof closeDesignPopup === 'function') closeDesignPopup(); };
@@ -31092,18 +31425,51 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function imprimirEtiquetaTerminado(orden) {
-        var codigo = orden.codigoBarrasTerminado || '';
-        var qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(codigo);
-        var w = window.open('', '_blank', 'width=420,height=550');
-        w.document.write('<html><head><title>Etiqueta Producto Terminado</title><style>body{margin:0;padding:20px;font-family:Arial,sans-serif;text-align:center;}h2{margin:8px 0;font-size:1rem;}p{margin:4px 0;font-size:0.8rem;color:#555;}.code{font-size:0.7rem;font-family:monospace;word-break:break-all;margin:8px 0;}@media print{body{padding:10px;}}</style></head><body>');
-        w.document.write('<h2>✅ PRODUCTO TERMINADO</h2>');
-        w.document.write('<p><strong>Folio:</strong> '+esc(orden.folio||'—')+'</p>');
-        w.document.write('<p><strong>Producto:</strong> '+esc(orden.producto||'—')+'</p>');
-        w.document.write('<p><strong>Cliente:</strong> '+esc(orden.cliente||'—')+'</p>');
-        w.document.write('<p><strong>Cantidad:</strong> '+esc(orden.cantidad||'—')+'</p>');
-        w.document.write('<img src="'+qrUrl+'" style="margin:12px auto;display:block;" onload="setTimeout(function(){window.print();},500);">');
-        w.document.write('<div class="code">'+esc(codigo)+'</div>');
-        w.document.write('</body></html>');
+        var codigo  = orden.codigoBarrasTerminado || '';
+        var qrUrl   = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=' + encodeURIComponent(codigo);
+        var fechaImp = new Date().toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' });
+        var procesosArr = Array.isArray(orden.procesosDetalle) && orden.procesosDetalle.length
+            ? orden.procesosDetalle.map(function(p){ return p.procesoNombre || p.procesoId || ''; }).filter(Boolean)
+            : Array.isArray(orden.procesos) && orden.procesos.length
+                ? orden.procesos
+                : [];
+        var procesosStr = procesosArr.length ? procesosArr.join(' / ') : '—';
+        var w = window.open('', '_blank', 'width=260,height=420');
+        w.document.write(
+            '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Etiqueta</title><style>' +
+            '*{margin:0;padding:0;box-sizing:border-box;}' +
+            '@page{size:72mm auto;margin:0;}' +
+            'body{font-family:Arial,sans-serif;width:72mm;padding:3mm 4mm;}' +
+            '.top{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #000;padding-bottom:1.5mm;margin-bottom:1.5mm;}' +
+            '.folio{font-size:13pt;font-weight:900;}' +
+            '.fecha{font-size:5.5pt;color:#555;text-align:right;line-height:1.4;}' +
+            'table{width:100%;border-collapse:collapse;margin-bottom:1.5mm;}' +
+            'td{font-size:7pt;padding:0.6mm 0;vertical-align:top;line-height:1.25;}' +
+            'td.lbl{font-weight:700;text-transform:uppercase;color:#555;width:13mm;font-size:5.5pt;padding-right:1.5mm;}' +
+            'td.val{font-weight:700;color:#000;}' +
+            '.sep{border:none;border-top:1px dashed #aaa;margin:1.5mm 0;}' +
+            '.qr{text-align:center;}' +
+            '.cod{font-size:5pt;font-family:monospace;color:#777;text-align:center;word-break:break-all;margin-top:1mm;}' +
+            '.pie{font-size:5pt;text-transform:uppercase;color:#666;display:flex;justify-content:space-between;border-top:1px solid #000;padding-top:1.5mm;margin-top:1.5mm;}' +
+            '@media print{body{padding:2mm 3mm;}}' +
+            '</style></head><body>' +
+            '<div class="top">' +
+                '<div><div style="font-size:5pt;text-transform:uppercase;letter-spacing:.8px;color:#777;margin-bottom:.5mm;">Terminado</div><div class="folio">' + esc(orden.folio||'—') + '</div></div>' +
+                '<div class="fecha">' + fechaImp + '</div>' +
+            '</div>' +
+            '<table>' +
+                '<tr><td class="lbl">Producto</td><td class="val">' + esc(orden.producto||'—') + '</td></tr>' +
+                '<tr><td class="lbl">Cantidad</td><td class="val">' + esc(String(orden.cantidad||'—')) + '</td></tr>' +
+                (orden.color           ? '<tr><td class="lbl">Color</td><td class="val">'   + esc(orden.color)            + '</td></tr>' : '') +
+                (orden.detalleProducto ? '<tr><td class="lbl">Detalle</td><td class="val">' + esc(orden.detalleProducto)  + '</td></tr>' : '') +
+                '<tr><td class="lbl">Proceso</td><td class="val">' + esc(procesosStr) + '</td></tr>' +
+            '</table>' +
+            '<hr class="sep">' +
+            '<div class="qr"><img src="' + qrUrl + '" width="110" height="110" onload="setTimeout(function(){window.print();},500)"></div>' +
+            '<div class="cod">' + esc(codigo) + '</div>' +
+            '<div class="pie"><span>Produccion interna</span><span>Entrega: ' + esc(orden.fechaEntrega||'—') + '</span></div>' +
+            '</body></html>'
+        );
         w.document.close();
     }
 
@@ -31187,28 +31553,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var urgColor = urg.text === 'ALTA' ? '#dc2626' : urg.text === 'MEDIA' ? '#f59e0b' : '#16a34a';
             var urgBg = urg.text === 'ALTA' ? '#fef2f2' : urg.text === 'MEDIA' ? '#fffbeb' : '#f0fdf4';
 
-            // Timer para órdenes en proceso
             var timerHtml = '';
-            if (o.estado === 'en_proceso') {
-                var startMs = 0;
-                if (o.inicioTrabajoEn) {
-                    if (o.inicioTrabajoEn.toDate) startMs = o.inicioTrabajoEn.toDate().getTime();
-                    else if (typeof o.inicioTrabajoEn === 'number') startMs = o.inicioTrabajoEn;
-                }
-                var startStr = startMs ? new Date(startMs).toLocaleString('es-MX',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'short'}) : '—';
-                var elapsed = startMs ? _formatElapsed(Date.now() - startMs) : '—';
-                timerHtml = '<div style="display:flex;align-items:center;gap:8px;margin:4px 0;background:#fff7ed;border:1px solid #fde8c8;border-radius:8px;padding:5px 10px;font-size:0.62rem;">'+
-                    '<span style="color:#92400e;font-weight:700;">⏱ Iniciado:</span>'+
-                    '<span style="color:#92400e;">'+esc(startStr)+'</span>'+
-                    '<span style="color:#92400e;font-weight:700;margin-left:auto;">⏱ Transcurrido:</span>'+
-                    '<span style="font-family:monospace;font-weight:800;color:#ff9900;min-width:58px;">'+elapsed+'</span>'+
-                '</div>';
-            }
-            if (o.estado === 'terminada' && o.inicioTrabajoEn && o.terminadaEn) {
-                var s0 = o.inicioTrabajoEn.toDate ? o.inicioTrabajoEn.toDate().getTime() : Number(o.inicioTrabajoEn||0);
-                var s1 = o.terminadaEn.toDate ? o.terminadaEn.toDate().getTime() : Number(o.terminadaEn||0);
-                if (s0 && s1) timerHtml = '<div style="font-size:0.58rem;color:#6b7280;margin:2px 0;">⏱ Elaboración: <strong>'+_formatElapsed(s1-s0)+'</strong></div>';
-            }
 
             // Notas historial
             var nArr=[]; try{nArr=JSON.parse(o.notasHistorial||'[]');}catch(e){}
@@ -38075,413 +38420,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     MODO DEMO — Datos ficticios para probar todo el sistema
-════════════════════════════════════════════════════════════════ -->
-<script>
-(function() {
-    'use strict';
-    var DEMO_FLAG = 'demo_mode_active';
-    var DEMO_IDS_KEY = 'demo_firestore_doc_ids';
-    var toggle = document.getElementById('demoModeToggle');
-    var label = document.getElementById('demoLabel');
-    var status = document.getElementById('demoStatus');
-    if (!toggle) return;
-
-    // ── Datos ficticios ──
-    var HOY = new Date().toISOString().slice(0,10);
-    function fechaFutura(d) { var f = new Date(); f.setDate(f.getDate()+d); return f.toISOString().slice(0,10); }
-    function fechaPasada(d) { var f = new Date(); f.setDate(f.getDate()-d); return f.toISOString().slice(0,10); }
-
-    // ═══════════════════════════════════════════════════════════════
-    // DATOS DEMO COMPLETOS — 5 tipos comerciales x 3 productos
-    // ═══════════════════════════════════════════════════════════════
-
-    // ── 12 Clientes variados ──
-    var DEMO_CLIENTES = [
-        {id:'1001',nombre:'María García López',telefono:'9511234567',correo:'maria.garcia@email.com',empresa:'Boutique Eleganza',negocio:'Tienda de ropa',calle:'Av. Independencia',colonia:'Centro',numero:'405',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68000',pais:'México',razonSocial:'Boutique Eleganza SA de CV',rfc:'BEL2001015A1',referenciaBancaria:'BBVA 0123456789',tipoCliente:'Empresarial',deshabilitado:false,ubiNegocio:'https://maps.google.com/@17.0622,-96.7251,17z'},
-        {id:'1002',nombre:'Carlos Mendoza Ruiz',telefono:'9519876543',correo:'carlos.mendoza@gmail.com',empresa:'Panadería Don Carlos',negocio:'Panadería',calle:'Calle Porfirio Díaz',colonia:'Reforma',numero:'110',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68050',pais:'México',razonSocial:'',rfc:'',referenciaBancaria:'',tipoCliente:'Publico en general',deshabilitado:false},
-        {id:'1003',nombre:'Ana Sofía Hernández',telefono:'9515551234',correo:'ana.sofia@outlook.com',empresa:'Floristería Primavera',negocio:'Floristería',calle:'5 de Mayo',colonia:'Centro',numero:'312',ciudad:'Santa Cruz Xoxocotlán',estado:'Oaxaca',cp:'71230',pais:'México',razonSocial:'Floristería Primavera SC',rfc:'FPR1905028B3',referenciaBancaria:'Banorte 9876543210',tipoCliente:'Empresarial',deshabilitado:false},
-        {id:'1004',nombre:'Roberto Jiménez Torres',telefono:'9517778899',correo:'rjimenez@hotmail.com',empresa:'Restaurante El Sabor',negocio:'Restaurante',calle:'Calle Hidalgo',colonia:'Ex-Marquesado',numero:'78',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68020',pais:'México',razonSocial:'El Sabor Oaxaqueño SA',rfc:'ESO1801129C5',referenciaBancaria:'Santander 1122334455',tipoCliente:'Empresarial',deshabilitado:false},
-        {id:'1005',nombre:'Luisa Fernanda Vega',telefono:'9513334455',correo:'luisa.vega@gmail.com',empresa:'Dulcería La Catrina',negocio:'Dulcería',calle:'Tinoco y Palacios',colonia:'Centro',numero:'205',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68040',pais:'México',razonSocial:'',rfc:'',referenciaBancaria:'',tipoCliente:'Publico en general',deshabilitado:false},
-        {id:'1006',nombre:'Pedro Martínez Sánchez',telefono:'9516667788',correo:'pedro.ms@email.com',empresa:'Zapatería Martínez',negocio:'Zapatería',calle:'Calle Libertad',colonia:'Centro',numero:'90',ciudad:'Tlalixtac de Cabrera',estado:'Oaxaca',cp:'68270',pais:'México',razonSocial:'Zapatería Martínez SC',rfc:'ZMS2003154D7',referenciaBancaria:'HSBC 5566778899',tipoCliente:'Empresarial',deshabilitado:false},
-        {id:'1007',nombre:'Gabriela Díaz Morales',telefono:'9512223344',correo:'gaby.diaz@yahoo.com',empresa:'Café Oaxaqueño',negocio:'Cafetería',calle:'García Vigil',colonia:'Centro',numero:'205',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68000',pais:'México',razonSocial:'',rfc:'',referenciaBancaria:'',tipoCliente:'Publico en general',deshabilitado:false},
-        {id:'1008',nombre:'Fernando Castillo Rivera',telefono:'9518889900',correo:'fcastillo@empresa.com',empresa:'Mueblería Don Fer',negocio:'Mueblería',calle:'Macedonio Alcalá',colonia:'Centro',numero:'302',ciudad:'San Bartolo Coyotepec',estado:'Oaxaca',cp:'71256',pais:'México',razonSocial:'Muebles Castillo SA de CV',rfc:'MCR1907203F2',referenciaBancaria:'Banamex 3344556677',tipoCliente:'Empresarial',deshabilitado:false},
-        {id:'1009',nombre:'Daniela Ríos Aguilar',telefono:'9514445566',correo:'dani.rios@gmail.com',empresa:'Farmacia San Gabriel',negocio:'Farmacia',calle:'Av. Juárez',colonia:'Centro',numero:'150',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68000',pais:'México',razonSocial:'Farmacia San Gabriel SA',rfc:'FSG2106012X8',referenciaBancaria:'BBVA 2233445566',tipoCliente:'Empresarial',deshabilitado:false},
-        {id:'1010',nombre:'Arturo Ramírez Luna',telefono:'9517771122',correo:'arturo.ramirez@email.com',empresa:'Imprenta Rápida',negocio:'Imprenta',calle:'Calle Reforma',colonia:'Reforma',numero:'45',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68050',pais:'México',razonSocial:'Imprenta Rápida SC',rfc:'IRA2002019L5',referenciaBancaria:'',tipoCliente:'Empresarial',deshabilitado:false},
-        {id:'1011',nombre:'Verónica Soto Fuentes',telefono:'9513339900',correo:'vero.soto@outlook.com',empresa:'',negocio:'Particular',calle:'Calle Morelos',colonia:'Jalatlaco',numero:'33',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68080',pais:'México',razonSocial:'',rfc:'',referenciaBancaria:'',tipoCliente:'Publico en general',deshabilitado:false},
-        {id:'1012',nombre:'Eventos El Llano SA',telefono:'9518001234',correo:'contacto@eventosllano.mx',empresa:'Eventos El Llano',negocio:'Organizadora de eventos',calle:'Calle Bustamante',colonia:'Centro',numero:'500',ciudad:'Oaxaca de Juárez',estado:'Oaxaca',cp:'68000',pais:'México',razonSocial:'Eventos El Llano SA de CV',rfc:'EEL1809254G1',referenciaBancaria:'Banorte 7788990011',tipoCliente:'Empresarial',deshabilitado:false}
-    ];
-
-    var DEMO_CLIENTES_QUICK = DEMO_CLIENTES.map(function(c) {
-        return {id:c.id, nombre:c.nombre, telefono:c.telefono, email:c.correo, negocio:c.negocio||c.empresa};
-    });
-
-    // ── 15 Productos: 3 de cada tipo (producto, fabricado, insumo, proceso, servicio) ──
-    var DEMO_PRODUCTOS = [
-        // ─── PRODUCTO (3) — stock directo ───
-        {id:'P001',codigo:'BB-001',nombre:'Bolsa Boutique Rosa Pastel',producto:'Bolsa Boutique Troquelada',categoria:'Bolsa Boutique Troquelada',tipo:'stock',naturaleza:'producto',medida:'MEDIANA (35x41)',material:'Couché 300g',minima:50,existencias:250,precioRevendedor:38,precioVenta:45,necesitaFabricacion:false,recetaInsumos:[],coloresSubproductos:[{color:'Rosa Pastel',existencias:120,foto:''},{color:'Azul Marino',existencias:80,foto:''},{color:'Verde Esmeralda',existencias:50,foto:''}]},
-        {id:'P002',codigo:'BK-001',nombre:'Bolsa Kraft Natural #3',producto:'Bolsas Kraft',categoria:'Bolsas Kraft',tipo:'stock',naturaleza:'producto',medida:'3 12.5x26.5+6.5',material:'Kraft 120g',minima:100,existencias:500,precioRevendedor:9,precioVenta:12,necesitaFabricacion:false,recetaInsumos:[],coloresSubproductos:[{color:'Natural',existencias:500,foto:''}]},
-        {id:'P003',codigo:'GF-LON-001',nombre:'Lona Front 13oz',producto:'Lona Front',categoria:'Lonas',tipo:'gran-formato',naturaleza:'producto',medida:'1x1 m',material:'Lona Front 13 oz',minima:1,existencias:18,precioRevendedor:120,precioVenta:165,gfCobroTipo:'m2',gfPrecioGeneralM2:165,gfPrecioRevM2:120,gfCostoM2:75,necesitaFabricacion:false,recetaInsumos:[]},
-
-        // ─── FABRICADO (3) — con recetas ligadas a insumos ───
-        {id:'P004',codigo:'FB-TP-001',nombre:'Tarjeta de Presentación 4x1',producto:'Tarjetas de Presentación',categoria:'Tarjetas',tipo:'stock',naturaleza:'fabricado',medida:'STD 9x5 horizontal',material:'Cartulina Sulfatada 300g',minima:100,existencias:0,precioRevendedor:280,precioVenta:350,necesitaFabricacion:true,recetaInsumos:[{insumoId:'INS-004',cantidad:0.15,desgaste:5},{insumoId:'INS-002',cantidad:0.02,desgaste:3}]},
-        {id:'P005',codigo:'FB-VL-001',nombre:'Volante Media Carta 4x1',producto:'Volantes',categoria:'Volantes',tipo:'stock',naturaleza:'fabricado',medida:'MEDIA CARTA 14x21.5',material:'Couché 150g',minima:100,existencias:0,precioRevendedor:650,precioVenta:800,necesitaFabricacion:true,recetaInsumos:[{insumoId:'INS-004',cantidad:0.25,desgaste:4},{insumoId:'INS-002',cantidad:0.03,desgaste:2},{insumoId:'INS-003',cantidad:0.01,desgaste:2}]},
-        {id:'P006',codigo:'FB-BE-001',nombre:'Bolsa Ecológica Personalizada',producto:'Bolsa Ecológica',categoria:'Bolsa Ecológica',tipo:'stock',naturaleza:'fabricado',medida:'30x40 cm',material:'Manta Cruda',minima:50,existencias:0,precioRevendedor:45,precioVenta:55,necesitaFabricacion:true,recetaInsumos:[{insumoId:'INS-006',cantidad:0.5,desgaste:8},{insumoId:'INS-002',cantidad:0.04,desgaste:5},{insumoId:'INS-005',cantidad:0.6,desgaste:3}]},
-
-        // ─── INSUMO (3) — materia prima para venta ───
-        {id:'P007',codigo:'INS-VTA-001',nombre:'Tinta Dorada (venta)',producto:'Tinta Serigráfica Dorada',categoria:'Tintas',tipo:'stock',naturaleza:'insumo',medida:'250 ml',material:'Tinta serigráfica',minima:10,existencias:35,precioRevendedor:180,precioVenta:250,necesitaFabricacion:false,recetaInsumos:[]},
-        {id:'P008',codigo:'INS-VTA-002',nombre:'Papel Transfer A4 (paq 100)',producto:'Papel Transfer',categoria:'Papelería',tipo:'stock',naturaleza:'insumo',medida:'Paquete 100 hojas',material:'Papel Transfer',minima:5,existencias:22,precioRevendedor:120,precioVenta:160,necesitaFabricacion:false,recetaInsumos:[]},
-        {id:'P009',codigo:'INS-VTA-003',nombre:'Rollo Vinil Textil 50cm',producto:'Vinil Textil',categoria:'Viniles',tipo:'stock',naturaleza:'insumo',medida:'50cm x 1m',material:'Vinil textil PU',minima:8,existencias:40,precioRevendedor:65,precioVenta:90,necesitaFabricacion:false,recetaInsumos:[]},
-
-        // ─── PROCESO (3) — servicios de producción ───
-        {id:'P010',codigo:'PRC-001',nombre:'Serigrafía 1 Tinta',producto:'Serigrafía',categoria:'Procesos',tipo:'stock',naturaleza:'proceso',medida:'Por impresión',material:'N/A',minima:50,existencias:0,precioRevendedor:3.5,precioVenta:5,necesitaFabricacion:false,recetaInsumos:[{insumoId:'INS-002',cantidad:0.005,desgaste:10}]},
-        {id:'P011',codigo:'PRC-002',nombre:'Troquelado por Pieza',producto:'Troquelado',categoria:'Procesos',tipo:'stock',naturaleza:'proceso',medida:'Por pieza',material:'N/A',minima:100,existencias:0,precioRevendedor:1.8,precioVenta:2.5,necesitaFabricacion:false,recetaInsumos:[]},
-        {id:'P012',codigo:'PRC-003',nombre:'Laminado Mate',producto:'Laminado',categoria:'Procesos',tipo:'stock',naturaleza:'proceso',medida:'Por pliego',material:'Film mate',minima:50,existencias:0,precioRevendedor:6,precioVenta:8.5,necesitaFabricacion:false,recetaInsumos:[{insumoId:'INS-008',cantidad:1,desgaste:5}]},
-
-        // ─── SERVICIO (3) — sin inventario ───
-        {id:'P013',codigo:'SRV-001',nombre:'Diseño Gráfico Profesional',producto:'Diseño Gráfico',categoria:'Servicios',tipo:'stock',naturaleza:'servicio',medida:'Por proyecto',material:'N/A',minima:0,existencias:0,precioRevendedor:800,precioVenta:1200,necesitaFabricacion:false,recetaInsumos:[]},
-        {id:'P014',codigo:'SRV-002',nombre:'Instalación de Lona/Vinil',producto:'Instalación',categoria:'Servicios',tipo:'stock',naturaleza:'servicio',medida:'Por m²',material:'N/A',minima:0,existencias:0,precioRevendedor:50,precioVenta:80,necesitaFabricacion:false,recetaInsumos:[]},
-        {id:'P015',codigo:'SRV-003',nombre:'Envío Foráneo',producto:'Envío Foráneo',categoria:'Servicios',tipo:'stock',naturaleza:'servicio',medida:'Por envío',material:'N/A',minima:0,existencias:0,precioRevendedor:0,precioVenta:250,necesitaFabricacion:false,recetaInsumos:[]}
-    ];
-
-    // ── 15 Pedidos: 12 ventas + 3 cotizaciones emitidas ──
-    var DEMO_PEDIDOS = [
-        // Producto
-        {id:'DP001',folio:'260401',clienteNombre:'María García López',clienteTelefono:'9511234567',clienteId:'1001',producto:'Bolsa Boutique Troquelada',medida:'MEDIANA (35x41)',color:'Rosa Pastel',cantidad:200,total:9000,anticipo:4500,resto:4500,inversion:5000,ganancia:4000,adeudoCliente:4500,fechaCreacion:fechaPasada(5),fechaEmitida:fechaPasada(5),fechaEntrega:fechaFutura(3),vendedor:'Admin',disenador:'DISEÑADOR 1',estado:'pendiente',estatusProduccion:'pendiente',tipo:'venta',formaPago:'TRANSFERENCIA',notas:'Urgente — evento fin de semana',notasProduccion:'',notasDisenador:'',lineas:[{producto:'Bolsa Boutique Troquelada',medida:'MEDIANA (35x41)',material:'Couché 300g',cantidad:200,precio:45}]},
-        {id:'DP002',folio:'260402',clienteNombre:'Carlos Mendoza Ruiz',clienteTelefono:'9519876543',clienteId:'1002',producto:'Bolsas Kraft',medida:'3 12.5x26.5+6.5',color:'Natural',cantidad:500,total:6000,anticipo:3000,resto:3000,inversion:3200,ganancia:2800,adeudoCliente:3000,fechaCreacion:fechaPasada(3),fechaEmitida:fechaPasada(3),fechaEntrega:fechaFutura(5),vendedor:'Admin',disenador:'',estado:'en_proceso',estatusProduccion:'en_proceso',tipo:'venta',formaPago:'EFECTIVO',notas:'Para nueva sucursal',notasProduccion:'',notasDisenador:'',lineas:[{producto:'Bolsas Kraft',medida:'3 12.5x26.5+6.5',material:'Kraft 120g',cantidad:500,precio:12}]},
-        {id:'DP003',folio:'260403',clienteNombre:'Ana Sofía Hernández',clienteTelefono:'9515551234',clienteId:'1003',producto:'Lona Front',medida:'3x1.5 m',color:'Full Color',cantidad:2,total:1485,anticipo:1485,resto:0,inversion:675,ganancia:810,adeudoCliente:0,fechaCreacion:fechaPasada(7),fechaEmitida:fechaPasada(7),fechaEntrega:fechaFutura(1),vendedor:'Admin',disenador:'DISEÑADOR 1',estado:'terminada',estatusProduccion:'terminada',tipo:'venta',formaPago:'TARJETA',notas:'',notasProduccion:'',notasDisenador:'',lineas:[{producto:'Lona Front',medida:'3x1.5 m',material:'Lona Front 13 oz',cantidad:2,precio:742.50}]},
-        // Fabricado
-        {id:'DP004',folio:'260404',clienteNombre:'Roberto Jiménez Torres',clienteTelefono:'9517778899',clienteId:'1004',producto:'Tarjetas de Presentación',medida:'STD 9x5 horizontal',color:'Full Color',cantidad:1000,total:5000,anticipo:2500,resto:2500,inversion:1800,ganancia:3200,adeudoCliente:2500,fechaCreacion:fechaPasada(2),fechaEmitida:fechaPasada(2),fechaEntrega:fechaFutura(7),vendedor:'Admin',disenador:'DISEÑADOR 1',estado:'pendiente',estatusProduccion:'pendiente',tipo:'venta',formaPago:'DEPOSITO',notas:'Incluir tarjetas extra de muestra',notasProduccion:'Cortar con guillotina, no troquel',notasDisenador:'Tipografía Montserrat Bold',lineas:[{producto:'Tarjetas de Presentación',medida:'STD 9x5 horizontal',material:'Cartulina Sulfatada 300g',cantidad:1000,precio:5}]},
-        {id:'DP005',folio:'260405',clienteNombre:'Luisa Fernanda Vega',clienteTelefono:'9513334455',clienteId:'1005',producto:'Volantes',medida:'MEDIA CARTA 14x21.5',color:'Full Color',cantidad:2000,total:3600,anticipo:1800,resto:1800,inversion:1600,ganancia:2000,adeudoCliente:1800,fechaCreacion:fechaPasada(1),fechaEmitida:fechaPasada(1),fechaEntrega:fechaFutura(4),vendedor:'Admin',disenador:'DISEÑADOR 1',estado:'pendiente',estatusProduccion:'pendiente',tipo:'venta',formaPago:'TRANSFERENCIA',notas:'Evento Día de Muertos',notasProduccion:'',notasDisenador:'Cliente envía arte por WhatsApp',lineas:[{producto:'Volantes',medida:'MEDIA CARTA 14x21.5',material:'Couché 150g',cantidad:2000,precio:1.80}]},
-        {id:'DP006',folio:'260406',clienteNombre:'Gabriela Díaz Morales',clienteTelefono:'9512223344',clienteId:'1007',producto:'Bolsa Ecológica',medida:'30x40 cm',color:'Natural',cantidad:100,total:5500,anticipo:5500,resto:0,inversion:2500,ganancia:3000,adeudoCliente:0,fechaCreacion:fechaPasada(4),fechaEmitida:fechaPasada(4),fechaEntrega:fechaFutura(6),vendedor:'Admin',disenador:'DISEÑADOR 1',estado:'en_proceso',estatusProduccion:'en_proceso',tipo:'venta',formaPago:'EFECTIVO',notas:'Bolsas personalizadas para café',notasProduccion:'Serigrafía a 1 tinta color marrón',notasDisenador:'Logo Café Oaxaqueño en marrón',lineas:[{producto:'Bolsa Ecológica',medida:'30x40 cm',material:'Manta Cruda',cantidad:100,precio:55}]},
-        // Insumo
-        {id:'DP007',folio:'260407',clienteNombre:'Pedro Martínez Sánchez',clienteTelefono:'9516667788',clienteId:'1006',producto:'Tinta Serigráfica Dorada',medida:'250 ml',color:'Dorado',cantidad:3,total:750,anticipo:750,resto:0,inversion:540,ganancia:210,adeudoCliente:0,fechaCreacion:fechaPasada(6),fechaEmitida:fechaPasada(6),fechaEntrega:fechaPasada(5),vendedor:'Admin',disenador:'',estado:'terminada',estatusProduccion:'terminada',tipo:'venta',formaPago:'EFECTIVO',notas:'',notasProduccion:'',notasDisenador:'',lineas:[{producto:'Tinta Serigráfica Dorada',medida:'250 ml',material:'Tinta serigráfica',cantidad:3,precio:250}]},
-        {id:'DP008',folio:'260408',clienteNombre:'Daniela Ríos Aguilar',clienteTelefono:'9514445566',clienteId:'1009',producto:'Vinil Textil',medida:'50cm x 1m',color:'Varios',cantidad:5,total:450,anticipo:450,resto:0,inversion:325,ganancia:125,adeudoCliente:0,fechaCreacion:fechaPasada(1),fechaEmitida:fechaPasada(1),fechaEntrega:HOY,vendedor:'Admin',disenador:'',estado:'terminada',estatusProduccion:'terminada',tipo:'venta',formaPago:'EFECTIVO',notas:'5 rollos para sublimación textil',notasProduccion:'',notasDisenador:'',lineas:[{producto:'Vinil Textil',medida:'50cm x 1m',material:'Vinil textil PU',cantidad:5,precio:90}]},
-        // Proceso
-        {id:'DP009',folio:'260409',clienteNombre:'Fernando Castillo Rivera',clienteTelefono:'9518889900',clienteId:'1008',producto:'Serigrafía',medida:'Por impresión',color:'Dorado',cantidad:500,total:2500,anticipo:1250,resto:1250,inversion:800,ganancia:1700,adeudoCliente:1250,fechaCreacion:fechaPasada(1),fechaEmitida:fechaPasada(1),fechaEntrega:fechaFutura(3),vendedor:'Admin',disenador:'',estado:'pendiente',estatusProduccion:'pendiente',tipo:'venta',formaPago:'DEPOSITO',notas:'Impresión en bolsas mueblería',notasProduccion:'Usar marco serigráfico nuevo',notasDisenador:'',lineas:[{producto:'Serigrafía',medida:'Por impresión',material:'N/A',cantidad:500,precio:5}]},
-        {id:'DP010',folio:'260410',clienteNombre:'Arturo Ramírez Luna',clienteTelefono:'9517771122',clienteId:'1010',producto:'Laminado Mate +1',medida:'Por pliego',color:'',cantidad:200,total:2100,anticipo:1050,resto:1050,inversion:700,ganancia:1400,adeudoCliente:1050,fechaCreacion:fechaPasada(2),fechaEmitida:fechaPasada(2),fechaEntrega:fechaFutura(2),vendedor:'Admin',disenador:'',estado:'en_proceso',estatusProduccion:'en_proceso',tipo:'venta',formaPago:'TRANSFERENCIA',notas:'Laminado + troquelado para tarjetas',notasProduccion:'',notasDisenador:'',lineas:[{producto:'Laminado Mate',medida:'Por pliego',material:'Film mate',cantidad:200,precio:8.50},{producto:'Troquelado por Pieza',medida:'Por pieza',material:'N/A',cantidad:200,precio:2.50}]},
-        // Servicio
-        {id:'DP011',folio:'260411',clienteNombre:'Eventos El Llano SA',clienteTelefono:'9518001234',clienteId:'1012',producto:'Diseño Gráfico',medida:'Por proyecto',color:'',cantidad:1,total:3600,anticipo:1800,resto:1800,inversion:0,ganancia:3600,adeudoCliente:1800,fechaCreacion:fechaPasada(3),fechaEmitida:fechaPasada(3),fechaEntrega:fechaFutura(8),vendedor:'Admin',disenador:'DISEÑADOR 1',estado:'en_proceso',estatusProduccion:'en_proceso',tipo:'venta',formaPago:'TRANSFERENCIA',notas:'Diseño integral imagen corporativa evento',notasProduccion:'',notasDisenador:'Logo, tarjetas, membrete, redes sociales',lineas:[{producto:'Diseño Gráfico',medida:'Por proyecto',material:'N/A',cantidad:1,precio:3600}]},
-        {id:'DP012',folio:'260412',clienteNombre:'Verónica Soto Fuentes',clienteTelefono:'9513339900',clienteId:'1011',producto:'Instalación',medida:'6 m²',color:'',cantidad:6,total:480,anticipo:480,resto:0,inversion:200,ganancia:280,adeudoCliente:0,fechaCreacion:fechaPasada(2),fechaEmitida:fechaPasada(2),fechaEntrega:HOY,vendedor:'Admin',disenador:'',estado:'terminada',estatusProduccion:'terminada',tipo:'venta',formaPago:'EFECTIVO',notas:'Instalación vinil en local',notasProduccion:'',notasDisenador:'',lineas:[{producto:'Instalación de Lona/Vinil',medida:'Por m²',material:'N/A',cantidad:6,precio:80}]},
-        // ── Cotizaciones emitidas (no concretadas) ──
-        {id:'DP013',folio:'260413',clienteNombre:'Verónica Soto Fuentes',clienteTelefono:'9513339900',clienteId:'1011',producto:'Bolsa Boutique Troquelada',medida:'MEDIANA (35x41)',color:'Rosa Pastel',cantidad:300,total:13500,anticipo:0,resto:13500,inversion:7500,ganancia:6000,adeudoCliente:13500,fechaCreacion:fechaPasada(4),fechaEmitida:fechaPasada(4),fechaEntrega:'',vendedor:'Admin',disenador:'',estado:'cotizacion',estatusProduccion:'',tipo:'cotizacion',formaPago:'',notas:'Pidió cotización para evento — no ha confirmado',notasProduccion:'',notasDisenador:'',lineas:[{producto:'Bolsa Boutique Troquelada',medida:'MEDIANA (35x41)',material:'Couché 300g',cantidad:300,precio:45}]},
-        {id:'DP014',folio:'260414',clienteNombre:'Arturo Ramírez Luna',clienteTelefono:'9517771122',clienteId:'1010',producto:'Tarjetas de Presentación +1',medida:'STD 9x5 horizontal',color:'Full Color',cantidad:2000,total:12600,anticipo:0,resto:12600,inversion:5000,ganancia:7600,adeudoCliente:12600,fechaCreacion:fechaPasada(2),fechaEmitida:fechaPasada(2),fechaEntrega:'',vendedor:'Admin',disenador:'DISEÑADOR 2',estado:'cotizacion',estatusProduccion:'',tipo:'cotizacion',formaPago:'',notas:'Cotización para Imprenta Rápida — incluye volantes',notasProduccion:'',notasDisenador:'',lineas:[{producto:'Tarjetas de Presentación',medida:'STD 9x5 horizontal',material:'Cartulina Sulfatada 300g',cantidad:2000,precio:4.5},{producto:'Volantes',medida:'MEDIA CARTA 14x21.5',material:'Couché 150g',cantidad:1000,precio:3.60}]},
-        {id:'DP015',folio:'260415',clienteNombre:'Gabriela Díaz Morales',clienteTelefono:'9512223344',clienteId:'1007',producto:'Bolsa Ecológica +2',medida:'30x40 cm',color:'Natural',cantidad:200,total:14600,anticipo:0,resto:14600,inversion:6000,ganancia:8600,adeudoCliente:14600,fechaCreacion:fechaPasada(1),fechaEmitida:fechaPasada(1),fechaEntrega:'',vendedor:'Admin',disenador:'DISEÑADOR 1',estado:'cotizacion',estatusProduccion:'',tipo:'cotizacion',formaPago:'',notas:'Propuesta para Café Oaxaqueño — menús y bolsas',notasProduccion:'',notasDisenador:'Diseñar menú con fotos',lineas:[{producto:'Bolsa Ecológica',medida:'30x40 cm',material:'Manta Cruda',cantidad:200,precio:55},{producto:'Diseño Gráfico',medida:'Por proyecto',material:'N/A',cantidad:1,precio:1200},{producto:'Laminado Mate',medida:'Por pliego',material:'Film mate',cantidad:300,precio:8.50}]}
-    ];
-
-    // ── Movimientos de stock ──
-    var DEMO_MOVIMIENTOS_STOCK = [
-        {id:'MS001',productoId:'P001',tipo:'entrada',cantidad:100,fecha:fechaPasada(10),nota:'Restock inicial bolsas boutique'},
-        {id:'MS002',productoId:'P002',tipo:'salida',cantidad:50,fecha:fechaPasada(5),nota:'Venta Carlos Mendoza'},
-        {id:'MS003',productoId:'P003',tipo:'entrada',cantidad:10,fecha:fechaPasada(4),nota:'Impresión lonas stock'},
-        {id:'MS004',productoId:'P001',tipo:'salida',cantidad:30,fecha:fechaPasada(1),nota:'Venta Ana Hernández'},
-        {id:'MS005',productoId:'P007',tipo:'entrada',cantidad:20,fecha:fechaPasada(8),nota:'Tinta dorada para reventa'},
-        {id:'MS006',productoId:'P009',tipo:'salida',cantidad:5,fecha:fechaPasada(1),nota:'Venta vinil textil Verónica S.'},
-        {id:'MS007',productoId:'P008',tipo:'entrada',cantidad:10,fecha:fechaPasada(5),nota:'Papel transfer de proveedor'}
-    ];
-
-    // ── 14 Movimientos de caja — todos los métodos de pago ──
-    var DEMO_CAJA_MOVS = [
-        {id:'CM001',tipo:'ingreso',monto:4500,concepto:'Anticipo Orden 260401 — María García (Bolsas Boutique)',fecha:fechaPasada(5),formaPago:'TRANSFERENCIA',folio:'260401'},
-        {id:'CM002',tipo:'ingreso',monto:3000,concepto:'Anticipo Orden 260402 — Carlos Mendoza (Kraft)',fecha:fechaPasada(3),formaPago:'EFECTIVO',folio:'260402'},
-        {id:'CM003',tipo:'ingreso',monto:1485,concepto:'Pago total Orden 260403 — Ana Sofía (Lona)',fecha:fechaPasada(7),formaPago:'TARJETA',folio:'260403'},
-        {id:'CM004',tipo:'egreso',monto:1200,concepto:'Compra de tintas — Proveedor Tintas MX',fecha:fechaPasada(2),formaPago:'TRANSFERENCIA',folio:''},
-        {id:'CM005',tipo:'ingreso',monto:2500,concepto:'Anticipo Orden 260404 — Roberto Jiménez (Tarjetas)',fecha:fechaPasada(2),formaPago:'DEPOSITO',folio:'260404'},
-        {id:'CM006',tipo:'ingreso',monto:5500,concepto:'Pago total Orden 260406 — Gabriela Díaz (Ecológicas)',fecha:fechaPasada(4),formaPago:'EFECTIVO',folio:'260406'},
-        {id:'CM007',tipo:'egreso',monto:800,concepto:'Compra papel kraft — Papelera del Sur',fecha:fechaPasada(1),formaPago:'EFECTIVO',folio:''},
-        {id:'CM008',tipo:'ingreso',monto:750,concepto:'Pago total Orden 260407 — Pedro Martínez (Tinta)',fecha:fechaPasada(6),formaPago:'EFECTIVO',folio:'260407'},
-        {id:'CM009',tipo:'ingreso',monto:450,concepto:'Pago total Orden 260408 — Daniela Ríos (Vinil Textil)',fecha:fechaPasada(1),formaPago:'EFECTIVO',folio:'260408'},
-        {id:'CM010',tipo:'ingreso',monto:1250,concepto:'Anticipo Orden 260409 — Fernando Castillo (Serigrafía)',fecha:fechaPasada(1),formaPago:'DEPOSITO',folio:'260409'},
-        {id:'CM011',tipo:'ingreso',monto:1050,concepto:'Anticipo Orden 260410 — Arturo Ramírez (Laminado)',fecha:fechaPasada(2),formaPago:'TRANSFERENCIA',folio:'260410'},
-        {id:'CM012',tipo:'ingreso',monto:1800,concepto:'Anticipo Orden 260411 — Eventos El Llano (Diseño)',fecha:fechaPasada(3),formaPago:'TRANSFERENCIA',folio:'260411'},
-        {id:'CM013',tipo:'ingreso',monto:480,concepto:'Pago total Orden 260412 — Verónica Soto (Instalación)',fecha:fechaPasada(2),formaPago:'EFECTIVO',folio:'260412'},
-        {id:'CM014',tipo:'egreso',monto:3500,concepto:'Compra vinil y papel — Insumos Gráficos MX',fecha:fechaPasada(4),formaPago:'TRANSFERENCIA',folio:''}
-    ];
-
-    // ── Calendario con eventos de todos los tipos ──
-    var DEMO_CALENDARIO = {};
-    DEMO_CALENDARIO[HOY] = [{id:'CA00',texto:'Entregar vinil textil — Daniela Ríos',tipo:'entrega',hora:'10:00'},{id:'CA00b',texto:'Instalación vinil — Verónica Soto',tipo:'produccion',hora:'14:00'}];
-    DEMO_CALENDARIO[fechaFutura(1)] = [{id:'CA01',texto:'Entrega lona Ana Sofía — 2 piezas',tipo:'entrega',hora:'10:00'}];
-    DEMO_CALENDARIO[fechaFutura(2)] = [{id:'CA02b',texto:'Entrega laminado Arturo Ramírez',tipo:'entrega',hora:'11:00'}];
-    DEMO_CALENDARIO[fechaFutura(3)] = [{id:'CA02',texto:'Entrega María García — 200 bolsas boutique',tipo:'entrega',hora:'14:00'},{id:'CA03',texto:'Entrega serigrafía Fernando Castillo',tipo:'entrega',hora:'09:00'}];
-    DEMO_CALENDARIO[fechaFutura(4)] = [{id:'CA04b',texto:'Entrega volantes Luisa — 2000 uds',tipo:'entrega',hora:'12:00'}];
-    DEMO_CALENDARIO[fechaFutura(5)] = [{id:'CA04',texto:'Entrega Carlos Mendoza — 500 kraft',tipo:'entrega',hora:'11:00'}];
-    DEMO_CALENDARIO[fechaFutura(6)] = [{id:'CA06b',texto:'Entrega bolsas ecológicas Gabriela',tipo:'entrega',hora:'10:00'}];
-    DEMO_CALENDARIO[fechaFutura(7)] = [{id:'CA05',texto:'Entrega tarjetas Roberto Jiménez',tipo:'entrega',hora:'16:00'}];
-    DEMO_CALENDARIO[fechaFutura(8)] = [{id:'CA06c',texto:'Entrega diseño corporativo Eventos El Llano',tipo:'diseno',hora:'10:00'}];
-
-    // ── 5 Proveedores ──
-    var DEMO_PROVEEDORES = [
-        {id:'PRV-001',nombre:'Papelera del Centro',empresa:'Papelera del Centro SA',telefono:'9511008899',correo:'ventas@papeleracentro.mx',creditoDias:30,saldoPendiente:18500,notas:'Entrega martes y viernes'},
-        {id:'PRV-002',nombre:'Insumos Gráficos MX',empresa:'Insumos Gráficos MX SA',telefono:'9512234455',correo:'contacto@insumosgraficos.mx',creditoDias:15,saldoPendiente:9200,notas:'Tinta, vinil y materiales de impresión'},
-        {id:'PRV-003',nombre:'Papelera del Sur',empresa:'Papelera del Sur SA',telefono:'9514443322',correo:'ventas@papeleradelsur.com',creditoDias:30,saldoPendiente:5800,notas:'Papel kraft y cartulina. Entrega 3-5 días'},
-        {id:'PRV-004',nombre:'Tintas MX Oaxaca',empresa:'Tintas MX SA de CV',telefono:'9516665544',correo:'oaxaca@tintasmx.com',creditoDias:7,saldoPendiente:3200,notas:'Tintas serigráficas, solventes. Mínimo $500'},
-        {id:'PRV-005',nombre:'Distribuidora de Plásticos',empresa:'Distribuidora de Plásticos SA',telefono:'9518887766',correo:'dist.plasticos@gmail.com',creditoDias:15,saldoPendiente:1500,notas:'Bolsas, película stretch, cinta'}
-    ];
-
-    // ── 10 Insumos completos con estructura del módulo ──
-    var DEMO_INSUMOS = [
-        {id:'INS-001',nombre:'Tinta Serigráfica Negra',categoria:'Tintas',unidad:'Litro',unidadCompra:'Galón',factorCompraBase:3.785,unidadVenta:'Litro',factorVentaBase:1,ventaPublica:false,precioVentaPublico:0,contabilizarDesgaste:true,unidadDesgaste:'Impresiones',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:8,minimo:3,costoUnitario:320,foto:'',notas:'Uso diario — proveedor PRV-004'},
-        {id:'INS-002',nombre:'Tinta Serigráfica Dorada',categoria:'Tintas',unidad:'Litro',unidadCompra:'Galón',factorCompraBase:3.785,unidadVenta:'Litro',factorVentaBase:1,ventaPublica:false,precioVentaPublico:0,contabilizarDesgaste:true,unidadDesgaste:'Impresiones',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:12,minimo:4,costoUnitario:380,foto:'',notas:'Para serigrafía en bolsas'},
-        {id:'INS-003',nombre:'Tinta Serigráfica Blanca',categoria:'Tintas',unidad:'Litro',unidadCompra:'Galón',factorCompraBase:3.785,unidadVenta:'Litro',factorVentaBase:1,ventaPublica:false,precioVentaPublico:0,contabilizarDesgaste:true,unidadDesgaste:'Impresiones',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:6,minimo:3,costoUnitario:350,foto:'',notas:'Tinta base para fondos'},
-        {id:'INS-004',nombre:'Papel Couché 150g',categoria:'Papel',unidad:'Kilogramo',unidadCompra:'Paquete',factorCompraBase:25,unidadVenta:'Kilogramo',factorVentaBase:1,ventaPublica:false,precioVentaPublico:0,contabilizarDesgaste:false,unidadDesgaste:'',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:40,minimo:10,costoUnitario:65,foto:'',notas:'Para tarjetas y volantes'},
-        {id:'INS-005',nombre:'Cuerda de Algodón',categoria:'Accesorios',unidad:'Metro',unidadCompra:'Rollo',factorCompraBase:200,unidadVenta:'Metro',factorVentaBase:1,ventaPublica:true,precioVentaPublico:12,contabilizarDesgaste:false,unidadDesgaste:'',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:200,minimo:50,costoUnitario:8,foto:'',notas:'Para bolsas ecológicas'},
-        {id:'INS-006',nombre:'Manta Cruda',categoria:'Textiles',unidad:'Metro',unidadCompra:'Rollo',factorCompraBase:50,unidadVenta:'Metro',factorVentaBase:1,ventaPublica:false,precioVentaPublico:0,contabilizarDesgaste:true,unidadDesgaste:'Piezas cortadas',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:35,minimo:10,costoUnitario:45,foto:'',notas:'Para bolsas ecológicas personalizadas'},
-        {id:'INS-007',nombre:'Papel Kraft Natural 120g',categoria:'Papel',unidad:'Kilogramo',unidadCompra:'Bobina',factorCompraBase:100,unidadVenta:'Kilogramo',factorVentaBase:1,ventaPublica:false,precioVentaPublico:0,contabilizarDesgaste:false,unidadDesgaste:'',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:85,minimo:20,costoUnitario:38,foto:'',notas:'Materia prima bolsas kraft'},
-        {id:'INS-008',nombre:'Film Laminado Mate',categoria:'Acabados',unidad:'Metro',unidadCompra:'Rollo',factorCompraBase:100,unidadVenta:'Metro',factorVentaBase:1,ventaPublica:false,precioVentaPublico:0,contabilizarDesgaste:true,unidadDesgaste:'Pliegos',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:60,minimo:15,costoUnitario:25,foto:'',notas:'Para laminado mate de tarjetas y volantes'},
-        {id:'INS-009',nombre:'Emulsión Fotosensible',categoria:'Serigrafía',unidad:'Litro',unidadCompra:'Bote',factorCompraBase:1,unidadVenta:'Litro',factorVentaBase:1,ventaPublica:false,precioVentaPublico:0,contabilizarDesgaste:true,unidadDesgaste:'Marcos',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:3,minimo:2,costoUnitario:450,foto:'',notas:'Para preparación de marcos serigráficos'},
-        {id:'INS-010',nombre:'Cartulina Sulfatada 300g',categoria:'Papel',unidad:'Pliego',unidadCompra:'Paquete',factorCompraBase:100,unidadVenta:'Pliego',factorVentaBase:1,ventaPublica:false,precioVentaPublico:0,contabilizarDesgaste:false,unidadDesgaste:'',desgasteCicloActual:0,desgastePromedio:0,ciclosDesgaste:0,existencias:150,minimo:30,costoUnitario:12,foto:'',notas:'Base para tarjetas de presentación'}
-    ];
-
-    // ── Firestore: 7 Órdenes de Producción ──
-    var DEMO_PRODUCCION = [
-        {folio:'260401',cliente:'María García López',telefono:'9511234567',clienteId:'1001',fechaCreacion:fechaPasada(4),fechaEntrega:fechaFutura(3),producto:'Bolsa Boutique Troquelada',color:'Rosa Pastel',cantidad:'200',detalleProducto:'MEDIANA (35x41)',notas:'Urgente — evento fin de semana',disenoUrl:'',estado:'en_proceso',inicioTrabajoEn:null},
-        {folio:'260402',cliente:'Carlos Mendoza Ruiz',telefono:'9519876543',clienteId:'1002',fechaCreacion:fechaPasada(3),fechaEntrega:fechaFutura(5),producto:'Bolsas Kraft',color:'Natural',cantidad:'500',detalleProducto:'3 12.5x26.5+6.5',notas:'Para nueva sucursal',disenoUrl:'',estado:'pendiente',inicioTrabajoEn:null},
-        {folio:'260404',cliente:'Roberto Jiménez Torres',telefono:'9517778899',clienteId:'1004',fechaCreacion:fechaPasada(2),fechaEntrega:fechaFutura(7),producto:'Tarjetas de Presentación',color:'Full Color',cantidad:'1000',detalleProducto:'STD 9x5 — 4x1',notas:'Incluir extras de muestra',disenoUrl:'',estado:'pendiente',inicioTrabajoEn:null},
-        {folio:'260406',cliente:'Gabriela Díaz Morales',telefono:'9512223344',clienteId:'1007',fechaCreacion:fechaPasada(4),fechaEntrega:fechaFutura(6),producto:'Bolsa Ecológica',color:'Natural',cantidad:'100',detalleProducto:'30x40 cm — personalizada',notas:'Bolsas para Café Oaxaqueño',disenoUrl:'',estado:'en_proceso',inicioTrabajoEn:null},
-        {folio:'260409',cliente:'Fernando Castillo Rivera',telefono:'9518889900',clienteId:'1008',fechaCreacion:fechaPasada(1),fechaEntrega:fechaFutura(3),producto:'Serigrafía',color:'Dorado',cantidad:'500',detalleProducto:'Impresión 1 tinta en bolsas',notas:'Serigrafía bolsas mueblería',disenoUrl:'',estado:'pendiente',inicioTrabajoEn:null},
-        {folio:'260410',cliente:'Arturo Ramírez Luna',telefono:'9517771122',clienteId:'1010',fechaCreacion:fechaPasada(2),fechaEntrega:fechaFutura(2),producto:'Laminado Mate + Troquelado',color:'',cantidad:'200',detalleProducto:'Laminado + troquelado para tarjetas',notas:'',disenoUrl:'',estado:'en_proceso',inicioTrabajoEn:null},
-        {folio:'260403',cliente:'Ana Sofía Hernández',telefono:'9515551234',clienteId:'1003',fechaCreacion:fechaPasada(7),fechaEntrega:fechaFutura(1),producto:'Lona Front',color:'Full Color',cantidad:'2',detalleProducto:'3x1.5 m — impresión digital',notas:'',disenoUrl:'',estado:'terminada',inicioTrabajoEn:null}
-    ];
-
-    // ── Firestore: 4 Órdenes de Diseño ──
-    var DEMO_DISENO = [
-        {folio:'260405',cliente:'Luisa Fernanda Vega',telefono:'9513334455',clienteId:'1005',producto:'Volantes',color:'Full Color',cantidad:'2000',detalleProducto:'MEDIA CARTA 14x21.5 — 4x1',fechaEntrega:fechaFutura(4),disenador:'DISEÑADOR 1',notasProduccion:'',notasDisenador:'Cliente envía arte por WhatsApp',disenoUrl:'',estado:'pendiente',total:3600,muestrarioAsignado:'Volantes'},
-        {folio:'260406b',cliente:'Gabriela Díaz Morales',telefono:'9512223344',clienteId:'1007',producto:'Bolsa Ecológica',color:'Natural con serigrafía',cantidad:'100',detalleProducto:'30x40 cm',fechaEntrega:fechaFutura(6),disenador:'DISEÑADOR 1',notasProduccion:'',notasDisenador:'Logo "Café Oaxaqueño" en marrón',disenoUrl:'',estado:'en_proceso',total:5500,muestrarioAsignado:''},
-        {folio:'260411',cliente:'Eventos El Llano SA',telefono:'9518001234',clienteId:'1012',producto:'Diseño Gráfico',color:'',cantidad:'1',detalleProducto:'Identidad corporativa completa',fechaEntrega:fechaFutura(8),disenador:'DISEÑADOR 1',notasProduccion:'',notasDisenador:'Logo, tarjetas, membrete, redes sociales',disenoUrl:'',estado:'en_proceso',total:3600,muestrarioAsignado:''},
-        {folio:'260409b',cliente:'Fernando Castillo Rivera',telefono:'9518889900',clienteId:'1008',producto:'Serigrafía',color:'Dorado',cantidad:'500',detalleProducto:'Diseño logo mueblería en 1 tinta',fechaEntrega:fechaFutura(3),disenador:'',notasProduccion:'Marco serigráfico nuevo',notasDisenador:'El cliente trae logo en JPG',disenoUrl:'',estado:'pendiente',total:2500,muestrarioAsignado:''}
-    ];
-
-    // ── Firestore: 2 Almacén de Pedidos ──
-    var DEMO_ALMACEN = [
-        {folioProduccion:'260403',produccionDocId:'',cliente:'Ana Sofía Hernández',clienteId:'1003',producto:'Lona Front',cantidad:'2',detalleProducto:'3x1.5 m',color:'Full Color',fechaEntrega:fechaFutura(1),disenoUrl:'',estado:'almacenado',envioDecidido:false},
-        {folioProduccion:'260412',produccionDocId:'',cliente:'Verónica Soto Fuentes',clienteId:'1011',producto:'Instalación de Lona/Vinil',cantidad:'6 m²',detalleProducto:'Vinil local comercial',color:'',fechaEntrega:HOY,disenoUrl:'',estado:'entregado_local',envioDecidido:true}
-    ];
-
-    // ── Firestore: 4 Entregas con coordenadas reales de Oaxaca ──
-    var DEMO_ENTREGAS = [
-        {folioProduccion:'260398',produccionDocId:'',cliente:'Fernando Castillo Rivera',telefono:'9518889900',clienteId:'1008',producto:'Bolsa Boutique Troquelada',cantidad:'80',detalleProducto:'CHICA (28x35)',fechaEntrega:HOY,disenoUrl:'',correo:'fcastillo@empresa.com',tipoDireccion:'negocio',direccion:'Calle Macedonio Alcalá 302, Centro, Oaxaca de Juárez',lat:17.0621,lng:-96.7251,estado:'pendiente',notas:'Preguntar por Don Fernando en la mueblería',adeudo:1200,total:2800},
-        {folioProduccion:'260397',produccionDocId:'',cliente:'María García López',telefono:'9511234567',clienteId:'1001',producto:'Bolsas Kraft',cantidad:'200',detalleProducto:'3 12.5x26.5+6.5',fechaEntrega:fechaPasada(1),disenoUrl:'',correo:'maria.garcia@email.com',tipoDireccion:'negocio',direccion:'Av. Universidad 123, Reforma, Oaxaca de Juárez',lat:17.0735,lng:-96.7295,estado:'en_camino',notas:'Llamar antes de llegar',adeudo:3000,total:6000},
-        {folioProduccion:'260395',produccionDocId:'',cliente:'Gabriela Díaz Morales',telefono:'9512223344',clienteId:'1007',producto:'Bolsa Ecológica',cantidad:'50',detalleProducto:'30x40 cm',fechaEntrega:fechaPasada(3),disenoUrl:'',correo:'gaby.diaz@yahoo.com',tipoDireccion:'negocio',direccion:'Calle García Vigil 205, Centro, Oaxaca de Juárez',lat:17.0655,lng:-96.7220,estado:'entregada',notas:'',adeudo:0,total:2750},
-        {folioProduccion:'260409',produccionDocId:'',cliente:'Fernando Castillo Rivera',telefono:'9518889900',clienteId:'1008',producto:'Serigrafía',cantidad:'500',detalleProducto:'Impresión bolsas mueblería',fechaEntrega:fechaFutura(3),disenoUrl:'',correo:'fcastillo@empresa.com',tipoDireccion:'negocio',direccion:'Calle Macedonio Alcalá 302, Centro, Oaxaca de Juárez',lat:17.0621,lng:-96.7251,estado:'pendiente',notas:'Cobrar adeudo de $1,250',adeudo:1250,total:2500}
-    ];
-
-    // ── Firestore: 3 Entregas Temporales ──
-    var DEMO_TEMP_ENTREGAS = [
-        {cliente:'Juan Ramírez (temporal)',orden:'260499',adeudo:'1,250.00',fecha:HOY,mapsLink:'',lat:17.0669,lng:-96.7232,notas:'Entregar en mostrador — pregunta por Sandra',estado:'pendiente',temporal:true},
-        {cliente:'Sra. López (regalo)',orden:'260500',adeudo:'0',fecha:fechaFutura(1),mapsLink:'',lat:17.0580,lng:-96.7180,notas:'Bolsas de regalo — ya pagadas',estado:'pendiente',temporal:true},
-        {cliente:'Taller Don Miguel',orden:'260501',adeudo:'850.00',fecha:HOY,mapsLink:'',lat:17.0750,lng:-96.7310,notas:'Cobrar adeudo de lonas anteriores',estado:'en_camino',temporal:true}
-    ];
-
-    // ── Configuración de Unidades de Medida ──
-    var DEMO_UNIDADES_MEDIDA = {
-        grupos: [
-            {nombre:'Piezas',baseIndex:0,unidades:[{nombre:'Pieza',abrev:'pza',factor:1},{nombre:'Docena',abrev:'doc',factor:12},{nombre:'Ciento',abrev:'cto',factor:100},{nombre:'Millar',abrev:'mll',factor:1000},{nombre:'Medio millar',abrev:'½mll',factor:500}]},
-            {nombre:'Peso',baseIndex:0,unidades:[{nombre:'Kilogramo',abrev:'kg',factor:1},{nombre:'Gramo',abrev:'g',factor:0.001},{nombre:'Libra',abrev:'lb',factor:0.4536}]},
-            {nombre:'Longitud',baseIndex:0,unidades:[{nombre:'Metro',abrev:'m',factor:1},{nombre:'Centímetro',abrev:'cm',factor:0.01},{nombre:'Milímetro',abrev:'mm',factor:0.001},{nombre:'Pulgada',abrev:'in',factor:0.0254}]},
-            {nombre:'Área',baseIndex:0,unidades:[{nombre:'Metro cuadrado',abrev:'m²',factor:1},{nombre:'Centímetro cuadrado',abrev:'cm²',factor:0.0001},{nombre:'Pie cuadrado',abrev:'ft²',factor:0.0929}]},
-            {nombre:'Volumen',baseIndex:0,unidades:[{nombre:'Litro',abrev:'L',factor:1},{nombre:'Mililitro',abrev:'mL',factor:0.001},{nombre:'Galón',abrev:'gal',factor:3.785}]}
-        ]
-    };
-
-    // ── Config del sistema completa ──
-    var DEMO_CONFIG = {
-        caja:{nombre:'Caja Maquileros VP',id:'CAJA-01',moneda:'MXN',corteAutomatico:'manual',bancoReceptor:'BBVA México',cuentasBeneficiario:['BBVA - 0123456789','Banorte - 9876543210'],disenadores:['DISEÑADOR 1','DISEÑADOR 2'],fondoMinimo:500,fuentePredeterminada:'EFECTIVO',metodosActivos:['EFECTIVO','TARJETA','TRANSFERENCIA','DEPOSITO'],permitirIngresoManual:true,permitirGastos:true},
-        clientes:{categoriaPorDefecto:'Empresarial',creditoMaximo:50000,alertaBajaExistencia:5000,aceptarOrdenesSinCliente:true},
-        productos:{unidadPorDefecto:'pza',margenPorDefecto:30,alertaBajaExistencia:10,actualizarPreciosAutomatico:true},
-        proveedores:{diasCredito:30,monedaPorDefecto:'MXN',alertaSaldoPendiente:10000,aceptarSinEntre:false},
-        insumos:{unidadPorDefecto:'pza',stockMinimoAlerta:50,aceptarComprasConStock:false,mostrarCostoProduccion:true},
-        almacen:{pasillos:5,racks:10,niveles:5,contenedores:4,stockMinimoAlerta:20,aceptarStockNegativo:false,overstockAlerta:true},
-        reportes:{rangoPorDefecto:30,formatoMoneda:'MXN',mostrarGraficos:true,actualizarKpisAutomatico:true},
-        promociones:{lista:['BIENVENIDA10|porcentaje|10','PROMO50|monto|50','BLACKFRIDAY|porcentaje|20']},
-        permisos:{descuentoUsuarios:['admin','vendedor']},
-        reparto:{sucursalLat:'17.0669831',sucursalLng:'-96.7232039',sucursalNombre:'Maquileros VP Centro',sucursalMaps:'',rutaEficiente:true,soloVentasAdmin:true}
-    };
-
-    // ── Muestrario config por producto ──
-    var DEMO_MUESTRARIO_CONFIG = {
-        'Bolsa Boutique Troquelada': 'Bolsas Boutique',
-        'Bolsas Kraft': 'Bolsas Kraft',
-        'Bolsas Kraft Blancas': 'Bolsas Kraft',
-        'Tarjetas de Presentación': 'Tarjetas',
-        'Volantes': 'Volantes',
-        'Bolsa Ecológica': 'Bolsas Ecológicas',
-        'Lona Front': 'Gran Formato',
-        'Vinil Adhesivo': 'Gran Formato'
-    };
-
-    // ── localStorage keys ──
-    var LS_KEYS = {
-        clientes: 'mock_clientes_modulo_v1',
-        clientesQuick: 'mock_clientes_quick_v1',
-        pedidos: 'mock_mis_pedidos_v1',
-        productos: 'mock_productos_v1',
-        movStock: 'mock_movimientos_stock_v1',
-        cajaMov: 'mock_caja_movs_v1',
-        calendario: 'mock_calendario_alertas_v1',
-        proveedores: 'mock_proveedores_modulo_v1',
-        insumos: 'mock_insumos_modulo_v1',
-        config: 'mock_config_system_v1'
-    };
-
-    var FS_COLLECTIONS = ['production_orders','design_orders','stored_orders','delivery_orders','temp_delivery_orders'];
-
-    // ── Helper: get Firestore ──
-    function getDB() { return window.firebase ? window.firebase.firestore() : null; }
-
-    // ── ACTIVAR DEMO ──
-    function activarDemo(cb) {
-        status.textContent = '⏳ Cargando datos ficticios...';
-        status.className = 'demo-status';
-
-        // 1. Guardar en localStorage
-        localStorage.setItem(LS_KEYS.clientes, JSON.stringify(DEMO_CLIENTES));
-        localStorage.setItem(LS_KEYS.clientesQuick, JSON.stringify(DEMO_CLIENTES_QUICK));
-        localStorage.setItem(LS_KEYS.pedidos, JSON.stringify(DEMO_PEDIDOS));
-        localStorage.setItem(LS_KEYS.productos, JSON.stringify(DEMO_PRODUCTOS));
-        localStorage.setItem(LS_KEYS.movStock, JSON.stringify(DEMO_MOVIMIENTOS_STOCK));
-        localStorage.setItem(LS_KEYS.cajaMov, JSON.stringify(DEMO_CAJA_MOVS));
-        localStorage.setItem(LS_KEYS.calendario, JSON.stringify(DEMO_CALENDARIO));
-        localStorage.setItem(LS_KEYS.proveedores, JSON.stringify(DEMO_PROVEEDORES));
-        localStorage.setItem(LS_KEYS.insumos, JSON.stringify(DEMO_INSUMOS));
-
-        // 1b. Config del sistema y unidades de medida
-        var existingConfig = {};
-        try { existingConfig = JSON.parse(localStorage.getItem(LS_KEYS.config) || '{}'); } catch(_){}
-        var mergedConfig = Object.assign({}, existingConfig, DEMO_CONFIG);
-        mergedConfig.unidadesMedida = DEMO_UNIDADES_MEDIDA;
-        localStorage.setItem(LS_KEYS.config, JSON.stringify(mergedConfig));
-
-        // 2. Guardar en Firestore
-        var db = getDB();
-        if (!db) {
-            finalizarActivacion([]);
-            cb && cb();
-            return;
-        }
-
-        var batch = db.batch();
-        var ids = [];
-        var ts = window.firebase.firestore.FieldValue.serverTimestamp();
-
-        function addDocs(collection, docs) {
-            docs.forEach(function(d) {
-                var ref = db.collection(collection).doc();
-                ids.push({collection: collection, id: ref.id});
-                batch.set(ref, Object.assign({}, d, {creadoEn: ts, actualizadoEn: ts, _demo: true}));
-            });
-        }
-
-        addDocs('production_orders', DEMO_PRODUCCION);
-        addDocs('design_orders', DEMO_DISENO);
-        addDocs('stored_orders', DEMO_ALMACEN);
-        addDocs('delivery_orders', DEMO_ENTREGAS);
-        addDocs('temp_delivery_orders', DEMO_TEMP_ENTREGAS);
-
-        batch.commit().then(function() {
-            finalizarActivacion(ids);
-            cb && cb();
-        }).catch(function(err) {
-            console.warn('Error cargando datos demo en Firestore:', err);
-            finalizarActivacion([]);
-            cb && cb();
-        });
-    }
-
-    function finalizarActivacion(ids) {
-        localStorage.setItem(DEMO_FLAG, '1');
-        localStorage.setItem(DEMO_IDS_KEY, JSON.stringify(ids));
-        label.className = 'demo-toggle-label active';
-        status.textContent = '✅ Demo: 12 clientes, 15 productos (5 tipos×3), 15 pedidos (12 ventas + 3 cotizaciones), 10 insumos, 5 proveedores, config completa';
-        status.className = 'demo-status on';
-    }
-
-    // ── DESACTIVAR DEMO ──
-    function desactivarDemo(cb) {
-        status.textContent = '⏳ Eliminando datos ficticios...';
-        status.className = 'demo-status';
-
-        // 1. Limpiar localStorage
-        Object.keys(LS_KEYS).forEach(function(k) { localStorage.removeItem(LS_KEYS[k]); });
-
-        // 2. Eliminar documentos de Firestore
-        var db = getDB();
-        var savedIds = [];
-        try { savedIds = JSON.parse(localStorage.getItem(DEMO_IDS_KEY) || '[]'); } catch(_){}
-
-        if (!db || !savedIds.length) {
-            finalizarDesactivacion();
-            cb && cb();
-            return;
-        }
-
-        // Also query for any docs with _demo flag in case IDs were lost
-        var deletePromises = [];
-
-        // Delete by saved IDs
-        var batch = db.batch();
-        var batchCount = 0;
-        savedIds.forEach(function(item) {
-            batch.delete(db.collection(item.collection).doc(item.id));
-            batchCount++;
-        });
-
-        // Also find any straggler _demo docs
-        var findPromises = FS_COLLECTIONS.map(function(col) {
-            return db.collection(col).where('_demo','==',true).get().then(function(snap) {
-                snap.docs.forEach(function(doc) {
-                    batch.delete(doc.ref);
-                    batchCount++;
-                });
-            }).catch(function(){});
-        });
-
-        Promise.all(findPromises).then(function() {
-            if (batchCount === 0) {
-                finalizarDesactivacion();
-                cb && cb();
-                return;
-            }
-            return batch.commit();
-        }).then(function() {
-            finalizarDesactivacion();
-            cb && cb();
-        }).catch(function(err) {
-            console.warn('Error eliminando datos demo:', err);
-            finalizarDesactivacion();
-            cb && cb();
-        });
-    }
-
-    function finalizarDesactivacion() {
-        localStorage.removeItem(DEMO_FLAG);
-        localStorage.removeItem(DEMO_IDS_KEY);
-        label.className = 'demo-toggle-label';
-        status.textContent = 'Datos demo eliminados';
-        status.className = 'demo-status';
-        setTimeout(function() { status.textContent = ''; }, 3000);
-    }
-
-    // ── Toggle handler ──
-    toggle.addEventListener('change', function() {
-        toggle.disabled = true;
-        if (toggle.checked) {
-            activarDemo(function() { toggle.disabled = false; });
-        } else {
-            desactivarDemo(function() { toggle.disabled = false; });
-        }
-    });
-
-    // ── Restaurar estado al cargar ──
-    if (localStorage.getItem(DEMO_FLAG) === '1') {
-        toggle.checked = true;
-        label.className = 'demo-toggle-label active';
-        status.textContent = '🧪 Modo demo activo';
-        status.className = 'demo-status on';
-    }
-})();
-</script>
-<!-- ═══════════════════════════════════════════════════════════════
      MÓDULO CONTROL DE REPARTO — Script completo
 ════════════════════════════════════════════════════════════════ -->
 <script>
@@ -41063,6 +41001,15 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script type="module" src="./modules/config-icon.module.js"></script>
+
+<script>
+document.addEventListener('focusin', function(e) {
+    const el = e.target;
+    if ((el.tagName === 'INPUT') && (el.type === 'number' || el.type === 'text' || el.type === 'tel' || el.type === 'email' || el.type === 'search' || el.type === 'url' || el.type === '')) {
+        el.select();
+    }
+});
+</script>
 
 </body>
 </html>
